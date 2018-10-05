@@ -1,0 +1,151 @@
+.vc_btn3-container {
+    display: block;
+    margin-bottom: 21.73913043px;
+    max-width: 100%
+}
+
+.vc_btn3-container.vc_btn3-inline {
+    display: inline-block;
+    vertical-align: top
+}
+
+.vc_btn3-container.vc_btn3-center {
+    text-align: center
+}
+
+.vc_btn3-container.vc_btn3-left {
+    text-align: left
+}
+
+.vc_btn3-container.vc_btn3-right {
+    text-align: right
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-icon-left .vc_btn3-icon,
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-icon-right .vc_btn3-icon {
+    display: inline-block;
+    position: static
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-icon-left .vc_btn3-icon,
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-icon-right .vc_btn3-icon {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    min-width: 1em
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-icon-left:not(.vc_btn3-o-empty) .vc_btn3-icon {
+    margin-right: .5em
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-icon-right:not(.vc_btn3-o-empty) .vc_btn3-icon {
+    margin-left: .5em
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-xs {
+    font-size: 11px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    padding-right: 12px
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-xs.vc_btn3-style-outline,
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-xs.vc_btn3-style-outline-custom {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 11px;
+    padding-right: 11px
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-sm {
+    font-size: 12px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 16px;
+    padding-right: 16px
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-sm.vc_btn3-style-outline,
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-sm.vc_btn3-style-outline-custom {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-md {
+    font-size: 14px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    padding-right: 20px
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-md.vc_btn3-style-outline,
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-md.vc_btn3-style-outline-custom {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 19px;
+    padding-right: 19px
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-lg {
+    font-size: 16px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 25px;
+    padding-right: 25px
+}
+
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-lg.vc_btn3-style-outline,
+.vc_btn3-container.vc_btn3-center .vc_btn3-block.vc_btn3-size-lg.vc_btn3-style-outline-custom {
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-left: 24px;
+    padding-right: 24px
+}
+
+.vc_btn3-container .vc_btn3-block.vc_btn3-icon-left,
+.vc_btn3-container .vc_btn3-block.vc_btn3-icon-right {
+    text-align: inherit
+}
+
+.vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern {
+    color: #666;
+    border-color: #ebebeb;
+    background-color: #ebebeb
+}
+
+.vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern:focus,
+.vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern:hover {
+    color: #5e5e5e;
+    border-color: #dcdcdc;
+    background-color: #dcdcdc
+}
+
+.vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern.active,
+.vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern:active {
+    color: #595959;
+    border-color: #d7d7d7;
+    background-color: #d7d7d7
+}
+
+.vc_btn3.vc_btn3-shape-square {
+    border-radius: 0
+}
+
+.vc_btn3.vc_btn3-shape-rounded {
+    border-radius: 5px
+}
+
+.vc_btn3.vc_btn3-shape-round {
+    border-radius: 2em
+}
+
+@media (min-width:768px) {
+    .vc_general.vc_cta3 .vc_cta3-actions .vc_btn3-container {
+        margin: 0
+    }
+}

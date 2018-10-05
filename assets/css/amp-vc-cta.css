@@ -1,0 +1,14 @@
+.vc_general.vc_cta3.vc_cta3-shape-rounded {
+    border-radius: 5px;
+}
+
+.vc_general.vc_cta3.vc_cta3-style-classic {
+    border-color: #f0f0f0;
+    background-color: #f7f7f7;
+}
+.vc_general.vc_cta3 {
+    border: 1px solid transparent;
+    /* font-size: 1em; */
+    padding: 28px 28px;
+    word-wrap: break-word;
+}

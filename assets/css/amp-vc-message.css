@@ -1,0 +1,38 @@
+.vc_message_box {
+    border: 1px solid transparent;
+    display: block;
+    overflow: hidden;
+    margin: 0 0 21.73913043px 0;
+    padding: 1em 1em 1em 4em;
+    position: relative;
+    font-size: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+.vc_message_box>p:first-child {    margin-top: 0}
+.vc_message_box>p:last-child {    margin-bottom: 0}
+.vc_message_box-icon {
+    bottom: 0;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 400;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 4em
+}
+.vc_message_box-icon>* {
+    font-size: 1.7em;
+    line-height: 1;
+    font-weight: 400;
+    font-style: normal;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%)
+}
+.vc_message_box-icon>.fa {    font-size: 1.7em;    line-height: 1}
