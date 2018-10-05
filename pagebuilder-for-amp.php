@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Page Builder For AMP
+Plugin Name: Page Builder for AMP
 Description: This is an extension for WpBakery Plugin
 Author: AMPforWP Team
-Version: 0.4
+Version: 0.5
 Author URI: http://ampforwp.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,7 @@ define('AMP_WPBAKERY_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
 define('AMP_WPBAKERY_PLUGIN_DIR_URI', plugin_dir_url(__FILE__));
 define('AMP_WPBAKERY_IMAGE_DIR',plugin_dir_url(__FILE__).'assets/images');
 define('AMP_WPBAKERY_MAIN_PLUGIN_DIR', plugin_dir_path( __DIR__ ) );
-define('AMP_WPBAKERY_VERSION','0.4');
+define('AMP_WPBAKERY_VERSION','0.5');
  
 
 // this is the URL our updater / license checker pings. This should be the URL of the site with Page builder for AMP installed
@@ -108,26 +108,26 @@ require_once dirname( __FILE__ ) . '/updater/EDD_SL_Plugin_Updater.php';
 function pb_for_amp_plugin_updater() {
 
     // retrieve our license key from the DB
-    //$license_key = trim( get_option( 'amp_ads_license_key' ) );
+    $license_key = trim( get_option( 'amp_ads_license_key' ) );
     $selectedOption = get_option('redux_builder_amp',true);
     $license_key = '';//trim( get_option( 'amp_ads_license_key' ) );
     $pluginItemName = '';
     $pluginItemStoreUrl = '';
     $pluginstatus = '';
-    /*if( isset($selectedOption['amp-license']) && "" != $selectedOption['amp-license'] && isset($selectedOption['amp-license'][PB_FOR_AMP_ITEM_FOLDER_NAME])){
+    if( isset($selectedOption['amp-license']) && "" != $selectedOption['amp-license'] && isset($selectedOption['amp-license'][PB_FOR_AMP_ITEM_FOLDER_NAME])){
 
        $pluginsDetail = $selectedOption['amp-license'][PB_FOR_AMP_ITEM_FOLDER_NAME];
        $license_key = $pluginsDetail['license'];
        $pluginItemName = $pluginsDetail['item_name'];
        $pluginItemStoreUrl = $pluginsDetail['store_url'];
        $pluginstatus = $pluginsDetail['status'];
-    }*/
+    }
     
     // setup the updater
     $edd_updater = new PB_FOR_AMP_EDD_SL_Plugin_Updater( PB_FOR_AMP_STORE_URL, __FILE__, array(
             'version'   => AMP_WPBAKERY_VERSION,                // current version number
-/*            'license'   => $license_key,                        // license key (used get_option above to retrieve from DB)
-*///            'license_status'=>$pluginstatus,
+            'license'   => $license_key,                        // license key (used get_option above to retrieve from DB)
+           'license_status'=>$pluginstatus,
             'item_name' => PB_FOR_AMP_ITEM_NAME,          // name of this plugin
             'author'    => 'Mohammed Kaludi',                   // author of this plugin
             'beta'      => false,
@@ -135,7 +135,7 @@ function pb_for_amp_plugin_updater() {
     );
 }
 add_action( 'admin_init', 'pb_for_amp_plugin_updater', 0 );
-/*
+
 // Notice to enter license key once activate the plugin
 
 $path = plugin_basename( __FILE__ );
@@ -162,7 +162,7 @@ $path = plugin_basename( __FILE__ );
             
         }
     }, 10, 3 );
-*/
+
 //***************************//
 // Updater code ends here //
 //**************************//
