@@ -3,7 +3,7 @@
 Plugin Name: Page Builder For AMP
 Description: This is an extension for WpBakery Plugin
 Author: AMPforWP Team
-Version: 0.3
+Version: 0.4
 Author URI: http://ampforwp.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,17 +13,17 @@ define('AMP_WPBAKERY_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
 define('AMP_WPBAKERY_PLUGIN_DIR_URI', plugin_dir_url(__FILE__));
 define('AMP_WPBAKERY_IMAGE_DIR',plugin_dir_url(__FILE__).'assets/images');
 define('AMP_WPBAKERY_MAIN_PLUGIN_DIR', plugin_dir_path( __DIR__ ) );
-define('AMP_WPBAKERY_VERSION','0.3');
+define('AMP_WPBAKERY_VERSION','0.4');
  
 
 // this is the URL our updater / license checker pings. This should be the URL of the site with Page builder for AMP installed
 define( 'PB_FOR_AMP_STORE_URL', 'https://accounts.ampforwp.com/' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file
 
 // the name of your product. This should match the download name in Page builder for AMP exactly
-define( 'PB_FOR_AMP_ITEM_NAME', 'Page builder for AMP' );
+define( 'PB_FOR_AMP_ITEM_NAME', 'Page Builder for AMP' );
 
 // the name of the settings page for the license input to be displayed
-//define( 'AMPPOPUP_LICENSE_PAGE', 'page-builder-for-amp' );
+define( 'PB_FOR_AMP_LICENSE_PAGE', 'pagebuilder-for-amp' );
 
 // the name of the settings page for the license input to be displayed
 if(! defined('PB_FOR_AMP_ITEM_FOLDER_NAME')){
