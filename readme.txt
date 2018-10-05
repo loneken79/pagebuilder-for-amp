@@ -11,6 +11,9 @@ Page Builder Functionality for AMP in WordPress. Most easiest and the best way t
 
 == Changelog ==	
 
+= 0.3 ( 5 oct 2018) =
+* initial update released-3
+
 = 0.2 ( 5 oct 2018) =
 * initial update released-2
 
