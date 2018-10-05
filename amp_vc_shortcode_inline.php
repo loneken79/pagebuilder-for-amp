@@ -1,6 +1,6 @@
 <?php
 
-function amp_vc_shortcode_inline_css($slug='',$value = ''){
+function amp_vc_shortcode_inline_css($slug='',$atts = ''){
 	$inlineCss = '';
 	switch ($slug) {
 		
@@ -13,7 +13,6 @@ function amp_vc_shortcode_inline_css($slug='',$value = ''){
 				$image_src = vc_asset_url( 'vc/no_image.png' );
 			}
 			$image_src = esc_url( $image_src );
-
 			$inlineCss = '
 				.flip-box-front {
 				  background-color: #bbb;

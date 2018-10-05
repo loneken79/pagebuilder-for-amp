@@ -51,29 +51,10 @@ $button = '';
 if ( $atts['hover_add_button'] ) {
 	$button = $this->renderButton( $atts );
 }
-// $template = <<<HTML
-// <div class="vc-hoverbox-wrapper $css_class $shape $align $reverse $width" $id>
-//   <div class="vc-hoverbox">
-//     <div class="vc-hoverbox-inner">
-//       <div class="vc-hoverbox-block vc-hoverbox-front" style="background-image: url($image_src);">
-//         <div class="vc-hoverbox-block-inner vc-hoverbox-front-inner">
-//             $primary_title
-//         </div>
-//       </div>
-//       <div class="vc-hoverbox-block vc-hoverbox-back" style="background-color: $hover_background_color;">
-//         <div class="vc-hoverbox-block-inner vc-hoverbox-back-inner">
-//             $hover_title
-//             $content
-//             $button
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// </div>
-// HTML;
+
 $template = '<div class="flip-box">
 			  	<div class="flip-box-inner">
-			    	<div class="flip-box-front vc-hoverbox-block vc-hoverbox-front " style="background-image: url('.$image_src.');">
+			    	<div class="flip-box-front vc-hoverbox-block vc-hoverbox-front ">
 			    		<div class="vc-hoverbox-block vc-hoverbox-front">
 				      		<div class="vc-hoverbox-block-inner vc-hoverbox-front-inner">
 					            '.$primary_title.'

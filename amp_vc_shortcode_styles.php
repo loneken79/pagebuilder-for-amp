@@ -36,6 +36,15 @@ foreach ( $amp_vc_elements_atts as $slug => $atts) {
 		case 'vc_single_image':
 			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-single-image.css';
 		break;
+		case 'vc_video':
+			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-video.css';
+		break;
+		case 'vc_gmaps':
+			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-gmaps.css';
+		break;
+		case 'vc_basic_grid':
+			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-posts-grid.css';
+		break;
 		default:
 		break;
 	}

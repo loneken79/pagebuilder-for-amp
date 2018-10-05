@@ -1,15 +1,17 @@
 .vc_toggle{
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 .vc_toggle h4{
 	background:transparent;
-	font-size: 20px;
+	font-size: 22px;
     border: none;
     font-weight: 500;
     color: #666;
 }
 .vc_toggle_content{
-	padding:10px;
+	padding: 15px 0px;
+    font-size: 15px;
+    color:#555;
 }
 .vc_toggle p{
 	margin:0;

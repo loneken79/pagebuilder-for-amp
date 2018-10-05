@@ -39,3 +39,38 @@ amp-selector {
   padding: 1rem;
   margin: 1rem;
 }
+
+/** AMP CSS **/
+.vc_tta-panels-container .tabButton{
+    border-color: #e3e3e3;
+    background-color: #ebebeb;
+    color: #666;
+}
+.vc_tta-panels-container amp-selector [option][selected]{
+    border-color: #f0f0f0;
+    background-color: #f8f8f8;
+    color: #666;
+}
+.vc_tta-panels-container .tabContent{
+    border-color: #f0f0f0;
+    background-color: #f8f8f8;
+    color: #666;
+    padding: 20px;
+    border-radius: 1px 5px 5px 5px;
+}
+.vc_tta-panels-container .tabButton{
+    flex-grow: 0;
+    margin: 1px 1px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    padding: 10px 20px;
+}
+.vc_tta-panels-container .tabButton:hover{
+    background:#dcdcdc;
+}
+.vc_tta-title-text{
+    font-size: 16px;
+    font-weight: 500;
+}
+.vc_tta-tab {
+    
+}

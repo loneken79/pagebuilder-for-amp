@@ -1,0 +1,44 @@
+.vc_gitem-zone {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-clip: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.vc_pageable-slide-wrapper{
+	display: inline-flex;
+    width: 100%;
+    flex-wrap:wrap;
+}
+.vc_col-sm-4 {
+    width: 30%;
+    margin-right: 30px;
+    flex: 1 0 30%;
+}
+.vc_custom_heading h4{
+	color: #333333;
+    font-size: 22px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.01rem;
+    line-height: 1.3;
+    margin-top: 10px;
+    text-transform: none;
+}
+.vc_custom_heading p{
+	margin-bottom: 15px;
+    font-size: 16px;
+    color: #444;
+}
+.vc_btn3.vc_btn3-size-md:hover {
+	color: #f7f7f7;
+    background-color: #f23630;
+}
+.vc_btn3.vc_btn3-size-md {
+    color: #fff;
+    background-color: #f4524d;
+    margin-top: 15px;
+    display: inline-block;
+}

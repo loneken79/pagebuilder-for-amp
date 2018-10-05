@@ -11,3 +11,21 @@ background-color: #ddd;
 amp-accordion#hidden-header section[expanded] h4 {
 border: none;
 }
+
+/** AMP CSS **/
+.vc_tta-panels{
+	margin-bottom:30px;
+}
+.vc_tta-panel h4{
+    border-color: #f0f0f0;
+    background-color: #f8f8f8;
+    padding: 12px 20px;
+    color: #555;
+    font-weight: 500;
+}
+.vc_tta-panel h4:hover{
+    background-color: #f0f0f0;
+}
+.vc_tta-panels-container amp-accordion>section[expanded], .vc_tta-panels-container amp-accordion>section[expanded]>:nth-child(n){
+	background-color: #f8f8f8;
+}
