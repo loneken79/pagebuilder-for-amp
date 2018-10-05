@@ -29,3 +29,64 @@ border: none;
 .vc_tta-panels-container amp-accordion>section[expanded], .vc_tta-panels-container amp-accordion>section[expanded]>:nth-child(n){
 	background-color: #f8f8f8;
 }
+.vc_tta .vc_tta-controls-icon {
+    display: inline-block;
+    vertical-align: middle;
+    height: 12px;
+    width: 12px;
+    position: relative;
+    font-size: inherit;
+    margin: 0;
+}
+.vc_tta.vc_tta-accordion .vc_tta-controls-icon-position-left .vc_tta-controls-icon {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 20px;
+}
+ .vc_tta .vc_tta-controls-icon.vc_tta-controls-icon-plus::before {
+    content: '';
+    display: block;
+    position: absolute;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    left: 0;
+    right: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 2px 0 0 0;
+}
+.vc_tta .vc_tta-controls-icon.vc_tta-controls-icon-plus::after {
+    content: '';
+    display: block;
+    position: absolute;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    left: 50%;
+    bottom: 0;
+    top: 0;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border-style: solid;
+    border-width: 0 0 0 2px;
+}
+.vc_tta-title-text{
+	padding-left:20px;
+}
+.vc_tta-panels section[expanded] .vc_tta-controls-icon::before {
+    border-color: #666;
+}
+.vc_tta-panels section[expanded] .vc_tta-controls-icon::after{
+	content:"";
+	width:0;
+	height:0;
+}
+.vc_tta .vc_tta-controls-icon:after, .vc_tta .vc_tta-controls-icon:before {
+    transition: all .2s ease-in-out; 
+}
