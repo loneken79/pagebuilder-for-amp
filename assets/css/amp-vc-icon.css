@@ -8,3 +8,10 @@
 .vc_icon_element.vc_icon_element-outer .vc_icon_element-inner.vc_icon_element-size-md .vc_icon_element-icon {
     font-size: 2.15em!important;
 }
+/** AMP CSS **/
+.vc_icon_element{
+	margin-bottom: 20px;
+}
+.vc_icon_element-icon:before{
+	font-size:30px;
+}

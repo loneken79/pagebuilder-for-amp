@@ -13,6 +13,7 @@ foreach ( $amp_vc_elements_atts as $slug => $atts) {
 			//echo amp_vc_shortcode_inline_css( $slug, $atts );
 		break;
 		case 'vc_hoverbox':
+			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-hoverbox.css';
 			echo amp_vc_shortcode_inline_css( $slug, $atts );
 		break;
 		case 'vc_cta':
@@ -28,6 +29,12 @@ foreach ( $amp_vc_elements_atts as $slug => $atts) {
 		break;
 		case 'vc_separator':
 			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-separator.css';
+		break;
+		case 'vc_toggle':
+			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-toggle.css';
+		break;
+		case 'vc_single_image':
+			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-single-image.css';
 		break;
 		default:
 		break;
