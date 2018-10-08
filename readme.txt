@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
-Page Builder Functionality for AMP in WordPress. Most easiest and the best way to include Pop-Up in AMP.
+Page Builder Functionality for AMP in WordPress. Most easiest and the best way to include Page Builder Compatibility in AMP.
 
 == Changelog ==	
 
