@@ -222,8 +222,10 @@ class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
 		    font-size: 17px;
 		    font-weight: 500;
 		    color: #333;
-		    margin-bottom:10px;
 		    background:transparent;
+		}
+		.et_pb_tgl .et_pb_toggle_content{
+			margin-top:10px;
 		}
 		.et_pb_tgl[expanded]{
 			background:#fff;

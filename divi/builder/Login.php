@@ -350,6 +350,7 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
     		$inline_styles = '.et_pb_login{
 			        background-color:#7EBEC5;
 			        padding: 30px;
+    				display: inline-flex;
 			      }
 			      .et_pb_login .et_pb_newsletter_description h2{
 			          margin-bottom: 10px;
@@ -359,7 +360,33 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 			          margin-top: 20px;
 			          display: inline-block;
 			          color: #fff;
-			      }';
+			      }
+			      .et_pb_login input {
+				    padding: 14px 4%;
+				    font-size: 16px;
+				    color: #666;
+				    width: 100%;
+				    font-weight: 400;
+				    border-width: 0;
+				    border-radius: 3px;
+				}
+				.et_pb_login p{
+					margin-bottom:10px
+				}
+				.et_pb_forgot_password{
+					font-size: 12px;
+					font-weight: 600;
+				}
+				.et_pb_forgot_password a{color:#fff;}
+				@media(max-width:767px){
+					.et_pb_login{
+					    flex-direction: column;
+					}
+					.et_pb_login .et_pb_newsletter_description{
+						margin-bottom:30px;
+					}
+				}
+			      ';
             echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
@@ -626,7 +653,7 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 		}
 
 		$output = sprintf(
-			'<div%6$s class="%4$s"%5$s%9$s%10$s>
+			'
 				%8$s
 				%7$s
 				<div class="et_pb_newsletter_description">
@@ -634,7 +661,7 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 					%2$s
 				</div>
 				%3$s
-			</div>',
+			',
 			( '' !== $title ? sprintf( '<%1$s class="et_pb_module_header">%2$s</%1$s>', et_pb_process_header_level( $header_level, 'h2' ), esc_html( $title ) ) : '' ),
 			( '' !== $content ? '<div class="et_pb_newsletter_description_content">' . $content . '</div>' : '' ),
 			$form,

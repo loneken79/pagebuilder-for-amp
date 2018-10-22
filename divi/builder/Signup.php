@@ -1274,15 +1274,13 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		$description = html_entity_decode( $description, ENT_COMPAT, 'UTF-8' );
 
 		$output = sprintf(
-			'<div%6$s class="%4$s"%5$s%9$s%10$s%11$s%12$s>
-				%8$s
+			'%8$s
 				%7$s
 				<div class="et_pb_newsletter_description">
 					%1$s
 					%2$s
 				</div>
-				%3$s
-			</div>',
+				%3$s',
 			( '' !== $title ? sprintf( '<%1$s class="et_pb_module_header">%2$s</%1$s>', et_pb_process_header_level( $header_level, 'h2' ), esc_html( $title ) ) : '' ),
 			$description,
 			$form,

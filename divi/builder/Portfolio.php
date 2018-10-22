@@ -457,7 +457,7 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 	}
 	public function amp_divi_inline_styles(){
     
-    		$inline_styles = '.et_pb_portfolio_items h1{
+    		$inline_styles = '.et_pb_portfolio_items entry h1{
 			          font-size: 30px;
 			          color: #555;
 			          font-weight: 500;
