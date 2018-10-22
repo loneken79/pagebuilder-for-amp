@@ -374,7 +374,7 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     
-		$inline_styles = '.et_pb_pricing_table_wrap {
+		$inline_styles = ' .et_pb_pricing_table_wrap {
         display: block;
         display: flex;
         flex-direction: row;
@@ -472,6 +472,17 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
       .et_pb_pricing_table .et_pb_button:hover{
          border: 2px solid transparent;
          background-color: rgba(0,0,0,.05);
+      }
+      @media(max-width:980px){
+        .et_pb_pricing_table {
+           width: 40%;
+          max-width: 100%;
+        }
+      }
+      @media(max-width:550px){
+        .et_pb_pricing_table {
+          width: 100%;
+        }
       }';
         echo $inline_styles;
   	}

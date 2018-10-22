@@ -694,58 +694,77 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 	public function amp_divi_inline_styles(){
     
     		$inline_styles = '.et_pb_slide{position:relative;}
-      .et_pb_slide:before{
-        content:"";
-        display:inline-block;
-        opacity:0.5;
-        background:#333;
-        position:absolute;
-        left:0;
-        right:0;
-        top:0;
-        bottom:0;
-      }
-      .et_pb_slide_description{
-          position: absolute;
-          top: 20px;
-          bottom: 0;
-          left: 150px;
-          right: 150px;
-          margin: 0 auto;
-          text-align: center;
-      }
-      .et_pb_slide_description .et_pb_slide_title a{
-          font-size: 40px;
-          line-height: 1.4;
-          color: #fff;
-          font-weight: 500;
-      }
-      .et_pb_slide_content .post-meta{
-            font-size: 12px;
-            color: #fff;
-            margin: 10px 0px 5px 0px;
-      }
-      .et_pb_slide_content .post-meta a{
-        color:#fff;
-      }
-      .et_pb_slide_content{
-        font-size: 17px;
-        color: #fff;
-      }
-      .et_pb_slide_description .et_pb_button{
-          color: #fff;
-          padding: 8px 20px;
-          border: 2px solid #fff;
-          display: inline-block;
-          margin-top: 11px;
-          font-size: 20px;
-          font-weight: 500;
-          border-radius: 5px;
-      }
-      .et_pb_slide_description .et_pb_button:hover{
-          background-color: rgba(255,255,255,.2);
-          border: 2px solid transparent;
-      }';
+		      .et_pb_slide:before{
+		        content:"";
+		        display:inline-block;
+		        opacity:0.5;
+		        background:#333;
+		        position:absolute;
+		        left:0;
+		        right:0;
+		        top:0;
+		        bottom:0;
+		      }
+		      .et_pb_slide_description{
+		          position: absolute;
+		          top: 20px;
+		          bottom: 0;
+		          left: 150px;
+		          right: 150px;
+		          margin: 0 auto;
+		          text-align: center;
+		      }
+		      .et_pb_slide_description .et_pb_slide_title a{
+		          font-size: 40px;
+		          line-height: 1.4;
+		          color: #fff;
+		          font-weight: 500;
+		      }
+		      .et_pb_slide_content .post-meta{
+		            font-size: 12px;
+		            color: #fff;
+		            margin: 10px 0px 5px 0px;
+		      }
+		      .et_pb_slide_content .post-meta a{
+		        color:#fff;
+		      }
+		      .et_pb_slide_content{
+		        font-size: 17px;
+		        color: #fff;
+		      }
+		      .et_pb_slide_description .et_pb_button{
+		          color: #fff;
+		          padding: 8px 20px;
+		          border: 2px solid #fff;
+		          display: inline-block;
+		          margin-top: 20px;
+		          font-size: 20px;
+		          font-weight: 500;
+		          border-radius: 5px;
+		      }
+		      .et_pb_slide_description .et_pb_button:hover{
+		          background-color: rgba(255,255,255,.2);
+		          border: 2px solid transparent;
+		      }
+		      @media(max-width:768px){
+		        .et_pb_slide_description {
+		          top: 50px;
+		          left: 50px;
+		          right: 50px;
+		        }
+		        .et_pb_slide_description .et_pb_slide_title a {
+		          font-size: 28px;
+		        }
+		        .et_pb_slide_content {
+		          font-size: 15px;
+		        }
+		      }
+		      @media(max-width:500px){
+		        .et_pb_slide_description {
+		            left: 30px;
+		            right: 30px;
+		        }
+		      }';
             echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
@@ -1097,9 +1116,9 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 			'<div%3$s class="%1$s"%7$s%8$s>
 				%5$s
 				%4$s
-				<amp-carousel height="480" layout="fixed-height" type="slides" class="et_pb_slides">
+				<amp-carousel width="300" height="480" layout="responsive" type="slides" class="et_pb_slides">
 					%2$s
-				</amp-carousel> <!-- .et_pb_slides -->
+				</amp-carousel>
 				%6$s
 			</div> <!-- .et_pb_slider -->
 			',

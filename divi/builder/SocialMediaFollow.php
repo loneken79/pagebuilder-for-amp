@@ -157,7 +157,97 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     
-		$inline_styles = '';
+		$inline_styles = '.et_pb_social_media_follow {
+        font-family: "icomoon";
+     }
+      .et_pb_social_media_follow li a span{display:none;}
+      .et_pb_social_media_follow li{
+        list-style:none;
+        display:inline-block;
+        margin: 0px 10px 15px 0px;
+      }
+      .et_pb_social_media_follow li a{
+        padding: 8px;
+        border-radius: 3px;
+        font-size: 18px;
+      }
+      .et-social-facebook a:before{
+        content: "\e92d";
+        color:#fff;
+      }
+      .et-social-facebook a{
+        background: #3b5998;
+      }
+      .et-social-twitter a:before{
+          content: "\e942";
+          color:#fff;
+      }
+      .et-social-twitter a{
+         background: #00aced;
+      }
+      .et-social-google-plus a:before{
+          content: "\e931";
+          color:#fff;
+      }
+      .et-social-google-plus a{
+        background: #dd4b39;
+      }
+      .et-social-pinterest a:before{
+        content: "\e937";
+        color:#fff;
+      }
+      .et-social-pinterest a{
+        background: #cb2027;
+      }
+      .et-social-linkedin a:before{
+        content: "\e934";
+        color:#fff;
+      }
+      .et-social-linkedin a{
+        background: #007bb6;
+      }
+      .et-social-tumblr a:before{
+        content: "\e940";
+        color:#fff;
+      }
+      .et-social-tumblr a{
+        background: #32506d;
+      }
+      .et-social-instagram a:before{
+        content: "\e932";
+        color:#fff;
+      }
+      .et-social-instagram a{
+        background: #ea2c59;
+      }
+      .et-social-skype a:before{
+        content: "\e93b";
+        color:#fff;
+      }
+      .et-social-skype a{
+        background: #12a5f4;
+      }
+      .et-social-dribbble a:before{
+        content: "\e920";
+        color:#fff;
+      }
+      .et-social-dribbble a{
+        background: #ea4c8d;
+      }
+      .et-social-youtube a:before{
+        content: "\e947";
+        color:#fff;
+      }
+      .et-social-youtube a{
+        background:#a82400;
+      }
+      .et-social-rss a:before{
+        content: "\e0e5";
+        color:#fff;
+      }
+      .et-social-rss a{
+        background:#ff8a3c;
+      }';
 		echo $inline_styles;
 	}
 	function render( $attrs, $content = null, $render_slug ) {

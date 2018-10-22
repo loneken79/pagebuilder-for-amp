@@ -40,7 +40,7 @@ if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
 	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-vc-pagebuilder.php';
 }
 
-if ( class_exists( 'ET_Builder_Module' ) ) {
+if ( is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
 	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
 }
 

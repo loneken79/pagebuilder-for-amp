@@ -154,7 +154,36 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 			amp-selector {
 			          padding: 1rem;
 			          margin: 1rem;
-			}';
+			}
+			.et_pb_tabs .tabButton[selected]{
+			      background:#fff;
+			      border-bottom: 1px solid #f4f4f4;
+			      color:#333;
+			    }
+			    .et_pb_tabs amp-selector [option][selected]{
+			      outline:none;
+			    }
+			    .et_pb_tabs .tabButton {
+			      font-size: 16px;
+			      font-weight: 600;
+			      padding: 10px;
+			      background: #f4f4f4;
+			      color: #666;
+			      border-right: 1px solid #d9d9d9;
+			      border-bottom: 1px solid #d9d9d9;
+			    }
+			    .et_pb_tabs .tabContent {
+			      padding: 25px;
+			      font-size: 16px;
+			      line-height: 1.3;
+			      font-weight: 400;
+			      color: #797f7f;
+			      border:none;
+			    }
+			    .et_pb_tabs .ampTabContainer{
+			      border:1px solid #d9d9d9;
+			      padding:0;
+			    }';
         echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
