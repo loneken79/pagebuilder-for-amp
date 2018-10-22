@@ -210,7 +210,28 @@ class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     
-		$inline_styles = '';
+		$inline_styles = '
+		.et_pb_tgl{
+			border: 1px solid #d9d9d9;
+		    padding: 20px;
+		    background-color: #f4f4f4;
+		    font-size: 15px;
+		}
+		.et_pb_tgl .et_pb_toggle_title{
+			border: none;
+		    font-size: 17px;
+		    font-weight: 500;
+		    color: #333;
+		    margin-bottom:10px;
+		    background:transparent;
+		}
+		.et_pb_tgl[expanded]{
+			background:#fff;
+		}
+		.et_pb_tgl[expanded] .et_pb_toggle_title{
+			background:transparent;
+		}
+		';
         echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
@@ -372,7 +393,7 @@ class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
 		}
 
 		$output = sprintf(
-			'<amp-accordion disable-session-states><section%4$s class="%2$s">
+			'<amp-accordion disable-session-states><section%4$s class="%2$s et_pb_tgl">
 				%6$s
 				%5$s
 				%1$s

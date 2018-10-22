@@ -183,26 +183,26 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     
-    $inline_styles = '.et_pb_toggle[expanded]{
+    $inline_styles = '.et_pb_accordion .et_pb_toggle[expanded]{
 		          background-color: #fff;
 		      }
-		      .et_pb_toggle[expanded] .et_pb_toggle_title{
+		      .et_pb_accordion .et_pb_toggle[expanded] .et_pb_toggle_title{
 		        color:#333;
 		      }
-		      .et_pb_toggle {
+		      .et_pb_accordion .et_pb_toggle {
 		        border: 1px solid #d9d9d9;
 		        margin-bottom: 20px;
 		        padding: 20px;
 		        background-color: #f4f4f4;
 		        font-size: 15px;
 		      }
-		      .et_pb_toggle_title{
+		      .et_pb_accordion .et_pb_toggle_title{
 		        color:#666;
 		        background: transparent;
 		        border:none;
 		        font-weight: 500;
 		      }
-		      .et_pb_toggle_content{
+		      .et_pb_accordion .et_pb_toggle_content{
 		        padding-top:10px;
 		        color: #555;
 		      }';

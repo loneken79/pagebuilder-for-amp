@@ -300,7 +300,36 @@ class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     
-		$inline_styles = '';
+		$inline_styles = '
+			.et_pd_testimon{
+				background:#f5f5f5;
+				padding:30px;
+				position:relative;
+			}
+			.et_pd_testimon p{
+				font-size: 16px;
+			    line-height: 1.5;
+			    color: #555;
+			    margin: 0;
+			}
+			.et_pb_tstmnl{
+				padding-bottom:20px;
+			}
+			.et_pd_testimon:after{
+			    content: "\e244";
+			    font-family: "icomoon";
+			    position: absolute;
+			    left: 0;
+			    right: 0;
+			    top: -17px;
+			    bottom: 0;
+			    margin: 0 auto;
+			    text-align: center;
+			    font-size: 40px;
+			    line-height: 1;
+			    color: #333;
+			}
+		';
         echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
@@ -474,11 +503,11 @@ class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 		}
 
 		$output = sprintf(
-			'<div%3$s class="%4$s amp-tstml-container"%10$s%11$s>
+			'<div%3$s class="%4$s amp-tstml-container et_pd_testimon"%10$s%11$s>
 			  	%7$s
+			  	<p class="et_pb_tstmnl">%1$s</p>
 			  	<p><strong class="et_pb_testimonial_author">%2$s.</strong></p>
 			  	<p class="et_pb_testimonial_meta">%5$s%6$s</p>
-			  	<p>%1$s</p>
 			</div>',
 			$this->content,
 			$author,

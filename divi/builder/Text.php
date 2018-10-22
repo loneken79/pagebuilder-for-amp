@@ -440,7 +440,12 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     
-		$inline_styles = '';
+		$inline_styles = '
+			.et_pb_text_inner{
+				font-size: 16px;
+   	 			color: #333;
+			}
+		';
         echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
