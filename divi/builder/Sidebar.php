@@ -180,7 +180,26 @@ class AMP_ET_Builder_Module_Sidebar extends ET_Builder_Module {
 		return $widgets;
 	}
 	public function amp_divi_inline_styles(){
-    		$inline_styles = '';
+    		$inline_styles = '
+    			.et_pb_sdb{
+
+    			}
+    			.et_pb_sdb .amp-sidebar li{
+    				font-size: 16px;
+    				border: none;
+    			}
+    			.et_pb_sdb .amp-sidebar li a:hover {
+    				box-shadow:none;
+    			}
+    			.et_pb_sdb .amp-sidebar{padding:0;}
+    			.et_pb_sdb .accelerated-mobile-pages-fullscreen-searchform{
+    				margin-bottom:20px;
+    			}
+    			.search-submit:after{
+    				content:"search";
+    				display:inline-block;
+    			}
+    		';
             echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
@@ -238,7 +257,7 @@ class AMP_ET_Builder_Module_Sidebar extends ET_Builder_Module {
 		}
 
 		$output = sprintf(
-			'<div%3$s class="%2$s"%6$s%7$s>
+			'<div%3$s class="%2$s et_pb_sdb"%6$s%7$s>
 				%5$s
 				%4$s
 				%1$s

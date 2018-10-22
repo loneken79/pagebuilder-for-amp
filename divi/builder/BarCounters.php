@@ -217,7 +217,7 @@ class AMP_ET_Builder_Module_Bar_Counters extends ET_Builder_Module {
                 color: red;
                 border: 1px solid red;
             }
-            .et_pb_module_inner li{
+            .et_pb_counters li{
             	list-style-type:none;
             	font-size: 12px;
     			margin-bottom: 10px;

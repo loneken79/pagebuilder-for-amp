@@ -347,7 +347,7 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     
-    		$inline_styles = '.et_pb_login{
+    		$inline_styles = '.et_pb_lg{
 			        background-color:#7EBEC5;
 			        padding: 30px;
     				display: inline-flex;
@@ -653,7 +653,7 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 		}
 
 		$output = sprintf(
-			'<div%6$s class="%4$s"%5$s%9$s%10$s>
+			'<div%6$s class="%4$s et_pb_lg"%5$s%9$s%10$s>
 				%8$s
 				%7$s
 				<div class="et_pb_newsletter_description">

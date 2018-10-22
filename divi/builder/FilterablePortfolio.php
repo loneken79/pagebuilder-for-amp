@@ -452,8 +452,23 @@ class AMP_ET_Builder_Module_Filterable_Portfolio extends ET_Builder_Module_Type_
 
 		return $terms;
 	}
-
+	public function amp_divi_inline_styles(){
+    
+    		$inline_styles = '.et_pb_portfolio_items h1{
+			          font-size: 30px;
+			          color: #555;
+			          font-weight: 500;
+			      }
+			      .et_pb_portfolio_items p{
+			          margin: 0;
+			          font-size: 16px;
+			          color: #555;
+			          border-bottom: 1px solid #ddd;
+			      }';
+            echo $inline_styles;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
+		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$fullwidth                       = $this->props['fullwidth'];
 		$posts_number                    = $this->props['posts_number'];
 		$include_categories              = $this->props['include_categories'];
@@ -676,4 +691,7 @@ class AMP_ET_Builder_Module_Filterable_Portfolio extends ET_Builder_Module_Type_
 	}
 }
 
-new ET_Builder_Module_Filterable_Portfolio;
+
+$filterablePortfolioObj = new AMP_ET_Builder_Module_Filterable_Portfolio();
+remove_shortcode( 'et_pb_filterable_portfolio' );
+add_shortcode( 'et_pb_filterable_portfolio', array($filterablePortfolioObj, '_render'));

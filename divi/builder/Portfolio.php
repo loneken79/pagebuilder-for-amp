@@ -455,23 +455,9 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 
 		return $query;
 	}
-	public function amp_divi_inline_styles(){
-    
-    		$inline_styles = '.et_pb_portfolio_items entry h1{
-			          font-size: 30px;
-			          color: #555;
-			          font-weight: 500;
-			      }
-			      .et_pb_portfolio_items p{
-			          margin: 0;
-			          font-size: 16px;
-			          color: #555;
-			          border-bottom: 1px solid #ddd;
-			      }';
-            echo $inline_styles;
-  	}
+	
 	function render( $attrs, $content = null, $render_slug ) {
-		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
+		
 		$fullwidth                       = $this->props['fullwidth'];
 		$posts_number                    = $this->props['posts_number'];
 		$include_categories              = $this->props['include_categories'];

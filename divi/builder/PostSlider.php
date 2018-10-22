@@ -1116,7 +1116,7 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 			'<div%3$s class="%1$s"%7$s%8$s>
 				%5$s
 				%4$s
-				<amp-carousel width="300" height="480" layout="responsive" type="slides" class="et_pb_slides">
+				<amp-carousel height="480" layout="fixed-height" type="slides" class="et_pb_slides">
 					%2$s
 				</amp-carousel>
 				%6$s
