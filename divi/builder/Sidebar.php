@@ -181,23 +181,28 @@ class AMP_ET_Builder_Module_Sidebar extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     		$inline_styles = '
-    			.et_pb_sdb{
-
-    			}
     			.et_pb_sdb .amp-sidebar li{
     				font-size: 16px;
-    				border: none;
+				    border: none;
+				    padding: 0;
+				    margin-bottom: 5px;
+    				font-weight: 500;
     			}
+    			.et_pb_sdb .amp-sidebar h4{
+    				color: #333;
+				    font-size: 17px;
+				    text-transform: none;
+				    margin-bottom: 10px;
+				    font-weight: 500;
+				    letter-spacing: 0; 
+    			}
+    			.et_pb_sdb .amp-sidebar li a{color:#2ea3f2}
     			.et_pb_sdb .amp-sidebar li a:hover {
     				box-shadow:none;
     			}
     			.et_pb_sdb .amp-sidebar{padding:0;}
     			.et_pb_sdb .accelerated-mobile-pages-fullscreen-searchform{
     				margin-bottom:20px;
-    			}
-    			.search-submit:after{
-    				content:"search";
-    				display:inline-block;
     			}
     		';
             echo $inline_styles;
