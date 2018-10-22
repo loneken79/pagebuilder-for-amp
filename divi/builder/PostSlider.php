@@ -746,6 +746,9 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 		          background-color: rgba(255,255,255,.2);
 		          border: 2px solid transparent;
 		      }
+		      .carousel2 .slide > amp-img > img{
+      				object-fit: contain;
+    			}
 		      @media(max-width:768px){
 		        .et_pb_slide_description {
 		          top: 50px;
@@ -978,13 +981,14 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 					<div class="et_pb_slide_overlay_container"></div>
 				<?php } ?>
 				<div class="et_pb_container clearfix">
-					<div class="et_pb_slider_container_inner">
+					<div class="et_pb_slider_container_inner slide">
 						<?php if ( 'off' !== $show_image && has_post_thumbnail() && ! in_array( $image_placement, array( 'background', 'bottom' ) ) ) { ?>
 							<div class="et_pb_slide_image">
 								<?php the_post_thumbnail(); ?>
 							</div>
 						<?php } ?>
-						<div class="et_pb_slide_description">
+						<amp-img src="<?php echo esc_url( wp_get_attachment_url( get_post_thumbnail_id() ));?>" layout="fill"  alt="Border Collie"></amp-img>
+						<div class="et_pb_slide_description caption">
 							<?php if ( $is_text_overlay_applied ) : ?><div class="et_pb_text_overlay_wrapper"><?php endif; ?>
 								<<?php echo et_pb_process_header_level( $header_level, 'h2' ) ?> class="et_pb_slide_title"><a href="<?php esc_url( the_permalink() ); ?>"><?php the_title(); ?></a></<?php echo et_pb_process_header_level( $header_level, 'h2' ) ?>>
 								<div class="et_pb_slide_content <?php if ( 'on' !== $show_content_on_mobile ) { echo esc_attr( $hide_on_mobile_class ); } ?>">
@@ -1111,12 +1115,12 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 				esc_attr( $background_layout_hover )
 			);
 		}
-
+		
 		$output = sprintf(
 			'<div%3$s class="%1$s"%7$s%8$s>
 				%5$s
 				%4$s
-				<amp-carousel height="480" layout="fixed-height" type="slides" class="et_pb_slides">
+				<amp-carousel class="carousel2" height="400" width="500" layout="responsive" type="slides" class="et_pb_slides">
 					%2$s
 				</amp-carousel>
 				%6$s
