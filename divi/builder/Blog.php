@@ -893,6 +893,12 @@ class AMP_ET_Builder_Module_Blog extends ET_Builder_Module_Type_PostBased {
 				      .et_pd_blog .post-content {
 				        color:#555;
 				        font-size:16px;
+				      }
+				      @media(max-width:768px){
+				      	.et_pd_blog .entry-title{
+				      		font-size:30px;
+				      	}
+
 				      }';
             echo $inline_styles;
   	}
