@@ -158,15 +158,55 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 		    text-align: center;
 		    position: relative;
 		}
-		.et_pb_countdown_timer h4.title{
-			font-size:26px;
-		}
 		.et_pb_countdown_timer .title {
-		    font-weight: 500;
-		    margin: 0 0 30px;
-		    padding: 0;
+			color:#fff;
+			font-size:25px;
+			line_height:1.4;
+		    font-weight: 400;
+		    padding-bottom:15px;
 		    text-align: center;
-		}';
+		}
+		.section.values {
+		    padding: 0px 15px;
+		}
+		.section{
+			display:inline-block;
+			position:relative;
+		}
+		.section p {
+		    font-size: 48px;
+		    line-height: 1.4;
+		    padding-bottom: 0;
+		    text-align: center;
+		    display: inline-block;
+		    color:#fff;
+		}
+		.section p.label {
+		    text-align: center;
+		    font-size: 14px;
+		    line-height: 25px;
+		    display: block;
+		    margin:0;
+		    color:#fff;
+		}
+		.sep {
+		    position: relative;
+		    top: -36px;
+		}
+		.section p.value{
+			min-width:100%;
+			margin:0;
+			color:#fff;
+		}
+		@media(max-width:500px){
+			.section p {
+		    	font-size: 30px;
+			}
+			.sep {
+			    top: -30px;
+			}
+		}
+		';
         echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
@@ -213,14 +253,42 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 		if ( 'on' !== $use_background_color ) {
 			$this->add_classname( 'et_pb_no_bg' );
 		}
+		// '<amp-date-countdown%1$s class="%2$s"%3$s data-end-timestamp="%4$s"%16$s%17$s timestamp-seconds="%4$s" layout="fixed-height" height="100">
+		// 			<template type="amp-mustache">
+		// 			%5$s
+		// 			<p class="cdt">
+		// 		        <span class="cdt_value">{{d}}</span><span class="cdt_lbl">%6$s</span> 
+		// 		        <span class="cdt_value">{{h}}</span><span class="cdt_lbl">%7$s</span>
+		// 		        <span class="cdt_value">{{m}}</span><span class="cdt_lbl">%9$s</span>
+
+		// 		    </p>
+		// 		    </template>
+		// 	</amp-date-countdown>',
+		//<span class="cdt_value">{{s}}</span><span class="cdt_lbl">%11$s</span>
 
 		$output = sprintf(
-			'<amp-date-countdown%1$s class="%2$s"%3$s data-end-timestamp="%4$s"%16$s%17$s timestamp-seconds="%4$s" layout="fixed-height" height="100">
+			'<amp-date-countdown%1$s class="%2$s"%3$s data-end-timestamp="%4$s"%16$s%17$s timestamp-seconds="%4$s" layout="fixed-height" height="150">
 					<template type="amp-mustache">
 					%5$s
-					<p class="p1">
-				        {{d}} %6$s, {{h}} %7$s, {{m}} %9$s and {{s}} %11$s
-				    </p>
+						<div class="days section values" >
+							<p class="value">{{d}}</p>
+							<p class="label">%6$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="hours section values" >
+							<p class="value">{{h}}</p>
+							<p class="label">%7$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="days section values" >
+							<p class="value">{{m}}</p>
+							<p class="label">%9$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="days section values" >
+							<p class="value">{{s}}</p>
+							<p class="label">%11$s</p>
+						</div>
 				    </template>
 			</amp-date-countdown>',
 			$this->module_id(),
