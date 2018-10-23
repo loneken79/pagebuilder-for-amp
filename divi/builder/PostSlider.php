@@ -987,7 +987,11 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 								<?php the_post_thumbnail(); ?>
 							</div>
 						<?php } ?>
+						<?php 
+						$image_url = wp_get_attachment_url( get_post_thumbnail_id() ); 
+						if(!empty($image_url)){?>
 						<amp-img src="<?php echo esc_url( wp_get_attachment_url( get_post_thumbnail_id() ));?>" layout="fill"  alt="Border Collie"></amp-img>
+						<?php } ?>
 						<div class="et_pb_slide_description caption">
 							<?php if ( $is_text_overlay_applied ) : ?><div class="et_pb_text_overlay_wrapper"><?php endif; ?>
 								<<?php echo et_pb_process_header_level( $header_level, 'h2' ) ?> class="et_pb_slide_title"><a href="<?php esc_url( the_permalink() ); ?>"><?php the_title(); ?></a></<?php echo et_pb_process_header_level( $header_level, 'h2' ) ?>>
