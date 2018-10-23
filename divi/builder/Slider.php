@@ -283,7 +283,70 @@ class AMP_ET_Builder_Module_Slider extends ET_Builder_Module {
 		$et_pb_slider[ $background_color_hover_key ]   = self::$_->array_get( $this->props, $background_color_hover_key, '' );
 	}
 	public function amp_divi_inline_styles(){
-    		$inline_styles = '';
+    		$inline_styles = '
+    		.et_pb_slides{
+    			background: #7EBEC5; 
+    		}
+    		.et_pb_sldw{
+    			display: inline-flex;
+			    width: 100%;
+			    align-items: center;
+			    padding: 50px;
+    		}
+    		.et_pb_sldw .et_pb_slide_video, .et_pb_sldw .et_pb_slide_image, .et_pb_sldw .et_pb_slide_description {
+    			width:50%;
+    		}
+    		.et_pb_sldw .et_pb_slide_video, .et_pb_sldw .et_pb_slide_image{
+    			padding-right:50px;
+    		}
+    		.et_pb_sldw .et_pb_slide_title{
+			    font-size: 34px;
+			    color: #fff;
+			    font-weight: 500;
+			    text-shadow: 0 1px 3px rgba(0,0,0,.3);
+    		}
+    		.et_pb_sldw .et_pb_slide_content {
+    			font-size: 18px;
+			    line-height: 1.4;
+			    color: #fff;
+			    font-weight: 400;
+			    text-shadow: 0 1px 3px rgba(0,0,0,.3);
+    		}
+    		.et_pb_sldw .et_pb_button_wrapper a{
+    			padding: 10px 20px;
+			    border: 2px solid #fff;
+			    display: inline-block;
+			    font-size: 18px;
+			    color: #fff;
+			    border-radius: 5px;
+    			font-weight: 500;
+    			margin-top: 20px;
+    		}
+    		.et_pb_sldw .et_pb_button_wrapper a:hover{
+    			border: 2px solid transparent;
+    			background-color: rgba(255,255,255,.2);
+    		}
+    		@media(max-width:768px){
+    			.et_pb_sldw {
+				    padding: 20px;
+				}
+    		}
+    		@media(max-width:500px){
+    			.et_pb_sldw .et_pb_slide_video, .et_pb_sldw .et_pb_slide_image {
+    				display:none;
+    			}
+    			.et_pb_sldw .et_pb_slide_description {
+    				width:100%;
+    				text-align: center;
+    			}
+    			.et_pb_sldw .et_pb_slide_title {
+    				font-size: 22px;
+    			}
+    			.et_pb_sldw .et_pb_slide_content {
+    				font-size: 16px;
+    			}
+    		}
+    		';
             echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
@@ -370,7 +433,7 @@ class AMP_ET_Builder_Module_Slider extends ET_Builder_Module {
 
 		$output = sprintf(
 			'<div%3$s class="%1$s">
-				<amp-carousel class="et_pb_slides" height="300" layout="fixed-height" type="slides">
+				<amp-carousel class="et_pb_slides" height="400" width="500" layout="responsive" type="slides">
 					%2$s
 				</amp-carousel> <!-- .et_pb_slides -->
 				%4$s

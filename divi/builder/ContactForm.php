@@ -294,6 +294,7 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 	      .et_pb_c_form p textarea{
 	          width:100%;
 	          min-height: 150px;
+	          margin-bottom:0px;
 	      }
 	      .et_pd_captcha .et_pb_contact_captcha{
 	          width:auto;

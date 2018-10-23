@@ -610,7 +610,7 @@ class AMP_ET_Builder_Module_Slider_Item extends ET_Builder_Module {
 				'video_url' => $video_url,
 			));
 
-			$image = sprintf( '<div class="et_pb_slide_video">%1$s</div>',
+			$image = sprintf( '<div class="et_pb_slide_video ">%1$s</div>',
 				$video_embed
 			);
 		}
@@ -702,7 +702,7 @@ class AMP_ET_Builder_Module_Slider_Item extends ET_Builder_Module {
 				%7$s
 				%10$s
 				<div class="et_pb_container clearfix">
-					<div class="et_pb_slider_container_inner">
+					<div class="et_pb_slider_container_inner et_pb_sldw">
 						%4$s
 						<div class="et_pb_slide_description">
 							%1$s
@@ -731,4 +731,6 @@ class AMP_ET_Builder_Module_Slider_Item extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Slider_Item;
+$sliderItemObj = new AMP_ET_Builder_Module_Slider_Item();
+remove_shortcode( 'et_pb_slide' );
+add_shortcode( 'et_pb_slide', array($sliderItemObj, '_render'));

@@ -694,7 +694,7 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 	public function amp_divi_inline_styles(){
     
     		$inline_styles = '.et_pb_slide{position:relative;}
-		      .et_pb_slide:before{
+		      .et_pb_ps .et_pb_slide:before{
 		        content:"";
 		        display:inline-block;
 		        opacity:0.5;
@@ -706,7 +706,7 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 		        bottom:0;
 		        z-index:9;
 		      }
-		      .et_pb_slide_description{
+		      .et_pb_ps .et_pb_slide_description{
 		          position: absolute;
 		          top: 40%;
 		          bottom: 0;
@@ -716,25 +716,25 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 		          text-align: center;
 		          z-index:9;
 		      }
-		      .et_pb_slide_description .et_pb_slide_title a{
+		      .et_pb_ps .et_pb_slide_description .et_pb_slide_title a{
 		          font-size: 40px;
 		          line-height: 1.4;
 		          color: #fff;
 		          font-weight: 500;
 		      }
-		      .et_pb_slide_content .post-meta{
+		      .et_pb_ps .et_pb_slide_content .post-meta{
 		            font-size: 12px;
 		            color: #fff;
 		            margin: 10px 0px 5px 0px;
 		      }
-		      .et_pb_slide_content .post-meta a{
+		      .et_pb_ps .et_pb_slide_content .post-meta a{
 		        color:#fff;
 		      }
-		      .et_pb_slide_content{
+		      .et_pb_ps .et_pb_slide_content{
 		        font-size: 17px;
 		        color: #fff;
 		      }
-		      .et_pb_slide_description .et_pb_button{
+		      .et_pb_ps .et_pb_slide_description .et_pb_button{
 		          color: #fff;
 		          padding: 8px 20px;
 		          border: 2px solid #fff;
@@ -744,28 +744,28 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 		          font-weight: 500;
 		          border-radius: 5px;
 		      }
-		      .et_pb_slide_description .et_pb_button:hover{
+		      .et_pb_ps .et_pb_slide_description .et_pb_button:hover{
 		          background-color: rgba(255,255,255,.2);
 		          border: 2px solid transparent;
 		      }
-    		  .et_pb_slider_container_inner amp-img{
+    		  .et_pb_ps .et_pb_slider_container_inner amp-img{
     		  	    background-repeat: no-repeat;
     		  }
 		      @media(max-width:768px){
-		        .et_pb_slide_description {
+		        .et_pb_ps .et_pb_slide_description {
 		          top: 50px;
 		          left: 50px;
 		          right: 50px;
 		        }
-		        .et_pb_slide_description .et_pb_slide_title a {
+		        .et_pb_ps .et_pb_slide_description .et_pb_slide_title a {
 		          font-size: 28px;
 		        }
-		        .et_pb_slide_content {
+		        .et_pb_ps .et_pb_slide_content {
 		          font-size: 15px;
 		        }
 		      }
 		      @media(max-width:500px){
-		        .et_pb_slide_description {
+		        .et_pb_ps .et_pb_slide_description {
 		        	top: 30px;
 		            left: 30px;
 		            right: 30px;
@@ -1127,7 +1127,7 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 			'<div%3$s class="%1$s"%7$s%8$s>
 				%5$s
 				%4$s
-				<amp-carousel class="carousel2" height="400" width="500" layout="responsive" type="slides" class="et_pb_slides">
+				<amp-carousel class="et_pb_ps" height="400" width="500" layout="responsive" type="slides" class="et_pb_slides">
 					%2$s
 				</amp-carousel>
 				%6$s
