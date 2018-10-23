@@ -704,15 +704,17 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 		        right:0;
 		        top:0;
 		        bottom:0;
+		        z-index:9;
 		      }
 		      .et_pb_slide_description{
 		          position: absolute;
-		          top: 20px;
+		          top: 40%;
 		          bottom: 0;
 		          left: 150px;
 		          right: 150px;
 		          margin: 0 auto;
 		          text-align: center;
+		          z-index:9;
 		      }
 		      .et_pb_slide_description .et_pb_slide_title a{
 		          font-size: 40px;
@@ -746,9 +748,9 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 		          background-color: rgba(255,255,255,.2);
 		          border: 2px solid transparent;
 		      }
-		      .carousel2 .slide > amp-img > img{
-      				object-fit: contain;
-    			}
+    		  .et_pb_slider_container_inner amp-img{
+    		  	    background-repeat: no-repeat;
+    		  }
 		      @media(max-width:768px){
 		        .et_pb_slide_description {
 		          top: 50px;
@@ -764,6 +766,7 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 		      }
 		      @media(max-width:500px){
 		        .et_pb_slide_description {
+		        	top: 30px;
 		            left: 30px;
 		            right: 30px;
 		        }
