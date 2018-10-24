@@ -964,7 +964,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		          line-height: 1.2;
 		          font-weight: 500;
 		      }
-		      .et_pb_newsletter_description{
+		      .et_pb_newsletter_description, .et_pb_newsletter_form{
 		          color:#fff;
 		          font-size: 16px;
 		      }
