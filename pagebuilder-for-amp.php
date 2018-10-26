@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Page Builder for AMP
-Description: This is an extension for WpBakery Plugin
+Description: This is an AMP Compatibility extension for Pagebuilder like Divi, WpBakery and Elementor Pagebuilder.
 Author: AMPforWP Team
 Version: 0.6
 Author URI: http://ampforwp.com
@@ -44,7 +44,14 @@ if ( is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
 	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
 }
 
+if ( is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
+    require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
+}
 
+if ( did_action( 'elementor/loaded' ) ) {
+
+    require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-elementor-pagebuilder.php';
+}
 //***************************//
 // Updater code Starts here //
 //**************************//
