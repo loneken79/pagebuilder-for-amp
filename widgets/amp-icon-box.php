@@ -25,7 +25,17 @@ class Amp_Icon_Box extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$inline_styles = '
+			.el-icon-box-wrapper{
+				text-align: center;
+			}
+			.el-icon-box-content span{
+				font-size:18px;
+				color:#333;
+				font-weight:600;
+    			display: inline-block;
+			}
+		';
         echo $inline_styles;
 	}
 	

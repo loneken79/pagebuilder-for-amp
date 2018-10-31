@@ -29,7 +29,15 @@ class Amp_Button extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$inline_styles = '
+			.el-button-wrapper a{
+				background-color: #818a91;
+			    color: #fff;
+			    padding: 10px 20px;
+			    font-size: 17px;
+			    border-radius: 3px;
+			}
+		';
         echo $inline_styles;
 	}
 
