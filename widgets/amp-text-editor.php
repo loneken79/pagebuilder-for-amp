@@ -25,7 +25,13 @@ class Amp_Text_Editor extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$inline_styles = '
+			.el-text-editor{
+				font-size:18px;
+				color:#555;
+				line-height:1.5;
+			}
+		';
         echo $inline_styles;
 	}
 

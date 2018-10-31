@@ -25,33 +25,35 @@ class Amp_Tabs extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '.ampTabContainer {
+		$inline_styles = '
+		.el-tabs .ampTabContainer {
             display: flex;
             flex-wrap: wrap;
         }
-        .tabButton[selected] {
+        .el-tabs .tabButton[selected] {
             outline: none;
-            background: #ccc;
+            border-color: #d4d4d4;
+            border-bottom-style: none;
         }
-        .tabButton {
+        .el-tabs .tabButton {
             list-style: none;
             flex-grow: 1;
             text-align: center;
             cursor: pointer;
         }
-        .tabContent {
+        .el-tabs .tabContent {
             display: none;
             width: 100%;
-            order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
+            order: 1;
             border: 1px solid #ccc;
         }
-        .tabButton[selected]+.tabContent {
+        .el-tabs .tabButton[selected]+.tabContent {
             display: block;
         }
-        amp-selector {
+        .el-tabs .tabContent{
           padding: 1rem;
-          margin: 1rem;
-        }';
+        }
+        ';
         echo $inline_styles;
 	}
 

@@ -25,7 +25,9 @@ class Amp_divider extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$inline_styles = '
+			
+		';
         echo $inline_styles;
 	}
 
