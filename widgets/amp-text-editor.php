@@ -26,10 +26,18 @@ class Amp_Text_Editor extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$inline_styles = '
-			.el-text-editor{
+			.elementor-text-editor{
 				font-size:18px;
 				color:#555;
 				line-height:1.5;
+			}
+			.elementor-text-editor p:first-child:first-letter {
+			  color: #333;
+			  float: left;
+			  font-family: Georgia;
+			  font-size: 60px;
+			  line-height: 60px;
+			  padding-right: 8px;
 			}
 		';
         echo $inline_styles;

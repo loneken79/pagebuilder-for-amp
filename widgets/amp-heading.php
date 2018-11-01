@@ -26,11 +26,31 @@ class Amp_Heading extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$inline_styles = '
-			.el-heading-title{
-				font-size:16px;
-				font-weight:600;
-				color:#555;
-			}
+		.elementor-size-medium{
+			font-size: 19px;
+		    color: #333;
+		}
+		.elementor-size-small{
+			font-size: 15px;
+		}
+		.elementor-size-default{
+			font-size: 16px;
+		}
+		.elementor-size-large{
+			font-size: 29px;
+		}
+		.elementor-size-xl{
+			font-size: 39px;
+		}
+		.elementor-size-xxl{
+			font-size: 59px;
+		}
+		.elementor-heading-title{
+			font-weight:600;
+			color:#333;
+			/* allignment
+			text-align: center; */
+		}
 		';
         echo $inline_styles;
 	}

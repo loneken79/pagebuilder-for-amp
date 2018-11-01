@@ -26,9 +26,27 @@ class Amp_Icon extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$inline_styles = '
-		.el-icon{
+		.elementor-widget-icon{
+			/*text-align:center;*/
+		}
+		.elementor-icon{
 			font-size: 50px;
 			color:#818a91;
+			text-align: center;
+		}
+		.elementor-view-framed .elementor-icon{
+			padding: 10px 30px;
+		    color: #818a91;
+		    border: 3px solid #818a91;
+		    display: inline-block;
+		    border-radius: 100%;
+		}
+		.elementor-view-stacked .elementor-icon{
+			padding: 10px 30px;
+		    color: #fff;
+    		background-color: #818a91;
+		    display: inline-block;
+		    border-radius: 100%;
 		}
 		';
         echo $inline_styles;

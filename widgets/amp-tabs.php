@@ -32,14 +32,20 @@ class Amp_Tabs extends Widget_Base {
         }
         .el-tabs .tabButton[selected] {
             outline: none;
-            border-color: #d4d4d4;
-            border-bottom-style: none;
+            border-top:1px solid #ccc;
+            border-left:1px solid #ccc;
+            border-right:1px solid #ccc;
         }
         .el-tabs .tabButton {
             list-style: none;
             flex-grow: 1;
             text-align: center;
             cursor: pointer;
+            font-size: 16px;
+		    font-weight: 600;
+		    color: #333;
+		    padding:10px 0px;
+        	border: 1px solid #fff;
         }
         .el-tabs .tabContent {
             display: none;

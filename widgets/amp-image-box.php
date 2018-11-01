@@ -29,19 +29,19 @@ class Amp_Image_Box extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$inline_styles = '
-			.el-image-box-wrapper{
+			.elementor-image-box-wrapper{
 				width:100%;
 				text-align:center;
 			}
-			.el-image-box-img{
+			.elementor-image-box-img amp-img{
 				margin:0 auto;
 			}
-			.el-image-box-content{
+			.elementor-image-box-content{
 				color: #555;
     			font-size: 18px;
     			margin-top: 15px;
 			}
-			.el-image-box-content h2{
+			.elementor-image-box-content h2{
 				font-size:18px;
 				color:#333;
 				font-weight:600;

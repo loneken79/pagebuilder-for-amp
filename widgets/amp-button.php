@@ -30,10 +30,56 @@ class Amp_Button extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$inline_styles = '
+		.elementor-widget-wrap{
+			margin:10px;
+		}
+		.elementor-button-wrapper{
+			/*text-align:center;*/
+		}
+		.elementor-button-wrapper a{
+			color:#fff;
+			border-radius: 5px;
+			display:inline-block;
+			background-color: #818a91;
+			/*width:100%;*/
+		}
+		.elementor-size-xs{
+			font-size:14px;
+			padding:7px 20px;
+		}
+		.elementor-size-sm{
+			font-size: 15px;
+    		padding: 12px 24px;
+		}
+		.elementor-size-md {
+    		font-size: 16px;
+    		padding: 15px 30px;
+    	}
+    	.elementor-size-lg {
+    		font-size: 18px;
+    		padding: 28px 40px;
+    	}
+    	.elementor-size-xl {
+    		font-size: 20px;
+   	 		padding: 20px 50px;
+   	 	}
+   	 	.elementor-button-info .elementor-button-wrapper a{
+   	 		background-color: #5bc0de;
+   	 	}
+   	 	.elementor-button-success .elementor-button-wrapper a{
+   	 		background-color: #5cb85c;
+   	 	}
+   	 	.elementor-button-danger .elementor-button-wrapper a{
+   	 		background-color: #f0ad4e;
+   	 	}
+   	 	.elementor-button-success .elementor-button-wrapper a{
+   	 		background-color: #d9534f;
+   	 	}
+
 			.el-button-wrapper a{
 				background-color: #818a91;
 			    color: #fff;
-			    padding: 10px 20px;
+			    padding: 7px 20px;
 			    font-size: 17px;
 			    border-radius: 3px;
 			}

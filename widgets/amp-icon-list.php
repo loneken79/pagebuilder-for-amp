@@ -26,7 +26,7 @@ class Amp_Icon_List extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$inline_styles = '
-			.el-icon-list-items li{
+			.elementor-icon-list-items li{
 				list-style:none;
 				font-size:18px;
 				color:#333;
