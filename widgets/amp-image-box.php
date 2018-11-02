@@ -28,24 +28,67 @@ class Amp_Image_Box extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
+		$settings['description_color'] = (!empty($settings['description_color']) ? $settings['description_color']:'#555');
+		$settings['image_size']['size'] = (!empty($settings['image_size']['size']) ? $settings['image_size']['size']:'30');
+		$settings['image_size']['unit'] = (!empty($settings['image_size']['unit']) ? $settings['image_size']['unit']:'%');
+		$settings['image_space']['size'] = (!empty($settings['image_space']['size']) ? $settings['image_space']['size']:'15');
+		$settings['image_space']['unit'] = (!empty($settings['image_space']['unit']) ? $settings['image_space']['unit']:'px');
+		$settings['title_bottom_space']['size'] = (!empty($settings['title_bottom_space']['size']) ? $settings['title_bottom_space']['size']:'0');
+		$settings['title_bottom_space']['unit'] = (!empty($settings['title_bottom_space']['unit']) ? $settings['title_bottom_space']['unit']:'px');
+		// print_r($settings);
+		// die;
 		$inline_styles = '
-			.elementor-image-box-wrapper{
+			.elementor-element-'.$this->get_id().' .elementor-image-box-wrapper{
 				width:100%;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-center .elementor-image-box-img{
+				margin: 0px auto '.$settings['image_space']['size'].''.$settings['image_space']['unit'].' auto;
+				width:'.$settings['image_size']['size'].''.$settings['image_size']['unit'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-center .elementor-image-box-content{
 				text-align:center;
 			}
-			.elementor-image-box-img amp-img{
-				margin:0 auto;
+			.elementor-element-'.$this->get_id().' .elementor-image-box-content{
+				color: '.$settings['description_color'].';
+    			font-size: 17px;
 			}
-			.elementor-image-box-content{
-				color: #555;
-    			font-size: 18px;
-    			margin-top: 15px;
-			}
-			.elementor-image-box-content h2{
-				font-size:18px;
-				color:#333;
+			.elementor-element-'.$this->get_id().' .elementor-image-box-content .elementor-image-box-title{
+				font-size:16px;
+				color:'.$settings['title_color'].';
 				font-weight:600;
     			display: inline-block;
+    			margin-bottom:'.$settings['title_bottom_space']['size'].''.$settings['title_bottom_space']['unit'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-image-box-content .elementor-image-box-title a{
+				color:'.$settings['title_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-left{
+				display:inline-flex;
+				text-align:left;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-left .elementor-image-box-img{
+				margin-right:15px;
+				width:'.$settings['image_size']['size'].''.$settings['image_size']['unit'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-right{
+				display: inline-flex;
+			    flex-direction: row-reverse;
+			    text-align: right;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-right .elementor-image-box-img{
+				width:'.$settings['image_size']['size'].''.$settings['image_size']['unit'].';
+				margin-left:15px;
+			}
+			@media(max-width:767px){
+				.elementor-element-'.$this->get_id().' .elementor-position-right, .elementor-element-'.$this->get_id().' .elementor-position-left{
+					display: inline-block;
+				    text-align: center;
+				}
+				.elementor-element-'.$this->get_id().' .elementor-position-right .elementor-image-box-img, .elementor-element-'.$this->get_id().' .elementor-position-left .elementor-image-box-img{
+					margin: 0px auto '.$settings['image_space']['size'].''.$settings['image_space']['unit'].' auto;
+				}
 			}
 		';
         echo $inline_styles;
@@ -53,10 +96,11 @@ class Amp_Image_Box extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$settings['position'] = (!empty($settings['position']) ? $settings['position']:'center');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$has_content = ! empty( $settings['title_text'] ) || ! empty( $settings['description_text'] );
 
-		$html = '<div class="elementor-image-box-wrapper">';
+		$html = '<div class="elementor-image-box-wrapper elementor-position-'.$settings['position'].'">';
 
 		if ( ! empty( $settings['link']['url'] ) ) {
 			$this->add_render_attribute( 'link', 'href', $settings['link']['url'] );

@@ -39,22 +39,28 @@ class Amp_Counter extends Widget_Base {
 		<?php
 	}
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);//number_color,title_color,
+		// die;
+		$settings['number_color'] = (!empty($settings['number_color']) ? $settings['number_color']:'#333');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
 		$inline_styles = '
-			.elementor-counter{
+			.elementor-element-'.$this->get_id().' .elementor-counter{
 				text-align:center;
 				width:100%;
 			}
-			.elementor-counter-number-wrapper{
+			.elementor-element-'.$this->get_id().' .elementor-counter-number-wrapper{
 				font-size: 69px;
 				line-height: 1.2;
 				font-weight:600;
 				display: flex;
     			justify-content: center;
+    			color:'.$settings['number_color'].';
 			}
-			.elementor-counter-title{
+			.elementor-element-'.$this->get_id().' .elementor-counter-title{
 				    font-size: 19px;
 				    font-weight: 500;
-				    color: #666;
+				    color: '.$settings['title_color'].';
 				    line-height: 1.5;
 			}
 		';
@@ -63,6 +69,7 @@ class Amp_Counter extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$settings['ending_number'] = (!empty($settings['ending_number']) ? $settings['ending_number']:'100	');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$this->add_render_attribute( 'counter', [
 			'class' => 'elementor-counter-number',

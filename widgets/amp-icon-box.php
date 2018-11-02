@@ -25,15 +25,60 @@ class Amp_Icon_Box extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		// $settings = $this->get_settings_for_display();
+		// print_r($settings);//icon,view,title_text,description_text,title_size,primary_color,icon_space,icon_size,icon_padding
+		// die;
+		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-star');
+		$settings['view'] = (!empty($settings['view']) ? $settings['view']:'default');
+		$settings['shape'] = (!empty($settings['shape']) ? $settings['shape']:'cicle');
+		$settings['primary_color'] = (!empty($settings['primary_color']) ? $settings['primary_color']:'#818a91');
+		$settings['secondary_color'] = (!empty($settings['secondary_color']) ? $settings['secondary_color']:'#fff');
+		$settings['icon_space']['size'] = (!empty($settings['icon_space']['size']) ? $settings['icon_space']['size']:'15');
+		$settings['icon_space']['unit'] = (!empty($settings['icon_space']['unit']) ? $settings['icon_space']['unit']:'px');
+		$settings['icon_size']['size'] = (!empty($settings['icon_size']['size']) ? $settings['icon_size']['size']:'50');
+		$settings['icon_size']['unit'] = (!empty($settings['icon_size']['unit']) ? $settings['icon_size']['unit']:'px');
+		$settings['icon_padding']['size'] = (!empty($settings['icon_padding']['size']) ? $settings['icon_padding']['size']:'25');
+		$settings['icon_padding']['unit'] = (!empty($settings['icon_padding']['unit']) ? $settings['icon_padding']['unit']:'px');
+
+		$settings['title_bottom_space']['size'] = (!empty($settings['title_bottom_space']['size']) ? $settings['title_bottom_space']['size']:'0');
+		$settings['title_bottom_space']['unit'] = (!empty($settings['title_bottom_space']['unit']) ? $settings['title_bottom_space']['unit']:'px');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
+		$settings['description_color'] = (!empty($settings['description_color']) ? $settings['description_color']:'#555');
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'center');
 		$inline_styles = '
-			.el-icon-box-wrapper{
-				text-align: center;
+			.elementor-element-'.$this->get_id().' .elementor-icon-box-wrapper{
+				text-align:'.$settings['align'].';
 			}
-			.el-icon-box-content span{
+			.elementor-element-'.$this->get_id().' .elementor-icon-box-icon{
+				font-size: '.$settings['icon_size']['size'].''.$settings['icon_size']['unit'].';
+				color:'.$settings['primary_color'].';
+				padding: '.$settings['icon_padding']['size'].''.$settings['icon_padding']['unit'].';
+				line-height:0;
+				display: inline-block;
+			    border-radius: 50%;
+			    margin-bottom:'.$settings['icon_space']['size'].''.$settings['icon_space']['unit'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-shape-square .elementor-icon-box-icon{
+				border-radius: 0;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-view-framed .elementor-icon-box-icon{
+			    color: '.$settings['primary_color'].';
+			    border: 3px solid '.$settings['primary_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-view-stacked .elementor-icon-box-icon{
+			    color: '.$settings['secondary_color'].';
+	    		background-color: '.$settings['primary_color'].';
+			}
+			.elementor-icon-box-title{
 				font-size:18px;
-				color:#333;
 				font-weight:600;
-    			display: inline-block;
+				color:'.$settings['title_color'].';
+				margin-bottom:'.$settings['title_bottom_space']['size'].''.$settings['title_bottom_space']['unit'].';
+			}
+			.elementor-icon-box-description{
+				font-size:17px;
+				color:'.$settings['description_color'].';
+				font-weight:500;
 			}
 		';
         echo $inline_styles;
@@ -73,7 +118,7 @@ class Amp_Icon_Box extends Widget_Base {
 		$this->add_inline_editing_attributes( 'title_text', 'none' );
 		$this->add_inline_editing_attributes( 'description_text' );
 		?>
-		<div class="elementor-icon-box-wrapper">
+		<div class="elementor-icon-box-wrapper elementor-view-<?php echo $settings['view'];?> elementor-shape-<?php echo $settings['shape'];?>">
 		<?php if ( $has_icon ) : ?>
 			<div class="elementor-icon-box-icon">
 				<<?php echo implode( ' ', [ $icon_tag, $icon_attributes, $link_attributes ] ); ?>>

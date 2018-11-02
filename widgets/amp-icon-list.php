@@ -25,11 +25,46 @@ class Amp_Icon_List extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;//space_between px, icon_align,icon_color,icon_size,text_color,text_indent
+		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
+		//$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
+		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
+		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#333');
+		
+		$settings['icon_size']['size'] = (!empty($settings['icon_size']['size']) ? $settings['icon_size']['size']:'14');
+		$settings['icon_size']['unit'] = (!empty($settings['icon_size']['unit']) ? $settings['icon_size']['unit']:'px');
+		$settings['space_between']['size'] = (!empty($settings['space_between']['size']) ? $settings['space_between']['size']:'30');
+		$settings['space_between']['unit'] = (!empty($settings['space_between']['unit']) ? $settings['space_between']['unit']:'px');
+		$settings['text_indent']['size'] = (!empty($settings['text_indent']['size']) ? $settings['text_indent']['size']:'5');
+		$settings['text_indent']['unit'] = (!empty($settings['text_indent']['unit']) ? $settings['text_indent']['unit']:'px');
 		$inline_styles = '
-			.elementor-icon-list-items li{
+			.elementor-element-'.$this->get_id().' .elementor-icon-list-items{
+				text-align:'.$settings['icon_align'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-icon-list-items li{
 				list-style:none;
 				font-size:18px;
-				color:#333;
+				color:'.$settings['text_color'].';
+				padding-bottom:calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
+				margin-right: calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
+				margin-left: calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
+				
+			}
+			.elementor-element-'.$this->get_id().' .elementor-inline-items li{
+				    display: inline-flex;
+    				align-items: center;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-icon-list-icon{
+				font-size:'.$settings['icon_size']['size'].''.$settings['icon_size']['unit'].';
+				color:'.$settings['icon_color'].';
+				line-height:0;
+				display: inline-block;
+    			vertical-align: middle;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-icon-list-text{
+				padding-left:'.$settings['text_indent']['size'].''.$settings['text_indent']['unit'].';
 			}
 		';
         echo $inline_styles;
@@ -38,7 +73,12 @@ class Amp_Icon_List extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
-		$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items' );
+		if( $settings['view'] == 'inline'){
+			$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items elementor-inline-items' );
+		}else{
+			$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items' );
+		}
+		
 		$this->add_render_attribute( 'list_item', 'class', 'elementor-icon-list-item' );
 
 		if ( 'inline' === $settings['view'] ) {

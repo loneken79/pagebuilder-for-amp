@@ -25,27 +25,71 @@ class Amp_Progress extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;//progress_type,percent,display_percentage,bar_color,bar_bg_color,bar_inline_color,title_color,
+		$settings['progress_type'] = (!empty($settings['progress_type']) ? $settings['progress_type']:'default');
+		$settings['display_percentage'] = (!empty($settings['display_percentage']) ? $settings['display_percentage']:'show');
+		$settings['bar_color'] = (!empty($settings['bar_color']) ? $settings['bar_color']:'');
+		$settings['bar_bg_color'] = (!empty($settings['bar_bg_color']) ? $settings['bar_bg_color']:'#eee');
+		$settings['bar_inline_color'] = (!empty($settings['bar_inline_color']) ? $settings['bar_inline_color']:'#fff');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
+
+		$settings['percent']['size'] = (!empty($settings['percent']['size']) ? $settings['percent']['size']:'50');
+		$settings['percent']['unit'] = (!empty($settings['percent']['unit']) ? $settings['percent']['unit']:'%');
+		if( !empty($settings['bar_color'])){
+			$default_bar_colors = '.elementor-element-'.$this->get_id().' .progress-danger .elementor-progress-bar{
+						background:'.$settings['bar_color'].';
+					}
+					.elementor-element-'.$this->get_id().' .progress-info .elementor-progress-bar{
+						background:'.$settings['bar_color'].';
+					}
+					.elementor-element-'.$this->get_id().' .progress-success .elementor-progress-bar{
+						background:'.$settings['bar_color'].';
+					}
+					.elementor-element-'.$this->get_id().' .progress-warning .elementor-progress-bar{
+						background:'.$settings['bar_color'].';
+					}';
+		}else{
+			$default_bar_colors = '.elementor-element-'.$this->get_id().' .progress-danger .elementor-progress-bar{
+						background:#d9534f;
+					}
+					.elementor-element-'.$this->get_id().' .progress-info .elementor-progress-bar{
+						background:#5bc0de;
+					}
+					.elementor-element-'.$this->get_id().' .progress-success .elementor-progress-bar{
+						background:#5cb85c;
+					}
+					.elementor-element-'.$this->get_id().' .progress-warning .elementor-progress-bar{
+						background:#f0ad4e;
+					}';
+		}
 		$inline_styles = '
-		.elementor-title{
-			color:#333;
+		.elementor-element-'.$this->get_id().' .elementor-title{
+			color:'.$settings['title_color'].';
 			font-size:18px;
 			font-weight:400;
 		}
-		.elementor-progress-wrapper{
-			background:#eee;
+		.elementor-element-'.$this->get_id().' .elementor-progress-wrapper{
+			background:'.$settings['bar_bg_color'].';
+			width:100%;
 		}
-		.elementor-progress-bar{
-			background: #5cb85c;
+		.elementor-element-'.$this->get_id().' .elementor-progress-bar{
+			background: '.(!empty($settings['bar_color'])?$settings['bar_color']:'#818a91').';
 		    font-size: 11px;
 		    border-radius: 2px;
-		    color: #fff;
+		    color: '.$settings['bar_inline_color'].';
 		    padding: 6px 15px;
 		    display: flex;
 		}
-		.elementor-progress-text{
+		.elementor-element-'.$this->get_id().' .elementor-progress-text{
 			   flex-grow: 1;
 		}
-		';
+		.percentage-1d3565d{
+			width:'.$settings['percent']['size'].''.$settings['percent']['unit'].';
+		}
+		'.$default_bar_colors
+		;
         echo $inline_styles;
 	}
 	
@@ -53,7 +97,7 @@ class Amp_Progress extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$this->add_render_attribute( 'wrapper', [
-			'class' => 'elementor-progress-wrapper',
+			'class' => 'elementor-progress-wrapper progress-'.$settings['progress_type'].' percentage-'.$this->get_id(),
 			'role' => 'progressbar',
 			'aria-valuemin' => '0',
 			'aria-valuemax' => '100',

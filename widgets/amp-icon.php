@@ -26,28 +26,44 @@ class Amp_Icon extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'center');
 		// print_r($settings);
 		// die;
+		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-star');
+		$settings['view'] = (!empty($settings['view']) ? $settings['view']:'default');
+		$settings['shape'] = (!empty($settings['shape']) ? $settings['shape']:'cicle');
+
+		$settings['primary_color'] = (!empty($settings['primary_color']) ? $settings['primary_color']:'#818a91');
+		$settings['secondary_color'] = (!empty($settings['secondary_color']) ? $settings['secondary_color']:'#fff');
+		$settings['icon_space']['size'] = (!empty($settings['icon_space']['size']) ? $settings['icon_space']['size']:'15');
+		$settings['icon_space']['unit'] = (!empty($settings['icon_space']['unit']) ? $settings['icon_space']['unit']:'px');
+		$settings['size']['size'] = (!empty($settings['size']['size']) ? $settings['size']['size']:'50');
+		$settings['size']['unit'] = (!empty($settings['size']['unit']) ? $settings['size']['unit']:'px');
+		$settings['icon_padding']['size'] = (!empty($settings['icon_padding']['size']) ? $settings['icon_padding']['size']:'25');
+		$settings['icon_padding']['unit'] = (!empty($settings['icon_padding']['unit']) ? $settings['icon_padding']['unit']:'px');
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'center');
 		$inline_styles = '
 		.elementor-element-'.$this->get_id().' .elementor-icon-wrapper{
 			text-align:'.$settings['align'].';
 		}
 		.elementor-element-'.$this->get_id().' .elementor-icon{
-			font-size: 50px;
-			color:#818a91;
-			padding: .5em;
+			font-size: '.$settings['size']['size'].''.$settings['size']['unit'].';
+			color:'.$settings['primary_color'].';
+			padding: '.$settings['icon_padding']['size'].''.$settings['icon_padding']['unit'].';
 			line-height:0;
 			display: inline-block;
 		    border-radius: 50%;
 		}
+		.elementor-element-'.$this->get_id().' .elementor-shape-square .elementor-icon{
+			border-radius: 0;
+		}
 		.elementor-element-'.$this->get_id().' .elementor-view-framed .elementor-icon{
-		    color: #818a91;
-		    border: 3px solid #818a91;
+		    color: '.$settings['primary_color'].';
+		    border: 3px solid '.$settings['primary_color'].';
+		    background-color: '.$settings['secondary_color'].';
 		}
 		.elementor-element-'.$this->get_id().' .elementor-view-stacked .elementor-icon{
-		    color: #fff;
-    		background-color: #818a91;
+		    color: '.$settings['secondary_color'].';
+	    	background-color: '.$settings['primary_color'].';
 		}
 		';
         echo $inline_styles;
@@ -55,8 +71,8 @@ class Amp_Icon extends Widget_Base {
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
-		$this->add_render_attribute( 'wrapper', 'class', 'elementor-icon-wrapper elementor-view-'.$settings['view'] );
+		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));//$settings['shape']
+		$this->add_render_attribute( 'wrapper', 'class', 'elementor-icon-wrapper elementor-view-'.$settings['view'] .' elementor-shape-'.$settings['shape'] );
 
 		$this->add_render_attribute( 'icon-wrapper', 'class', 'elementor-icon' );
 

@@ -26,12 +26,11 @@ class Amp_Heading extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-	
-		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'');
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
 		$inline_styles = '
 		.elementor-element-'.$this->get_id().' .elementor-size-medium{
 			font-size: 19px;
-		    color: #333;
 		}
 		.elementor-element-'.$this->get_id().' .elementor-size-small{
 			font-size: 15px;
@@ -50,7 +49,7 @@ class Amp_Heading extends Widget_Base {
 		}
 		.elementor-heading-title-'.$this->get_id().'{
 			font-weight:600;
-			color:#333;
+			color:'.$settings['title_color'].';
 			text-align:'.$settings['align'].';
 		}
 		';
