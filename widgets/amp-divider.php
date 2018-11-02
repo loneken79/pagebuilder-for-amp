@@ -32,6 +32,9 @@ class Amp_divider extends Widget_Base {
 	}
 
 	protected function render() {
+		// $settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		?>
 		<div class="elementor-divider">

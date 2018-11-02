@@ -30,7 +30,17 @@ class Amp_Image extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$settings = $this->get_settings_for_display();
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'');
+		
+		$inline_styles = '
+			.elementor-element-'.$this->get_id().' .elementor-image {
+			    width:100%;
+			    text-align:'.$settings['align'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-image amp-img{
+				display:inline-flex;
+			}';//
         echo $inline_styles;
 	}
 

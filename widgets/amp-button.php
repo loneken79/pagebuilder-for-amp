@@ -29,6 +29,9 @@ class Amp_Button extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;
 		$inline_styles = '
 		.elementor-widget-wrap{
 			margin:10px;

@@ -7,8 +7,8 @@ namespace ElementorForAmp;
  * Main Plugin class
  * @since 1.2.0
  */
-class Amp_Elementor_Widgets_Loading {
 
+class Amp_Elementor_Widgets_Loading {
 	
 	private static $_instance = null;
 

@@ -7,7 +7,7 @@ use Elementor\Controls_Manager;
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class Amp_Heading extends Widget_Base {
-	
+
 	public function get_name() {
 		return 'heading';
 	}
@@ -25,31 +25,34 @@ class Amp_Heading extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'');
 		$inline_styles = '
-		.elementor-size-medium{
+		.elementor-element-'.$this->get_id().' .elementor-size-medium{
 			font-size: 19px;
 		    color: #333;
 		}
-		.elementor-size-small{
+		.elementor-element-'.$this->get_id().' .elementor-size-small{
 			font-size: 15px;
 		}
-		.elementor-size-default{
+		.elementor-element-'.$this->get_id().' .elementor-size-default{
 			font-size: 16px;
 		}
-		.elementor-size-large{
+		.elementor-element-'.$this->get_id().' .elementor-size-large{
 			font-size: 29px;
 		}
-		.elementor-size-xl{
+		.elementor-element-'.$this->get_id().' .elementor-size-xl{
 			font-size: 39px;
 		}
-		.elementor-size-xxl{
+		.elementor-element-'.$this->get_id().' .elementor-size-xxl{
 			font-size: 59px;
 		}
-		.elementor-heading-title{
+		.elementor-heading-title-'.$this->get_id().'{
 			font-weight:600;
 			color:#333;
-			/* allignment
-			text-align: center; */
+			text-align:'.$settings['align'].';
 		}
 		';
         echo $inline_styles;
@@ -62,10 +65,10 @@ class Amp_Heading extends Widget_Base {
 			return;
 		}
 
-		$this->add_render_attribute( 'title', 'class', 'elementor-heading-title' );
+		$this->add_render_attribute( 'title', 'class', 'elementor-heading-title-'.$this->get_id() );
 
 		if ( ! empty( $settings['size'] ) ) {
-			$this->add_render_attribute( 'title', 'class', 'elementor-size-' . $settings['size'] );
+			$this->add_render_attribute( 'title', 'class', 'elementor-size-'. $settings['size'] );
 		}
 
 		$this->add_inline_editing_attributes( 'title' );

@@ -25,20 +25,25 @@ class Amp_Text_Editor extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '
-			.elementor-text-editor{
-				font-size:18px;
-				color:#555;
-				line-height:1.5;
-			}
-			.elementor-text-editor p:first-child:first-letter {
+		$editor_content = $this->get_settings_for_display( );
+		$drop_cap_css = '';
+		if($editor_content['drop_cap'] == 'yes'){
+			$drop_cap_css = '.elementor-element-'.$this->get_id().' .elementor-text-editor p:first-child:first-letter {
 			  color: #333;
 			  float: left;
 			  font-family: Georgia;
 			  font-size: 60px;
 			  line-height: 60px;
 			  padding-right: 8px;
+			}';
+		}
+		$inline_styles = '
+			.elementor-element-'.$this->get_id().' .elementor-text-editor{
+				font-size:18px;
+				color:#555;
+				line-height:1.5;
 			}
+			'.$drop_cap_css.'
 		';
         echo $inline_styles;
 	}
