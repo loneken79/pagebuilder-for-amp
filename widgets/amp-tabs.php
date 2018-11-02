@@ -26,17 +26,18 @@ class Amp_Tabs extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$inline_styles = '
-		.el-tabs .ampTabContainer {
+		.elementor-tabs .ampTabContainer {
             display: flex;
             flex-wrap: wrap;
         }
-        .el-tabs .tabButton[selected] {
+        .elementor-tabs .tabButton[selected] {
             outline: none;
-            border-top:1px solid #ccc;
-            border-left:1px solid #ccc;
-            border-right:1px solid #ccc;
+            border-top:1px solid #ddd;
+            border-left:1px solid #ddd;
+            border-right:1px solid #ddd;
+            background:#ddd;
         }
-        .el-tabs .tabButton {
+        .elementor-tabs .tabButton {
             list-style: none;
             flex-grow: 1;
             text-align: center;
@@ -44,20 +45,28 @@ class Amp_Tabs extends Widget_Base {
             font-size: 16px;
 		    font-weight: 600;
 		    color: #333;
-		    padding:10px 0px;
-        	border: 1px solid #fff;
+		    padding:13px 0px;
+        	border-top:1px solid #ddd;
+            border-left:1px solid #ddd;
+            border-right:1px solid #ddd;
         }
-        .el-tabs .tabContent {
+        .elementor-tabs .tabContent {
             display: none;
             width: 100%;
             order: 1;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
+            font-size:15px;
+            color:#333;
+            font-weight:500;
         }
-        .el-tabs .tabButton[selected]+.tabContent {
+        .elementor-tabs .tabButton[selected]+.tabContent {
             display: block;
         }
-        .el-tabs .tabContent{
-          padding: 1rem;
+        .elementor-tabs .tabContent{
+          padding: 20px;
+        }
+        .elementor-tabs .tabContent p{
+        	margin:0;
         }
         ';
         echo $inline_styles;

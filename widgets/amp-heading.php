@@ -26,8 +26,7 @@ class Amp_Heading extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		// print_r($settings);
-		// die;
+	
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'');
 		$inline_styles = '
 		.elementor-element-'.$this->get_id().' .elementor-size-medium{
@@ -60,6 +59,7 @@ class Amp_Heading extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		if ( empty( $settings['title'] ) ) {
 			return;

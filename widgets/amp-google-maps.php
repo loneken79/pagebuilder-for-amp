@@ -25,6 +25,7 @@ class Amp_Google_Maps extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
 		$inline_styles = '';
         echo $inline_styles;
 	}
@@ -41,7 +42,7 @@ class Amp_Google_Maps extends Widget_Base {
 		}
 
 		printf(
-			'<div class="elementor-custom-embed"><iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=%s&amp;t=m&amp;z=%d&amp;output=embed&amp;iwloc=near" aria-label="%s"></iframe></div>',
+			'<div class="elementor-custom-embed"><iframe frameborder="0" height="'.$settings['height']['size'].'" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=%s&amp;t=m&amp;z=%d&amp;output=embed&amp;iwloc=near" aria-label="%s"></iframe></div>',
 			rawurlencode( $settings['address'] ),
 			absint( $settings['zoom']['size'] ),
 			esc_attr( $settings['address'] )

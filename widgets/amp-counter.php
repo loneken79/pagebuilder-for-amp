@@ -39,7 +39,25 @@ class Amp_Counter extends Widget_Base {
 		<?php
 	}
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$inline_styles = '
+			.elementor-counter{
+				text-align:center;
+				width:100%;
+			}
+			.elementor-counter-number-wrapper{
+				font-size: 69px;
+				line-height: 1.2;
+				font-weight:600;
+				display: flex;
+    			justify-content: center;
+			}
+			.elementor-counter-title{
+				    font-size: 19px;
+				    font-weight: 500;
+				    color: #666;
+				    line-height: 1.5;
+			}
+		';
         echo $inline_styles;
 	}
 

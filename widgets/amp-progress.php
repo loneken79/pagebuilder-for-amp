@@ -25,9 +25,27 @@ class Amp_Progress extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '.elementor-title{
-			color:red;
-		}';
+		$inline_styles = '
+		.elementor-title{
+			color:#333;
+			font-size:18px;
+			font-weight:400;
+		}
+		.elementor-progress-wrapper{
+			background:#eee;
+		}
+		.elementor-progress-bar{
+			background: #5cb85c;
+		    font-size: 11px;
+		    border-radius: 2px;
+		    color: #fff;
+		    padding: 6px 15px;
+		    display: flex;
+		}
+		.elementor-progress-text{
+			   flex-grow: 1;
+		}
+		';
         echo $inline_styles;
 	}
 	
@@ -63,7 +81,7 @@ class Amp_Progress extends Widget_Base {
 		<?php } ?>
 
 		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
-			<div <?php echo $this->get_render_attribute_string( 'progress-bar' ); ?>>
+			<div <?php echo $this->get_render_attribute_string( 'progress-bar' ); ?> style="width:<?php echo $settings['percent']['size']?>%">
 				<span <?php echo $this->get_render_attribute_string( 'inner_text' ); ?>><?php echo $settings['inner_text']; ?></span>
 				<?php if ( 'hide' !== $settings['display_percentage'] ) { ?>
 					<span class="elementor-progress-percentage"><?php echo $settings['percent']['size']; ?>%</span>

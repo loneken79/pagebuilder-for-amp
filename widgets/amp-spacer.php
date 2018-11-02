@@ -25,14 +25,18 @@ class Amp_Spacer extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$settings = $this->get_settings_for_display();
+		$inline_styles = '
+		.elementor-element-'.$this->get_id().' .elementor-spacer-inner{
+			height:'.$settings['space']['size'].''.$settings['space']['unit'].';
+		}
+		';
         echo $inline_styles;
 	}
 
 	protected function render() {
-		//$settings = $this->get_settings_for_display();
-		// print_r($settings);
-		// die;
+		$settings = $this->get_settings_for_display();
+		
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		?>
 		<div class="elementor-spacer">

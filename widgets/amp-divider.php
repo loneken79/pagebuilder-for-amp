@@ -25,8 +25,24 @@ class Amp_divider extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
+		$settings['style'] = (!empty($settings['style']) ? $settings['style']:'solid');
+		// print_r($settings);
+		// die;
 		$inline_styles = '
-			
+			.elementor-element-'.$this->get_id().' .elementor-divider{
+				text-align:'.$settings['align'].';
+				padding:'.$settings['gap']['size'].''.$settings['gap']['unit'].' 0;
+				line-height: 0;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-divider-separator{
+				border-top-style: '.$settings['style'].';
+			    border-top-width: '.$settings['weight']['size'].''.$settings['weight']['unit'].';
+			    width: '.$settings['width']['size'].''.$settings['width']['unit'].';
+			    display: inline-block;
+			    color:'.$settings['color'].';
+			}
 		';
         echo $inline_styles;
 	}

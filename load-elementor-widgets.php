@@ -95,7 +95,7 @@ class Amp_Elementor_Widgets_Loading {
 	public function __construct() {
 
 		// Register widgets
-		add_action( 'elementor/widgets/widgets_registered', [ $this, 'register_widgets' ], 99999 );
+		add_action( 'elementor/widgets/widgets_registered', [ $this, 'register_widgets' ], 999999 );
 	}
 }
 

@@ -25,28 +25,29 @@ class Amp_Icon extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'center');
+		// print_r($settings);
+		// die;
 		$inline_styles = '
-		.elementor-widget-icon{
-			/*text-align:center;*/
+		.elementor-element-'.$this->get_id().' .elementor-icon-wrapper{
+			text-align:'.$settings['align'].';
 		}
-		.elementor-icon{
+		.elementor-element-'.$this->get_id().' .elementor-icon{
 			font-size: 50px;
 			color:#818a91;
-			text-align: center;
+			padding: .5em;
+			line-height:0;
+			display: inline-block;
+		    border-radius: 50%;
 		}
-		.elementor-view-framed .elementor-icon{
-			padding: 10px 30px;
+		.elementor-element-'.$this->get_id().' .elementor-view-framed .elementor-icon{
 		    color: #818a91;
 		    border: 3px solid #818a91;
-		    display: inline-block;
-		    border-radius: 100%;
 		}
-		.elementor-view-stacked .elementor-icon{
-			padding: 10px 30px;
+		.elementor-element-'.$this->get_id().' .elementor-view-stacked .elementor-icon{
 		    color: #fff;
     		background-color: #818a91;
-		    display: inline-block;
-		    border-radius: 100%;
 		}
 		';
         echo $inline_styles;
@@ -55,7 +56,7 @@ class Amp_Icon extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
-		$this->add_render_attribute( 'wrapper', 'class', 'elementor-icon-wrapper' );
+		$this->add_render_attribute( 'wrapper', 'class', 'elementor-icon-wrapper elementor-view-'.$settings['view'] );
 
 		$this->add_render_attribute( 'icon-wrapper', 'class', 'elementor-icon' );
 

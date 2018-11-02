@@ -32,68 +32,71 @@ class Amp_Button extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		// print_r($settings);
 		// die;
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$inline_styles = '
 		.elementor-widget-wrap{
 			margin:10px;
 		}
-		.elementor-button-wrapper{
-			/*text-align:center;*/
+		.elementor-element-'.$this->get_id().' .elementor-button-wrapper{
+			text-align:'.$settings['align'].';
 		}
-		.elementor-button-wrapper a{
+		.elementor-element-'.$this->get_id().' .elementor-button-wrapper a{
 			color:#fff;
 			border-radius: 5px;
 			display:inline-block;
-			background-color: #818a91;
-			/*width:100%;*/
 		}
-		.elementor-size-xs{
+		.elementor-element-'.$this->get_id().' .align-justify a{
+			width:100%;
+			display:inline-block;
+		}
+		.elementor-element-'.$this->get_id().' .elementor-size-xs{
 			font-size:14px;
 			padding:7px 20px;
 		}
-		.elementor-size-sm{
+		.elementor-element-'.$this->get_id().' .elementor-size-sm{
 			font-size: 15px;
-    		padding: 12px 24px;
+    		padding: 10px 24px;
 		}
-		.elementor-size-md {
+		.elementor-element-'.$this->get_id().' .elementor-size-md {
     		font-size: 16px;
-    		padding: 15px 30px;
+    		padding: 12px 30px;
     	}
-    	.elementor-size-lg {
+    	.elementor-element-'.$this->get_id().' .elementor-size-lg {
     		font-size: 18px;
-    		padding: 28px 40px;
+    		padding: 16px 40px;
     	}
-    	.elementor-size-xl {
+    	.elementor-element-'.$this->get_id().' .elementor-size-xl {
     		font-size: 20px;
-   	 		padding: 20px 50px;
+   	 		padding: 18px 50px;
    	 	}
-   	 	.elementor-button-info .elementor-button-wrapper a{
+   	 	.elementor-element-'.$this->get_id().' .elementor-button-info a{
    	 		background-color: #5bc0de;
    	 	}
-   	 	.elementor-button-success .elementor-button-wrapper a{
+   	 	.elementor-element-'.$this->get_id().' .elementor-button-success a{
    	 		background-color: #5cb85c;
    	 	}
-   	 	.elementor-button-danger .elementor-button-wrapper a{
+   	 	.elementor-element-'.$this->get_id().' .elementor-button-warning a{
    	 		background-color: #f0ad4e;
    	 	}
-   	 	.elementor-button-success .elementor-button-wrapper a{
+   	 	.elementor-element-'.$this->get_id().' .elementor-button-danger a{
    	 		background-color: #d9534f;
    	 	}
-
-			.el-button-wrapper a{
-				background-color: #818a91;
-			    color: #fff;
-			    padding: 7px 20px;
-			    font-size: 17px;
-			    border-radius: 3px;
-			}
+   	 	.elementor-element-'.$this->get_id().' .elementor-align-icon-left{
+   	 		margin-right:'.$settings['icon_indent']['size'].''.$settings['icon_indent']['unit'].';
+   	 	}
+   	 	.elementor-element-'.$this->get_id().' .elementor-align-icon-right{
+   	 		float:right;
+   	 		margin-left:'.$settings['icon_indent']['size'].''.$settings['icon_indent']['unit'].';
+   	 	}	
 		';
         echo $inline_styles;
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
-		$this->add_render_attribute( 'wrapper', 'class', 'elementor-button-wrapper' );
+		$this->add_render_attribute( 'wrapper', 'class', 'elementor-button-wrapper elementor-button-'.$settings['button_type'] );
 
 		if ( ! empty( $settings['link']['url'] ) ) {
 			$this->add_render_attribute( 'button', 'href', $settings['link']['url'] );
@@ -110,7 +113,7 @@ class Amp_Button extends Widget_Base {
 
 		$this->add_render_attribute( 'button', 'class', 'elementor-button' );
 		$this->add_render_attribute( 'button', 'role', 'button' );
-
+		
 		if ( ! empty( $settings['button_css_id'] ) ) {
 			$this->add_render_attribute( 'button', 'id', $settings['button_css_id'] );
 		}
@@ -118,17 +121,22 @@ class Amp_Button extends Widget_Base {
 		if ( ! empty( $settings['size'] ) ) {
 			$this->add_render_attribute( 'button', 'class', 'elementor-size-' . $settings['size'] );
 		}
+		if(! empty( $settings['button_type'] )){
+			$settings['size'] = (!empty($settings['size']) ? $settings['size']:'sm');
+			$this->add_render_attribute( 'button', 'class', 'elementor-size-' . $settings['size'] );
+		}
 
 		if ( $settings['hover_animation'] ) {
 			$this->add_render_attribute( 'button', 'class', 'elementor-animation-' . $settings['hover_animation'] );
 		}
-
+		
 		?>
 		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
 			<a <?php echo $this->get_render_attribute_string( 'button' ); ?>>
 				<?php $this->render_text(); ?>
 			</a>
 		</div>
+		
 		<?php
 	}
 
@@ -156,7 +164,7 @@ class Amp_Button extends Widget_Base {
 
 	protected function render_text() {
 		$settings = $this->get_settings_for_display();
-
+		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
 		$this->add_render_attribute( [
 			'content-wrapper' => [
 				'class' => 'elementor-button-content-wrapper',
