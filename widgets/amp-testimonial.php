@@ -26,9 +26,16 @@ class Amp_Testimonial extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '.elementor-testimonial-content{
-			color:red;
-		}';
+		$settings = $this->get_settings_for_display();
+		
+		$settings['testimonial_image_position'] = (!empty($settings['testimonial_image_position']) ? $settings['testimonial_image_position']:'aside');
+		$settings['testimonial_alignment'] = (!empty($settings['testimonial_alignment']) ? $settings['testimonial_alignment']:'center');
+		$settings['content_content_color'] = (!empty($settings['content_content_color']) ? $settings['content_content_color']:'#333');
+		$settings['image_size']['size'] = (!empty($settings['image_size']['size']) ? $settings['image_size']['size']:'15');
+		$settings['image_size']['unit'] = (!empty($settings['image_size']['unit']) ? $settings['image_size']['unit']:'px');
+		$settings['name_text_color'] = (!empty($settings['name_text_color']) ? $settings['name_text_color']:'#333');
+		$settings['job_text_color'] = (!empty($settings['job_text_color']) ? $settings['job_text_color']:'#333');
+		$inline_styles = '';
         echo $inline_styles;
 	}
 	
@@ -86,6 +93,7 @@ class Amp_Testimonial extends Widget_Base {
 			<div <?php echo $this->get_render_attribute_string( 'meta' ); ?>>
 				<div class="elementor-testimonial-meta-inner">
 					<?php if ( $has_image ) : ?>
+						<figure class="elementor-testimonial-img">
 						<div class="elementor-testimonial-image">
 							<?php
 							$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'testimonial_image' );
@@ -95,6 +103,7 @@ class Amp_Testimonial extends Widget_Base {
 							echo $image_html;
 							?>
 						</div>
+						</figure>
 					<?php endif; ?>
 
 					<?php if ( $has_name || $has_job ) : ?>
