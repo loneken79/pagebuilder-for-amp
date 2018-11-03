@@ -25,6 +25,20 @@ class Amp_Tabs extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display( );
+		// print_r($settings);//type,navigation_width,border_width,border_color,background_color,tab_color,tab_active_color,content_color,
+		// die;
+		$settings['type'] = (!empty($settings['type']) ? $settings['type']:'horizontal');
+		$settings['navigation_width']['size'] = (!empty($settings['navigation_width']['size']) ? $settings['navigation_width']['size']:'10');
+		$settings['navigation_width']['unit'] = (!empty($settings['navigation_width']['unit']) ? $settings['navigation_width']['unit']:'%');
+		$settings['border_width']['size'] = (!empty($settings['border_width']['size']) ? $settings['border_width']['size']:'5');
+		$settings['border_width']['unit'] = (!empty($settings['border_width']['unit']) ? $settings['border_width']['unit']:'px');
+		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#333');
+		$settings['background_color'] = (!empty($settings['background_color']) ? $settings['background_color']:'#333');
+		$settings['tab_color'] = (!empty($settings['tab_color']) ? $settings['tab_color']:'#333');
+		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#333');
+		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#333');
+		
 		$inline_styles = '
 		.elementor-tabs .ampTabContainer {
             display: flex;
