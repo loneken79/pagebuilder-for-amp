@@ -25,6 +25,24 @@ class Amp_Toggle extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);//icon,icon_active,title_html_tag,border_width,border_color,space_between,title_background,title_color,tab_active_color,icon_align,icon_color,icon_active_color,icon_space,content_background_color,content_color,
+		// die;
+		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#333');
+		$settings['title_background'] = (!empty($settings['title_background']) ? $settings['title_background']:'#333');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
+		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#333');
+		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
+		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
+		$settings['icon_space'] = (!empty($settings['icon_space']) ? $settings['icon_space']:'#333');
+		$settings['content_background_color'] = (!empty($settings['content_background_color']) ? $settings['content_background_color']:'#333');
+		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#333');
+
+		$settings['border_width']['size'] = (!empty($settings['border_width']['size']) ? $settings['border_width']['size']:'15');
+		$settings['border_width']['unit'] = (!empty($settings['border_width']['unit']) ? $settings['border_width']['unit']:'px');
+		$settings['space_between']['size'] = (!empty($settings['space_between']['size']) ? $settings['border_width']['size']:'15');
+		$settings['space_between']['unit'] = (!empty($settings['space_between']['unit']) ? $settings['border_width']['unit']:'px');
+
 		$inline_styles = '';
         echo $inline_styles;
 	}

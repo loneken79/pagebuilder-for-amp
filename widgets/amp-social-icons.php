@@ -25,6 +25,19 @@ class Amp_Social_Icons extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);//shape,icon_color,icon_primary_color,icon_secondary_color,icon_size,icon_padding,icon_spacing,
+		// die;
+		$settings['shape'] = (!empty($settings['shape']) ? $settings['shape']:'rounded');
+		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
+		$settings['icon_primary_color'] = (!empty($settings['icon_primary_color']) ? $settings['icon_primary_color']:'#333');
+		$settings['icon_secondary_color'] = (!empty($settings['icon_secondary_color']) ? $settings['icon_secondary_color']:'#333');
+		$settings['icon_size']['size'] = (!empty($settings['icon_size']['size']) ? $settings['icon_size']['size']:'15');
+		$settings['icon_size']['unit'] = (!empty($settings['icon_size']['unit']) ? $settings['icon_size']['unit']:'px');
+		$settings['icon_padding']['size'] = (!empty($settings['icon_padding']['size']) ? $settings['icon_padding']['size']:'15');
+		$settings['icon_padding']['unit'] = (!empty($settings['icon_padding']['unit']) ? $settings['icon_padding']['unit']:'px');
+		$settings['icon_spacing']['size'] = (!empty($settings['icon_spacing']['size']) ? $settings['icon_spacing']['size']:'15');
+		$settings['icon_spacing']['unit'] = (!empty($settings['icon_spacing']['unit']) ? $settings['icon_spacing']['unit']:'px');
 		$inline_styles = '';
         echo $inline_styles;
 	}
