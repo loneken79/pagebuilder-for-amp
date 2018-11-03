@@ -26,6 +26,10 @@ class Amp_Heading extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;
+
+		$settings['link']['url'] = (!empty($settings['link']['url']) ? $settings['link']['url']:'#');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
 		$inline_styles = '
@@ -47,7 +51,7 @@ class Amp_Heading extends Widget_Base {
 		.elementor-element-'.$this->get_id().' .elementor-size-xxl{
 			font-size: 59px;
 		}
-		.elementor-heading-title-'.$this->get_id().'{
+		.elementor-heading-title-'.$this->get_id().', .elementor-heading-title-'.$this->get_id().' a{
 			font-weight:600;
 			color:'.$settings['title_color'].';
 			text-align:'.$settings['align'].';
@@ -58,13 +62,14 @@ class Amp_Heading extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
+		$settings['header_size'] = (!empty($settings['header_size']) ? $settings['header_size']:'h2');
+		$settings['size'] = (!empty($settings['size']) ? $settings['size']:'default');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		if ( empty( $settings['title'] ) ) {
 			return;
 		}
 
-		$this->add_render_attribute( 'title', 'class', 'elementor-heading-title-'.$this->get_id() );
+		$this->add_render_attribute( 'title', 'class', 'elementor-heading-title-'.$this->get_id().' elementor-size-'.$settings['size'] );
 
 		if ( ! empty( $settings['size'] ) ) {
 			$this->add_render_attribute( 'title', 'class', 'elementor-size-'. $settings['size'] );

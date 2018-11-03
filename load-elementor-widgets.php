@@ -19,12 +19,17 @@ class Amp_Elementor_Widgets_Loading {
 		return self::$_instance;
 	}
 	
-	public function widget_scripts() {
-		wp_register_script( 'elementor-hello-world', plugins_url( '/assets/js/hello-world.js', __FILE__ ), [ 'jquery' ], false, true );
+	public function load_global_styles() {
+		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 	}
-	
+	public function amp_elementor_widget_styles(){
+		$global_css = '.elementor-widget-wrap{
+			margin:10px;
+		}';
+		echo $global_css;
+	}
 	private function include_widgets_files() {
-
+		$this->load_global_styles();
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-heading.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-image.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-button.php' );
