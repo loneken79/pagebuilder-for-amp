@@ -30,12 +30,70 @@ class Amp_Testimonial extends Widget_Base {
 		
 		$settings['testimonial_image_position'] = (!empty($settings['testimonial_image_position']) ? $settings['testimonial_image_position']:'aside');
 		$settings['testimonial_alignment'] = (!empty($settings['testimonial_alignment']) ? $settings['testimonial_alignment']:'center');
-		$settings['content_content_color'] = (!empty($settings['content_content_color']) ? $settings['content_content_color']:'#333');
-		$settings['image_size']['size'] = (!empty($settings['image_size']['size']) ? $settings['image_size']['size']:'15');
+		$settings['content_content_color'] = (!empty($settings['content_content_color']) ? $settings['content_content_color']:'#444');
+		$settings['image_size']['size'] = (!empty($settings['image_size']['size']) ? $settings['image_size']['size']:'60');
 		$settings['image_size']['unit'] = (!empty($settings['image_size']['unit']) ? $settings['image_size']['unit']:'px');
 		$settings['name_text_color'] = (!empty($settings['name_text_color']) ? $settings['name_text_color']:'#333');
 		$settings['job_text_color'] = (!empty($settings['job_text_color']) ? $settings['job_text_color']:'#333');
-		$inline_styles = '';
+		$inline_styles = '
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-wrapper{
+				width:100%;
+				margin:0 auto;
+				text-align:'.$settings['testimonial_alignment'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-content{
+				color:'.$settings['content_content_color'].';
+				font-size:20px;
+				line-height: 1.5;
+				margin-bottom: 20px;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-meta-inner{
+				display: inline-flex;
+			    align-items: center; 
+			    justify-content: '.$settings['testimonial_alignment'].';
+			    width: 100%;
+			    flex-wrap: wrap;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-image .elementor-testimonial-img{
+				width:'.$settings['image_size']['size'].''.$settings['image_size']['unit'].';
+				height:'.$settings['image_size']['size'].''.$settings['image_size']['unit'].';
+				margin:0 auto;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-image .elementor-testimonial-img amp-img{
+				border-radius: 100%;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-name{
+				font-size:16px;
+				color:'.$settings['name_text_color'].';
+				line-height: 1.3;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-job{
+				font-size:14px;
+				color:'.$settings['job_text_color'].';
+				line-height: 1.3;
+				text-align:left;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-image{
+				padding-right:15px;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-text-align-right .elementor-testimonial-meta{
+				float:right;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-text-align-left .elementor-testimonial-image .elementor-testimonial-img{
+				margin: 0;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-image-position-top .elementor-testimonial-meta-inner{
+				display:inline-block;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-image-position-top .elementor-testimonial-image {
+				padding-right: 0;
+				margin-bottom:20px;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-details{
+				display: inline-flex;
+    			flex-direction: column;
+			}
+		';
         echo $inline_styles;
 	}
 	
@@ -93,8 +151,8 @@ class Amp_Testimonial extends Widget_Base {
 			<div <?php echo $this->get_render_attribute_string( 'meta' ); ?>>
 				<div class="elementor-testimonial-meta-inner">
 					<?php if ( $has_image ) : ?>
-						<figure class="elementor-testimonial-img">
 						<div class="elementor-testimonial-image">
+							<figure class="elementor-testimonial-img">
 							<?php
 							$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'testimonial_image' );
 							if ( ! empty( $settings['link']['url'] ) ) :
@@ -102,8 +160,8 @@ class Amp_Testimonial extends Widget_Base {
 							endif;
 							echo $image_html;
 							?>
+							</figure>
 						</div>
-						</figure>
 					<?php endif; ?>
 
 					<?php if ( $has_name || $has_job ) : ?>

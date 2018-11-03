@@ -60,6 +60,8 @@ final class Elementor_For_Amp {
     public function amp_elementor_pagebuilder_canonical_link(){
         ?>
         <link rel='stylesheet' id='font-awesome-css'  href='http://localhost/soft-tech/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0' type='text/css' media='all' />
+        <link rel='stylesheet' id='elementor-frontend-css'  href='http://localhost/soft-tech/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=2.2.7' type='text/css' media='all' />
+        
         <?php 
     }
 	/**

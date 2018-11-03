@@ -28,27 +28,79 @@ class Amp_Toggle extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		// print_r($settings);//icon,icon_active,title_html_tag,border_width,border_color,space_between,title_background,title_color,tab_active_color,icon_align,icon_color,icon_active_color,icon_space,content_background_color,content_color,
 		// die;
-		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#333');
-		$settings['title_background'] = (!empty($settings['title_background']) ? $settings['title_background']:'#333');
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
+		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#ccc');
+		$settings['title_background'] = (!empty($settings['title_background']) ? $settings['title_background']:'#fff');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#555');
 		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#333');
 		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
 		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
-		$settings['icon_space'] = (!empty($settings['icon_space']) ? $settings['icon_space']:'#333');
-		$settings['content_background_color'] = (!empty($settings['content_background_color']) ? $settings['content_background_color']:'#333');
-		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#333');
+		
+		$settings['icon_space']['size'] = (!empty($settings['icon_space']['size']) ? $settings['icon_space']['size']:'20');
+		$settings['icon_space']['unit'] = (!empty($settings['icon_space']['unit']) ? $settings['icon_space']['unit']:'px');
+		$settings['content_background_color'] = (!empty($settings['content_background_color']) ? $settings['content_background_color']:'#fff');
+		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#555');
 
-		$settings['border_width']['size'] = (!empty($settings['border_width']['size']) ? $settings['border_width']['size']:'15');
+		$settings['border_width']['size'] = (!empty($settings['border_width']['size']) ? $settings['border_width']['size']:'1');
 		$settings['border_width']['unit'] = (!empty($settings['border_width']['unit']) ? $settings['border_width']['unit']:'px');
-		$settings['space_between']['size'] = (!empty($settings['space_between']['size']) ? $settings['border_width']['size']:'15');
-		$settings['space_between']['unit'] = (!empty($settings['space_between']['unit']) ? $settings['border_width']['unit']:'px');
+		$settings['space_between']['size'] = (!empty($settings['space_between']['size']) ? $settings['space_between']['size']:'0');
+		$settings['space_between']['unit'] = (!empty($settings['space_between']['unit']) ? $settings['space_between']['unit']:'px');
 
-		$inline_styles = '';
+		$inline_styles = '
+			.elementor-element-'.$this->get_id().' .tgl{
+				margin-bottom:'.$settings['space_between']['size'].''.$settings['space_between']['unit'].';
+			}
+			.elementor-element-'.$this->get_id().' .tgl h4{
+				background: '.$settings['title_background'].';
+			    padding: 10px 20px;;
+			    border: none;
+			    font-size: 16px;
+			    color: '.$settings['title_color'].';
+			    font-weight: 500;
+			    border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .tgl p{
+				font-size:16px;
+				line-height:1.5;
+				margin:0;
+				color:'.$settings['content_color'].';
+				padding: 15px;
+			    border-bottom: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+			    background:'.$settings['content_background_color'] .';
+			}
+			.elementor-element-'.$this->get_id().' .tgl h4[expanded] {
+			    border-bottom: none;
+			}
+			.elementor-element-'.$this->get_id().' .tgl[expanded] .elementor-toggle-icon-closed{
+				display:none;
+			}
+			.elementor-element-'.$this->get_id().' amp-accordion .tgl:not([expanded]) .elementor-toggle-icon-opened{
+				display:none;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-toggle-icon{
+				width:'.$settings['icon_space']['size'].''.$settings['icon_space']['unit'].';
+				color:'.$settings['icon_color'].';
+				display: inline-block;
+			}
+			.elementor-element-'.$this->get_id().' .tgl[expanded] h4{
+				color:'.$settings['tab_active_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .tgl[expanded] .elementor-toggle-icon{
+				color:'.$settings['icon_active_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-toggle-icon-right{
+				float:right;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-toggle-icon-right.elementor-toggle-icon{
+				width:auto;
+			}
+		';
         echo $inline_styles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-caret-right');
+		$settings['icon_active'] = (!empty($settings['icon_active']) ? $settings['icon_active']:'fa fa-caret-up');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$id_int = substr( $this->get_id_int(), 0, 3 );
 		?>
@@ -86,9 +138,16 @@ class Amp_Toggle extends Widget_Base {
 					$tab_content = '<p>'.$this->parse_text_editor( $item['tab_content'] ).'</p>';
 				}
 				?>
-				
-				<section>
-			      	<h4><?php echo $item['tab_title']; ?></h4>
+				<?php 
+				$toggle_icons = '';
+				if ( $settings['icon'] ){
+						$toggle_icons = '<span class="elementor-toggle-icon elementor-toggle-icon-'.esc_attr( $settings['icon_align'] ).'" aria-hidden="true">
+							<i class="elementor-toggle-icon-closed '.esc_attr( $settings['icon'] ).'"></i>
+							<i class="elementor-toggle-icon-opened '.esc_attr( $settings['icon_active'] ).'"></i>
+						</span>';
+				}?>
+				<section class="tgl">
+			      	<h4><?php echo $toggle_icons;?><?php echo $item['tab_title']; ?></h4>
 			      	<?php echo $tab_content; ?>
 			    </section>
 				

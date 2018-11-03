@@ -30,13 +30,83 @@ class Amp_Accordion extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);//icon,icon_active,title_html_tag
+		// die;
+		
+		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#ccc');
+		
+		$settings['title_background'] = (!empty($settings['title_background']) ? $settings['title_background']:'#fff');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#555');
+		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#333');
+		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
+		$settings['icon_active_color'] = (!empty($settings['icon_active_color']) ? $settings['icon_active_color']:'#333');
+		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#555');
+
+		$settings['content_background_color'] = (!empty($settings['content_background_color']) ? $settings['content_background_color']:'#fff');
+		
+		$settings['border_width']['size'] = (!empty($settings['border_width']['size']) ? $settings['border_width']['size']:'1');
+		$settings['border_width']['unit'] = (!empty($settings['border_width']['unit']) ? $settings['border_width']['unit']:'px');
+		$settings['icon_space']['size'] = (!empty($settings['icon_space']['size']) ? $settings['icon_space']['size']:'20');
+		$settings['icon_space']['unit'] = (!empty($settings['icon_space']['unit']) ? $settings['icon_space']['unit']:'px');
+		$inline_styles = '
+			.elementor-element-'.$this->get_id().' .elementor-accordion-item{
+				border:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion-item h4{
+				background: '.$settings['title_background'].';
+			    padding: 10px 20px;;
+			    border: none;
+			    font-size: 16px;
+			    color: '.$settings['title_color'].';
+			    font-weight: 500;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion-item p{
+				border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+				font-size:16px;
+				line-height:1.5;
+				padding:15px 20px;
+				margin:0;
+				color:'.$settings['content_color'].';
+				background:'.$settings['content_background_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion .elementor-accordion-item+.elementor-accordion-item {
+			    border-top: none;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion-item[expanded] .elementor-accordion-icon-closed{
+				display:none;
+			}
+			.elementor-element-'.$this->get_id().' amp-accordion section:not([expanded]) .elementor-accordion-icon-opened{
+				display:none;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion-icon{
+				width:'.$settings['icon_space']['size'].''.$settings['icon_space']['unit'].';
+				color:'.$settings['icon_color'].';
+				display: inline-block;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion-item[expanded] h4{
+				color:'.$settings['tab_active_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion-item[expanded] .elementor-accordion-icon{
+				color:'.$settings['icon_active_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion-icon-right{
+				float:right;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-accordion-icon-right.elementor-accordion-icon{
+				width:auto;
+			}
+		';
         echo $inline_styles;
 	}
 
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-plus');
+		$settings['icon_active'] = (!empty($settings['icon_active']) ? $settings['icon_active']:'fa fa-minus');
+		// print_r($settings);
+		// die;
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$id_int = substr( $this->get_id_int(), 0, 3 );
 		?>
@@ -69,8 +139,11 @@ class Amp_Accordion extends Widget_Base {
 
 				$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
 				?>
-				<section class="elementor-accordion-item" <?php echo ($tab_count == 1)?'expanded':'';?> >
-			        <h4><?php echo $item['tab_title']; ?></h4>
+				<section class="elementor-accordion-item" <?php echo ($tab_count == 1)?'expanded':'';?> [class]="selectedTab == <?php echo $tab_count;?> ? 'tabButton active' : 'tabButton'">
+			        <h4><span class="elementor-accordion-icon elementor-accordion-icon-<?php echo esc_attr( $settings['icon_align'] ); ?>" aria-hidden="true">
+							<i class="elementor-accordion-icon-closed <?php echo esc_attr( $settings['icon'] ); ?>"></i>
+							<i class="elementor-accordion-icon-opened <?php echo esc_attr( $settings['icon_active'] ); ?>"></i>
+						</span><?php echo $item['tab_title']; ?></h4>
 			        <p><?php echo $this->parse_text_editor( $item['tab_content'] ); ?></p>
 			      </section>
 			      

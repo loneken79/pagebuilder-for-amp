@@ -25,12 +25,55 @@ class Amp_Alert extends Widget_Base {
 		return [ 'general' ];
 	}
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$settings = $this->get_settings_for_display();
+		//print_r($settings);//alert_type,show_dismiss,background,border_color,border_left-width,title_color,description_color,
+		//die;
+		$settings['background'] = (!empty($settings['background']) ? $settings['background']:'');
+		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'');
+		$settings['description_color'] = (!empty($settings['description_color']) ? $settings['description_color']:'');
+		
+		$background_color_css = '';
+		if(!empty($settings['background'])){
+			$background_color_css = '.elementor-element-'.$this->get_id().' .elementor-alert{
+				background:'.$settings['background'].';
+				border-color: '.$settings['border_color'].';
+			}';
+		}else{
+			$default_css = '.elementor-element-'.$this->get_id().' .elementor-alert{
+				border-color: '.$settings['border_color'].';
+			}
+
+			';
+		}
+		$border_width_css = '';
+		if(!empty($settings['border_left-width']['size']) || isset($settings['border_left-width']['size'])){
+			$border_width_css = '.elementor-element-'.$this->get_id().' .elementor-alert{
+				border-left-width:'.$settings['border_left-width']['size'].''.$settings['border_left-width']['unit'].';
+			}';
+		}else{
+			$border_width_css = '.elementor-element-'.$this->get_id().' .elementor-alert{
+				border-left-width:5px;
+			}';
+		}
+		$inline_styles = '
+			.elementor-element-'.$this->get_id().' .elementor-alert-description{
+				color:'.$settings['description_color'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-alert .elementor-alert-title{
+				font-size:16px;
+				font-weight: 600;
+				color:'.$settings['title_color'].';
+			}
+			
+		'.$border_width_css.''.$default_css.''.$background_color_css;
         echo $inline_styles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$settings['alert_type'] = (!empty($settings['alert_type']) ? $settings['alert_type']:'info');
+		$settings['show_dismiss'] = (!empty($settings['show_dismiss']) ? $settings['show_dismiss']:'show');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		if ( empty( $settings['alert_title'] ) ) {
 			return;
@@ -46,7 +89,7 @@ class Amp_Alert extends Widget_Base {
 
 		$this->add_inline_editing_attributes( 'alert_title', 'none' );
 		?>
-		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?> >
 			<span <?php echo $this->get_render_attribute_string( 'alert_title' ); ?>><?php echo $settings['alert_title']; ?></span>
 			<?php
 			if ( ! empty( $settings['alert_description'] ) ) :
