@@ -29,71 +29,138 @@ class Amp_Tabs extends Widget_Base {
 		// print_r($settings);//type,navigation_width,border_width,border_color,background_color,tab_color,tab_active_color,content_color,
 		// die;
 		$settings['type'] = (!empty($settings['type']) ? $settings['type']:'horizontal');
-		$settings['navigation_width']['size'] = (!empty($settings['navigation_width']['size']) ? $settings['navigation_width']['size']:'10');
+		$settings['navigation_width']['size'] = (!empty($settings['navigation_width']['size']) ? $settings['navigation_width']['size']:'25');
 		$settings['navigation_width']['unit'] = (!empty($settings['navigation_width']['unit']) ? $settings['navigation_width']['unit']:'%');
-		$settings['border_width']['size'] = (!empty($settings['border_width']['size']) ? $settings['border_width']['size']:'5');
+		$settings['border_width']['size'] = (!empty($settings['border_width']['size']) ? $settings['border_width']['size']:'1');
 		$settings['border_width']['unit'] = (!empty($settings['border_width']['unit']) ? $settings['border_width']['unit']:'px');
-		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#333');
-		$settings['background_color'] = (!empty($settings['background_color']) ? $settings['background_color']:'#333');
-		$settings['tab_color'] = (!empty($settings['tab_color']) ? $settings['tab_color']:'#333');
+		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#d4d4d4');
+		$settings['background_color'] = (!empty($settings['background_color']) ? $settings['background_color']:'#fff');
+		$settings['tab_color'] = (!empty($settings['tab_color']) ? $settings['tab_color']:'#555');
 		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#333');
-		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#333');
+		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#444');
 		
 		$inline_styles = '
 		.elementor-tabs .ampTabContainer {
             display: flex;
             flex-wrap: wrap;
         }
-        .elementor-tabs .tabButton[selected] {
+        .elementor-tabs .tabButton.active, .elementor-tabs .tabButton[selected] {
             outline: none;
-            border-top:1px solid #ddd;
-            border-left:1px solid #ddd;
-            border-right:1px solid #ddd;
-            background:#ddd;
+            border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+            border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+            background:'.$settings['background_color'].';
+		    border-width:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].';
+		    color:'.$settings['tab_active_color'].';
+        }
+        .elementor-tabs-view-horizontal .tabButton.active,  .elementor-tabs-view-horizontal .tabButton[selected] {
+        	border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+        }
+        .elementor-tabs-view-vertical .tabButton.active,  .elementor-tabs-view-vertical .tabButton[selected] {
+        	border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+        }
+        .elementor-tabs-view-vertical .elementor-tabs .tabButton {
+        	padding: 20px 25px;
+        }
+        .elementor-tabs-view-vertical .elementor-tabs .tabButton{
+        	display:flex;
+        }
+        .elementor-tabs-view-vertical{
+        	display: inline-grid;
+    		grid-template-columns: '.$settings['navigation_width']['size'].''.$settings['navigation_width']['unit'].' auto;
+        }
+        .elementor-tabs-view-horizontal .tabButton{
+        	border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
+            border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
+            border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
+            border-bottom:none;
+        }
+        .elementor-tabs-view-vertical .tabButton{
+        	border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
+            border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
+            border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
+            border-right:none;
+            text-align:left;
+        }
+        .elementor-tabs-view-vertical .elementor-tabs-wrapper{
+        	display:grid;
         }
         .elementor-tabs .tabButton {
-            list-style: none;
-            flex-grow: 1;
-            text-align: center;
-            cursor: pointer;
-            font-size: 16px;
-		    font-weight: 600;
-		    color: #333;
-		    padding:13px 0px;
-        	border-top:1px solid #ddd;
-            border-left:1px solid #ddd;
-            border-right:1px solid #ddd;
+            position: relative;
+            padding: 20px 25px;
+		    font-weight: 700;
+		    line-height: 1;
+		    background:#fff;
+		    color:'.$settings['tab_color'].';
+		    font-size: 17px;
         }
         .elementor-tabs .tabContent {
-            display: none;
-            width: 100%;
-            order: 1;
-            border: 1px solid #ddd;
-            font-size:15px;
-            color:#333;
-            font-weight:500;
+        	display: none;
+    		border-top-style: none;
+    		border: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+    		padding: 20px;
+    		width:100%;
+    		font-size:17px;
+    		font-weight:400;
+    		color:'.$settings['content_color'].';
+    		background:'.$settings['background_color'].';
         }
         .elementor-tabs .tabButton[selected]+.tabContent {
             display: block;
         }
-        .elementor-tabs .tabContent{
-          padding: 20px;
-        }
         .elementor-tabs .tabContent p{
         	margin:0;
+        }
+        .hidetabs{
+        	display:none;
+        }
+        @media(max-width:767px){
+        	.elementor-tabs-wrapper{
+        		dislay:none;
+        	}
+        	.hidetabs{
+	        	display:block;
+	        }
+	        .elementor-tabs .tabButton{width:100%;}
+	        .elementor-tabs-view-horizontal .tabButton{
+        	 border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+            border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+            border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+             background:'.$settings['background_color'].';
+        	}
+        	.elementor-tabs .tabContent{
+        		border-bottom:none;
+        	}
+        	.elementor-tabs amp-selector{
+        		border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+        	}
+        	.elementor-tabs-view-vertical .elementor-tabs-wrapper{
+	        	display:none;
+	        }
+	        .elementor-tabs-view-vertical .tabButton{
+	        	border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+	            border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+	            border-bottom:none;
+	            border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+	             background:'.$settings['background_color'].';
+	        }
+	        .elementor-tabs-view-vertical .tabButton.active,  .elementor-tabs-view-vertical .tabButton[selected] {
+	        	border-bottom:none;
+	        }
         }
         ';
         echo $inline_styles;
 	}
 
 	protected function render() {
+		$settings = $this->get_settings_for_display( );
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$tabs = $this->get_settings_for_display( 'tabs' );
 
 		$id_int = substr( $this->get_id_int(), 0, 3 );
+		$settings['type'] = (!empty($settings['type']) ? $settings['type']:'horizontal');
 		?>
-		<div class="elementor-tabs" role="tablist">
-			<!-- <div class="elementor-tabs-wrapper">
+		<div class="elementor-tabs elementor-tabs-view-<?php echo $settings['type'];?>" role="tablist">
+			<div class="elementor-tabs-wrapper">
 				<?php
 				foreach ( $tabs as $index => $item ) :
 					$tab_count = $index + 1;
@@ -102,17 +169,18 @@ class Amp_Tabs extends Widget_Base {
 
 					$this->add_render_attribute( $tab_title_setting_key, [
 						'id' => 'elementor-tab-title-' . $id_int . $tab_count,
-						'class' => [ 'elementor-tab-title', 'elementor-tab-desktop-title' ],
+						'class' => [ 'elementor-tab-title', 'elementor-tab-desktop-title', 'tabButton' ],
 						'data-tab' => $tab_count,
 						'tabindex' => $id_int . $tab_count,
 						'role' => 'tab',
 						'aria-controls' => 'elementor-tab-content-' . $id_int . $tab_count,
 					] );
 					?>
-					<div <?php echo $this->get_render_attribute_string( $tab_title_setting_key ); ?>><?php echo $item['tab_title']; ?></div>
+					<!--<div <?php echo $this->get_render_attribute_string( $tab_title_setting_key ); ?>><?php echo $item['tab_title']; ?></div>-->
+					<button on="tap:AMP.setState({selectedTab: '<?php echo $tab_count;?>'})" [class]="selectedTab == <?php echo $tab_count;?> ? 'tabButton active' : 'tabButton'" class="tabButton <?php echo ($tab_count == '1'?'active':'');?>"><?php echo $item['tab_title']; ?></button>
 				<?php endforeach; ?>
-			</div> -->
-			<amp-selector role="tablist" layout="container" class="ampTabContainer">
+			</div>
+			<amp-selector on="select:AMP.setState({selectedTab: event.targetOption})" [selected]="selectedTab" role="tablist" layout="container" class="ampTabContainer" >
 				<?php
 
 				foreach ( $tabs as $index => $item ) :
@@ -139,7 +207,7 @@ class Amp_Tabs extends Widget_Base {
 
 					$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
 					?>
-					<div div role="tab" class="tabButton" option="<?php echo $tab_count;?>" <?php echo ($tab_count == 1)?'selected':'';?>><?php echo $item['tab_title']; ?></div>
+					<div div role="tab" class="tabButton hidetabs" option="<?php echo $tab_count;?>" <?php echo ($tab_count == 1)?'selected':'';?>><?php echo $item['tab_title']; ?></div>
 					<div role="tabpanel" class="tabContent" ><?php echo $this->parse_text_editor( $item['tab_content'] ); ?></div>
 				<?php endforeach; ?>
 			</amp-selector>

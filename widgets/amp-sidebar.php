@@ -25,7 +25,11 @@ class Amp_Sidebar extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$inline_styles = '';
+		$inline_styles = '
+			.elementor-element-'.$this->get_id().' .elementor-widget-sidebar .amp-sidebar ul li a:hover{
+				box-shadow: none;
+			}
+		';
         echo $inline_styles;
 	}
 

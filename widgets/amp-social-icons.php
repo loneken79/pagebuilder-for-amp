@@ -60,24 +60,24 @@ class Amp_Social_Icons extends Widget_Base {
 		}
 
 		$inline_styles = '
-			.elementor-social-icons-wrapper{
+			.elementor-element-'.$this->get_id().' .elementor-social-icons-wrapper{
 				width:100%;
 				text-align:'.$settings['align'].';
 				font-size:0;
 			}
-			.elementor-social-icons-wrapper.elementor-shape-rounded a{
+			.elementor-element-'.$this->get_id().' .elementor-social-icons-wrapper.elementor-shape-rounded a{
 				border-radius:10%;
 			}
-			.elementor-social-icons-wrapper.elementor-shape-square a{
+			.elementor-element-'.$this->get_id().' .elementor-social-icons-wrapper.elementor-shape-square a{
 				border-radius:0px;
 			}
-			.elementor-social-icons-wrapper.elementor-shape-circle a{
+			.elementor-element-'.$this->get_id().' .elementor-social-icons-wrapper.elementor-shape-circle a{
 				border-radius: 50%;
 			}
-			.elementor-social-icons-wrapper span{
+			.elementor-element-'.$this->get_id().' .elementor-social-icons-wrapper span{
 				display:none;
 			}
-			.elementor-social-icons-wrapper a{
+			.elementor-element-'.$this->get_id().' .elementor-social-icons-wrapper a{
 				font-size: '.$settings['icon_size']['size'].''.$settings['icon_size']['unit'].';
 			    text-align: center;
 			    padding: '.$settings['icon_padding']['size'].''.$settings['icon_padding']['unit'].';
@@ -86,16 +86,16 @@ class Amp_Social_Icons extends Widget_Base {
 			    display: inline-block;
     			line-height: 1;
 			}
-			.elementor-social-icons-wrapper a:last-child {
+			.elementor-element-'.$this->get_id().' .elementor-social-icons-wrapper a:last-child {
 			    margin: 0;
 			}
-			.elementor-icon i {
+			.elementor-element-'.$this->get_id().' .elementor-icon i {
 			    width: 1em;
 			    height: 1em;
 			    position: relative;
 			    display: block;
 			}
-			.elementor-icon i:before {
+			.elementor-element-'.$this->get_id().' .elementor-icon i:before {
 			    position: absolute;
 			    left: 50%;
 			    transform: translateX(-50%); 

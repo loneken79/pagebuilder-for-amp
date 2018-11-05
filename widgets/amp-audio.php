@@ -81,7 +81,7 @@ class Amp_Audio extends Widget_Base {
 		$html = str_replace( [ $matches[1], 'visual=true' ], [ $url, 'visual=' . $visual ], $html );
 
 		if ( 'false' === $visual ) {
-			$html = str_replace( 'height="400"', 'height="200"', $html );
+			$html = str_replace( 'height="400"', 'height="200" width="100%"', $html );
 		}
 
 		return $html;
