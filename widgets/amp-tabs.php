@@ -40,11 +40,11 @@ class Amp_Tabs extends Widget_Base {
 		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#444');
 		
 		$inline_styles = '
-		.elementor-tabs .ampTabContainer {
+		.elementor-element-'.$this->get_id().' .elementor-tabs .ampTabContainer {
             display: flex;
             flex-wrap: wrap;
         }
-        .elementor-tabs .tabButton.active, .elementor-tabs .tabButton[selected] {
+        .elementor-element-'.$this->get_id().' .elementor-tabs .tabButton.active, .elementor-element-'.$this->get_id().' .elementor-tabs .tabButton[selected] {
             outline: none;
             border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
             border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
@@ -52,39 +52,39 @@ class Amp_Tabs extends Widget_Base {
 		    border-width:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].';
 		    color:'.$settings['tab_active_color'].';
         }
-        .elementor-tabs-view-horizontal .tabButton.active,  .elementor-tabs-view-horizontal .tabButton[selected] {
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton[selected] {
         	border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
         }
-        .elementor-tabs-view-vertical .tabButton.active,  .elementor-tabs-view-vertical .tabButton[selected] {
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton[selected] {
         	border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
         }
-        .elementor-tabs-view-vertical .elementor-tabs .tabButton {
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .elementor-tabs .tabButton {
         	padding: 20px 25px;
         }
-        .elementor-tabs-view-vertical .elementor-tabs .tabButton{
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .elementor-tabs .tabButton{
         	display:flex;
         }
-        .elementor-tabs-view-vertical{
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical{
         	display: inline-grid;
     		grid-template-columns: '.$settings['navigation_width']['size'].''.$settings['navigation_width']['unit'].' auto;
         }
-        .elementor-tabs-view-horizontal .tabButton{
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton{
         	border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
             border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
             border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
             border-bottom:none;
         }
-        .elementor-tabs-view-vertical .tabButton{
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton{
         	border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
             border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
             border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
             border-right:none;
             text-align:left;
         }
-        .elementor-tabs-view-vertical .elementor-tabs-wrapper{
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .elementor-tabs-wrapper{
         	display:grid;
         }
-        .elementor-tabs .tabButton {
+        .elementor-element-'.$this->get_id().' .elementor-tabs .tabButton {
             position: relative;
             padding: 20px 25px;
 		    font-weight: 700;
@@ -93,7 +93,7 @@ class Amp_Tabs extends Widget_Base {
 		    color:'.$settings['tab_color'].';
 		    font-size: 17px;
         }
-        .elementor-tabs .tabContent {
+        .elementor-element-'.$this->get_id().' .elementor-tabs .tabContent {
         	display: none;
     		border-top-style: none;
     		border: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
@@ -104,46 +104,46 @@ class Amp_Tabs extends Widget_Base {
     		color:'.$settings['content_color'].';
     		background:'.$settings['background_color'].';
         }
-        .elementor-tabs .tabButton[selected]+.tabContent {
+        .elementor-element-'.$this->get_id().' .elementor-tabs .tabButton[selected]+.tabContent {
             display: block;
         }
-        .elementor-tabs .tabContent p{
+        .elementor-element-'.$this->get_id().' .elementor-tabs .tabContent p{
         	margin:0;
         }
-        .hidetabs{
+        .elementor-element-'.$this->get_id().' .hidetabs{
         	display:none;
         }
         @media(max-width:767px){
-        	.elementor-tabs-wrapper{
+        	.elementor-element-'.$this->get_id().' .elementor-tabs-wrapper{
         		dislay:none;
         	}
-        	.hidetabs{
+        	.elementor-element-'.$this->get_id().' .hidetabs{
 	        	display:block;
 	        }
-	        .elementor-tabs .tabButton{width:100%;}
-	        .elementor-tabs-view-horizontal .tabButton{
-        	 border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
-            border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
-            border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
-             background:'.$settings['background_color'].';
+	        .elementor-element-'.$this->get_id().' .elementor-tabs .tabButton{width:100%;}
+	        .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton{
+				border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+				border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+				border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+				background:'.$settings['background_color'].';
         	}
-        	.elementor-tabs .tabContent{
+        	.elementor-element-'.$this->get_id().' .elementor-tabs .tabContent{
         		border-bottom:none;
         	}
-        	.elementor-tabs amp-selector{
+        	.elementor-element-'.$this->get_id().' .elementor-tabs amp-selector{
         		border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
         	}
-        	.elementor-tabs-view-vertical .elementor-tabs-wrapper{
+        	.elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .elementor-tabs-wrapper{
 	        	display:none;
 	        }
-	        .elementor-tabs-view-vertical .tabButton{
+	        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton{
 	        	border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
 	            border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
 	            border-bottom:none;
 	            border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
 	             background:'.$settings['background_color'].';
 	        }
-	        .elementor-tabs-view-vertical .tabButton.active,  .elementor-tabs-view-vertical .tabButton[selected] {
+	        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton.active, .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton[selected] {
 	        	border-bottom:none;
 	        }
         }
