@@ -26,12 +26,11 @@ class Amp_Toggle extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		// print_r($settings);//icon,icon_active,title_html_tag,border_width,border_color,space_between,title_background,title_color,tab_active_color,icon_align,icon_color,icon_active_color,icon_space,content_background_color,content_color,
-		// die;
+		
 		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#ccc');
 		$settings['title_background'] = (!empty($settings['title_background']) ? $settings['title_background']:'#fff');
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#555');
-		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#333');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
+		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#61ce70');
 		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
 		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
 		
@@ -55,8 +54,9 @@ class Amp_Toggle extends Widget_Base {
 			    border: none;
 			    font-size: 16px;
 			    color: '.$settings['title_color'].';
-			    font-weight: 500;
+			    font-weight: 600;
 			    border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+
 			}
 			.elementor-element-'.$this->get_id().' .tgl p{
 				font-size:16px;
@@ -99,7 +99,7 @@ class Amp_Toggle extends Widget_Base {
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-caret-right');
+		$settings['icon'] = (!empty($settings['icon']) || isset($settings['icon']) ? $settings['icon']:'fa fa-caret-right');
 		$settings['icon_active'] = (!empty($settings['icon_active']) ? $settings['icon_active']:'fa fa-caret-up');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$id_int = substr( $this->get_id_int(), 0, 3 );

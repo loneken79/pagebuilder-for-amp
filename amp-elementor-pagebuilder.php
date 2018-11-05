@@ -59,11 +59,24 @@ final class Elementor_For_Amp {
 
     public function amp_elementor_pagebuilder_canonical_link(){
         ?>
-        <link rel='stylesheet' id='font-awesome-css'  href='http://localhost/soft-tech/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0' type='text/css' media='all' />
-        <link rel='stylesheet' id='elementor-frontend-css'  href='http://localhost/soft-tech/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=2.2.7' type='text/css' media='all' />
-        
-        <?php 
+        <link rel='stylesheet' id='font-awesome-css'  href='<?php echo ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/font-awesome.min.css';?>' type='text/css' media='all' />
+        <link rel='stylesheet' id='elementor-frontend-css'  href='<?php echo ELEMENTOR_ASSETS_URL . 'css/frontend.min.css';?>' type='text/css' media='all' />
+        <?php
     }
+    
+    public function amp_elementor_enqueue_styles(){
+    	$suffix = Utils::is_script_debug() ? '' : '.min';
+
+		$direction_suffix = is_rtl() ? '-rtl' : '';
+
+		wp_register_style(
+			'font-awesome',
+			ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/font-awesome' . $suffix . '.css',
+			[],
+			'4.7.0'
+		);
+    }
+
 	/**
 	 * Admin notice
 	 *

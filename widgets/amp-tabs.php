@@ -35,9 +35,9 @@ class Amp_Tabs extends Widget_Base {
 		$settings['border_width']['unit'] = (!empty($settings['border_width']['unit']) ? $settings['border_width']['unit']:'px');
 		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#d4d4d4');
 		$settings['background_color'] = (!empty($settings['background_color']) ? $settings['background_color']:'#fff');
-		$settings['tab_color'] = (!empty($settings['tab_color']) ? $settings['tab_color']:'#555');
-		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#333');
-		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#444');
+		$settings['tab_color'] = (!empty($settings['tab_color']) ? $settings['tab_color']:'#6ec1e4');
+		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#61ce70');
+		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#7a7a7a');
 		
 		$inline_styles = '
 		.elementor-element-'.$this->get_id().' .elementor-tabs .ampTabContainer {
@@ -54,6 +54,7 @@ class Amp_Tabs extends Widget_Base {
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton[selected] {
         	border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+        	
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton[selected] {
         	border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
@@ -176,7 +177,7 @@ class Amp_Tabs extends Widget_Base {
 						'aria-controls' => 'elementor-tab-content-' . $id_int . $tab_count,
 					] );
 					?>
-					<!--<div <?php echo $this->get_render_attribute_string( $tab_title_setting_key ); ?>><?php echo $item['tab_title']; ?></div>-->
+					
 					<button on="tap:AMP.setState({selectedTab: '<?php echo $tab_count;?>'})" [class]="selectedTab == <?php echo $tab_count;?> ? 'tabButton active' : 'tabButton'" class="tabButton <?php echo ($tab_count == '1'?'active':'');?>"><?php echo $item['tab_title']; ?></button>
 				<?php endforeach; ?>
 			</div>

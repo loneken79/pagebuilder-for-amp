@@ -33,9 +33,9 @@ class Amp_Progress extends Widget_Base {
 		$settings['bar_color'] = (!empty($settings['bar_color']) ? $settings['bar_color']:'');
 		$settings['bar_bg_color'] = (!empty($settings['bar_bg_color']) ? $settings['bar_bg_color']:'#eee');
 		$settings['bar_inline_color'] = (!empty($settings['bar_inline_color']) ? $settings['bar_inline_color']:'#fff');
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
 
-		$settings['percent']['size'] = (!empty($settings['percent']['size']) ? $settings['percent']['size']:'50');
+		$settings['percent']['size'] = (!empty($settings['percent']['size'] ) ? $settings['percent']['size']:'50');
 		$settings['percent']['unit'] = (!empty($settings['percent']['unit']) ? $settings['percent']['unit']:'%');
 		if( !empty($settings['bar_color'])){
 			$default_bar_colors = '.elementor-element-'.$this->get_id().' .progress-danger .elementor-progress-bar{
@@ -73,9 +73,10 @@ class Amp_Progress extends Widget_Base {
 		.elementor-element-'.$this->get_id().' .elementor-progress-wrapper{
 			background:'.$settings['bar_bg_color'].';
 			width:100%;
+			line-height:18px;
 		}
 		.elementor-element-'.$this->get_id().' .elementor-progress-bar{
-			background: '.(!empty($settings['bar_color'])?$settings['bar_color']:'#818a91').';
+			background: '.(!empty($settings['bar_color'])?$settings['bar_color']:'#6ec1e4').';
 		    font-size: 11px;
 		    border-radius: 2px;
 		    color: '.$settings['bar_inline_color'].';
@@ -85,7 +86,7 @@ class Amp_Progress extends Widget_Base {
 		.elementor-element-'.$this->get_id().' .elementor-progress-text{
 			   flex-grow: 1;
 		}
-		.percentage-1d3565d{
+		.elementor-element-'.$this->get_id().' .percentage-'.$this->get_id().'{
 			width:'.$settings['percent']['size'].''.$settings['percent']['unit'].';
 		}
 		'.$default_bar_colors
@@ -95,9 +96,12 @@ class Amp_Progress extends Widget_Base {
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$settings['progress_type'] = (!empty($settings['progress_type']) ? $settings['progress_type']:'default');
+		$settings['percent']['size'] = (!empty($settings['percent']['size'] ) ? $settings['percent']['size']:'50');
+		$settings['percent']['unit'] = (!empty($settings['percent']['unit']) ? $settings['percent']['unit']:'%');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$this->add_render_attribute( 'wrapper', [
-			'class' => 'elementor-progress-wrapper progress-'.$settings['progress_type'].' percentage-'.$this->get_id(),
+			'class' => 'elementor-progress-wrapper progress-'.$settings['progress_type'],
 			'role' => 'progressbar',
 			'aria-valuemin' => '0',
 			'aria-valuemax' => '100',
@@ -110,7 +114,7 @@ class Amp_Progress extends Widget_Base {
 		}
 
 		$this->add_render_attribute( 'progress-bar', [
-			'class' => 'elementor-progress-bar',
+			'class' => 'elementor-progress-bar percentage-'.$this->get_id(),
 			'data-max' => $settings['percent']['size'],
 		] );
 
@@ -125,7 +129,7 @@ class Amp_Progress extends Widget_Base {
 		<?php } ?>
 
 		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
-			<div <?php echo $this->get_render_attribute_string( 'progress-bar' ); ?> style="width:<?php echo $settings['percent']['size']?>%">
+			<div <?php echo $this->get_render_attribute_string( 'progress-bar' ); ?> >
 				<span <?php echo $this->get_render_attribute_string( 'inner_text' ); ?>><?php echo $settings['inner_text']; ?></span>
 				<?php if ( 'hide' !== $settings['display_percentage'] ) { ?>
 					<span class="elementor-progress-percentage"><?php echo $settings['percent']['size']; ?>%</span>

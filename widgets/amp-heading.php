@@ -26,12 +26,10 @@ class Amp_Heading extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		// print_r($settings);
-		// die;
-
+	
 		$settings['link']['url'] = (!empty($settings['link']['url']) ? $settings['link']['url']:'#');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
 		$inline_styles = '
 		.elementor-element-'.$this->get_id().' .elementor-size-medium{
 			font-size: 19px;

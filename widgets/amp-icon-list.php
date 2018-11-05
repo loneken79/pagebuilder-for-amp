@@ -26,12 +26,10 @@ class Amp_Icon_List extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		// print_r($settings);
-		// die;//space_between px, icon_align,icon_color,icon_size,text_color,text_indent
+		
 		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
-		//$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
-		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
-		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#333');
+		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#6ec1e4');
+		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#54595f');
 		
 		$settings['icon_size']['size'] = (!empty($settings['icon_size']['size']) ? $settings['icon_size']['size']:'14');
 		$settings['icon_size']['unit'] = (!empty($settings['icon_size']['unit']) ? $settings['icon_size']['unit']:'px');

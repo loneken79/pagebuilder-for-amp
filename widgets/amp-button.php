@@ -30,8 +30,7 @@ class Amp_Button extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		// print_r($settings);//button_type,size,border_border,button_text_color,background_color
-		// die;
+		
 		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$settings['button_type'] = (!empty($settings['button_type']) ? $settings['button_type']:'default');
@@ -75,7 +74,7 @@ class Amp_Button extends Widget_Base {
 			border-radius: 3px;
 			line-height:1.3;
 			display:inline-block;
-			background: '.(!empty($settings['background_color'])?$settings['background_color']:'#818a91').';
+			background: '.(!empty($settings['background_color'])?$settings['background_color']:'#61ce70').';
 		}
 		.elementor-element-'.$this->get_id().' .elementor-type-justify a{
 			width:100%;

@@ -25,13 +25,12 @@ class Amp_Icon_Box extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		// $settings = $this->get_settings_for_display();
-		// print_r($settings);//icon,view,title_text,description_text,title_size,primary_color,icon_space,icon_size,icon_padding
-		// die;
+		$settings = $this->get_settings_for_display();
+		
 		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-star');
 		$settings['view'] = (!empty($settings['view']) ? $settings['view']:'default');
 		$settings['shape'] = (!empty($settings['shape']) ? $settings['shape']:'cicle');
-		$settings['primary_color'] = (!empty($settings['primary_color']) ? $settings['primary_color']:'#818a91');
+		$settings['primary_color'] = (!empty($settings['primary_color']) ? $settings['primary_color']:'#6ec1e4');
 		$settings['secondary_color'] = (!empty($settings['secondary_color']) ? $settings['secondary_color']:'#fff');
 		$settings['icon_space']['size'] = (!empty($settings['icon_space']['size']) ? $settings['icon_space']['size']:'15');
 		$settings['icon_space']['unit'] = (!empty($settings['icon_space']['unit']) ? $settings['icon_space']['unit']:'px');
@@ -86,9 +85,11 @@ class Amp_Icon_Box extends Widget_Base {
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$settings['icon'] = (!empty($settings['icon'] || isset($settings['icon'])) ? $settings['icon']:'fa fa-star');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$this->add_render_attribute( 'icon', 'class', [ 'elementor-icon', 'elementor-animation-' . $settings['hover_animation'] ] );
-
+		
+		$settings['title_size'] = (!empty($settings['title_size'] || isset($settings['title_size'])) ? $settings['title_size']:'h3');
 		$icon_tag = 'span';
 		$has_icon = ! empty( $settings['icon'] );
 

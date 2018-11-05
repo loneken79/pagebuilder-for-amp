@@ -1,10 +1,9 @@
 <?php
-namespace Elementor;
+namespace ElementorForAmp\Widgets;
 
 use Elementor\Core\Responsive\Responsive;
 use Elementor\Core\Settings\Manager as SettingsManager;
 use Elementor\TemplateLibrary\Source_Local;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -17,8 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Editor {
+class Amp_Editor {
 
+echo "hello";
+die;
 	/**
 	 * The nonce key for Elementor editor.
 	 */
@@ -537,7 +538,7 @@ class Editor {
 				'enabled_schemes' => Schemes_Manager::get_enabled_schemes(),
 			],
 			'default_schemes' => $plugin->schemes_manager->get_schemes_defaults(),
-			'settings' => SettingsManager::get_settings_managers_config(),
+			//'settings' => SettingsManager::get_settings_managers_config(),
 			'system_schemes' => $plugin->schemes_manager->get_system_schemes(),
 			'wp_editor' => $this->get_wp_editor_config(),
 			'settings_page_link' => Settings::get_url(),
@@ -817,11 +818,11 @@ class Editor {
 
 		wp_enqueue_style( 'elementor-editor' );
 
-		if ( Responsive::has_custom_breakpoints() ) {
-			$breakpoints = Responsive::get_breakpoints();
+		// if ( Responsive::has_custom_breakpoints() ) {
+		// 	$breakpoints = Responsive::get_breakpoints();
 
-			wp_add_inline_style( 'elementor-editor', '.elementor-device-tablet #elementor-preview-responsive-wrapper { width: ' . $breakpoints['md'] . 'px; }' );
-		}
+		// 	wp_add_inline_style( 'elementor-editor', '.elementor-device-tablet #elementor-preview-responsive-wrapper { width: ' . $breakpoints['md'] . 'px; }' );
+		// }
 
 		/**
 		 * After editor enqueue styles.

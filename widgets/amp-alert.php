@@ -26,8 +26,7 @@ class Amp_Alert extends Widget_Base {
 	}
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		//print_r($settings);//alert_type,show_dismiss,background,border_color,border_left-width,title_color,description_color,
-		//die;
+		
 		$settings['background'] = (!empty($settings['background']) ? $settings['background']:'');
 		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'');
 		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'');

@@ -29,7 +29,7 @@ class Amp_Text_Editor extends Widget_Base {
 		// print_r($settings);//align,,
 		// die;
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
-		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#333');
+		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#7a7a7a');
 		$drop_cap_css = '';
 		if($settings['drop_cap'] == 'yes'){
 			$drop_cap_css = '.elementor-element-'.$this->get_id().' .elementor-text-editor p:first-child:first-letter {

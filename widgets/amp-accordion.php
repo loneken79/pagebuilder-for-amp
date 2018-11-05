@@ -37,8 +37,8 @@ class Amp_Accordion extends Widget_Base {
 		$settings['border_color'] = (!empty($settings['border_color']) ? $settings['border_color']:'#ccc');
 		
 		$settings['title_background'] = (!empty($settings['title_background']) ? $settings['title_background']:'#fff');
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#555');
-		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#333');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
+		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#61ce70');
 		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
 		$settings['icon_active_color'] = (!empty($settings['icon_active_color']) ? $settings['icon_active_color']:'#333');
 		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#555');
@@ -59,7 +59,7 @@ class Amp_Accordion extends Widget_Base {
 			    border: none;
 			    font-size: 16px;
 			    color: '.$settings['title_color'].';
-			    font-weight: 500;
+			    font-weight: 600;
 			}
 			.elementor-element-'.$this->get_id().' .elementor-accordion-item p{
 				border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
@@ -103,10 +103,10 @@ class Amp_Accordion extends Widget_Base {
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-plus');
+		
+		$settings['icon'] = (!empty($settings['icon'] || isset($settings['icon'])) ? $settings['icon']:'fa fa-plus');
 		$settings['icon_active'] = (!empty($settings['icon_active']) ? $settings['icon_active']:'fa fa-minus');
-		// print_r($settings);
-		// die;
+		
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$id_int = substr( $this->get_id_int(), 0, 3 );
 		?>
@@ -140,26 +140,17 @@ class Amp_Accordion extends Widget_Base {
 				$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
 				?>
 				<section class="elementor-accordion-item" <?php echo ($tab_count == 1)?'expanded':'';?> [class]="selectedTab == <?php echo $tab_count;?> ? 'tabButton active' : 'tabButton'">
-			        <h4><span class="elementor-accordion-icon elementor-accordion-icon-<?php echo esc_attr( $settings['icon_align'] ); ?>" aria-hidden="true">
-							<i class="elementor-accordion-icon-closed <?php echo esc_attr( $settings['icon'] ); ?>"></i>
-							<i class="elementor-accordion-icon-opened <?php echo esc_attr( $settings['icon_active'] ); ?>"></i>
-						</span><?php echo $item['tab_title']; ?></h4>
-			        <p><?php echo $this->parse_text_editor( $item['tab_content'] ); ?></p>
-			      </section>
-			      
-				<!-- <div class="elementor-accordion-item">
-					<<?php echo $settings['title_html_tag']; ?> <?php echo $this->get_render_attribute_string( $tab_title_setting_key ); ?>>
-						<?php if ( $settings['icon'] ) : ?>
-						<span class="elementor-accordion-icon elementor-accordion-icon-<?php echo esc_attr( $settings['icon_align'] ); ?>" aria-hidden="true">
+			        <h4>
+			        	<?php if ( $settings['icon'] ) : ?>
+			        	<span class="elementor-accordion-icon elementor-accordion-icon-<?php echo esc_attr( $settings['icon_align'] ); ?>" aria-hidden="true">
 							<i class="elementor-accordion-icon-closed <?php echo esc_attr( $settings['icon'] ); ?>"></i>
 							<i class="elementor-accordion-icon-opened <?php echo esc_attr( $settings['icon_active'] ); ?>"></i>
 						</span>
 						<?php endif; ?>
-						<?php echo $item['tab_title']; ?>
-					</<?php echo $settings['title_html_tag']; ?>>
-					<div <?php echo $this->get_render_attribute_string( $tab_content_setting_key ); ?>><?php echo $this->parse_text_editor( $item['tab_content'] ); ?></div>
-				</div> -->
-
+						<?php echo $item['tab_title']; ?></h4>
+			        <p><?php echo $this->parse_text_editor( $item['tab_content'] ); ?></p>
+			      </section>
+			      
 			<?php endforeach; ?>
 		</amp-accordion>
 		<?php

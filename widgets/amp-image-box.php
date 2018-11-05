@@ -29,8 +29,8 @@ class Amp_Image_Box extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
-		$settings['description_color'] = (!empty($settings['description_color']) ? $settings['description_color']:'#555');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
+		$settings['description_color'] = (!empty($settings['description_color']) ? $settings['description_color']:'#7a7a7a');
 		$settings['image_size']['size'] = (!empty($settings['image_size']['size']) ? $settings['image_size']['size']:'30');
 		$settings['image_size']['unit'] = (!empty($settings['image_size']['unit']) ? $settings['image_size']['unit']:'%');
 		$settings['image_space']['size'] = (!empty($settings['image_space']['size']) ? $settings['image_space']['size']:'15');
@@ -97,6 +97,7 @@ class Amp_Image_Box extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$settings['position'] = (!empty($settings['position']) ? $settings['position']:'center');
+		$settings['title_size'] = (!empty($settings['title_size'] || isset($settings['title_size'])) ? $settings['title_size']:'h3');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$has_content = ! empty( $settings['title_text'] ) || ! empty( $settings['description_text'] );
 

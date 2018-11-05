@@ -42,8 +42,8 @@ class Amp_Counter extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		// print_r($settings);//number_color,title_color,
 		// die;
-		$settings['number_color'] = (!empty($settings['number_color']) ? $settings['number_color']:'#333');
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
+		$settings['number_color'] = (!empty($settings['number_color']) ? $settings['number_color']:'#6ec1e4');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#54595f');
 		$inline_styles = '
 			.elementor-element-'.$this->get_id().' .elementor-counter{
 				text-align:center;

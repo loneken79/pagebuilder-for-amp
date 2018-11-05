@@ -30,11 +30,11 @@ class Amp_Testimonial extends Widget_Base {
 		
 		$settings['testimonial_image_position'] = (!empty($settings['testimonial_image_position']) ? $settings['testimonial_image_position']:'aside');
 		$settings['testimonial_alignment'] = (!empty($settings['testimonial_alignment']) ? $settings['testimonial_alignment']:'center');
-		$settings['content_content_color'] = (!empty($settings['content_content_color']) ? $settings['content_content_color']:'#444');
+		$settings['content_content_color'] = (!empty($settings['content_content_color']) ? $settings['content_content_color']:'#7a7a7a');
 		$settings['image_size']['size'] = (!empty($settings['image_size']['size']) ? $settings['image_size']['size']:'60');
 		$settings['image_size']['unit'] = (!empty($settings['image_size']['unit']) ? $settings['image_size']['unit']:'px');
-		$settings['name_text_color'] = (!empty($settings['name_text_color']) ? $settings['name_text_color']:'#333');
-		$settings['job_text_color'] = (!empty($settings['job_text_color']) ? $settings['job_text_color']:'#333');
+		$settings['name_text_color'] = (!empty($settings['name_text_color']) ? $settings['name_text_color']:'#6ec1e4');
+		$settings['job_text_color'] = (!empty($settings['job_text_color']) ? $settings['job_text_color']:'#54595f');
 		$inline_styles = '
 			.elementor-element-'.$this->get_id().' .elementor-testimonial-wrapper{
 				width:100%;
@@ -66,6 +66,7 @@ class Amp_Testimonial extends Widget_Base {
 				font-size:16px;
 				color:'.$settings['name_text_color'].';
 				line-height: 1.3;
+				font-weight: 600;
 			}
 			.elementor-element-'.$this->get_id().' .elementor-testimonial-job{
 				font-size:14px;
