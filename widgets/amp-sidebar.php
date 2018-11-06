@@ -30,12 +30,13 @@ class Amp_Sidebar extends Widget_Base {
 				box-shadow: none;
 			}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-sidebar'][$this->get_id()] = $inline_styles;
 	}
 
 	protected function render() {
 		$sidebar = $this->get_settings_for_display( 'sidebar' );
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		if ( empty( $sidebar ) ) {
 			return;
 		}

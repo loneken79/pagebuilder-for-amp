@@ -50,11 +50,12 @@ class Amp_Text_Editor extends Widget_Base {
 			}
 			'.$drop_cap_css.'
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-text-editor'][$this->get_id()] = $inline_styles;
 	}
 
 	protected function render() {
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		$settings = $this->get_settings_for_display();
 		$default_text = '<p>Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>';
 		

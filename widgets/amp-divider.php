@@ -44,14 +44,13 @@ class Amp_divider extends Widget_Base {
 			    color:'.$settings['color'].';
 			}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-divider'][$this->get_id()] = $inline_styles;
 	}
 
 	protected function render() {
-		// $settings = $this->get_settings_for_display();
-		// print_r($settings);
-		// die;
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		
+		$this->amp_elementor_widget_styles();
 		?>
 		<div class="elementor-divider">
 			<span class="elementor-divider-separator"></span>

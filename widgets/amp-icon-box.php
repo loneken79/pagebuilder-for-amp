@@ -82,13 +82,14 @@ class Amp_Icon_Box extends Widget_Base {
 				font-weight:400;
 			}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-icon-box'][$this->get_id()] = $inline_styles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$settings['icon'] = (!empty($settings['icon'] || isset($settings['icon'])) ? $settings['icon']:'fa fa-star');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		$this->add_render_attribute( 'icon', 'class', [ 'elementor-icon', 'elementor-animation-' . $settings['hover_animation'] ] );
 		
 		$settings['title_size'] = (!empty($settings['title_size'] || isset($settings['title_size'])) ? $settings['title_size']:'h3');

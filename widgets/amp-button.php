@@ -113,7 +113,8 @@ class Amp_Button extends Widget_Base {
    	 		margin-left:'.$settings['icon_indent']['size'].''.$settings['icon_indent']['unit'].';
    	 	}
 		'.$default_button_colors;
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-button'][$this->get_id()] = $inline_styles;
 	}
 
 	protected function render() {
@@ -122,7 +123,7 @@ class Amp_Button extends Widget_Base {
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$settings['link']['url'] = (!empty($settings['link']['url'] ) ? $settings['link']['url'] :'#');
 		$settings['button_type'] = (!empty($settings['button_type']) ? $settings['button_type']:'default');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		$this->add_render_attribute( 'wrapper', 'class', 'elementor-button-wrapper elementor-button-'.$settings['button_type'].' elementor-type-'.$settings['align'].' elementor-size-'.$settings['size'] );
 
 		if ( ! empty( $settings['link']['url'] ) ) {

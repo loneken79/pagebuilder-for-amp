@@ -101,12 +101,13 @@ class Amp_Social_Icons extends Widget_Base {
 			    transform: translateX(-50%); 
 			}
 		'.$custom_icon_css;
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-social-icons'][$this->get_id()] = $inline_styles;
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		$class_animation = '';
 		$settings['shape'] = (!empty($settings['shape']) ? $settings['shape']:'rounded');
 		if ( ! empty( $settings['hover_animation'] ) ) {

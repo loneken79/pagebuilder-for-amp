@@ -66,12 +66,13 @@ class Amp_Icon_List extends Widget_Base {
 				padding-left:'.$settings['text_indent']['size'].''.$settings['text_indent']['unit'].';
 			}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-icon-list'][$this->get_id()] = $inline_styles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		if( $settings['view'] == 'inline'){
 			$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items elementor-inline-items' );
 		}else{
