@@ -91,15 +91,17 @@ class Amp_Progress extends Widget_Base {
 		}
 		'.$default_bar_colors
 		;
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-progress'][$this->get_id()] = $inline_styles;
+        //echo $inline_styles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$this->amp_elementor_widget_styles();
 		$settings['progress_type'] = (!empty($settings['progress_type']) ? $settings['progress_type']:'default');
 		$settings['percent']['size'] = (!empty($settings['percent']['size'] ) ? $settings['percent']['size']:'50');
 		$settings['percent']['unit'] = (!empty($settings['percent']['unit']) ? $settings['percent']['unit']:'%');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		$this->add_render_attribute( 'wrapper', [
 			'class' => 'elementor-progress-wrapper progress-'.$settings['progress_type'],
 			'role' => 'progressbar',

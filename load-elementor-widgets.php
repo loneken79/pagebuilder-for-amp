@@ -7,7 +7,7 @@ namespace ElementorForAmp;
  * Main Plugin class
  * @since 1.2.0
  */
-
+global $amp_elemetor_custom_css;
 class Amp_Elementor_Widgets_Loading {
 	
 	private static $_instance = null;
@@ -92,6 +92,16 @@ class Amp_Elementor_Widgets_Loading {
 				$common_css .= file_get_contents($elementorCssPath);
 			}
 		}
+		global $amp_elemetor_custom_css;
+		if(is_array($amp_elemetor_custom_css)){
+			foreach ($amp_elemetor_custom_css as $key => $cssHeadingValue) {
+				if(is_array($cssHeadingValue)){
+					foreach ($cssHeadingValue as $key => $cssValue) {
+						echo $cssValue;
+					}
+				}
+			}
+		}
 		echo $common_css;
 	}
 	
@@ -133,7 +143,6 @@ class Amp_Elementor_Widgets_Loading {
 
 			$this->include_widgets_files();
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Heading() );
-
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Image() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Button() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Text_Editor() );

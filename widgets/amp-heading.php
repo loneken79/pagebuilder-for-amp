@@ -55,14 +55,16 @@ class Amp_Heading extends Widget_Base {
 			text-align:'.$settings['align'].';
 		}
 		';
-        echo $inline_styles;
+		global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-heading'][$this->get_id()] = $inline_styles;
+        //echo $inline_styles;
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$this->amp_elementor_widget_styles();
 		$settings['header_size'] = (!empty($settings['header_size']) ? $settings['header_size']:'h2');
 		$settings['size'] = (!empty($settings['size']) ? $settings['size']:'default');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
 		if ( empty( $settings['title'] ) ) {
 			return;
 		}
