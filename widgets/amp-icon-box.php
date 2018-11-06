@@ -26,8 +26,9 @@ class Amp_Icon_Box extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		
+
 		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-star');
+		$settings['content_vertical_alignment'] = (!empty($settings['content_vertical_alignment']) ? $settings['content_vertical_alignment']:'middle');
 		$settings['view'] = (!empty($settings['view']) ? $settings['view']:'default');
 		$settings['shape'] = (!empty($settings['shape']) ? $settings['shape']:'cicle');
 		$settings['primary_color'] = (!empty($settings['primary_color']) ? $settings['primary_color']:'#6ec1e4');
@@ -43,20 +44,44 @@ class Amp_Icon_Box extends Widget_Base {
 		$settings['title_bottom_space']['unit'] = (!empty($settings['title_bottom_space']['unit']) ? $settings['title_bottom_space']['unit']:'px');
 		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
 		$settings['description_color'] = (!empty($settings['description_color']) ? $settings['description_color']:'#7a7a7a');
+		$settings['position'] = (!empty($settings['position']) ? $settings['position']:'center');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'center');
 		$inline_styles = '
 			.elementor-element-'.$this->get_id().' .elementor-icon-box-wrapper{
 				text-align:'.$settings['align'].';
 			}
+			.elementor-element-'.$this->get_id().' .elementor-position-right{
+				display: flex;
+				text-align: left;
+		    	flex-direction: row-reverse;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-left .elementor-icon-box-icon {
+			    margin-right: 15px;
+			    margin-bottom:0px;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-right .elementor-icon-box-icon {
+			    margin-left: 15px;
+			    margin-bottom:0px;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-position-left{
+				display: flex;
+				text-align: left;
+		    	flex-direction: row;
+			}
+			.elementor-element-'.$this->get_id().' .elementor-view-framed .elementor-icon-box-icon{
+				padding: '.$settings['icon_padding']['size'].''.$settings['icon_padding']['unit'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-view-stacked .elementor-icon-box-icon{
+				padding: '.$settings['icon_padding']['size'].''.$settings['icon_padding']['unit'].';
+			}
 			.elementor-element-'.$this->get_id().' .elementor-icon-box-icon{
 				font-size: '.$settings['icon_size']['size'].''.$settings['icon_size']['unit'].';
-				padding: '.$settings['icon_padding']['size'].''.$settings['icon_padding']['unit'].';
 				line-height:0;
 				display: inline-block;
 			    border-radius: 50%;
 			    margin-bottom:'.$settings['icon_space']['size'].''.$settings['icon_space']['unit'].';
 			}
-			.elementor-element-'.$this->get_id().' .elementor-icon-box-icon .elementor-icon{
+			.elementor-element-'.$this->get_id().' .elementor-view-default .elementor-icon-box-icon .elementor-icon{
 				color:'.$settings['primary_color'].';
 			}
 			.elementor-element-'.$this->get_id().' .elementor-shape-square .elementor-icon-box-icon{
@@ -80,6 +105,16 @@ class Amp_Icon_Box extends Widget_Base {
 				font-size:16px;
 				color:'.$settings['description_color'].';
 				font-weight:400;
+				margin:0;
+			}
+			.elementor-vertical-align-bottom{
+				align-items: flex-end;
+			}
+			.elementor-vertical-align-middle{
+				align-items: center;
+			}
+			.elementor-vertical-align-top{
+				align-items: flex-start;
 			}
 		';
         echo $inline_styles;
@@ -87,8 +122,13 @@ class Amp_Icon_Box extends Widget_Base {
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$settings['content_vertical_alignment'] = (!empty($settings['content_vertical_alignment']) || isset($settings['content_vertical_alignment']) ? $settings['content_vertical_alignment']:'top');
+		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'center');
+		$settings['shape'] = (!empty($settings['shape']) ? $settings['shape']:'cicle');
 		$settings['icon'] = (!empty($settings['icon'] || isset($settings['icon'])) ? $settings['icon']:'fa fa-star');
+		$settings['view'] = (!empty($settings['view']) ? $settings['view']:'default');
 		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$settings['position'] = (!empty($settings['position']) ? $settings['position']:'center');
 		$this->add_render_attribute( 'icon', 'class', [ 'elementor-icon', 'elementor-animation-' . $settings['hover_animation'] ] );
 		
 		$settings['title_size'] = (!empty($settings['title_size'] || isset($settings['title_size'])) ? $settings['title_size']:'h3');
@@ -121,7 +161,7 @@ class Amp_Icon_Box extends Widget_Base {
 		$this->add_inline_editing_attributes( 'title_text', 'none' );
 		$this->add_inline_editing_attributes( 'description_text' );
 		?>
-		<div class="elementor-icon-box-wrapper elementor-view-<?php echo $settings['view'];?> elementor-shape-<?php echo $settings['shape'];?>">
+		<div class="elementor-icon-box-wrapper elementor-position-<?php echo $settings['position'];?> elementor-view-<?php echo $settings['view'];?> elementor-shape-<?php echo $settings['shape'];?> elementor-vertical-align-<?php echo $settings[''];?> elementor-vertical-align-<?php echo $settings['content_vertical_alignment'];?>">
 		<?php if ( $has_icon ) : ?>
 			<div class="elementor-icon-box-icon">
 				<<?php echo implode( ' ', [ $icon_tag, $icon_attributes, $link_attributes ] ); ?>>

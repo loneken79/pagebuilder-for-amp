@@ -60,7 +60,7 @@ final class Elementor_For_Amp {
     public function amp_elementor_pagebuilder_canonical_link(){
         ?>
         <link rel='stylesheet' id='font-awesome-css'  href='<?php echo ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/font-awesome.min.css';?>' type='text/css' media='all' />
-        <link rel='stylesheet' id='elementor-frontend-css'  href='<?php echo ELEMENTOR_ASSETS_URL . 'css/frontend.min.css';?>' type='text/css' media='all' />
+        <!-- <link rel='stylesheet' id='elementor-frontend-css'  href='<?php echo ELEMENTOR_ASSETS_URL . 'css/frontend.min.css';?>' type='text/css' media='all' /> -->
         <?php
     }
     
