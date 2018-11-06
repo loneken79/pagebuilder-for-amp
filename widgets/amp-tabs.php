@@ -54,7 +54,7 @@ class Amp_Tabs extends Widget_Base {
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton[selected] {
         	border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
-        	
+        	    
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton[selected] {
         	border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
@@ -84,6 +84,10 @@ class Amp_Tabs extends Widget_Base {
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .elementor-tabs-wrapper{
         	display:grid;
+
+        }
+        .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .elementor-tabs-wrapper{
+        	border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs .tabButton {
             position: relative;
@@ -97,7 +101,9 @@ class Amp_Tabs extends Widget_Base {
         .elementor-element-'.$this->get_id().' .elementor-tabs .tabContent {
         	display: none;
     		border-top-style: none;
-    		border: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+    		border-bottom: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+    		border-left: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+    		border-right: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
     		padding: 20px;
     		width:100%;
     		font-size:17px;

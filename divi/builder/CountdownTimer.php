@@ -253,18 +253,6 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 		if ( 'on' !== $use_background_color ) {
 			$this->add_classname( 'et_pb_no_bg' );
 		}
-		// '<amp-date-countdown%1$s class="%2$s"%3$s data-end-timestamp="%4$s"%16$s%17$s timestamp-seconds="%4$s" layout="fixed-height" height="100">
-		// 			<template type="amp-mustache">
-		// 			%5$s
-		// 			<p class="cdt">
-		// 		        <span class="cdt_value">{{d}}</span><span class="cdt_lbl">%6$s</span> 
-		// 		        <span class="cdt_value">{{h}}</span><span class="cdt_lbl">%7$s</span>
-		// 		        <span class="cdt_value">{{m}}</span><span class="cdt_lbl">%9$s</span>
-
-		// 		    </p>
-		// 		    </template>
-		// 	</amp-date-countdown>',
-		//<span class="cdt_value">{{s}}</span><span class="cdt_lbl">%11$s</span>
 
 		$output = sprintf(
 			'<amp-date-countdown%1$s class="%2$s"%3$s data-end-timestamp="%4$s"%16$s%17$s timestamp-seconds="%4$s" layout="fixed-height" height="150">
