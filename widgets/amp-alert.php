@@ -66,14 +66,16 @@ class Amp_Alert extends Widget_Base {
 			}
 			
 		'.$border_width_css.''.$default_css.''.$background_color_css;
-        echo $inline_styles;
+        //echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-alert'][$this->get_id()] = $inline_styles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$settings['alert_type'] = (!empty($settings['alert_type']) ? $settings['alert_type']:'info');
 		$settings['show_dismiss'] = (!empty($settings['show_dismiss']) ? $settings['show_dismiss']:'show');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		if ( empty( $settings['alert_title'] ) ) {
 			return;
 		}

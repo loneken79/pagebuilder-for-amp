@@ -96,14 +96,15 @@ class Amp_Toggle extends Widget_Base {
 				width:auto;
 			}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-toggle'][$this->get_id()] = $inline_styles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$settings['icon'] = (!empty($settings['icon']) || isset($settings['icon']) ? $settings['icon']:'fa fa-caret-right');
 		$settings['icon_active'] = (!empty($settings['icon_active']) ? $settings['icon_active']:'fa fa-caret-up');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		$id_int = substr( $this->get_id_int(), 0, 3 );
 		?>
 		<amp-accordion class="elementor-toggle" role="tablist">

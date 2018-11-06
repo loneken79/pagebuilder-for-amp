@@ -26,11 +26,12 @@ class Amp_Html extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$inline_styles = '';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-html'][$this->get_id()] = $inline_styles;
 	}
 	
 	protected function render() {
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		 echo $this->get_settings_for_display( 'html' );
 	}
 

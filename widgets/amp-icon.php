@@ -66,13 +66,14 @@ class Amp_Icon extends Widget_Base {
 	    	background-color: '.$settings['primary_color'].';
 		}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-icon'][$this->get_id()] = $inline_styles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$settings['icon'] = (!empty($settings['icon']) || isset($settings['icon']) ? $settings['icon']:'fa fa-star');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));//$settings['shape']
+		$this->amp_elementor_widget_styles();//$settings['shape']
 		$this->add_render_attribute( 'wrapper', 'class', 'elementor-icon-wrapper elementor-view-'.$settings['view'] .' elementor-shape-'.$settings['shape'] );
 
 		$this->add_render_attribute( 'icon-wrapper', 'class', 'elementor-icon' );

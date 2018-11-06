@@ -97,7 +97,9 @@ class Amp_Accordion extends Widget_Base {
 				width:auto;
 			}
 		';
-        echo $inline_styles;
+        //echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-accordion'][$this->get_id()] = $inline_styles;
 	}
 
 	
@@ -107,7 +109,7 @@ class Amp_Accordion extends Widget_Base {
 		$settings['icon'] = (!empty($settings['icon'] || isset($settings['icon'])) ? $settings['icon']:'fa fa-plus');
 		$settings['icon_active'] = (!empty($settings['icon_active']) ? $settings['icon_active']:'fa fa-minus');
 		
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		$id_int = substr( $this->get_id_int(), 0, 3 );
 		?>
 		<amp-accordion class="elementor-accordion" role="tablist" disable-session-states expand-single-section>

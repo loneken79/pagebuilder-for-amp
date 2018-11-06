@@ -91,14 +91,15 @@ class Amp_Image_Box extends Widget_Base {
 				}
 			}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-image-box'][$this->get_id()] = $inline_styles;
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$settings['position'] = (!empty($settings['position']) ? $settings['position']:'center');
 		$settings['title_size'] = (!empty($settings['title_size'] || isset($settings['title_size'])) ? $settings['title_size']:'h3');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		$has_content = ! empty( $settings['title_text'] ) || ! empty( $settings['description_text'] );
 
 		$html = '<div class="elementor-image-box-wrapper elementor-position-'.$settings['position'].'">';

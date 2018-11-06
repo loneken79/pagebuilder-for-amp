@@ -64,13 +64,14 @@ class Amp_Counter extends Widget_Base {
 				    line-height: 1.5;
 			}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-counter'][$this->get_id()] = $inline_styles;
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$settings['ending_number'] = (!empty($settings['ending_number']) ? $settings['ending_number']:'100	');
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		$this->amp_elementor_widget_styles();
 		$this->add_render_attribute( 'counter', [
 			'class' => 'elementor-counter-number',
 			'data-duration' => $settings['duration'],

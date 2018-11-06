@@ -26,8 +26,14 @@ class Amp_divider extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$settings['style'] = (!empty($settings['style']) ? $settings['style']:'solid');
+		$settings['weight']['size'] = (!empty($settings['weight']['size']) ? $settings['weight']['size']:'1');
+		$settings['weight']['unit'] = (!empty($settings['weight']['unit']) ? $settings['weight']['unit']:'px');
+		$settings['width']['size'] = (!empty($settings['width']['size']) ? $settings['width']['size']:'100');
+		$settings['width']['unit'] = (!empty($settings['width']['unit']) ? $settings['width']['unit']:'%');
 		// print_r($settings);
 		// die;
 		$inline_styles = '
@@ -44,14 +50,13 @@ class Amp_divider extends Widget_Base {
 			    color:'.$settings['color'].';
 			}
 		';
-        echo $inline_styles;
+        global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-divider'][$this->get_id()] = $inline_styles;
 	}
 
 	protected function render() {
-		// $settings = $this->get_settings_for_display();
-		// print_r($settings);
-		// die;
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
+		
+		$this->amp_elementor_widget_styles();
 		?>
 		<div class="elementor-divider">
 			<span class="elementor-divider-separator"></span>
