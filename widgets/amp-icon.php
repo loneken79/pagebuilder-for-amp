@@ -32,7 +32,7 @@ class Amp_Icon extends Widget_Base {
 		$settings['view'] = (!empty($settings['view']) ? $settings['view']:'default');
 		$settings['shape'] = (!empty($settings['shape']) ? $settings['shape']:'cicle');
 
-		$settings['primary_color'] = (!empty($settings['primary_color']) ? $settings['primary_color']:'#818a91');
+		$settings['primary_color'] = (!empty($settings['primary_color']) ? $settings['primary_color']:'#6ec1e4');
 		$settings['secondary_color'] = (!empty($settings['secondary_color']) ? $settings['secondary_color']:'#fff');
 		$settings['icon_space']['size'] = (!empty($settings['icon_space']['size']) ? $settings['icon_space']['size']:'15');
 		$settings['icon_space']['unit'] = (!empty($settings['icon_space']['unit']) ? $settings['icon_space']['unit']:'px');

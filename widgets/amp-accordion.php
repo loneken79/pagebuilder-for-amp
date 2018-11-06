@@ -39,8 +39,8 @@ class Amp_Accordion extends Widget_Base {
 		$settings['title_background'] = (!empty($settings['title_background']) ? $settings['title_background']:'#fff');
 		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
 		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#61ce70');
-		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
-		$settings['icon_active_color'] = (!empty($settings['icon_active_color']) ? $settings['icon_active_color']:'#333');
+		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#6ec1e4');
+		$settings['icon_active_color'] = (!empty($settings['icon_active_color']) ? $settings['icon_active_color']:'#61ce70');
 		$settings['content_color'] = (!empty($settings['content_color']) ? $settings['content_color']:'#555');
 
 		$settings['content_background_color'] = (!empty($settings['content_background_color']) ? $settings['content_background_color']:'#fff');
@@ -139,7 +139,7 @@ class Amp_Accordion extends Widget_Base {
 
 				$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
 				?>
-				<section class="elementor-accordion-item" <?php echo ($tab_count == 1)?'expanded':'';?> [class]="selectedTab == <?php echo $tab_count;?> ? 'tabButton active' : 'tabButton'">
+				<section class="elementor-accordion-item" <?php echo ($tab_count == 1)?'expanded':'';?> [class]="selectedTab == <?php echo $tab_count;?> ? 'elementor-accordion-item tab-Button active' : 'elementor-accordion-item tab-Button'">
 			        <h4>
 			        	<?php if ( $settings['icon'] ) : ?>
 			        	<span class="elementor-accordion-icon elementor-accordion-icon-<?php echo esc_attr( $settings['icon_align'] ); ?>" aria-hidden="true">

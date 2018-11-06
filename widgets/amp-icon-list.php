@@ -48,7 +48,8 @@ class Amp_Icon_List extends Widget_Base {
 				padding-bottom:calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
 				margin-right: calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
 				margin-left: calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
-				
+				padding: 0;
+    			display: inherit;
 			}
 			.elementor-element-'.$this->get_id().' .elementor-inline-items li{
 				    display: inline-flex;

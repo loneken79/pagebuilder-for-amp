@@ -31,9 +31,11 @@ class Amp_Toggle extends Widget_Base {
 		$settings['title_background'] = (!empty($settings['title_background']) ? $settings['title_background']:'#fff');
 		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
 		$settings['tab_active_color'] = (!empty($settings['tab_active_color']) ? $settings['tab_active_color']:'#61ce70');
+		$settings['icon'] = (!empty($settings['icon']) || isset($settings['icon']) ? $settings['icon']:'fa fa-caret-right');
 		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
-		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#333');
-		
+		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#6ec1e4');
+		$settings['icon_active_color'] = (!empty($settings['icon_active_color']) ? $settings['icon_active_color']:'#61ce70');
+
 		$settings['icon_space']['size'] = (!empty($settings['icon_space']['size']) ? $settings['icon_space']['size']:'20');
 		$settings['icon_space']['unit'] = (!empty($settings['icon_space']['unit']) ? $settings['icon_space']['unit']:'px');
 		$settings['content_background_color'] = (!empty($settings['content_background_color']) ? $settings['content_background_color']:'#fff');

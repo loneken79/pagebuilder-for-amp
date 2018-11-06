@@ -77,6 +77,9 @@ class Amp_Testimonial extends Widget_Base {
 			.elementor-element-'.$this->get_id().' .elementor-testimonial-image{
 				padding-right:15px;
 			}
+			.elementor-element-'.$this->get_id().' .elementor-testimonial-image amp-img{
+				height:100%;
+			}
 			.elementor-element-'.$this->get_id().' .elementor-testimonial-text-align-right .elementor-testimonial-meta{
 				float:right;
 			}

@@ -41,8 +41,8 @@ class Amp_Icon_Box extends Widget_Base {
 
 		$settings['title_bottom_space']['size'] = (!empty($settings['title_bottom_space']['size']) ? $settings['title_bottom_space']['size']:'0');
 		$settings['title_bottom_space']['unit'] = (!empty($settings['title_bottom_space']['unit']) ? $settings['title_bottom_space']['unit']:'px');
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#333');
-		$settings['description_color'] = (!empty($settings['description_color']) ? $settings['description_color']:'#555');
+		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
+		$settings['description_color'] = (!empty($settings['description_color']) ? $settings['description_color']:'#7a7a7a');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'center');
 		$inline_styles = '
 			.elementor-element-'.$this->get_id().' .elementor-icon-box-wrapper{
@@ -50,12 +50,14 @@ class Amp_Icon_Box extends Widget_Base {
 			}
 			.elementor-element-'.$this->get_id().' .elementor-icon-box-icon{
 				font-size: '.$settings['icon_size']['size'].''.$settings['icon_size']['unit'].';
-				color:'.$settings['primary_color'].';
 				padding: '.$settings['icon_padding']['size'].''.$settings['icon_padding']['unit'].';
 				line-height:0;
 				display: inline-block;
 			    border-radius: 50%;
 			    margin-bottom:'.$settings['icon_space']['size'].''.$settings['icon_space']['unit'].';
+			}
+			.elementor-element-'.$this->get_id().' .elementor-icon-box-icon .elementor-icon{
+				color:'.$settings['primary_color'].';
 			}
 			.elementor-element-'.$this->get_id().' .elementor-shape-square .elementor-icon-box-icon{
 				border-radius: 0;
@@ -68,16 +70,16 @@ class Amp_Icon_Box extends Widget_Base {
 			    color: '.$settings['secondary_color'].';
 	    		background-color: '.$settings['primary_color'].';
 			}
-			.elementor-icon-box-title{
+			.elementor-element-'.$this->get_id().' .elementor-icon-box-title{
 				font-size:18px;
 				font-weight:600;
 				color:'.$settings['title_color'].';
 				margin-bottom:'.$settings['title_bottom_space']['size'].''.$settings['title_bottom_space']['unit'].';
 			}
-			.elementor-icon-box-description{
-				font-size:17px;
+			.elementor-element-'.$this->get_id().' .elementor-icon-box-description{
+				font-size:16px;
 				color:'.$settings['description_color'].';
-				font-weight:500;
+				font-weight:400;
 			}
 		';
         echo $inline_styles;

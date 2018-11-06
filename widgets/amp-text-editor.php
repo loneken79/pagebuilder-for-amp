@@ -43,7 +43,7 @@ class Amp_Text_Editor extends Widget_Base {
 		}
 		$inline_styles = '
 			.elementor-element-'.$this->get_id().' .elementor-text-editor{
-				font-size:18px;
+				font-size:16px;
 				color:'.$settings['text_color'].';
 				line-height:1.5;
 				text-align:'.$settings['align'].';

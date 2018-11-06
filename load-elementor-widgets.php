@@ -24,9 +24,7 @@ class Amp_Elementor_Widgets_Loading {
 	}
 	public function amp_elementor_widget_styles(){
 		$common_css = '/*** Common Css **/
-		.elementor-widget-wrap{
-			margin:10px;
-		}
+		
 		.cntr .amp-wp-content, .cntr .amp-post-title{padding:0 10px;} 
 			.cntr{max-width:100%;padding:0;}
 		@media (min-width: 768px){
@@ -106,7 +104,7 @@ class Amp_Elementor_Widgets_Loading {
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-spacer.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-divider.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-accordion.php' );
-		require_once( AMP_WPBAKERY_PLUGIN_DIR . '/widgets/amp-video.php' );
+		//require_once( AMP_WPBAKERY_PLUGIN_DIR . '/widgets/amp-video.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-icon.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-image-box.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-icon-box.php' );
@@ -142,7 +140,7 @@ class Amp_Elementor_Widgets_Loading {
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Spacer() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Divider() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Accordion() );
-			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Video() );
+			//\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Video() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Icon() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Image_Box() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Icon_Box() );

@@ -73,7 +73,7 @@ class Amp_Progress extends Widget_Base {
 		.elementor-element-'.$this->get_id().' .elementor-progress-wrapper{
 			background:'.$settings['bar_bg_color'].';
 			width:100%;
-			line-height:18px;
+			line-height:1.6;
 		}
 		.elementor-element-'.$this->get_id().' .elementor-progress-bar{
 			background: '.(!empty($settings['bar_color'])?$settings['bar_color']:'#6ec1e4').';
