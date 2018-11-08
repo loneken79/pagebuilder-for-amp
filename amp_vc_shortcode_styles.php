@@ -45,6 +45,10 @@ foreach ( $amp_vc_elements_atts as $slug => $atts) {
 		case 'vc_basic_grid':
 			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-posts-grid.css';
 		break;
+		case 'vc_progress_bar':
+			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-progress-bar.css';
+			echo amp_vc_shortcode_inline_css( $slug, $atts );
+		break;
 		default:
 		break;
 	}

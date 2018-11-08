@@ -3,7 +3,6 @@
 function amp_vc_shortcode_inline_css($slug='',$atts = ''){
 	$inlineCss = '';
 	switch ($slug) {
-		
 		case 'vc_hoverbox':
 			if ( ! empty( $atts['image'] ) ) {
 				$image = intval( $atts['image'] );
@@ -21,6 +20,13 @@ function amp_vc_shortcode_inline_css($slug='',$atts = ''){
 				  background-repeat: no-repeat;
     			  background-size: 100% 100%;
 				}';
+			return $inlineCss;
+		case 'vc_progress_bar':
+			$inlineCss = '.vc_progress_bar_'.$atts['uniq_id'].'{
+				background-color:green;
+			}.vc_single_bar{
+				color:red;
+			}';
 			return $inlineCss;
 		break;
 		default:
