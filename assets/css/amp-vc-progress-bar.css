@@ -1,3 +1,21 @@
-.vc_progress_bar{
-	background-color: red;
+.vc_single_bar {
+    background: #f7f7f7;
+    position: relative;
+    margin-bottom: 11.66666667px;
+    border-radius: 3px;
+}
+.vc_single_bar .vc_label {
+    display: inline-block;
+    padding: 4px 10px;
+    position: relative;
+}
+.vc_bar{
+	background-color: #f7be68;
+    display: inline-block;
+    width: 100%;
+    color: #fff;
+    border-radius: 3px;
+}
+small {
+    font-size: 80%;
 }

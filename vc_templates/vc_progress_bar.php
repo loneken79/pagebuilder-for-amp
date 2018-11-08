@@ -97,13 +97,13 @@ foreach ( $graph_lines_data as $line ) {
 	$output .= '<div class="vc_general vc_single_bar' . ( ( isset( $line['color'] ) && 'custom' !== $line['color'] ) ?
 			' vc_progress-bar-color-' . $line['color'] : '' )
 		. '">';
-	$output .= '<small class="vc_label"' . $line['txtcolor'] . '>' . $line['label'] . $unit . '</small>';
+	$bar_text = '<small class="vc_label"' . $line['txtcolor'] . '>' . $line['label'] . $unit . '</small>';
 	if ( $max_value > 100.00 ) {
 		$percentage_value = (float) $line['value'] > 0 && $max_value > 100.00 ? round( (float) $line['value'] / $max_value * 100, 4 ) : 0;
 	} else {
 		$percentage_value = $line['value'];
 	}
-	$output .= '<span class="vc_bar ' . esc_attr( implode( ' ', $bar_options ) ) . '" data-percentage-value="' . esc_attr( $percentage_value ) . '" data-value="' . esc_attr( $line['value'] ) . '"' . $line['bgcolor'] . '></span>';
+	$output .= '<span class="vc_bar ' . esc_attr( implode( ' ', $bar_options ) ) . '" data-percentage-value="' . esc_attr( $percentage_value ) . '" data-value="' . esc_attr( $line['value'] ) . '"' . $line['bgcolor'] . ' style="width:'. esc_attr( $percentage_value ).'%">'.$bar_text.'</span>';
 	$output .= '</div>';
 }
 
