@@ -54,7 +54,9 @@ class Amp_Tabs extends Widget_Base {
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton[selected] {
         	border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
-        	    
+        	border-bottom: 1px solid #fff;
+			position: relative;
+			top: 2px;
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton[selected] {
         	border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
@@ -122,7 +124,7 @@ class Amp_Tabs extends Widget_Base {
         }
         @media(max-width:767px){
         	.elementor-element-'.$this->get_id().' .elementor-tabs-wrapper{
-        		dislay:none;
+        		display:none;
         	}
         	.elementor-element-'.$this->get_id().' .hidetabs{
 	        	display:block;
@@ -153,6 +155,11 @@ class Amp_Tabs extends Widget_Base {
 	        .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton.active, .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton[selected] {
 	        	border-bottom:none;
 	        }
+	        .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton[selected] {
+        	border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
+			position: relative;
+			top: 0px;
+        }
         }
         ';
         global $amp_elemetor_custom_css;
