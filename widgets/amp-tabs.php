@@ -54,9 +54,9 @@ class Amp_Tabs extends Widget_Base {
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton[selected] {
         	border-right:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
-        	border-bottom: 1px solid #fff;
+        	border-bottom: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid #fff;
 			position: relative;
-			top: 2px;
+			top: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].';
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton.active,  .elementor-element-'.$this->get_id().' .elementor-tabs-view-vertical .tabButton[selected] {
         	border-bottom:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
@@ -99,6 +99,7 @@ class Amp_Tabs extends Widget_Base {
 		    background:#fff;
 		    color:'.$settings['tab_color'].';
 		    font-size: 17px;
+		    top: '.$settings['border_width']['size'].''.$settings['border_width']['unit'].';
         }
         .elementor-element-'.$this->get_id().' .elementor-tabs .tabContent {
         	display: none;
@@ -129,7 +130,7 @@ class Amp_Tabs extends Widget_Base {
         	.elementor-element-'.$this->get_id().' .hidetabs{
 	        	display:block;
 	        }
-	        .elementor-element-'.$this->get_id().' .elementor-tabs .tabButton{width:100%;}
+	        .elementor-element-'.$this->get_id().' .elementor-tabs .tabButton{width:100%;top:0px;}
 	        .elementor-element-'.$this->get_id().' .elementor-tabs-view-horizontal .tabButton{
 				border-top:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
 				border-left:'.$settings['border_width']['size'].''.$settings['border_width']['unit'].' solid '.$settings['border_color'].';
