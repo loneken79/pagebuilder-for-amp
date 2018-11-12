@@ -22,13 +22,14 @@ foreach ( $amp_vc_elements_atts as $slug => $atts) {
 		break;
 		case 'vc_icon':
 			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-icon.css';
-			//echo amp_vc_shortcode_inline_css( $slug, $atts );
+			echo amp_vc_shortcode_inline_css( $slug, $atts );
 		break;
 		case 'vc_message':
 			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-message.css';
 		break;
 		case 'vc_separator':
 			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-separator.css';
+			echo amp_vc_shortcode_inline_css( $slug, $atts );
 		break;
 		case 'vc_toggle':
 			include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-toggle.css';

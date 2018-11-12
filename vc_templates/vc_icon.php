@@ -31,7 +31,8 @@ $type = $icon_fontawesome = $icon_openiconic = $icon_typicons = $icon_entypo = $
 
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
-
+// print_r( $atts );
+// die;
 $shortcode_slug = $this->getShortcode();
 $amp_vc_elements_atts[$shortcode_slug] = $atts;
 $class_to_filter = '';

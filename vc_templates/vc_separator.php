@@ -23,6 +23,8 @@ global $amp_vc_elements_atts;
 $el_width = $style = $color = $border_width = $accent_color = $el_class = $el_id = $align = $css = $css_animation = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
+// print_r($atts);
+// die;
 $shortcode_slug = $this->getShortcode();
 $amp_vc_elements_atts[$shortcode_slug] = $atts;
 $class_to_filter = '';

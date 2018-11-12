@@ -29,6 +29,21 @@ function amp_vc_shortcode_inline_css($slug='',$atts = ''){
 			}';
 			return $inlineCss;
 		break;
+		case 'vc_icon':
+		//color,background_style,background_color,size,align
+		$inlineCss = '';
+		return $inlineCss;
+		break;
+		case 'vc_separator':
+		//color,align,accent_color,style,border_width,el_width
+			$inlineCss = '';
+		return $inlineCss;
+		break;
+		case 'vc_btn':
+		//style,gradient_color_1,gradient_color_2,gradient_custom_color_1,gradient_custom_color_2,gradient_text_color,custom_text,outline_custom_color,outline_custom_hover_background,shape,color,size,align,i_align
+		$inlineCss = '';
+		return $inlineCss;
+		break;
 		default:
 		
 		break;

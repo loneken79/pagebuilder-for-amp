@@ -31,6 +31,8 @@ $defaultIconClass = 'fa fa-adjust';
 $atts = $this->convertAttributesToMessageBox2( $atts );
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
+// print_r($atts);
+// die;
 $shortcode_slug = $this->getShortcode();
 $amp_vc_elements_atts[$shortcode_slug] = $atts;
 $elementClass = array(
