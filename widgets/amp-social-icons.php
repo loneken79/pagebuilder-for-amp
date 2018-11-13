@@ -55,6 +55,16 @@ class Amp_Social_Icons extends Widget_Base {
 			$custom_icon_css = '
 				.elementor-social-icons-wrapper a{
 					color:#fff;
+					background:#21759b;
+				}
+				.elementor-social-icons-wrapper a.elementor-social-icon-facebook{
+					background-color: #3b5998;
+				}
+				.elementor-social-icons-wrapper a.elementor-social-icon-twitter{
+					background-color: #1da1f2;
+				}
+				.elementor-social-icons-wrapper a.elementor-social-icon-google-plus{
+					background-color: #dd4b39;
 				}
 			';
 		}
