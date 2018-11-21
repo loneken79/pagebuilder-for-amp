@@ -2,6 +2,9 @@
 global $amp_vc_elements_atts;
 foreach ( $amp_vc_elements_atts as $slug => $atts) {
 	switch ($slug) {
+		case 'vc_column_text':
+			echo amp_vc_shortcode_inline_css( $slug, $atts );
+		break;
 		case 'vc_tta_tabs':
 				include_once AMP_WPBAKERY_PLUGIN_DIR.'assets/css/amp-vc-tabs.css';
 		break;
