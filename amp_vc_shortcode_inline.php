@@ -1,6 +1,7 @@
 <?php
-
+global $custom_inlinecss;
 function amp_vc_shortcode_inline_css($slug='',$atts = ''){
+	global $custom_inlinecss;
 	$inlineCss = '';
 	$default_colors = array('sky' => '#5aa1e3','blue' => '#5472d2','turquoise' => '#00c1cf','pink'=> '#fe6c61','violet'=>'#8d6dc4','peacoc'=> '#4cadc9','mulled_wine'=>'#50485b','vista_blue'=> '#75d69c','chino'=>'#cec2ab','black'=> '#000000','grey'=>'#ebebeb','orange'=> '#f7be68','sky'=>'#5aa1e3','green'=> '#6dab3c','juicy_pink'=>'#f4524d','sandy_brown'=> '#f79468','purple'=>'#b97ebb','white' => '#ffffff');
 	switch ($slug) {
@@ -167,8 +168,7 @@ function amp_vc_shortcode_inline_css($slug='',$atts = ''){
 			}
 			.amp-wp-inline-31dea72d02bfe004a0d413f6bbe20cbd{
 				border-color:'.$color.';
-			}
-			';
+			}';
 		return $inlineCss;
 		break;
 		case 'vc_btn':
@@ -176,6 +176,44 @@ function amp_vc_shortcode_inline_css($slug='',$atts = ''){
 		$inlineCss = '';
 		return $inlineCss;
 		break;
+		case 'vc_text_separator':
+		//title_align, align, color,accent_color,style,border_width,el_width
+		if($atts['color'] == 'custom'){
+			$color = $atts['accent_color'];
+		}else{
+			$color = $default_colors[$atts['color']];
+		}
+		$inlineCss = '
+				.txt-sep{
+					display: flex;
+				    flex-direction: row;
+				    flex-wrap: nowrap;
+				    align-items: center;
+				    width: 50%;
+				}
+				.vc_sep_holder{
+					height: 1px;
+				    position: relative;
+				    flex: 1 1 auto;
+				    min-width: 10%;
+				}
+				.txt-sep .vc_sep_holder_r{
+					display:block
+				}
+				.txt-sep h4{
+					padding:0px 10px;
+				}
+				.vc_separator_align_left h4{
+					text-align:right;
+				}
+				.vc_sep_border_width_'.$atts['border_width'].'{
+					border-top-width:'.$atts['border_width'].'px;
+				}
+					';
+		$inlineCss .= $custom_inlinecss['text_separator'];
+		return $inlineCss;
+		break;
+
 		default:
 		
 		break;
