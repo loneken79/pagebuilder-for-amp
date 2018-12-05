@@ -184,33 +184,98 @@ function amp_vc_shortcode_inline_css($slug='',$atts = ''){
 			$color = $default_colors[$atts['color']];
 		}
 		$inlineCss = '
-				.txt-sep{
-					display: flex;
-				    flex-direction: row;
-				    flex-wrap: nowrap;
-				    align-items: center;
-				    width: 50%;
-				}
-				.vc_sep_holder{
-					height: 1px;
-				    position: relative;
-				    flex: 1 1 auto;
-				    min-width: 10%;
-				}
-				.txt-sep .vc_sep_holder_r{
-					display:block
-				}
-				.txt-sep h4{
-					padding:0px 10px;
-				}
-				.vc_separator_align_left h4{
-					text-align:right;
-				}
-				.vc_sep_border_width_'.$atts['border_width'].'{
-					border-top-width:'.$atts['border_width'].'px;
-				}
+
 					';
+				
 		$inlineCss .= $custom_inlinecss['text_separator'];
+		return $inlineCss;
+		break;
+		case 'vc_message':
+		$style = $atts['message_box_style'];
+		$default_colors = array('info' => array('bg_color'=>'#dff2fe','color'=>'#5e7f96'),'warning' => array('bg_color'=>'#fff4e2','color'=>'#9d8967'),'violet' => array('bg_color'=>'#8d6dc4','color'=>'#8d6dc4'),'pink'=> array('bg_color'=>'#fe6c61','color'=>'#fe6c61'),'peacoc'=> '#4cadc9','mulled_wine'=>'#50485b','vista_blue'=> '#75d69c','chino'=>'#cec2ab','black'=> '#000000','grey'=>'#ebebeb','orange'=> '#f7be68','sky'=>'#5aa1e3','green'=> '#6dab3c','juicy_pink'=>'#f4524d','sandy_brown'=> '#f79468','purple'=>'#b97ebb','white' => '#ffffff');
+
+			switch ($style) {
+				case 'standard':
+					$msgbox_style = 'color:'.$default_colors[$atts['message_box_color']]['color'].';
+				    border-color: '.$default_colors[$atts['message_box_color']]['bg_color'].';
+				    background-color: '.$default_colors[$atts['message_box_color']]['bg_color'].';';
+					break;
+				case 'solid':
+					$msgbox_style = 'color:'.$default_colors[$atts['message_box_color']]['color'].';
+					    border-color: transparent;
+					    background-color: '.$default_colors[$atts['message_box_color']]['bg_color'].';';
+					break;
+				case 'solid-icon':
+					$msgbox_style = 'color: '.$default_colors[$atts['message_box_color']]['color'].';
+					    border-color: '.$default_colors[$atts['message_box_color']]['bg_color'].';
+					    background-color: transparent;';
+					break;
+				case 'outline':
+					$msgbox_style = 'color: '.$default_colors[$atts['message_box_color']]['color'].';
+					    border-color: '.$default_colors[$atts['message_box_color']]['bg_color'].';
+					    background-color: transparent;';
+					break;
+				case '3d':
+					$msgbox_style = '
+					color:'.$default_colors[$atts['message_box_color']]['color'].';
+				    border-color: '.$default_colors[$atts['message_box_color']]['bg_color'].';
+				    background-color: '.$default_colors[$atts['message_box_color']]['bg_color'].'1c;
+				    box-shadow: 0 5px 0 '.$default_colors[$atts['message_box_color']]['bg_color'].';';
+					break;
+				default:
+					
+					break;
+			}
+			$inlineCss = '
+				
+				.vc_color-'.$atts['message_box_color'].'.vc_message_box-'.$atts['message_box_style'].' {
+				    '.$msgbox_style.'
+				}
+				.vc_message_box-rounded {
+				    border-radius: 5px;
+				}
+				.vc_message_box {
+				    border: 1px solid transparent;
+				    display: block;
+				    overflow: hidden;
+				    margin: 0 0 21.73913043px 0;
+				    padding: 1em 1em 1em 4em;
+				    position: relative;
+				    font-size: 1em;
+				    box-sizing: border-box;
+				}
+				.vc_message_box-icon {
+				    bottom: 0;
+				    font-size: 1em;
+				    font-style: normal;
+				    font-weight: 400;
+				    left: 0;
+				    position: absolute;
+				    top: 15px;
+				    width: 4em;
+				    text-align: center;
+				}
+				.vc_message_box p{margin:0;}
+				.vc_message_box-icon>.fa {
+				    font-size: 1.7em;
+				    line-height: 1;
+				    color:'.$default_colors[$atts['message_box_color']]['color'].';	
+				}
+				
+				.vc_message_box-outline, .vc_message_box-solid-icon {
+				    border-width: 2px;
+				}
+				.vc_message_box-round{
+					border-radius:4em;
+				}
+				.vc_message_box-square{
+					border-radius:0px;
+				}
+				.vc_message_box-rounded {
+				    border-radius: 5px;
+				}
+
+			';
 		return $inlineCss;
 		break;
 
