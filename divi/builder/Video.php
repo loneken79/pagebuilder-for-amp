@@ -2,9 +2,8 @@
 
 class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 	function init() {
-		$this->name       = esc_html__( 'Video', 'et_builder' );
-		$this->plural     = esc_html__( 'Videos', 'et_builder' );
-		$this->slug       = 'et_pb_video';
+		$this->name = esc_html__( 'Video', 'et_builder' );
+		$this->slug = 'et_pb_video';
 		$this->vb_support = 'on';
 
 		$this->settings_modal_toggles = array(
@@ -49,7 +48,7 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 			'box_shadow'            => array(
 				'default' => array(
 					'css' => array(
-						'overlay' => 'inset',
+						'custom_style' => true,
 					),
 				),
 			),
@@ -66,7 +65,6 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 			'fonts'                 => false,
 			'text'                  => false,
 			'button'                => false,
-			'link_options'          => false,
 		);
 
 		$this->help_videos = array(
@@ -135,7 +133,6 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'play_icon',
-				'hover'             => 'tabs',
 			),
 			'__video' => array(
 				'type'                => 'computed',
@@ -164,14 +161,6 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 		return $fields;
 	}
 
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['play_icon_color'] = array( 'color' => '%%order_class%% .et_pb_video_overlay .et_pb_video_play' );
-
-		return $fields;
-	}
-
 	static function get_video( $args = array(), $conditional_tags = array(), $current_page = array() ) {
 		$defaults = array(
 			'src'      => '',
@@ -186,16 +175,16 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 			$video_src = wp_oembed_get( esc_url( $args['src'] ) );
 		} else {
 			$video_src = sprintf( '
-				<amp-video id="myVideo" controls width="1280" height="720" layout="responsive" src="'.$args['src'].'">
+				<video controls>
 					%1$s
 					%2$s
-				</amp-video>',
+				</video>',
 				( '' !== $args['src'] ? sprintf( '<source type="video/mp4" src="%s" />', esc_url( $args['src'] ) ) : '' ),
 				( '' !== $args['src_webm'] ? sprintf( '<source type="video/webm" src="%s" />', esc_url( $args['src_webm'] ) ) : '' )
 			);
 
-			wp_enqueue_style( 'wp-mediaelement' );
-			wp_enqueue_script( 'wp-mediaelement' );
+			//wp_enqueue_style( 'wp-mediaelement' );
+			//wp_enqueue_script( 'wp-mediaelement' );
 		}
 
 		return $video_src;
@@ -285,11 +274,10 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$src                   = $this->props['src'];
-		$src_webm              = $this->props['src_webm'];
-		$image_src             = $this->props['image_src'];
-		$play_icon_color       = $this->props['play_icon_color'];
-		$play_icon_color_hover = $this->get_hover_value( 'play_icon_color' );
+		$src             = $this->props['src'];
+		$src_webm        = $this->props['src_webm'];
+		$image_src       = $this->props['image_src'];
+		$play_icon_color = $this->props['play_icon_color'];
 
 		$video_src       = self::get_video( array(
 			'src'      => $src,
@@ -309,16 +297,6 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 				'declaration' => sprintf(
 					'color: %1$s;',
 					esc_html( $play_icon_color )
-				),
-			) );
-		}
-
-		if ( et_builder_is_hover_enabled( 'play_icon_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector' => '%%order_class%% .et_pb_video_overlay .et_pb_video_play:hover',
-				'declaration' => sprintf(
-					'color: %1$s;',
-					esc_html( $play_icon_color_hover )
 				),
 			) );
 		}

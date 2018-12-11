@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Image', 'et_builder' );
-		$this->plural     = esc_html__( 'Images', 'et_builder' );
 		$this->slug       = 'et_pb_image';
 		$this->vb_support = 'on';
 
@@ -58,7 +57,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 				'default' => array(
 					'css' => array(
 						'main'         => '%%order_class%% .et_pb_image_wrap',
-						'overlay' => 'inset',
+						'custom_style' => true,
 					),
 				),
 			),
@@ -72,7 +71,6 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 			'fonts'                 => false,
 			'text'                  => false,
 			'button'                => false,
-			'link_options'          => false,
 		);
 
 		$this->help_videos = array(
@@ -141,7 +139,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 				'description'       => esc_html__( 'Here you can choose whether or not the image should open in Lightbox. Note: if you select to open the image in Lightbox, url options below will be ignored.', 'et_builder' ),
 			),
 			'url' => array(
-				'label'           => esc_html__( 'Image Link URL', 'et_builder' ),
+				'label'           => esc_html__( 'Link URL', 'et_builder' ),
 				'type'            => 'text',
 				'option_category' => 'basic_option',
 				'depends_show_if' => 'off',
@@ -152,7 +150,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 				'toggle_slug'     => 'link',
 			),
 			'url_new_window' => array(
-				'label'             => esc_html__( 'Image Link Target', 'et_builder' ),
+				'label'             => esc_html__( 'Url Opens', 'et_builder' ),
 				'type'              => 'select',
 				'option_category'   => 'configuration',
 				'options'           => array(
@@ -273,7 +271,6 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 		return et_pb_get_alignment( $alignment );
 	}
 	public function amp_divi_inline_styles(){
-    
 		$inline_styles = '';
         echo $inline_styles;
   	}

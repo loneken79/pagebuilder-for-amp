@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Video', 'et_builder' );
-		$this->plural                      = esc_html__( 'Videos', 'et_builder' );
 		$this->slug                        = 'et_pb_video_slider_item';
 		$this->vb_support 				   = 'on';
 		$this->type                        = 'child';
@@ -33,13 +32,12 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 				'use_background_layout' => true,
 				'options' => array(
 					'background_layout' => array(
-						'label'            => esc_html__( 'Slider Arrows Color', 'et_builder' ),
-						'option_category'  => 'color_option',
-						'toggle_slug'      => 'arrows_color',
-						'description'      => esc_html__( 'This setting will make your slider arrows either light or dark in color.', 'et_builder' ),
-						'default'          => 'dark',
+						'label'           => esc_html__( 'Slider Arrows Color', 'et_builder' ),
+						'option_category' => 'color_option',
+						'toggle_slug' => 'arrows_color',
+						'description' => esc_html__( 'This setting will make your slider arrows either light or dark in color.', 'et_builder' ),
+						'default' => 'dark',
 						'default_on_child' => true,
-						'hover'            => 'tabs',
 					),
 				),
 			),
@@ -57,7 +55,6 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 			'max_width'             => false,
 			'margin_padding' => false,
 			'button'                => false,
-			'link_options'          => false,
 		);
 	}
 
@@ -150,14 +147,6 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 		return $fields;
 	}
 
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['background_layout'] = array( 'color' => '%%order_class%% .et-pb-arrow-prev, %%order_class%% .et-pb-arrow-next' );
-
-		return $fields;
-	}
-
 	static function get_oembed_thumbnail( $args = array(), $conditional_tags = array(), $current_page = array() ) {
 		$defaults = array(
 			'image_src' => '',
@@ -205,19 +194,16 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 		return $thumbnail_track_output;
  	}
  	public function amp_divi_inline_styles(){
-    
 		$inline_styles = '';
         echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$src                             = $this->props['src'];
-		$src_webm                        = $this->props['src_webm'];
-		$image_src                       = $this->props['image_src'];
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$video_src                       = '';
+		$src               = $this->props['src'];
+		$src_webm          = $this->props['src_webm'];
+		$image_src         = $this->props['image_src'];
+		$background_layout = $this->props['background_layout'];
+		$video_src         = '';
 
 		global $et_pb_slider_image_overlay;
 
@@ -237,13 +223,13 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 				$thumbnail_track_output = '';
 			}
 		}
-
+		
 		if ( '' !== $src ) {
 			if ( false !== et_pb_check_oembed_provider( esc_url( $src ) ) ) {
 				$video_src = wp_oembed_get( esc_url( $src ) );
 			} else {
 				$video_src = sprintf( '
-				<amp-video width="480" height="270" src="'.esc_url( $src ).'" poster="'.$image_overlay_output.'" layout="responsive" controls>
+					<amp-video width="480" height="270" src="'.esc_url( $src ).'" poster="'.$image_overlay_output.'" layout="responsive" controls>
 				<div fallback><p>Your browser doesn\'t support HTML5 video.</p></div>
 						%1$s
 						%2$s
@@ -251,7 +237,6 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 					( '' !== $src ? sprintf( '<source type="video/mp4" src="%s" />', esc_url( $src ) ) : '' ),
 					( '' !== $src_webm ? sprintf( '<source type="video/webm" src="%s" />', esc_url( $src_webm ) ) : '' )
 				);
-
 				//wp_enqueue_style( 'wp-mediaelement' );
 				//wp_enqueue_script( 'wp-mediaelement' );
 			}
@@ -286,27 +271,12 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 			$render_slug,
 		) );
 
-		$data_background_layout       = '';
-		$data_background_layout_hover = '';
-		if ( $background_layout_hover_enabled ) {
-			$data_background_layout = sprintf(
-				' data-background-layout="%1$s"',
-				esc_attr( $background_layout )
-			);
-			$data_background_layout_hover = sprintf(
-				' data-background-layout-hover="%1$s"',
-				esc_attr( $background_layout_hover )
-			);
-		}
-		
 		$output = sprintf(
 			'%2$s
 			<!-- .et_pb_slide -->',
 			$this->module_classname( $render_slug ),
 			( '' !== $video_output ? $video_output : '' ),
-			( '' !== $thumbnail_track_output ? sprintf( ' data-image="%1$s"', esc_attr( $thumbnail_track_output ) ) : '' ),
-			et_esc_previously( $data_background_layout ),
-			et_esc_previously( $data_background_layout_hover ) // #5
+			( '' !== $thumbnail_track_output ? sprintf( ' data-image="%1$s"', esc_attr( $thumbnail_track_output ) ) : '' )
 		);
 
 		return $output;
@@ -316,4 +286,3 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 $videoSliderItemObj = new AMP_ET_Builder_Module_Video_Slider_Item();
 remove_shortcode( 'et_pb_video_slider_item' );
 add_shortcode( 'et_pb_video_slider_item', array($videoSliderItemObj, '_render'));
-

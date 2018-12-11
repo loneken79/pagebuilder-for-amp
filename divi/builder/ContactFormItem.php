@@ -1,12 +1,8 @@
 <?php
-
+global $ampContactformFields;
 class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
-
-	public $additional_shortcode_slugs = array( 'et_pb_signup_custom_field' );
-
 	function init() {
 		$this->name            = esc_html__( 'Field', 'et_builder' );
-		$this->plural          = esc_html__( 'Fields', 'et_builder' );
 		$this->slug            = 'et_pb_contact_field';
 		$this->vb_support      = 'on';
 		$this->type            = 'child';
@@ -21,6 +17,7 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					'main_content'      => esc_html__( 'Text', 'et_builder' ),
 					'field_options'     => esc_html__( 'Field Options', 'et_builder' ),
 					'conditional_logic' => esc_html__( 'Conditional Logic', 'et_builder' ),
+					'background'        => esc_html__( 'Background', 'et_builder' ),
 				),
 			),
 			'advanced' => array(
@@ -31,7 +28,7 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 		);
 
 		$this->advanced_fields = array(
-			'borders'        => array(
+			'borders'               => array(
 				'default' => array(
 					'css'          => array(
 						'main'      => array(
@@ -43,10 +40,10 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					'label_prefix' => esc_html__( 'Input', 'et_builder' ),
 				),
 			),
-			'box_shadow'     => array(
+			'box_shadow'            => array(
 				'default' => array(
 					'css' => array(
-						'main'      => implode( ', ', array(
+						'main' => implode( ', ', array(
 							'%%order_class%% input',
 							'%%order_class%% select',
 							'%%order_class%% textarea',
@@ -56,45 +53,44 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					),
 				),
 			),
-			'fonts'          => array(
-				'form_field' => array(
-					'label' => esc_html__( 'Field', 'et_builder' ),
-					'css'   => array(
-						'main'      => implode( ',', array(
+			'fonts'                 => array(
+				'form_field'   => array(
+					'label'    => esc_html__( 'Field', 'et_builder' ),
+					'css'      => array(
+						'main' => array(
 							"%%order_class%%.et_pb_contact_field .et_pb_contact_field_options_title",
 							"{$this->main_css_element} .input",
-							"{$this->main_css_element} .input::placeholder",
 							"{$this->main_css_element} .input::-webkit-input-placeholder",
 							"{$this->main_css_element} .input::-moz-placeholder",
 							"{$this->main_css_element} .input:-ms-input-placeholder",
 							"{$this->main_css_element} .input[type=checkbox] + label",
 							"{$this->main_css_element} .input[type=radio] + label",
-						) ),
+						),
 						'important' => 'plugin_only',
 					),
 				),
 			),
-			'background'     => array(
+			'background'            => array(
 				'css' => array(
 					'main' => '%%order_class%%',
 				),
 			),
 			'margin_padding' => array(
 				'css' => array(
-					'padding'   => 'p%%order_class%%',
+					'padding' => 'p%%order_class%%',
 					'important' => array( 'custom_margin' ), // needed to overwrite last module margin-bottom styling
 				),
 			),
-			'text'           => array(
+			'text'                  => array(
 				'css' => array(
 					'text_orientation' => '%%order_class%% input, %%order_class%% textarea, %%order_class%% label',
 				),
 			),
-			'text_shadow'    => array(
+			'text_shadow'           => array(
 				// Don't add text-shadow fields since they already are via font-options
 				'default' => false,
 			),
-			'filters'        => array(
+			'filters'               => array(
 				'css' => array(
 					'main' => array(
 						'%%order_class%% input',
@@ -103,25 +99,17 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					),
 				),
 			),
-			'button'         => false,
+			'button'                => false,
 		);
 	}
 
 	function get_fields() {
-		$labels = array(
-			'link_url'      => esc_html__( 'Link URL', 'et_builder' ),
-			'link_text'     => esc_html__( 'Link Text', 'et_builder' ),
-			'link_cancel'   => esc_html__( 'Discard Changes', 'et_builder' ),
-			'link_save'     => esc_html__( 'Save Changes', 'et_builder' ),
-			'link_settings' => esc_html__( 'Option Link', 'et_builder' ),
-		);
-
 		$fields = array(
 			'field_id' => array(
-				'label'            => esc_html__( 'Field ID', 'et_builder' ),
-				'type'             => 'text',
-				'description'      => esc_html__( 'Define the unique ID of this field. You should use only English characters without special characters and spaces.', 'et_builder' ),
-				'toggle_slug'      => 'main_content',
+				'label'       => esc_html__( 'Field ID', 'et_builder' ),
+				'type'        => 'text',
+				'description' => esc_html__( 'Define the unique ID of this field. You should use only English characters without special characters and spaces.', 'et_builder' ),
+				'toggle_slug' => 'main_content',
 				'default_on_front' => '',
 			),
 			'field_title' => array(
@@ -165,27 +153,23 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 			),
 			'checkbox_options' => array(
 				'label'           => esc_html__( 'Options', 'et_builder' ),
-				'type'            => 'sortable_list',
+				'type'            => 'options_list',
 				'checkbox'        => true,
 				'option_category' => 'basic_option',
 				'depends_show_if' => 'checkbox',
 				'toggle_slug'     => 'field_options',
-				'right_actions'   => 'move|link|copy|delete',
-				'labels'          => $labels,
 			),
 			'radio_options' => array(
 				'label'           => esc_html__( 'Options', 'et_builder' ),
-				'type'            => 'sortable_list',
+				'type'            => 'options_list',
 				'radio'           => true,
 				'option_category' => 'basic_option',
 				'depends_show_if' => 'radio',
 				'toggle_slug'     => 'field_options',
-				'right_actions'   => 'move|link|copy|delete',
-				'labels'          => $labels,
 			),
 			'select_options' => array(
 				'label'           => esc_html__( 'Options', 'et_builder' ),
-				'type'            => 'sortable_list',
+				'type'            => 'options_list',
 				'option_category' => 'basic_option',
 				'depends_show_if' => 'select',
 				'toggle_slug'     => 'field_options',
@@ -303,7 +287,6 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 				'type'              => 'color-alpha',
 				'custom_color'      => true,
 				'toggle_slug'       => 'form_field',
-				'hover'             => 'tabs',
 				'tab_slug'          => 'advanced',
 			),
 		);
@@ -311,21 +294,8 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 		return $fields;
 	}
 
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['field_background_color'] = array(
-			'background' => implode( ', ', array(
-				'%%order_class%% .input',
-				'%%order_class%% .input + label:hover i'
-			) )
-		);
-
-		return $fields;
-	}
-
 	function render( $attrs, $content = null, $render_slug ) {
-		global $et_pb_half_width_counter, $et_pb_contact_form_num;
+		global $et_pb_half_width_counter, $et_pb_contact_form_num,$ampContactformFields;
 
 		$field_title                = $this->props['field_title'];
 		$field_type                 = $this->props['field_type'];
@@ -334,7 +304,6 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 		$fullwidth_field            = $this->props['fullwidth_field'];
 		$form_field_text_color      = $this->props['form_field_text_color'];
 		$field_background_color     = $this->props['field_background_color'];
-		$field_bg_color_hover       = et_pb_hover_options()->get_value( 'field_background_color', $this->props );
 		$checkbox_checked           = $this->props['checkbox_checked'];
 		$checkbox_options           = $this->props['checkbox_options'];
 		$radio_options              = $this->props['radio_options'];
@@ -345,30 +314,29 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 		$conditional_logic_relation = $this->props['conditional_logic_relation'];
 		$conditional_logic_rules    = $this->props['conditional_logic_rules'];
 		$allowed_symbols            = $this->props['allowed_symbols'];
-		$render_count               = $this->render_count();
-		$current_module_num         = '' === $et_pb_contact_form_num ? 0 : intval( $et_pb_contact_form_num ) + 1;
 
-		// set a field ID.
+		global $et_pb_contact_form_num;
+
+		// do not output the fields with empty ID
 		if ( '' === $field_id ) {
-			$field_id = sprintf( 'field_%d_%d', $et_pb_contact_form_num, $render_count );
+			return;
 		}
 
-		if ( 'et_pb_signup_custom_field' === $render_slug ) {
-			$this->add_classname( 'et_pb_newsletter_field' );
-		} else {
-			$field_id = strtolower( $field_id );
-		}
+		$field_id = strtolower( $field_id );
+
+		$current_module_num = '' === $et_pb_contact_form_num ? 0 : intval( $et_pb_contact_form_num ) + 1;
 
 		$video_background          = $this->video_background();
 		$parallax_image_background = $this->get_parallax_image_background();
+		$render_count    = $this->render_count();
 
-		$et_pb_half_width_counter = ! isset( $et_pb_half_width_counter ) ? 0 : $et_pb_half_width_counter;
+		$this->half_width_counter = ! isset( $this->half_width_counter ) ? 0 : $this->half_width_counter;
 
 		// count fields to add the et_pb_contact_field_last properly
 		if ( 'off' === $fullwidth_field ) {
-			$et_pb_half_width_counter++;
+			$this->half_width_counter++;
 		} else {
-			$et_pb_half_width_counter = 0;
+			$this->half_width_counter = 0;
 		}
 
 		$input_field = '';
@@ -415,22 +383,6 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 				'declaration' => sprintf(
 					'background-color: %1$s !important;',
 					esc_html( $field_background_color )
-				),
-			) );
-		}
-
-		if ( !empty( $field_bg_color_hover ) && et_pb_hover_options()->is_enabled( 'field_background_color', $this->props ) ) {
-			$input_selector = '%%order_class%% .input:hover';
-
-			if ( in_array( $field_type, array( 'checkbox', 'radio' ) ) ) {
-				$input_selector = '%%order_class%% .input + label:hover i';
-			}
-
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => $input_selector,
-				'declaration' => sprintf(
-					'background-color: %1$s !important;',
-					esc_html( $field_bg_color_hover )
 				),
 			) );
 		}
@@ -493,6 +445,7 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 				$title   .= sprintf( __( 'Maximum length: %1$d characters.', 'et_builder' ), $max_length );
 			}
 
+
 			$length_pattern .= '}';
 		}
 
@@ -545,7 +498,6 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 
 		switch( $field_type ) {
 			case 'text':
-			case 'textarea':
 				$input_field = sprintf(
 					'<textarea name="et_pb_contact_%3$s_%2$s" id="et_pb_contact_%3$s_%2$s" class="et_pb_contact_message input" data-required_mark="%6$s" data-field_type="%4$s" data-original_id="%3$s" placeholder="%5$s">%1$s</textarea>',
 					( isset( $_POST['et_pb_contact_' . $field_id . '_' . $current_module_num] ) ? esc_html( sanitize_text_field( $_POST['et_pb_contact_' . $field_id . '_' . $current_module_num] ) ) : '' ),
@@ -555,6 +507,13 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					esc_attr( $field_title ),
 					'off' === $required_mark ? 'not_required' : 'required'
 				);
+				$ampContactformFields[] = array(
+						"field_id" => 'et_pb_contact_' . $field_id . '_' . $current_module_num,
+						"original_id" => $field_id,
+						"required_mark" => $required_mark,
+						"field_type" => $field_type,
+						"field_label" => $field_title
+					);
 				break;
 			case 'input' :
 			case 'email' :
@@ -574,6 +533,13 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					$title,
 					$max_length_attr
 				);
+				$ampContactformFields[] = array(
+						"field_id" => 'et_pb_contact_' . $field_id . '_' . $current_module_num,
+						"original_id" => $field_id,
+						"required_mark" => $required_mark,
+						"field_type" => $field_type,
+						"field_label" => $field_title
+					);
 				break;
 			case 'checkbox' :
 				$input_field = '';
@@ -596,28 +562,17 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 				foreach ( $checkbox_options as $index => $option ) {
 					$is_checked   = 1 === $option->checked ? true : false;
 					$option_value = wp_strip_all_tags( $option->value );
-					$drag_id      = isset( $option->dragID ) ? $option->dragID : '';
-					$option_id    = isset( $option->id ) ? $option->id : $drag_id;
-					$option_id    = sprintf( ' data-id="%1$s"', esc_attr( $option_id ) );
-					$option_link  = '';
-
-					if ( ! empty( $option->link_url ) ) {
-						$link_text   = isset( $option->link_text ) ? $option->link_text : '';
-						$option_link = sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', esc_url( $option->link_url ), esc_html( $link_text ) );
-					}
 
 					$input_field .= sprintf(
 						'<span class="et_pb_contact_field_checkbox">
-							<input type="checkbox" id="et_pb_contact_%1$s_%5$s_%3$s" class="input" value="%2$s"%4$s%6$s>
-							<label for="et_pb_contact_%1$s_%5$s_%3$s"><i></i>%2$s%7$s</label>
+							<input type="checkbox" id="et_pb_contact_%1$s_%5$s_%3$s" class="input" value="%2$s"%4$s>
+							<label for="et_pb_contact_%1$s_%5$s_%3$s"><i></i>%2$s</label>
 						</span>',
 						esc_attr( $field_id ),
 						esc_attr( $option_value ),
 						esc_attr( $index ),
 						$is_checked ? ' checked="checked"' : '',
-						esc_attr( $render_count ), // #5
-						$option_id,
-						$option_link // #7
+						esc_attr( $render_count )
 					);
 				}
 
@@ -634,7 +589,13 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					esc_html( $field_title ),
 					$input_field
 				);
-
+				$ampContactformFields[] = array(
+						"field_id" => 'et_pb_contact_' . $field_id . '_' . $current_module_num,
+						"original_id" => $field_id,
+						"required_mark" => $required_mark,
+						"field_type" => $field_type,
+						"field_label" => $field_title
+					);
 				break;
 			case 'radio' :
 				$input_field = '';
@@ -646,21 +607,12 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					$radio_options  = json_decode( $radio_options );
 
 					foreach ( $radio_options as $index => $option ) {
-						$is_checked  = 1 === $option->checked ? true : false;
-						$drag_id     = isset( $option->dragID ) ? $option->dragID : '';
-						$option_id   = isset( $option->id ) ? $option->id : $drag_id;
-						$option_id   = sprintf( ' data-id="%1$s"', esc_attr( $option_id ) );
-						$option_link = '';
-
-						if ( ! empty( $option->link_url ) ) {
-							$link_text   = isset( $option->link_text ) ? $option->link_text : '';
-							$option_link = sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', esc_url( $option->link_url ), esc_html( $link_text ) );
-						}
+						$is_checked = 1 === $option->checked ? true : false;
 
 						$input_field .= sprintf(
 							'<span class="et_pb_contact_field_radio">
-								<input type="radio" id="et_pb_contact_%3$s_%2$s_%10$s_%7$s" class="input" value="%8$s" name="et_pb_contact_%3$s_%2$s" data-required_mark="%6$s" data-field_type="%4$s" data-original_id="%3$s" %9$s%11$s>
-								<label for="et_pb_contact_%3$s_%2$s_%10$s_%7$s"><i></i>%8$s%12$s</label>
+								<input type="radio" id="et_pb_contact_%3$s_%2$s_%10$s_%7$s" class="input" value="%8$s" name="et_pb_contact_%3$s_%2$s" data-required_mark="%6$s" data-field_type="%4$s" data-original_id="%3$s" %9$s>
+								<label for="et_pb_contact_%3$s_%2$s_%10$s_%7$s"><i></i>%8$s</label>
 							</span>',
 							( isset( $_POST['et_pb_contact_' . $field_id . '_' . $current_module_num] ) ? esc_attr( sanitize_text_field( $_POST['et_pb_contact_' . $field_id . '_' . $current_module_num] ) ) : '' ),
 							esc_attr( $current_module_num ),
@@ -671,9 +623,7 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 							esc_attr( $index ),
 							wp_strip_all_tags( $option->value ),
 							checked( $is_checked, true, false ),
-							esc_attr( $render_count ), // #10
-							$option_id,
-							$option_link // #12
+							esc_attr( $render_count ) // #10
 						);
 					}
 				} else {
@@ -688,11 +638,17 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					esc_html( $field_title ),
 					$input_field
 				);
-
+				$ampContactformFields[] = array(
+						"field_id" => 'et_pb_contact_' . $field_id . '_' . $current_module_num,
+						"original_id" => $field_id,
+						"required_mark" => $required_mark,
+						"field_type" => $field_type,
+						"field_label" => $field_title
+					);
 				break;
 			case 'select' :
 				$options = sprintf(
-					'<option value="">%1$s</option>',
+					'<option value="">-- %1$s --</option>',
 					esc_attr( $field_title )
 				);
 
@@ -703,13 +659,10 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					$select_options = json_decode( $select_options );
 
 					foreach ( $select_options as $option ) {
-						$option_id = isset( $option->id ) ? sprintf( ' data-id="%1$s"', esc_attr( $option->id ) ) : '';
-
 						$options .= sprintf(
-							'<option value="%1$s"%3$s>%2$s</option>',
+							'<option value="%1$s">%2$s</option>',
 							esc_attr( wp_strip_all_tags( $option->value ) ),
-							wp_strip_all_tags( $option->value ),
-							$option_id
+							wp_strip_all_tags( $option->value )
 						);
 					}
 				}
@@ -726,6 +679,13 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 					'off' === $required_mark ? 'not_required' : 'required',
 					$options
 				);
+				$ampContactformFields[] = array(
+						"field_id" => 'et_pb_contact_' . $field_id . '_' . $current_module_num,
+						"original_id" => $field_id,
+						"required_mark" => $required_mark,
+						"field_type" => $field_type,
+						"field_label" => $field_title
+					);
 				break;
 		}
 
@@ -738,12 +698,8 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 			$this->add_classname( 'et_pb_contact_field_half' );
 		}
 
-		if ( 0 === $et_pb_half_width_counter % 2 ) {
+		if ( 0 === $this->half_width_counter % 2 ) {
 			$this->add_classname( 'et_pb_contact_field_last' );
-		}
-
-		if ( 'on' === self::$_->array_get( $this->props, 'hidden' ) ) {
-			$this->add_classname( 'et_pb_contact_field--hidden' );
 		}
 
 		// Remove automatically added classname

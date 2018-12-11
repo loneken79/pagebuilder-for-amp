@@ -1,9 +1,8 @@
 <?php
-
+global $ampContactformFields;
 class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 	function init() {
 		$this->name            = esc_html__( 'Contact Form', 'et_builder' );
-		$this->plural          = esc_html__( 'Contact Forms', 'et_builder' );
 		$this->slug            = 'et_pb_contact_form';
 		$this->vb_support      = 'on';
 		$this->child_slug      = 'et_pb_contact_field';
@@ -18,6 +17,7 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 					'email'        => esc_html__( 'Email', 'et_builder' ),
 					'elements'     => esc_html__( 'Elements', 'et_builder' ),
 					'redirect'     => esc_html__( 'Redirect', 'et_builder' ),
+					'background'   => esc_html__( 'Background', 'et_builder' ),
 				),
 			),
 		);
@@ -48,15 +48,14 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 				'form_field'   => array(
 					'label'    => esc_html__( 'Form Field', 'et_builder' ),
 					'css'      => array(
-						'main' => implode( ', ', array(
-								"{$this->main_css_element} .input",
-								"{$this->main_css_element} .input::placeholder",
-								"{$this->main_css_element} .input::-webkit-input-placeholder",
-								"{$this->main_css_element} .input::-moz-placeholder",
-								"{$this->main_css_element} .input:-ms-input-placeholder",
-								"{$this->main_css_element} .input[type=checkbox] + label",
-								"{$this->main_css_element} .input[type=radio] + label",
-							) ),
+						'main' => array(
+							"{$this->main_css_element} .input",
+							"{$this->main_css_element} .input::-webkit-input-placeholder",
+							"{$this->main_css_element} .input::-moz-placeholder",
+							"{$this->main_css_element} .input:-ms-input-placeholder",
+							"{$this->main_css_element} .input[type=checkbox] + label",
+							"{$this->main_css_element} .input[type=radio] + label",
+						),
 						'important' => 'plugin_only',
 					),
 				),
@@ -78,7 +77,6 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 				'button' => array(
 					'label' => esc_html__( 'Button', 'et_builder' ),
 					'css' => array(
-						'main'        => "{$this->main_css_element}.et_pb_module .et_pb_button",
 						'plugin_main' => "{$this->main_css_element}.et_pb_module .et_pb_button",
 					),
 					'no_rel_attr' => true,
@@ -225,22 +223,7 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 				'custom_color'      => true,
 				'toggle_slug'       => 'form_field',
 				'tab_slug'          => 'advanced',
-				'hover'             => 'tabs',
 			),
-		);
-
-		return $fields;
-	}
-
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['form_background_color'] = array(
-			'background-color' => implode(', ', array(
-				'%%order_class%% .input',
-				'%%order_class%% .input[type="checkbox"]+label i',
-				'%%order_class%% .input[type="radio"]+label i',
-			))
 		);
 
 		return $fields;
@@ -257,7 +240,7 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 		return $output;
 	}
 	public function amp_divi_inline_styles(){
-    
+		
 	    $inline_styles = '
 	      .et_pb_c_form .et_pb_contact_main_title{
 	          font-size: 24px;
@@ -337,30 +320,28 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 	      	';
 	            echo $inline_styles;
 	}
-
 	function render( $attrs, $content = null, $render_slug ) {
-		global $et_pb_half_width_counter;
+		global $et_pb_half_width_counter, $ampContactformFields;
+
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$et_pb_half_width_counter = 0;
-
-		$module_id                   = $this->props['module_id'];
-		$captcha                     = $this->props['captcha'];
-		$email                       = $this->props['email'];
-		$title                       = $this->props['title'];
-		$form_field_text_color       = $this->props['form_field_text_color'];
-		$form_background_color       = $this->props['form_background_color'];
-		$form_background_color_hover = $this->get_hover_value( 'form_background_color' );
-		$button_custom               = $this->props['custom_button'];
-		$custom_icon                 = $this->props['button_icon'];
-		$submit_button_text          = $this->props['submit_button_text'];
-		$custom_message              = $this->props['custom_message'];
-		$use_redirect                = $this->props['use_redirect'];
-		$redirect_url                = $this->props['redirect_url'];
-		$success_message             = $this->props['success_message'];
-		$header_level                = $this->props['title_level'];
+		$module_id             = $this->props['module_id'];
+		$captcha               = $this->props['captcha'];
+		$email                 = $this->props['email'];
+		$title                 = $this->props['title'];
+		$form_field_text_color = $this->props['form_field_text_color'];
+		$form_background_color = $this->props['form_background_color'];
+		$button_custom         = $this->props['custom_button'];
+		$custom_icon           = $this->props['button_icon'];
+		$submit_button_text    = $this->props['submit_button_text'];
+		$custom_message        = $this->props['custom_message'];
+		$use_redirect          = $this->props['use_redirect'];
+		$redirect_url          = $this->props['redirect_url'];
+		$success_message       = $this->props['success_message'];
+		$header_level          = $this->props['title_level'];
 
 		$field_id                   = $this->props['field_id'];
-	
+
 		global $et_pb_contact_form_num;
 
 		$video_background          = $this->video_background();
@@ -397,17 +378,6 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'form_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%:hover .input, %%order_class%%:hover .input[type="checkbox"] + label i, %%order_class%%:hover .input[type="radio"] + label i',
-				'declaration' => sprintf(
-					'background-color: %1$s%2$s;',
-					esc_html( $form_background_color_hover ),
-					et_is_builder_plugin_active() ? ' !important' : ''
-				),
-			) );
-		}
-
 		$success_message = '' !== $success_message ? $success_message : esc_html__( 'Thanks for contacting us', 'et_builder' );
 
 		$et_pb_contact_form_num = $this->render_count();
@@ -439,19 +409,16 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 				if ( ! empty( $fields_data_array ) ) {
 					foreach( $fields_data_array as $index => $value ) {
 						// check all the required fields, generate error message if required field is empty
-						$field_value = isset( $_POST[ $value['field_id'] ] ) ? trim( $_POST[ $value['field_id'] ] ) : '';
-
-						if ( 'required' === $value['required_mark'] && empty( $field_value ) && ! is_numeric( $field_value ) ) {
+						if ( 'required' === $value['required_mark'] && empty( $_POST[ $value['field_id'] ] ) ) {
 							$et_error_message .= sprintf( '<p class="et_pb_contact_error_text">%1$s</p>', esc_html__( 'Make sure you fill in all required fields.', 'et_builder' ) );
 							$et_contact_error = true;
 							continue;
 						}
 
 						// additional check for email field
-						if ( 'email' === $value['field_type'] && 'required' === $value['required_mark'] && ! empty( $field_value ) ) {
-							$contact_email = isset( $_POST[ $value['field_id'] ] ) ? sanitize_email( $_POST[ $value['field_id'] ] ) : '';
-
-							if ( ! empty( $contact_email ) && ! is_email( $contact_email ) ) {
+						if ( 'email' === $value['field_type'] && 'required' === $value['required_mark'] && ! empty( $_POST[ $value['field_id'] ] ) ) {
+							$contact_email = sanitize_email( $_POST[ $value['field_id'] ] );
+							if ( ! is_email( $contact_email ) ) {
 								$et_error_message .= sprintf( '<p class="et_pb_contact_error_text">%1$s</p>', esc_html__( 'Invalid Email.', 'et_builder' ) );
 								$et_contact_error = true;
 							}
@@ -459,7 +426,7 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 
 						// prepare the array of processed field values in convenient format
 						if ( false === $et_contact_error ) {
-							$processed_fields_values[ $value['original_id'] ]['value'] = $field_value;
+							$processed_fields_values[ $value['original_id'] ]['value'] = isset( $_POST[ $value['field_id'] ] ) ? $_POST[ $value['field_id'] ] : '';
 							$processed_fields_values[ $value['original_id'] ]['label'] = $value['field_label'];
 						}
 					}
@@ -554,27 +521,33 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 		}
 
 		$form = '';
-
+		$captcha_result = $et_pb_first_digit + $et_pb_second_digit;
+		$captcha_result = base64_encode($captcha_result);
 		$et_pb_captcha = sprintf( '
 			<div class="et_pb_contact_right et_pd_captcha">
 				<p class="clearfix">
 					<span class="et_pb_contact_captcha_question">%1$s</span> = <input type="text" size="2" class="input et_pb_contact_captcha" data-first_digit="%3$s" data-second_digit="%4$s" value="" name="et_pb_contact_captcha_%2$s" data-required_mark="required">
+					<input type="hidden" value="%3$s" name="captcha_first_digit" id="captcha_first_digit" />
+					<input type="hidden" value="%4$s" name="captcha_second_digit" id="captcha_second_digit" />
+					<input type="hidden" name="captcha_result" value="%5$s">
 				</p>
 			</div> <!-- .et_pb_contact_right -->',
 			sprintf( '%1$s + %2$s', esc_html( $et_pb_first_digit ), esc_html( $et_pb_second_digit ) ),
 			esc_attr( $et_pb_contact_form_num ),
 			esc_attr( $et_pb_first_digit ),
-			esc_attr( $et_pb_second_digit )
+			esc_attr( $et_pb_second_digit ),
+			esc_attr( $captcha_result )
 		);
 
 		if ( '' === trim( $content ) ) {
 			$content = do_shortcode( $this->predefined_child_modules() );
 		}
-		
+
 		preg_match_all("/<p(\s)*class=\"et_pb_contact_field(\s)*(.*?)\"(.*?)>(.*?)<\/p>/si", $content, $matches);
     	$input_fields = $matches[0];
     	$content = implode(" ",$input_fields);
-
+    	$contact_fields = json_encode($ampContactformFields);//$et_pb_contact_form_num
+    	$contact_fields = htmlspecialchars($contact_fields);
 		if ( $et_contact_error ) {
 			// Make sure submit button text is not just a space
 			$submit_button_text = trim( $submit_button_text );
@@ -584,7 +557,7 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 			if ( empty( $submit_button_text ) ) {
 				$submit_button_text = __( 'Submit', 'et_builder' );
 			}
-			
+
 			$submit_url =  admin_url('admin-ajax.php?action=divi_contact_form_submission');
 			$actionXhrUrl = preg_replace('#^https?:#', '', $submit_url)."&ampsubmit=1";
 			$form = sprintf( '
@@ -594,20 +567,29 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 						<input type="hidden" value="" name="et_pb_contactform_validate_%7$s" class="et_pb_contactform_validate_field" />
 						<input type="hidden" value="%10$s" name="to_email" id="to_email" />
 						<input type="hidden" value="%7$s" name="unique_id" id="unique_id" />
+						<input type="hidden" value="%11$s" name="title" id="title" />
+						<input type="hidden" value="%12$s" name="success_msg" id="success_msg" />
+						<input type="hidden" value="%13$s" name="custom_msg" id="custom_msg" />
+						<input type="hidden" value="%14$s" name="contact_fields" id="contact_fields" />
 						<div class="et_contact_bottom_container">
 							%2$s
 							<button type="submit" class="et_pb_contact_submit et_pb_button%6$s"%5$s>%3$s</button>
 						</div>
 						%4$s
 						<div submit-success>
-					      <template type="amp-mustache">
-					        Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
-					      </template>
+					      	<template type="amp-mustache">
+						      	{{#success}}
+						        	Success! {{success}}
+						        {{/success}}
+						        {{#error}}
+						        	Error! {{error}}
+						        {{/error}}
+					      	</template>
 					    </div>
 					    <div submit-error>
-					      <template type="amp-mustache">
-					        Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
-					      </template>
+					      	<template type="amp-mustache">
+					        	Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+					      	</template>
 					    </div>
 					</form>',
 				esc_url( get_permalink( get_the_ID() ) ),
@@ -622,10 +604,14 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 				esc_attr( $et_pb_contact_form_num ),
 				$content,
 				$actionXhrUrl,
-				$email
+				$email,
+				$title,
+				$success_message,
+				$custom_message,
+				$contact_fields
 			);
 		}
-		
+
 		// Module classnames
 		$this->add_classname( array(
 			'et_pb_contact_form_container',

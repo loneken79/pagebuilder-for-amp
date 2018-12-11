@@ -43,8 +43,10 @@ if( $shortcode_slug == 'vc_tta_accordion' ){
 
 if( $shortcode_slug == 'vc_tta_tabs' ){
 	$accordion .= '<amp-selector role="tablist" layout="container" class="ampTabContainer">';
-	//$accordion .= $prepareContent;
-	$accordion .= strip_tags($prepareContent,"<h4><div><span>");
+	$content = $prepareContent;
+	$tags = "section";
+	$content = preg_replace('/<\/?' . $tags . '(.|\s)*?>/', '', $content);
+	$accordion .= $content;
 	$accordion = preg_replace('/(<h4\b[^><]*)>/i', '$1 role="tab" option="'.esc_attr($this->getTemplateVariable( 'tab_id' )).'">', $accordion);
 	$accordion = preg_replace("#(<h4\s(.*?))>#", '$1 selected">', $accordion,1);
 	$accordion = preg_replace('#class="vc_tta-panel-title"#', 'class="tabButton"', $accordion);

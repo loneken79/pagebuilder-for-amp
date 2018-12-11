@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Map extends ET_Builder_Module {
 	function init() {
 		$this->name            = esc_html__( 'Map', 'et_builder' );
-		$this->plural          = esc_html__( 'Maps', 'et_builder' );
 		$this->slug            = 'et_pb_map';
 		$this->vb_support      = 'on';
 		$this->child_slug      = 'et_pb_map_pin';
@@ -30,7 +29,7 @@ class AMP_ET_Builder_Module_Map extends ET_Builder_Module {
 			'box_shadow'            => array(
 				'default' => array(
 					'css' => array(
-						'overlay' => 'inset',
+						'custom_style' => true,
 					),
 				),
 			),
@@ -183,19 +182,7 @@ class AMP_ET_Builder_Module_Map extends ET_Builder_Module {
 		return $fields;
 	}
 
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-		$filters = $this->get_transition_filters_fields_css_props( 'child_filters' );
-
-		return array_merge( $fields, $filters );
-	}
-	public function amp_divi_inline_styles(){
-    
-    		$inline_styles = '';
-            echo $inline_styles;
-  	}
 	function render( $attrs, $content = null, $render_slug ) {
-		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$address_lat             = $this->props['address_lat'];
 		$address_lng             = $this->props['address_lng'];
 		$zoom_level              = $this->props['zoom_level'];
@@ -235,12 +222,6 @@ class AMP_ET_Builder_Module_Map extends ET_Builder_Module {
 		$this->remove_classname( $render_slug );
 
 		$output = sprintf(
-			// '<div%5$s class="%6$s"%8$s>
-			// 	%11$s
-			// 	%10$s
-			// 	<div class="et_pb_map" data-center-lat="%1$s" data-center-lng="%2$s" data-zoom="%3$d" data-mouse-wheel="%7$s" data-mobile-dragging="%9$s"></div>
-			// 	%4$s
-			// </div>',
 			'<amp-iframe width="600" title="Google map pin on Googleplex, Mountain View CA"
                           height="400"
                           layout="responsive"

@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Countdown Timer', 'et_builder' );
-		$this->plural     = esc_html__( 'Countdown Timers', 'et_builder' );
 		$this->slug       = 'et_pb_countdown_timer';
 		$this->vb_support = 'on';
 
@@ -69,7 +68,7 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 			),
 			'background'            => array(
 				'has_background_color_toggle' => true,
-				'use_background_color' => true,
+				'use_background_color' => 'fields_only',
 				'options' => array(
 					'background_color' => array(
 						'depends_show_if'  => 'on',
@@ -88,7 +87,6 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 			'text'                  => array(
 				'use_background_layout' => true,
 				'css' => array(
-					'main' => '%%order_class%% .et_pb_countdown_timer_container, %%order_class%% .title',
 					'text_orientation' => '%%order_class%% .et_pb_countdown_timer_container, %%order_class%% .title',
 				),
 				'options' => array(
@@ -97,7 +95,6 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 					),
 					'background_layout' => array(
 						'default' => 'dark',
-						'hover' => 'tabs',
 					),
 				),
 			),
@@ -209,21 +206,21 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 		';
         echo $inline_styles;
   	}
+
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$title                           = $this->props['title'];
-		$date_time                       = $this->props['date_time'];
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$use_background_color            = $this->props['use_background_color'];
-		$header_level                    = $this->props['header_level'];
-		$end_date                        = gmdate( 'M d, Y H:i:s', strtotime( $date_time ) );
-		$gmt_offset                      = get_option( 'gmt_offset' );
-		$gmt_divider                     = '-' === substr( $gmt_offset, 0, 1 ) ? '-' : '+';
-		$gmt_offset_hour                 = str_pad( abs( intval( $gmt_offset ) ), 2, "0", STR_PAD_LEFT );
-		$gmt_offset_minute               = str_pad( ( ( abs( $gmt_offset ) * 100 ) % 100 ) * ( 60 / 100 ), 2, "0", STR_PAD_LEFT );
-		$gmt                             = "GMT{$gmt_divider}{$gmt_offset_hour}{$gmt_offset_minute}";
+		$title                = $this->props['title'];
+		$date_time            = $this->props['date_time'];
+		$background_layout    = $this->props['background_layout'];
+		$background_color     = $this->props['background_color'];
+		$use_background_color = $this->props['use_background_color'];
+		$header_level         = $this->props['header_level'];
+		$end_date = gmdate( 'M d, Y H:i:s', strtotime( $date_time ) );
+		$gmt_offset        = get_option( 'gmt_offset' );
+		$gmt_divider       = '-' === substr( $gmt_offset, 0, 1 ) ? '-' : '+';
+		$gmt_offset_hour   = str_pad( abs( intval( $gmt_offset ) ), 2, "0", STR_PAD_LEFT );
+		$gmt_offset_minute = str_pad( ( ( abs( $gmt_offset ) * 100 ) % 100 ) * ( 60 / 100 ), 2, "0", STR_PAD_LEFT );
+		$gmt               = "GMT{$gmt_divider}{$gmt_offset_hour}{$gmt_offset_minute}";
 
 		if ( '' !== $title ) {
 			$title = sprintf( '<%2$s class="title">%s</%2$s>', esc_html( $title ), et_pb_process_header_level( $header_level, 'h4' ) );
@@ -232,17 +229,9 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 		$video_background = $this->video_background();
 		$parallax_image_background = $this->get_parallax_image_background();
 
-		$data_background_layout       = '';
-		$data_background_layout_hover = '';
-		if ( $background_layout_hover_enabled ) {
-			$data_background_layout = sprintf(
-				' data-background-layout="%1$s"',
-				esc_attr( $background_layout )
-			);
-			$data_background_layout_hover = sprintf(
-				' data-background-layout-hover="%1$s"',
-				esc_attr( $background_layout_hover )
-			);
+		$background_color_style = '';
+		if ( ! empty( $background_color ) && 'on' == $use_background_color ) {
+			$background_color_style = sprintf( ' style="background-color: %1$s;"', esc_attr( $background_color ) );
 		}
 
 		// Module classnames
@@ -253,63 +242,28 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 		if ( 'on' !== $use_background_color ) {
 			$this->add_classname( 'et_pb_no_bg' );
 		}
-		// '<amp-date-countdown%1$s class="%2$s"%3$s data-end-timestamp="%4$s"%16$s%17$s timestamp-seconds="%4$s" layout="fixed-height" height="100">
-		// 			<template type="amp-mustache">
-		// 			%5$s
-		// 			<p class="cdt">
-		// 		        <span class="cdt_value">{{d}}</span><span class="cdt_lbl">%6$s</span> 
-		// 		        <span class="cdt_value">{{h}}</span><span class="cdt_lbl">%7$s</span>
-		// 		        <span class="cdt_value">{{m}}</span><span class="cdt_lbl">%9$s</span>
-
-		// 		    </p>
-		// 		    </template>
-		// 	</amp-date-countdown>',
-		//<span class="cdt_value">{{s}}</span><span class="cdt_lbl">%11$s</span>
 
 		$output = sprintf(
-			'<amp-date-countdown%1$s class="%2$s"%3$s data-end-timestamp="%4$s"%16$s%17$s timestamp-seconds="%4$s" layout="fixed-height" height="150">
-					<template type="amp-mustache">
-					%5$s
-						<div class="days section values" >
-							<p class="value">{{d}}</p>
-							<p class="label">%6$s</p>
-						</div>
-						<div class="sep section"><p>:</p></div>
-						<div class="hours section values" >
-							<p class="value">{{h}}</p>
-							<p class="label">%7$s</p>
-						</div>
-						<div class="sep section"><p>:</p></div>
-						<div class="days section values" >
-							<p class="value">{{m}}</p>
-							<p class="label">%9$s</p>
-						</div>
-						<div class="sep section"><p>:</p></div>
-						<div class="days section values" >
-							<p class="value">{{s}}</p>
-							<p class="label">%11$s</p>
-						</div>
-				    </template>
+			'<amp-date-countdown%1$s class="%2$s" data-end-timestamp="%4$s" timestamp-seconds="%4$s"  layout="fixed-height" height="150">
+					
 			</amp-date-countdown>',
 			$this->module_id(),
 			$this->module_classname( $render_slug ),
-			'',
+			$background_color_style,
 			esc_attr( strtotime( "{$end_date} {$gmt}" ) ),
-			$title, // #5
+			$title,
 			esc_html__( 'Day(s)', 'et_builder' ),
 			esc_html__( 'Hour(s)', 'et_builder' ),
 			esc_attr__( 'Hrs', 'et_builder' ),
 			esc_html__( 'Minute(s)', 'et_builder' ),
-			esc_attr__( 'Min', 'et_builder' ), // #10
+			esc_attr__( 'Min', 'et_builder' ),
 			esc_html__( 'Second(s)', 'et_builder' ),
 			esc_attr__( 'Sec', 'et_builder' ),
 			esc_attr__( 'Day', 'et_builder' ),
 			$video_background,
-			$parallax_image_background, // #15
-			et_esc_previously( $data_background_layout ),
-			et_esc_previously( $data_background_layout_hover )
+			$parallax_image_background
 		);
-
+		
 		return $output;
 	}
 }
@@ -317,3 +271,8 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 $countdownTimerObj = new AMP_ET_Builder_Module_Countdown_Timer();
 remove_shortcode( 'et_pb_countdown_timer' );
 add_shortcode( 'et_pb_countdown_timer', array($countdownTimerObj, '_render'));
+
+
+
+
+

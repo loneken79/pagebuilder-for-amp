@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Map_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Pin', 'et_builder' );
-		$this->plural                      = esc_html__( 'Pins', 'et_builder' );
 		$this->slug                        = 'et_pb_map_pin';
 		$this->vb_support                  = 'on';
 		$this->type                        = 'child';
@@ -37,7 +36,6 @@ class AMP_ET_Builder_Module_Map_Item extends ET_Builder_Module {
 			'text'                  => false,
 			'margin_padding' => false,
 			'button'                => false,
-			'link_options'          => false,
 		);
 	}
 

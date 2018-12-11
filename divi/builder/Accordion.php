@@ -1,8 +1,8 @@
 <?php
+
 class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Accordion', 'et_builder' );
-		$this->plural     = esc_html__( 'Accordions', 'et_builder' );
 		$this->slug       = 'et_pb_accordion';
 		$this->vb_support = 'on';
 		$this->child_slug = 'et_pb_accordion_item';
@@ -116,7 +116,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'toggle',
-				'hover'             => 'tabs',
 			),
 			'open_toggle_background_color' => array(
 				'label'             => esc_html__( 'Open Toggle Background Color', 'et_builder' ),
@@ -124,7 +123,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'toggle',
-				'hover'             => 'tabs',
 			),
 			'closed_toggle_text_color' => array(
 				'label'             => esc_html__( 'Closed Toggle Text Color', 'et_builder' ),
@@ -132,7 +130,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'toggle',
-				'hover'             => 'tabs',
 			),
 			'closed_toggle_background_color' => array(
 				'label'             => esc_html__( 'Closed Toggle Background Color', 'et_builder' ),
@@ -140,7 +137,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'toggle',
-				'hover'             => 'tabs',
 			),
 			'icon_color' => array(
 				'label'             => esc_html__( 'Icon Color', 'et_builder' ),
@@ -148,30 +144,8 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'icon',
-				'hover'             => 'tabs',
 			),
 		);
-		return $fields;
-	}
-
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-		$title  = '%%order_class%% .et_pb_toggle .et_pb_toggle_title';
-
-		$fields['icon_color']        = array( 'color' => '%%order_class%% .et_pb_toggle .et_pb_toggle_title:before' );
-
-		$fields['toggle_text_color']        = array( 'color' => $title );
-		$fields['toggle_font_size']         = array( 'font-size' => $title );
-		$fields['toggle_letter_spacing']    = array( 'letter-spacing' => $title );
-		$fields['toggle_line_height']       = array( 'line-height' => $title );
-		$fields['toggle_text_shadow_style'] = array( 'text-shadow' => $title );
-
-		$fields['closed_toggle_text_color']       = array( 'color' => '%%order_class%% .et_pb_toggle_close .et_pb_toggle_title' );
-		$fields['closed_toggle_background_color'] = array( 'background-color' => '%%order_class%% .et_pb_toggle_close' );
-
-		$fields['open_toggle_text_color']       = array( 'color' => '%%order_class%% .et_pb_toggle_open .et_pb_toggle_title' );
-		$fields['open_toggle_background_color'] = array( 'background-color' => '%%order_class%% .et_pb_toggle_open' );
-
 		return $fields;
 	}
 
@@ -181,8 +155,9 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 		$et_pb_accordion_item_number = 1;
 		$et_pb_accordion_header_level = $this->props['toggle_level'];
 	}
+
 	public function amp_divi_inline_styles(){
-    
+    	
     $inline_styles = '.et_pb_accordion .et_pb_toggle[expanded]{
 		          background-color: #fff;
 		      }
@@ -208,29 +183,21 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 		      }';
             echo $inline_styles;
   		}
+
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$open_toggle_background_color         = $this->props['open_toggle_background_color'];
-		$open_toggle_background_color_hover   = $this->get_hover_value( 'open_toggle_background_color' );
-
-		$closed_toggle_background_color       = $this->props['closed_toggle_background_color'];
-		$closed_toggle_background_color_hover = $this->get_hover_value( 'closed_toggle_background_color' );
-
-		$icon_color                           = $this->props['icon_color'];
-		$icon_color_hover                     = $this->get_hover_value( 'icon_color' );
-
-		$closed_toggle_text_color             = $this->props['closed_toggle_text_color'];
-		$closed_toggle_text_color_hover       = $this->get_hover_value( 'closed_toggle_text_color' );
-
-		$open_toggle_text_color               = $this->props['open_toggle_text_color'];
-		$open_toggle_text_color_hover         = $this->get_hover_value( 'open_toggle_text_color' );
+		$open_toggle_background_color   = $this->props['open_toggle_background_color'];
+		$closed_toggle_background_color = $this->props['closed_toggle_background_color'];
+		$icon_color                     = $this->props['icon_color'];
+		$closed_toggle_text_color       = $this->props['closed_toggle_text_color'];
+		$open_toggle_text_color         = $this->props['open_toggle_text_color'];
 
 		global $et_pb_accordion_item_number;
 
 		$video_background          = $this->video_background();
 		$parallax_image_background = $this->get_parallax_image_background();
 
-		// Open toggle background color
+		// Module styles
 		if ( '' !== $open_toggle_background_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_toggle_open',
@@ -241,17 +208,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'open_toggle_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%:hover .et_pb_toggle_open',
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $open_toggle_background_color_hover )
-				),
-			) );
-		}
-
-		// Closed toggle background color
 		if ( '' !== $closed_toggle_background_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_toggle_close',
@@ -262,17 +218,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'closed_toggle_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%:hover .et_pb_toggle_close',
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $closed_toggle_background_color_hover )
-				),
-			) );
-		}
-
-		// Icon color
 		if ( '' !== $icon_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_toggle_title:before',
@@ -284,18 +229,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'icon_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_toggle_title:hover:before',
-				'priority'    => ET_Builder_Element::DEFAULT_PRIORITY,
-				'declaration' => sprintf(
-					'color: %1$s;',
-					esc_html( $icon_color_hover )
-				),
-			) );
-		}
-
-		// Closed toggle text color
 		if ( '' !== $closed_toggle_text_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_toggle_close h5.et_pb_toggle_title, %%order_class%% .et_pb_toggle_close h1.et_pb_toggle_title, %%order_class%% .et_pb_toggle_close h2.et_pb_toggle_title, %%order_class%% .et_pb_toggle_close h3.et_pb_toggle_title, %%order_class%% .et_pb_toggle_close h4.et_pb_toggle_title, %%order_class%% .et_pb_toggle_close h6.et_pb_toggle_title',
@@ -306,17 +239,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'closed_toggle_text_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%:hover .et_pb_toggle_close h5.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_close h1.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_close h2.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_close h3.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_close h4.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_close h6.et_pb_toggle_title',
-				'declaration' => sprintf(
-					'color: %1$s !important;',
-					esc_html( $closed_toggle_text_color_hover )
-				),
-			) );
-		}
-
-		// Open toggle text color
 		if ( '' !== $open_toggle_text_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_toggle_open h5.et_pb_toggle_title, %%order_class%% .et_pb_toggle_open h1.et_pb_toggle_title, %%order_class%% .et_pb_toggle_open h2.et_pb_toggle_title, %%order_class%% .et_pb_toggle_open h3.et_pb_toggle_title, %%order_class%% .et_pb_toggle_open h4.et_pb_toggle_title, %%order_class%% .et_pb_toggle_open h6.et_pb_toggle_title',
@@ -326,19 +248,6 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 				),
 			) );
 		}
-
-		if ( et_builder_is_hover_enabled( 'open_toggle_text_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%:hover .et_pb_toggle_open h5.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_open h1.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_open h2.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_open h3.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_open h4.et_pb_toggle_title, %%order_class%%:hover .et_pb_toggle_open h6.et_pb_toggle_title',
-				'declaration' => sprintf(
-					'color: %1$s !important;',
-					esc_html( $open_toggle_text_color_hover )
-				),
-			) );
-		}
-
-		// Module classnames
-		$this->add_classname( $this->get_text_orientation_classname() );
 		$content = $this->content;
 	    preg_match_all("/<section class=\"et_pb_toggle et_pb_module(.*?)\">(.*?)<\/section>/s", $content, $matches);
 	    $content = $matches[0];
@@ -354,7 +263,9 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 	    	}
 	    }
 	    $content = $sections;
-	  
+
+		// Module classnames
+		$this->add_classname( $this->get_text_orientation_classname() );	
 		$output = sprintf(
 			'<amp-accordion disable-session-states expand-single-section %3$s class="%2$s">
 				%5$s
@@ -367,13 +278,22 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 			$video_background,
 			$parallax_image_background
 		);
-		
+
 		return $output;
 	}
+
 	public function add_new_child_text() {
 		return esc_html__( 'Add New Accordion Item', 'et_builder' );
 	}
 
+	public function process_box_shadow( $function_name ) {
+	 	$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
+	 	$selector = sprintf( '.%1$s .et_pb_toggle', self::get_module_order_class( $function_name ) );
+	 	self::set_style( $function_name, array(
+	 		'selector'    => $selector,
+	 		'declaration' => '',
+	 	) );
+	} 
 }
 
 $accordianItemObj = new AMP_ET_Builder_Module_Accordion();//et_pb_accordion_item

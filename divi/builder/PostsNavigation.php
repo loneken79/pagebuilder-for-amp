@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Posts_Navigation extends ET_Builder_Module {
 	function init() {
 		$this->name             = esc_html__( 'Post Navigation', 'et_builder' );
-		$this->plural           = esc_html__( 'Post Navigations', 'et_builder' );
 		$this->slug             = 'et_pb_post_nav';
 		$this->vb_support       = 'on';
 		$this->main_css_element = '.et_pb_posts_nav%%order_class%%';
@@ -63,14 +62,13 @@ class AMP_ET_Builder_Module_Posts_Navigation extends ET_Builder_Module {
 				'default' => array(
 					'css' => array(
 						'main'         => '%%order_class%% .nav-previous, %%order_class%% .nav-next',
-						'overlay' => 'inset',
+						'custom_style' => true,
 						'important'    => true,
 					),
 				),
 			),
 			'text'                  => false,
 			'button'                => false,
-			'link_options'          => false,
 		);
 
 		$this->custom_css_fields = array(
@@ -304,17 +302,7 @@ class AMP_ET_Builder_Module_Posts_Navigation extends ET_Builder_Module {
 
 		return $posts_navigation;
 	}
-	public function amp_divi_inline_styles(){
-    
-		$inline_styles = '.et_pb_posts_nav a{
-	        font-size:16px;
-	        color:#2ea3f2;
-	      }
-	      .et_pb_posts_nav .nav-next{
-	        float:right;
-	      }';
-        echo $inline_styles;
-  	}
+
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$in_same_term  = $this->props['in_same_term'];

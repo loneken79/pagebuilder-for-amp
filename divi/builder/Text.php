@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Text', 'et_builder' );
-		$this->plural     = esc_html__( 'Texts', 'et_builder' );
 		$this->slug       = 'et_pb_text';
 		$this->vb_support = 'on';
 
@@ -265,7 +264,6 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 					),
 					'background_layout' => array(
 						'default' => 'light',
-						'hover'   => 'tabs',
 					),
 				),
 			),
@@ -379,11 +377,11 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 				'type'              => 'select',
 				'option_category'   => 'configuration',
 				'options'           => array(
-					'inside'  => esc_html__( 'Inside', 'et_builder' ),
 					'outside' => esc_html__( 'Outside', 'et_builder' ),
+					'inside'  => esc_html__( 'Inside', 'et_builder' ),
 				),
 				'priority'          => 85,
-				'default'           => 'inside',
+				'default'           => 'outside',
 				'default_on_front' => '',
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'text',
@@ -450,17 +448,15 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$ul_type                         = $this->props['ul_type'];
-		$ul_position                     = $this->props['ul_position'];
-		$ul_item_indent                  = $this->props['ul_item_indent'];
-		$ol_type                         = $this->props['ol_type'];
-		$ol_position                     = $this->props['ol_position'];
-		$ol_item_indent                  = $this->props['ol_item_indent'];
-		$quote_border_weight             = $this->props['quote_border_weight'];
-		$quote_border_color              = $this->props['quote_border_color'];
+		$background_layout    = $this->props['background_layout'];
+		$ul_type              = $this->props['ul_type'];
+		$ul_position          = $this->props['ul_position'];
+		$ul_item_indent       = $this->props['ul_item_indent'];
+		$ol_type              = $this->props['ol_type'];
+		$ol_position          = $this->props['ol_position'];
+		$ol_item_indent       = $this->props['ol_item_indent'];
+		$quote_border_weight  = $this->props['quote_border_weight'];
+		$quote_border_color   = $this->props['quote_border_color'];
 
 		$this->content = et_builder_replace_code_content_entities( $this->content );
 
@@ -513,23 +509,8 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 			$this->get_text_orientation_classname(),
 		) );
 
-		$data_background_layout       = '';
-		$data_background_layout_hover = '';
-
-		if ( $background_layout_hover_enabled ) {
-			$data_background_layout = sprintf(
-				' data-background-layout="%1$s"',
-				esc_attr( $background_layout )
-			);
-
-			$data_background_layout_hover = sprintf(
-				' data-background-layout-hover="%1$s"',
-				esc_attr( $background_layout_hover )
-			);
-		}
-
 		$output = sprintf(
-			'<div%3$s class="%2$s"%6$s%7$s>
+			'<div%3$s class="%2$s">
 				%5$s
 				%4$s
 				<div class="et_pb_text_inner">
@@ -540,9 +521,7 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 			$this->module_classname( $render_slug ),
 			$this->module_id(),
 			$video_background,
-			$parallax_image_background, // #5
-			et_esc_previously( $data_background_layout ),
-			et_esc_previously( $data_background_layout_hover )
+			$parallax_image_background
 		);
 
 		return $output;

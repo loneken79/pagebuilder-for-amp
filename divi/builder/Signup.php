@@ -2,31 +2,14 @@
 
 class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 
-	protected static $_providers;
+	private static $_providers;
 
 	public static $enabled_providers;
 
-	public $child_slug = 'et_pb_signup_custom_field';
-
-	public $module_items_config = array(
-		'toggle_slug' => 'fields',
-		'location'    => 'bottom',
-		'show_if'     => array(
-			'use_custom_fields' => 'on',
-		),
-		'show_if_not' => array(
-			'function.hasPredefinedFields' => 'off',
-			'${provider}_list'             => array( '0|none', '' ),
-		),
-	);
-
 	function init() {
 		$this->name       = esc_html__( 'Email Optin', 'et_builder' );
-		$this->plural     = esc_html__( 'Email Optins', 'et_builder' );
 		$this->slug       = 'et_pb_signup';
 		$this->vb_support = 'on';
-
-		$this->child_item_text = esc_html__( 'Custom Field', 'et_builder' );
 
 		$providers               = self::providers()->names_by_slug();
 		$providers['feedburner'] = 'FeedBurner';
@@ -38,17 +21,17 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		$this->main_css_element = '%%order_class%%.et_pb_subscribe';
 
 		$this->settings_modal_toggles = array(
-			'general'    => array(
+			'general'  => array(
 				'toggles' => array(
 					'main_content'   => esc_html__( 'Text', 'et_builder' ),
+					'background'     => esc_html__( 'Background', 'et_builder' ),
 					'provider'       => esc_html__( 'Email Account', 'et_builder' ),
 					'fields'         => esc_html__( 'Fields', 'et_builder' ),
 					'success_action' => esc_html__( 'Success Action', 'et_builder' ),
 				),
 			),
-			'advanced'   => array(
+			'advanced' => array(
 				'toggles' => array(
-					'layout' => esc_html__( 'Layout', 'et_builder' ),
 					'fields' => esc_html__( 'Fields', 'et_builder' ),
 					'text'   => array(
 						'title'    => esc_html__( 'Text', 'et_builder' ),
@@ -56,18 +39,13 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					),
 				),
 			),
-			'custom_css' => array(
-				'toggles' => array(
-					'privacy' => esc_html__( 'Privacy', 'et_builder' ),
-				),
-			),
 		);
 
 		$this->advanced_fields = array(
-			'fonts'          => array(
+			'fonts'                 => array(
 				'header'         => array(
-					'label'        => esc_html__( 'Title', 'et_builder' ),
-					'css'          => array(
+					'label' => esc_html__( 'Title', 'et_builder' ),
+					'css'   => array(
 						'main'      => "{$this->main_css_element} .et_pb_newsletter_description h2, {$this->main_css_element} .et_pb_newsletter_description h1.et_pb_module_header, {$this->main_css_element} .et_pb_newsletter_description h3.et_pb_module_header, {$this->main_css_element} .et_pb_newsletter_description h4.et_pb_module_header, {$this->main_css_element} .et_pb_newsletter_description h5.et_pb_module_header, {$this->main_css_element} .et_pb_newsletter_description h6.et_pb_module_header",
 						'important' => 'all',
 					),
@@ -75,26 +53,12 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 						'default' => 'h2',
 					),
 				),
-				'form_field' => array(
-					'label' => esc_html__( 'Field', 'et_builder' ),
-					'css'   => array(
-						'main'      => array(
-							"%%order_class%%.et_pb_contact_field .et_pb_contact_field_options_title",
-							"{$this->main_css_element} .input",
-							"{$this->main_css_element} .input::-webkit-input-placeholder",
-							"{$this->main_css_element} .input::-moz-placeholder",
-							"{$this->main_css_element} .input:-ms-input-placeholder",
-							"{$this->main_css_element} .input[type=checkbox] + label",
-							"{$this->main_css_element} .input[type=radio] + label",
-						),
-						'important' => 'plugin_only',
-					),
-				),
 				'body'           => array(
 					'label' => esc_html__( 'Body', 'et_builder' ),
 					'css'   => array(
 						'main'        => "{$this->main_css_element} .et_pb_newsletter_description, {$this->main_css_element} .et_pb_newsletter_form",
 						'line_height' => "{$this->main_css_element} p",
+						'text_shadow' => "{$this->main_css_element} .et_pb_newsletter_description",
 					),
 				),
 				'result_message' => array(
@@ -109,11 +73,10 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					'important' => 'all',
 				),
 			),
-			'button'         => array(
+			'button'                => array(
 				'button' => array(
-					'label'      => esc_html__( 'Button', 'et_builder' ),
-					'css'        => array(
-						'main' => "{$this->main_css_element} .et_pb_newsletter_button.et_pb_button",
+					'label' => esc_html__( 'Button', 'et_builder' ),
+					'css'   => array(
 						'plugin_main' => "{$this->main_css_element} .et_pb_newsletter_button.et_pb_button",
 					),
 					'box_shadow' => array(
@@ -123,31 +86,32 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					),
 				),
 			),
-			'background'     => array(
+			'background'            => array(
 				'has_background_color_toggle' => true,
-				'options'                     => array(
+				'use_background_color' => 'fields_only',
+				'options' => array(
 					'use_background_color' => array(
-						'default' => 'on',
+						'default'          => 'on',
 					),
-					'background_color'     => array(
+					'background_color' => array(
 						'depends_show_if' => 'on',
 						'default'         => et_builder_accent_color(),
 					),
 				),
 			),
-			'borders'        => array(
-				'default'      => array(),
-				'fields'       => array(
-					'css'          => array(
+			'borders'               => array(
+				'default' => array(),
+				'fields' => array(
+					'css'             => array(
 						'main' => array(
-							'border_radii'  => '%%order_class%% .et_pb_newsletter_form p input[type="text"], %%order_class%% .et_pb_newsletter_form p textarea, %%order_class%% .et_pb_newsletter_form p select, %%order_class%% .et_pb_newsletter_form p .input[type="radio"] + label i, %%order_class%% .et_pb_newsletter_form p .input[type="checkbox"] + label i',
-							'border_styles' => '%%order_class%% .et_pb_newsletter_form p input[type="text"], %%order_class%% .et_pb_newsletter_form p textarea, %%order_class%% .et_pb_newsletter_form p select, %%order_class%% .et_pb_newsletter_form p .input[type="radio"] + label i, %%order_class%% .et_pb_newsletter_form p .input[type="checkbox"] + label i',
+							'border_radii' => "%%order_class%% .et_pb_newsletter_form p input",
+							'border_styles' => "%%order_class%% .et_pb_newsletter_form p input",
 						),
 					),
-					'label_prefix' => esc_html__( 'Fields', 'et_builder' ),
-					'tab_slug'     => 'advanced',
-					'toggle_slug'  => 'fields',
-					'defaults'     => array(
+					'label_prefix'    => esc_html__( 'Fields', 'et_builder' ),
+					'tab_slug'        => 'advanced',
+					'toggle_slug'     => 'fields',
+					'defaults'        => array(
 						'border_radii'  => 'on|3px|3px|3px|3px',
 						'border_styles' => array(
 							'width' => '0px',
@@ -155,7 +119,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 							'style' => 'solid',
 						),
 					),
-					'fields_after' => array(
+					'fields_after'    => array(
 						'use_focus_border_color' => array(
 							'label'           => esc_html__( 'Use Focus Borders', 'et_builder' ),
 							'type'            => 'yes_no_button',
@@ -164,7 +128,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 								'off' => esc_html__( 'No', 'et_builder' ),
 								'on'  => esc_html__( 'Yes', 'et_builder' ),
 							),
-							'affects'         => array(
+							'affects'     => array(
 								'border_radii_fields_focus',
 								'border_styles_fields_focus',
 							),
@@ -177,7 +141,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 				'fields_focus' => array(
 					'css'             => array(
 						'main' => array(
-							'border_radii'  => "%%order_class%% .et_pb_newsletter_form p input:focus",
+							'border_radii' => "%%order_class%% .et_pb_newsletter_form p input:focus",
 							'border_styles' => "%%order_class%% .et_pb_newsletter_form p input:focus",
 						),
 					),
@@ -196,40 +160,38 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					),
 				),
 			),
-			'box_shadow'     => array(
+			'box_shadow'            => array(
 				'default' => array(),
 				'fields'  => array(
-					'label'             => esc_html__( 'Fields Box Shadow', 'et_builder' ),
-					'option_category'   => 'layout',
-					'tab_slug'          => 'advanced',
-					'toggle_slug'       => 'fields',
-					'css'               => array(
+					'label'               => esc_html__( 'Fields Box Shadow', 'et_builder' ),
+					'option_category'     => 'layout',
+					'tab_slug'            => 'advanced',
+					'toggle_slug'         => 'fields',
+					'css'                 => array(
 						'main' => '%%order_class%% .et_pb_newsletter_form .input',
 					),
-					'default_on_fronts' => array(
+					'default_on_fronts'  => array(
 						'color'    => '',
 						'position' => '',
 					),
 				),
 			),
-			'max_width'      => array(),
-			'text'           => array(
+			'max_width'             => array(),
+			'text'                  => array(
 				'use_background_layout' => true,
-				'css'                   => array(
-					'main' => '%%order_class%% .et_pb_newsletter_description p, %%order_class%% .et_pb_newsletter_description .et_pb_module_header',
-					'text_shadow' => '%%order_class%% .et_pb_newsletter_description p, %%order_class%% .et_pb_newsletter_description .et_pb_module_header',
+				'css' => array(
+					'text_shadow' => '%%order_class%% .et_pb_newsletter_description',
 				),
-				'options'               => array(
-					'text_orientation'  => array(
+				'options' => array(
+					'text_orientation' => array(
 						'default' => 'left',
 					),
 					'background_layout' => array(
 						'default' => 'dark',
-						'hover' => 'tabs',
 					),
 				),
 			),
-			'text_shadow'    => array(
+			'text_shadow'           => array(
 				'default' => array(),
 				'fields'  => array(
 					'label'           => esc_html__( 'Fields', 'et_builder' ),
@@ -237,9 +199,9 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					'tab_slug'        => 'advanced',
 				),
 			),
-			'fields'         => array(
+			'fields'                => array(
 				'css' => array(
-					'text_shadow' => "{$this->main_css_element} input, {$this->main_css_element} textarea, {$this->main_css_element} select",
+					'text_shadow' => "{$this->main_css_element} input",
 				),
 			),
 		);
@@ -259,7 +221,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 			),
 			'newsletter_fields'      => array(
 				'label'    => esc_html__( 'Opt-in Form Fields', 'et_builder' ),
-				'selector' => '%%order_class%% .et_pb_newsletter_form p input[type="text"], %%order_class%% .et_pb_newsletter_form p textarea, %%order_class%% .et_pb_newsletter_form p select, %%order_class%% .et_pb_newsletter_form p .input[type="radio"] + label i, %%order_class%% .et_pb_newsletter_form p .input[type="checkbox"] + label i',
+				'selector' => '.et_pb_newsletter_form input',
 			),
 			'newsletter_button'      => array(
 				'label'                    => esc_html__( 'Subscribe Button', 'et_builder' ),
@@ -412,8 +374,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 	}
 
 	function get_fields() {
-		$name_field_only  = array_keys( self::providers()->names_by_slug( 'all', 'name_field_only' ) );
-		$no_custom_fields = array_keys( self::providers()->names_by_slug( 'all', 'no_custom_fields' ) );
+		$name_field_only = array_keys( self::providers()->names_by_slug( 'all', 'name_field_only' ) );
 
 		return array_merge(
 			array(
@@ -441,32 +402,6 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 			self::_get_provider_fields(),
 
 			array(
-				'layout'                      => array(
-					'label'       => esc_html__( 'Layout', 'et_builder' ),
-					'type'        => 'select',
-					'options'     => array(
-						'left_right' => esc_html__( 'Body On Left, Form On Right', 'et_builder' ),
-						'right_left' => esc_html__( 'Body On Right, Form On Left', 'et_builder' ),
-						'top_bottom' => esc_html__( 'Body On Top, Form On Bottom', 'et_builder' ),
-						'bottom_top' => esc_html__( 'Body On Bottom, Form On Top', 'et_builder' ),
-					),
-					'default'     => 'left_right',
-					'tab_slug'    => 'advanced',
-					'toggle_slug' => 'layout',
-				),
-				'ip_address'                  => array(
-					'label'           => esc_html__( 'Include IP Address' ),
-					'type'            => 'yes_no_button',
-					'options'         => array(
-						'on'  => esc_html__( 'Yes', 'et_builder' ),
-						'off' => esc_html__( 'No', 'et_builder' ),
-					),
-					'default'         => 'on',
-					'option_category' => 'configuration',
-					'description'     => esc_html__( "Include the subscriber's ip address in the data sent to your email provider.", 'et_builder' ),
-					'toggle_slug'     => 'privacy',
-					'tab_slug'        => 'custom_css',
-				),
 				'name_field'                  => array(
 					'label'           => esc_html__( 'Use Single Name Field', 'et_builder' ),
 					'type'            => 'yes_no_button',
@@ -481,21 +416,6 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					),
 					'toggle_slug'     => 'fields',
 					'description'     => esc_html__( 'Whether or not to use a single Name field in the opt-in form.', 'et_builder' ),
-				),
-				'name_fullwidth'              => array(
-					'label'           => esc_html__( 'Name Fullwidth', 'et_builder' ),
-					'type'            => 'yes_no_button',
-					'option_category' => 'configuration',
-					'options'         => array(
-						'on'  => esc_html__( 'Yes', 'et_builder' ),
-						'off' => esc_html__( 'No', 'et_builder' ),
-					),
-					'default'         => 'on',
-					'toggle_slug'     => 'layout',
-					'tab_slug'        => 'advanced',
-					'show_if'         => array(
-						'name_field' => 'on',
-					),
 				),
 				'first_name_field'            => array(
 					'label'           => esc_html__( 'First Name', 'et_builder' ),
@@ -515,21 +435,6 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					'toggle_slug'     => 'fields',
 					'description'     => esc_html__( 'Whether or not the First Name field should be included in the opt-in form.', 'et_builder' ),
 				),
-				'first_name_fullwidth'        => array(
-					'label'           => esc_html__( 'First Name Fullwidth', 'et_builder' ),
-					'type'            => 'yes_no_button',
-					'option_category' => 'configuration',
-					'options'         => array(
-						'on'  => esc_html__( 'Yes', 'et_builder' ),
-						'off' => esc_html__( 'No', 'et_builder' ),
-					),
-					'default'         => 'on',
-					'toggle_slug'     => 'layout',
-					'tab_slug'        => 'advanced',
-					'show_if'         => array(
-						'first_name_field' => 'on',
-					),
-				),
 				'last_name_field'             => array(
 					'label'           => esc_html__( 'Last Name', 'et_builder' ),
 					'type'            => 'yes_no_button',
@@ -548,21 +453,6 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					'toggle_slug'     => 'fields',
 					'description'     => esc_html__( 'Whether or not the Last Name field should be included in the opt-in form.', 'et_builder' ),
 				),
-				'last_name_fullwidth'         => array(
-					'label'           => esc_html__( 'Last Name Fullwidth', 'et_builder' ),
-					'type'            => 'yes_no_button',
-					'option_category' => 'configuration',
-					'options'         => array(
-						'on'  => esc_html__( 'Yes', 'et_builder' ),
-						'off' => esc_html__( 'No', 'et_builder' ),
-					),
-					'default'         => 'on',
-					'toggle_slug'     => 'layout',
-					'tab_slug'        => 'advanced',
-					'show_if' => array(
-						'last_name_field' => 'on',
-					),
-				),
 				'name_field_only'             => array(
 					'label'           => esc_html__( 'Name', 'et_builder' ),
 					'type'            => 'yes_no_button',
@@ -578,54 +468,6 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					'toggle_slug'     => 'fields',
 					'description'     => esc_html__( 'Whether or not the Name field should be included in the opt-in form.', 'et_builder' ),
 				),
-				'email_fullwidth'             => array(
-					'label'           => esc_html__( 'Email Fullwidth', 'et_builder' ),
-					'type'            => 'yes_no_button',
-					'option_category' => 'configuration',
-					'options'         => array(
-						'on'  => esc_html__( 'Yes', 'et_builder' ),
-						'off' => esc_html__( 'No', 'et_builder' ),
-					),
-					'default'         => 'on',
-					'toggle_slug'     => 'layout',
-					'tab_slug'        => 'advanced',
-				),
-				'use_custom_fields'           => array(
-					'label'           => esc_html__( 'Use Custom Fields', 'et_builder' ),
-					'type'            => 'yes_no_button',
-					'option_category' => 'configuration',
-					'options'         => array(
-						'on'  => esc_html__( 'Yes', 'et_builder' ),
-						'off' => esc_html__( 'No', 'et_builder' ),
-					),
-					'default'         => 'off',
-					'allow_dynamic'   => array_keys( self::providers()->names_by_slug( 'all', 'dynamic_custom_fields' ) ),
-					'show_if_not'     => array(
-						'provider'         => $no_custom_fields,
-						'${provider}_list' => array( '0|none', '' ),
-					),
-					'toggle_slug'     => 'fields',
-					'description'     => esc_html__( 'Enable this option to use custom fields in your opt-in form. Learn more <a href="https://www.elegantthemes.com/documentation/divi/modules/adding-custom-fields-to-the-divi-email-optin-module">here</a>', 'et_builder' ),
-					'bb_support'      => false,
-				),
-				'use_custom_fields_notice'   => array(
-					'label'           => '',
-					'type'            => 'warning',
-					'value'           => true,
-					'display_if'      => true,
-					'message'         => esc_html__( 'You have not defined any custom fields in your email provider account. Once you have defined some fields, click the "Fetch Lists" button in the Email Account toggle above. Learn more <a href="https://www.elegantthemes.com/documentation/divi/modules/adding-custom-fields-to-the-divi-email-optin-module">here</a>', 'et_builder' ),
-					'option_category' => 'configuration',
-					'show_if'     => array(
-						'function.hasPredefinedFields' => 'off',
-						'use_custom_fields'            => 'on',
-					),
-					'show_if_not'     => array(
-						'provider'         => $no_custom_fields,
-						'${provider}_list' => array( '0|none', '' ),
-					),
-					'toggle_slug'     => 'fields',
-					'bb_support'      => false,
-				),
 				'success_action'              => array(
 					'label'           => esc_html__( 'Action', 'et_builder' ),
 					'type'            => 'select',
@@ -639,15 +481,15 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					'description'     => esc_html__( 'Choose what happens when a site visitor has been successfully subscribed to your list.', 'et_builder' ),
 				),
 				'success_message'             => array(
-					'label'           => esc_html__( 'Message', 'et_builder' ),
-					'type'            => 'text',
-					'option_category' => 'configuration',
-					'default'         => esc_html__( 'Success!', 'et_builder' ),
-					'show_if'         => array(
+					'label'             => esc_html__( 'Message', 'et_builder' ),
+					'type'              => 'text',
+					'option_category'   => 'configuration',
+					'default'           => esc_html__( 'Success!', 'et_builder' ),
+					'show_if'           => array(
 						'success_action' => 'message',
 					),
-					'toggle_slug'     => 'success_action',
-					'description'     => esc_html__( 'The message that will be shown to site visitors who subscribe to your list.', 'et_builder' ),
+					'toggle_slug'       => 'success_action',
+					'description'       => esc_html__( 'The message that will be shown to site visitors who subscribe to your list.', 'et_builder' ),
 				),
 				'success_redirect_url'        => array(
 					'label'           => esc_html__( 'Redirect URL', 'et_builder' ),
@@ -684,32 +526,24 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					'toggle_slug'     => 'main_content',
 				),
 				'button_text'                 => array(
-					'label'            => esc_html__( 'Button Text', 'et_builder' ),
-					'type'             => 'text',
-					'option_category'  => 'basic_option',
-					'description'      => esc_html__( 'Define custom text for the subscribe button.', 'et_builder' ),
-					'toggle_slug'      => 'main_content',
+					'label'           => esc_html__( 'Button Text', 'et_builder' ),
+					'type'            => 'text',
+					'option_category' => 'basic_option',
+					'description'     => esc_html__( 'Define custom text for the subscribe button.', 'et_builder' ),
+					'toggle_slug'     => 'main_content',
 					'default_on_front' => esc_html__( 'Subscribe', 'et_builder' ),
 				),
-				'description'                 => array(
-					'label'           => esc_html__( 'Description', 'et_builder' ),
+				'content'                 => array(
+					'label'           => esc_html__( 'Content', 'et_builder' ),
 					'type'            => 'tiny_mce',
 					'option_category' => 'basic_option',
-					'description'     => esc_html__( 'This content will appear below the title.', 'et_builder' ),
-					'toggle_slug'     => 'main_content',
-				),
-				'footer_content'              => array(
-					'label'           => esc_html__( 'Footer', 'et_builder' ),
-					'type'            => 'tiny_mce',
-					'option_category' => 'basic_option',
-					'description'     => esc_html__( 'This content will appear below the subscribe button.', 'et_builder' ),
+					'description'     => esc_html__( 'Input the main text content for your module here.', 'et_builder' ),
 					'toggle_slug'     => 'main_content',
 				),
 				'form_field_background_color' => array(
 					'label'        => esc_html__( 'Form Field Background Color', 'et_builder' ),
 					'type'         => 'color-alpha',
 					'custom_color' => true,
-					'hover'        => 'tabs',
 					'tab_slug'     => 'advanced',
 					'toggle_slug'  => 'fields',
 				),
@@ -738,23 +572,6 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		);
 	}
 
-	public function get_transition_fields_css_props() {
-		$fields       = parent::get_transition_fields_css_props();
-		$fields["form_field_background_color"] = array( 'background-color' => implode(',', array(
-			'%%order_class%% .et_pb_newsletter_form p input[type="text"]',
-			'%%order_class%% .et_pb_newsletter_form p textarea',
-			'%%order_class%% .et_pb_newsletter_form p select',
-			'%%order_class%% .et_pb_newsletter_form p .input[type="checkbox"] + label i',
-			'%%order_class%% .et_pb_newsletter_form p .input[type="radio"] + label i',
-		)) );
-
-		$fields = array_merge( $fields, $this->get_transition_borders_fields_css_props( 'fields' ) );
-		$fields = array_merge( $fields, $this->get_transition_borders_fields_css_props( 'fields_focus' ) );
-		$fields = array_merge( $fields, $this->get_transition_box_shadow_fields_css_props( 'fields' ) );
-
-		return $fields;
-	}
-
 	public static function get_lists() {
 		static $migrated = false;
 
@@ -781,11 +598,9 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 				}
 
 				foreach ( (array) $account_details['lists'] as $list_id => $list_details ) {
-					if ( empty( $list_details['name'] ) ) {
-						continue;
+					if ( ! empty( $list_details['name'] ) ) {
+						$lists[ $provider_slug ][ $account_name ][ $list_id ] = esc_html( $list_details['name'] );
 					}
-
-					$lists[ $provider_slug ][ $account_name ][ $list_id ] = esc_html( $list_details['name'] );
 				}
 			}
 
@@ -823,43 +638,36 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 
 		switch ( $field ) {
 			case 'name':
-				$label          = $single_name_field ? __( 'Name', 'et_builder' ) : __( 'First Name', 'et_builder' );
-				$fullwidth_prop = $single_name_field ? 'name_fullwidth' : 'first_name_fullwidth';
-				$fullwidth      = 'on' === self::$_->array_get( $this->props, $fullwidth_prop, 'on' );
-				$html      = sprintf( '
-					<p class="et_pb_newsletter_field%1$s">
-						<label class="et_pb_contact_form_label" for="et_pb_signup_firstname" style="display: none;">%2$s</label>
-						<input id="et_pb_signup_firstname" class="input" type="text" placeholder="%3$s" name="et_pb_signup_firstname">
+				$label = $single_name_field ? __( 'Name', 'et_builder' ) : __( 'First Name', 'et_builder' );
+				$html  = sprintf( '
+					<p>
+						<label class="et_pb_contact_form_label" for="et_pb_signup_firstname" style="display: none;">%1$s</label>
+						<input id="et_pb_signup_firstname" class="input" type="text" placeholder="%2$s" name="et_pb_signup_firstname">
 					</p>',
-					$fullwidth ? ' et_pb_contact_field_last' : ' et_pb_contact_field_half',
 					esc_html( $label ),
 					esc_attr( $label )
 				);
 				break;
 
 			case 'last_name':
-				$label     = __( 'Last Name', 'et_builder' );
-				$fullwidth = 'on' === self::$_->array_get( $this->props, 'last_name_fullwidth', 'on' );
-				$html      = sprintf( '
-					<p class="et_pb_newsletter_field%1$s">
-						<label class="et_pb_contact_form_label" for="et_pb_signup_lastname" style="display: none;">%2$s</label>
-						<input id="et_pb_signup_lastname" class="input" type="text" placeholder="%3$s" name="et_pb_signup_lastname">
+				$label = __( 'Last Name', 'et_builder' );
+				$html  = sprintf( '
+					<p>
+						<label class="et_pb_contact_form_label" for="et_pb_signup_lastname" style="display: none;">%1$s</label>
+						<input id="et_pb_signup_lastname" class="input" type="text" placeholder="%2$s" name="et_pb_signup_lastname">
 					</p>',
-					$fullwidth ? ' et_pb_contact_field_last' : ' et_pb_contact_field_half',
 					esc_html( $label ),
 					esc_attr( $label )
 				);
 				break;
 
 			case 'email':
-				$label     = __( 'Email', 'et_builder' );
-				$fullwidth = 'on' === self::$_->array_get( $this->props, 'email_fullwidth', 'on' );
-				$html      = sprintf( '
-					<p class="et_pb_newsletter_field%1$s">
-						<label class="et_pb_contact_form_label" for="et_pb_signup_email" style="display: none;">%2$s</label>
-						<input id="et_pb_signup_email" class="input" type="text" placeholder="%3$s" name="et_pb_signup_email">
+				$label = __( 'Email', 'et_builder' );
+				$html  = sprintf( '
+					<p>
+						<label class="et_pb_contact_form_label" for="et_pb_signup_email" style="display: none;">%1$s</label>
+						<input id="et_pb_signup_email" class="input" type="text" placeholder="%2$s" name="et_pb_signup_email">
 					</p>',
-					$fullwidth ? ' et_pb_contact_field_last' : ' et_pb_contact_field_half',
 					esc_html( $label ),
 					esc_attr( $label )
 				);
@@ -873,7 +681,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 				$icon_attr  = $button_icon ? et_pb_process_font_icon( $this->props['button_icon'] ) : '';
 
 				$html = sprintf( '
-					<p class="et_pb_newsletter_button_wrap">
+					<p>
 						<a class="et_pb_newsletter_button et_pb_button%1$s" href="#"%2$s data-icon="%3$s">
 							<span class="et_subscribe_loader"></span>
 							<span class="et_pb_newsletter_button_text">%4$s</span>
@@ -893,12 +701,11 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					$html = sprintf( '
 						<input type="hidden" value="%1$s" name="uri" />
 						<input type="hidden" name="loc" value="%2$s" />',
-						esc_attr( $this->props['feedburner_uri'] ),
+						esc_url( $this->props['feedburner_uri'] ),
 						esc_attr( get_locale() )
 					);
 				} else {
-					$list       = $this->props[ $provider . '_list' ];
-					$ip_address = 'on' === $this->props['ip_address'] ? 'true' : 'false';
+					$list = $this->props[ $provider . '_list' ];
 
 					if ( false !== strpos( $list, '|' ) ) {
 						list( $account_name, $list ) = explode( '|', $list );
@@ -909,12 +716,10 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					$html = sprintf( '
 						<input type="hidden" value="%1$s" name="et_pb_signup_provider" />
 						<input type="hidden" value="%2$s" name="et_pb_signup_list_id" />
-						<input type="hidden" value="%3$s" name="et_pb_signup_account_name" />
-						<input type="hidden" value="%4$s" name="et_pb_signup_ip_address" />',
+						<input type="hidden" value="%3$s" name="et_pb_signup_account_name" />',
 						esc_attr( $provider ),
 						esc_attr( $list ),
-						esc_attr( $account_name ),
-						esc_attr( $ip_address )
+						esc_attr( $account_name )
 					);
 				}
 				break;
@@ -1005,45 +810,35 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_half_width_counter;
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
+		
+		$title                       = $this->props['title'];
+		$background_color            = $this->props['background_color'];
+		$use_background_color        = $this->props['use_background_color'];
+		$provider                    = $this->props['provider'];
+		$feedburner_uri              = $this->props['feedburner_uri'];
+		$list                        = $this->props[ $provider . '_list' ];
+		$background_layout           = $this->props['background_layout'];
+		$form_field_background_color = $this->props['form_field_background_color'];
+		$form_field_text_color       = $this->props['form_field_text_color'];
+		$focus_background_color      = $this->props['focus_background_color'];
+		$focus_text_color            = $this->props['focus_text_color'];
+		$success_action              = $this->props['success_action'];
+		$success_message             = $this->props['success_message'];
+		$success_redirect_url        = $this->props['success_redirect_url'];
+		$success_redirect_query      = $this->props['success_redirect_query'];
+		$header_level                = $this->props['header_level'];
+		$use_focus_border_color      = $this->props['use_focus_border_color'];
 
-		$et_pb_half_width_counter    = 0;
+		$_provider   = self::providers()->get( $provider, '', 'builder' );
+		$_name_field = $_provider->name_field_only ? 'name_field_only' : 'name_field';
 
-		$title                           = $this->props['title'];
-		$use_background_color            = $this->props['use_background_color'];
-		$provider                        = $this->props['provider'];
-		$list                            = ( 'feedburner' !== $provider ) ? $this->props[ $provider . '_list' ] : array();
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$form_field_background_color     = $this->props['form_field_background_color'];
-		$form_field_text_color           = $this->props['form_field_text_color'];
-		$focus_background_color          = $this->props['focus_background_color'];
-		$focus_text_color                = $this->props['focus_text_color'];
-		$success_action                  = $this->props['success_action'];
-		$success_message                 = $this->props['success_message'];
-		$success_redirect_url            = $this->props['success_redirect_url'];
-		$success_redirect_query          = $this->props['success_redirect_query'];
-		$header_level                    = $this->props['header_level'];
-		$use_focus_border_color          = $this->props['use_focus_border_color'];
-		$use_custom_fields               = $this->props['use_custom_fields'];
-
-		if ( 'feedburner' !== $provider ) {
-			$_provider   = self::providers()->get( $provider, '', 'builder' );
-			$_name_field = $_provider->name_field_only ? 'name_field_only' : 'name_field';
-
-			$name_field       = 'on' === $this->props[ $_name_field ];
-			$first_name_field = 'on' === $this->props['first_name_field'] && ! $_provider->name_field_only;
-			$last_name_field  = 'on' === $this->props['last_name_field'] && ! $_provider->name_field_only;
-		}
+		$name_field       = 'on' === $this->props[ $_name_field ];
+		$first_name_field = 'on' === $this->props['first_name_field'] && ! $_provider->name_field_only;
+		$last_name_field  = 'on' === $this->props['last_name_field'] && ! $_provider->name_field_only;
 
 		if ( '' !== $focus_background_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => implode(',', array(
-					'%%order_class%% .et_pb_newsletter_form p input.input:focus',
-					'%%order_class%% .et_pb_newsletter_form p textarea:focus',
-					'%%order_class%% .et_pb_newsletter_form p select:focus',
-				)),
-				'%%order_class%% .et_pb_newsletter_form p input.input:focus',
+				'selector'    => '%%order_class%% .et_pb_newsletter_form p input.input:focus',
 				'declaration' => sprintf(
 					'background-color: %1$s%2$s;',
 					esc_html( $focus_background_color ),
@@ -1070,10 +865,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 
 			foreach ( $focus_placeholders as $placeholder ) {
 				ET_Builder_Element::set_style( $render_slug, array(
-					'selector'    => implode(',', array(
-						'%%order_class%% .et_pb_newsletter_form p .input:focus' . $placeholder,
-						'%%order_class%% .et_pb_newsletter_form p textarea:focus' . $placeholder,
-					)),
+					'selector'    => '%%order_class%% .et_pb_newsletter_form p .input:focus' . $placeholder ,
 					'declaration' => sprintf(
 						'color: %1$s !important;',
 						esc_html( $focus_text_color )
@@ -1084,13 +876,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 
 		if ( '' !== $form_field_background_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => implode(',', array(
-					'%%order_class%% .et_pb_newsletter_form p input[type="text"]',
-					'%%order_class%% .et_pb_newsletter_form p textarea',
-					'%%order_class%% .et_pb_newsletter_form p select',
-					'%%order_class%% .et_pb_newsletter_form p .input[type="checkbox"] + label i',
-					'%%order_class%% .et_pb_newsletter_form p .input[type="radio"] + label i',
-				)),
+				'selector'    => '%%order_class%% input[type="text"], %%order_class%% textarea',
 				'declaration' => sprintf(
 					'background-color: %1$s%2$s;',
 					esc_html( $form_field_background_color ),
@@ -1099,49 +885,14 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_pb_hover_options()->is_enabled( 'form_field_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => implode(',', array(
-					'%%order_class%% .et_pb_newsletter_form p input[type="text"]:hover',
-					'%%order_class%% .et_pb_newsletter_form p textarea:hover',
-					'%%order_class%% .et_pb_newsletter_form p select:hover',
-					'%%order_class%% .et_pb_newsletter_form p .input[type="checkbox"] + label i:hover',
-					'%%order_class%% .et_pb_newsletter_form p .input[type="radio"] + label i:hover',
-				)),
-				'declaration' => sprintf(
-					'background-color: %1$s%2$s;',
-					esc_html( et_pb_hover_options()->get_value( 'form_field_background_color', $this->props ) ),
-					et_is_builder_plugin_active() ? ' !important' : ''
-				),
-			) );
-		}
-
 		if ( '' !== $form_field_text_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => implode(',', array(
-					'%%order_class%% .et_pb_newsletter_form p input[type="text"]',
-					'%%order_class%% .et_pb_newsletter_form p textarea',
-					'%%order_class%% .et_pb_newsletter_form p select',
-					'%%order_class%% .et_pb_newsletter_form p .input[type="checkbox"] + label i:before',
-				)),
+				'selector'    => '%%order_class%% input[type="text"], %%order_class%% textarea',
 				'declaration' => sprintf(
 					'color: %1$s !important;',
 					esc_html( $form_field_text_color )
 				),
 			) );
-
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_newsletter_form p .input[type="radio"] + label i:before',
-				'declaration' => sprintf(
-					'background-color: %1$s%2$s;',
-					esc_html( $form_field_text_color ),
-					et_is_builder_plugin_active() ? ' !important' : ''
-				),
-			) );
-		}
-
-		if ( $this->props['layout'] ) {
-			$this->add_classname( "et_pb_newsletter_layout_{$this->props['layout']}" );
 		}
 
 		if ( 'message' === $success_action || empty( $success_redirect_url ) ) {
@@ -1172,7 +923,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		if ( $list_selected && 'feedburner' === $provider ) {
 			$form = sprintf( '
 				<div class="et_pb_newsletter_form et_pb_feedburner_form">
-					<form action-xhr="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow">
+					<form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(\'https://feedburner.google.com/fb/a/mailverify?uri=%4$s\', \'popupwindow\', \'scrollbars=yes,width=550,height=520\'); return true">
 						%1$s
 						%2$s
 						%3$s
@@ -1180,7 +931,8 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 				</div>',
 				$this->get_form_field_html( 'email' ),
 				$this->get_form_field_html( 'submit_button' ),
-				$this->get_form_field_html( 'hidden' )
+				$this->get_form_field_html( 'hidden' ),
+				esc_url( $feedburner_uri )
 			);
 		} else if ( $list_selected ) {
 			$name_field_html      = '';
@@ -1193,7 +945,6 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 			if ( $last_name_field && ! $name_field ) {
 				$last_name_field_html = $this->get_form_field_html( 'last_name' );
 			}
-
 			$footer_content = $this->props['footer_content'];
 			$footer_content = str_replace( '<br />', '', $footer_content );
 			$footer_content = html_entity_decode( $footer_content, ENT_COMPAT, 'UTF-8' );
@@ -1205,45 +956,30 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 			$actionXhrUrl = preg_replace('#^https?:#', '', $site_url);
 			$form = sprintf( '
 				<div class="et_pb_newsletter_form">
-					<form action-xhr="'.$actionXhrUrl.'" method="post"%9$s>
-						<div class="et_pb_newsletter_result et_pb_newsletter_error"></div>
-						<div class="et_pb_newsletter_result et_pb_newsletter_success">
-							<h2>%1$s</h2>
-						</div>
-						<div class="et_pb_newsletter_fields">
-							%2$s
-							%3$s
-							%4$s
-							%5$s
-							%6$s
-							%7$s
-						</div>
-						%8$s
+					<form action-xhr="'.$actionXhrUrl.'" method="post">
+					<div class="et_pb_newsletter_result et_pb_newsletter_error"></div>
+					<div class="et_pb_newsletter_result et_pb_newsletter_success">
+						<h2>%1$s</h2>
+					</div>
+					<div class="et_pb_newsletter_fields">
+						%2$s
+						%3$s
+						%4$s
+						%5$s
+						%6$s
+						%7$s
+					</div>
+					%8$s
 					</form>
 				</div>',
 				esc_html( $success_message ),
 				$name_field_html,
 				$last_name_field_html,
 				$this->get_form_field_html( 'email' ),
-				'on' === $use_custom_fields ? $this->content : '',
 				$this->get_form_field_html( 'submit_button' ),
 				$footer_content,
 				$this->get_form_field_html( 'hidden' ),
 				'on' === $use_custom_fields ? ' class="et_pb_newsletter_custom_fields"' : ''
-			);
-		}
-
-
-		$data_background_layout       = '';
-		$data_background_layout_hover = '';
-		if ( $background_layout_hover_enabled ) {
-			$data_background_layout = sprintf(
-				' data-background-layout="%1$s"',
-				esc_attr( $background_layout )
-			);
-			$data_background_layout_hover = sprintf(
-				' data-background-layout-hover="%1$s"',
-				esc_attr( $background_layout_hover )
 			);
 		}
 
@@ -1269,12 +1005,12 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 			$render_slug,
 		) );
 
-		$description = $this->props['description'];
-		$description = str_replace( '&gt;<br />', '&gt;', $description );
-		$description = html_entity_decode( $description, ENT_COMPAT, 'UTF-8' );
+		// $description = $this->props['description'];
+		// $description = str_replace( '&gt;<br />', '&gt;', $description );
+		// $description = html_entity_decode( $description, ENT_COMPAT, 'UTF-8' );
 
 		$output = sprintf(
-			'<div%6$s class="%4$s et_pb_sg"%5$s%9$s%10$s%11$s%12$s>
+			'<div%6$s class="%4$s et_pb_sg"%5$s%9$s%10$s>
 				%8$s
 				%7$s
 				<div class="et_pb_newsletter_description">
@@ -1284,17 +1020,18 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 				%3$s
 			</div>',
 			( '' !== $title ? sprintf( '<%1$s class="et_pb_module_header">%2$s</%1$s>', et_pb_process_header_level( $header_level, 'h2' ), esc_html( $title ) ) : '' ),
-			$description,
+			$this->content,
 			$form,
 			$this->module_classname( $render_slug ),
-			'', // #5
+			( 'on' === $use_background_color
+				? sprintf( ' style="background-color: %1$s;"', esc_attr( $background_color ) )
+				: ''
+			), // #5
 			$this->module_id(),
 			$video_background,
 			$parallax_image_background,
 			$success_redirect_url,
-			$success_redirect_query, // #10
-			et_esc_previously( $data_background_layout ),
-			et_esc_previously( $data_background_layout_hover )
+			$success_redirect_query // #10
 		);
 
 		return $output;

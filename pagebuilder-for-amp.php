@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Page Builder for AMP
-Description: This is an extension for WpBakery Plugin
+Description: This is an AMP Compatibility extension for Pagebuilder like Divi, WpBakery and Elementor Pagebuilder.
 Author: AMPforWP Team
-Version: 0.6
+Version: 0.7
 Author URI: http://ampforwp.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,7 +15,7 @@ define('AMP_WPBAKERY_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
 define('AMP_WPBAKERY_PLUGIN_DIR_URI', plugin_dir_url(__FILE__));
 define('AMP_WPBAKERY_IMAGE_DIR',plugin_dir_url(__FILE__).'assets/images');
 define('AMP_WPBAKERY_MAIN_PLUGIN_DIR', plugin_dir_path( __DIR__ ) );
-define('AMP_WPBAKERY_VERSION','0.6');
+define('AMP_WPBAKERY_VERSION','0.7');
  
 
 // this is the URL our updater / license checker pings. This should be the URL of the site with Page builder for AMP installed
@@ -39,12 +39,15 @@ if(! defined('PB_FOR_AMP_ITEM_FOLDER_NAME')){
 if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
 	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-vc-pagebuilder.php';
 }
-
-if ( is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
-	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
+$theme = wp_get_theme(); // gets the current theme
+if ( is_plugin_active( 'divi-builder/divi-builder.php' ) || 'Divi' == $theme->name || is_child_theme()) {
+	 require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
 }
 
+if ( did_action( 'elementor/loaded' ) ) {
 
+    require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-elementor-pagebuilder.php';
+}
 //***************************//
 // Updater code Starts here //
 //**************************//
