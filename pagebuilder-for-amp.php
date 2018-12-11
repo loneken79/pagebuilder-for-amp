@@ -39,13 +39,9 @@ if(! defined('PB_FOR_AMP_ITEM_FOLDER_NAME')){
 if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
 	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-vc-pagebuilder.php';
 }
-
-if ( is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
-	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
-}
-
-if ( is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
-    require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
+$theme = wp_get_theme(); // gets the current theme
+if ( is_plugin_active( 'divi-builder/divi-builder.php' ) || 'Divi' == $theme->name || is_child_theme()) {
+	 require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
 }
 
 if ( did_action( 'elementor/loaded' ) ) {

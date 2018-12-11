@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 	function init() {
 		$this->name       = esc_html__( 'Portfolio', 'et_builder' );
-		$this->plural     = esc_html__( 'Portfolios', 'et_builder' );
 		$this->slug       = 'et_pb_portfolio';
 		$this->vb_support = 'on';
 
@@ -89,11 +88,7 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 				),
 			),
 			'box_shadow'            => array(
-				'default' => array(
-					'css' => array(
-						'overlay' => false,
-					)
-				),
+				'default' => array(),
 				'image'   => array(
 					'label'           => esc_html__( 'Image Box Shadow', 'et_builder' ),
 					'option_category' => 'layout',
@@ -101,7 +96,7 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 					'toggle_slug'     => 'image',
 					'css'             => array(
 						'main'         => '%%order_class%% .project .et_portfolio_image',
-						'overlay' => 'inset',
+						'custom_style' => true,
 					),
 					'default_on_fronts'  => array(
 						'color'    => '',
@@ -120,12 +115,8 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 				'options' => array(
 					'background_layout' => array(
 						'default' => 'light',
-						'hover' => 'tabs',
 					),
 				),
-				'css' => array(
-					'main' => '%%order_class%% .et_pb_module_header, %%order_class%% .post-meta'
-				)
 			),
 			'filters'               => array(
 				'css' => array(
@@ -307,14 +298,6 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 		return $fields;
 	}
 
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['max_width'] = array( 'max-width' => '%%order_class%%, %%order_class%% .et_pb_portfolio_item' );
-
-		return $fields;
-	}
-
 	/**
 	 * Get portfolio objects for portfolio module
 	 *
@@ -455,22 +438,24 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 
 		return $query;
 	}
-	
+	public function amp_divi_inline_styles(){
+    
+		$inline_styles = '';
+        echo $inline_styles;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
-		
-		$fullwidth                       = $this->props['fullwidth'];
-		$posts_number                    = $this->props['posts_number'];
-		$include_categories              = $this->props['include_categories'];
-		$show_title                      = $this->props['show_title'];
-		$show_categories                 = $this->props['show_categories'];
-		$show_pagination                 = $this->props['show_pagination'];
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$zoom_icon_color                 = $this->props['zoom_icon_color'];
-		$hover_overlay_color             = $this->props['hover_overlay_color'];
-		$hover_icon                      = $this->props['hover_icon'];
-		$header_level                    = $this->props['title_level'];
+		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
+		$fullwidth          = $this->props['fullwidth'];
+		$posts_number       = $this->props['posts_number'];
+		$include_categories = $this->props['include_categories'];
+		$show_title         = $this->props['show_title'];
+		$show_categories    = $this->props['show_categories'];
+		$show_pagination    = $this->props['show_pagination'];
+		$background_layout  = $this->props['background_layout'];
+		$zoom_icon_color     = $this->props['zoom_icon_color'];
+		$hover_overlay_color = $this->props['hover_overlay_color'];
+		$hover_icon          = $this->props['hover_icon'];
+		$header_level        = $this->props['title_level'];
 
 		global $paged;
 
@@ -655,21 +640,8 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 			$this->remove_classname( $render_slug );
 		}
 
-		$data_background_layout       = '';
-		$data_background_layout_hover = '';
-		if ( $background_layout_hover_enabled ) {
-			$data_background_layout = sprintf(
-				' data-background-layout="%1$s"',
-				esc_attr( $background_layout )
-			);
-			$data_background_layout_hover = sprintf(
-				' data-background-layout-hover="%1$s"',
-				esc_attr( $background_layout_hover )
-			);
-		}
-
 		$output = sprintf(
-			'<div%4$s class="%1$s"%10$s%11$s>
+			'<div%4$s class="%1$s">
 				<div class="et_pb_ajax_pagination_container">
 					%6$s
 					%5$s
@@ -683,13 +655,11 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 			$posts,
 			( ! $container_is_closed ? '</div> <!-- .et_pb_portfolio -->' : '' ),
 			$this->module_id(),
-			$video_background, // #5
+			$video_background,
 			$parallax_image_background,
 			$fullwidth ? '' : '<div class="et_pb_portfolio_grid_items">',
 			$fullwidth ? '' : '</div>',
-			isset( $pagination ) ? $pagination : '',
-			et_esc_previously( $data_background_layout ), // #10
-			et_esc_previously( $data_background_layout_hover )
+			isset( $pagination ) ? $pagination : ''
 		);
 
 		return $output;

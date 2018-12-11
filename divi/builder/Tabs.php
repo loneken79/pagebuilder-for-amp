@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 	function init() {
 		$this->name            = esc_html__( 'Tabs', 'et_builder' );
-		$this->plural          = esc_html__( 'Tabs', 'et_builder' );
 		$this->slug            = 'et_pb_tabs';
 		$this->vb_support      = 'on';
 		$this->child_slug      = 'et_pb_tab';
@@ -100,7 +99,6 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'tab',
-				'hover'             => 'tabs',
 			),
 			'inactive_tab_background_color' => array(
 				'label'             => esc_html__( 'Inactive Tab Background Color', 'et_builder' ),
@@ -108,18 +106,8 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'tab',
-				'hover'             => 'tabs',
 			),
 		);
-		return $fields;
-	}
-
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['inactive_tab_background_color'] = array( 'background-color' => '%%order_class%% .et_pb_tabs_controls li' );
-		$fields['active_tab_background_color'] = array( 'background-color' => '%%order_class%% .et_pb_tabs_controls li' );
-
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
@@ -188,14 +176,10 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$active_tab_background_color         = $this->props['active_tab_background_color'];
-		$active_tab_background_color_hover   = $this->get_hover_value( 'active_tab_background_color' );
-		$inactive_tab_background_color       = $this->props['inactive_tab_background_color'];
-		$inactive_tab_background_color_hover = $this->get_hover_value( 'inactive_tab_background_color' );
+		$active_tab_background_color       = $this->props['active_tab_background_color'];
+		$inactive_tab_background_color     = $this->props['inactive_tab_background_color'];
 
 		$all_tabs_content = $this->content;
-		preg_match_all("/<div class=\"et_pb_tab_content\">(.*?)<\/div>/si", $all_tabs_content, $matchesContent);
-		$all_tabs_contents = $matchesContent[1];
 
 		global $et_pb_tab_titles;
 		global $et_pb_tab_classes;
@@ -210,16 +194,6 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'inactive_tab_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%:hover .et_pb_tabs_controls li',
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $inactive_tab_background_color_hover )
-				),
-			) );
-		}
-
 		if ( '' !== $active_tab_background_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_tabs_controls li.et_pb_tab_active',
@@ -230,28 +204,16 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'active_tab_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%:hover .et_pb_tabs_controls li.et_pb_tab_active',
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $active_tab_background_color_hover )
-				),
-			) );
-		}
-
 		$tabs = '';
 
 		$i = 0;
 		if ( ! empty( $et_pb_tab_titles ) ) {
 			foreach ( $et_pb_tab_titles as $tab_title ){
 				++$i;
-				$tabs .= sprintf( '<div role="tab" class="tabButton" '.( $i==1 ?'selected':'').' option="'.$i.'">%2$s</div>
-					<div role="tabpanel" class="tabContent">%4$s</div>',
+				$tabs .= sprintf( '<li class="%3$s%1$s"><a href="#">%2$s</a></li>',
 					( 1 == $i ? ' et_pb_tab_active' : '' ),
 					esc_html( $tab_title ),
-					esc_attr( ltrim( $et_pb_tab_classes[ $i-1 ] ) ),
-					$all_tabs_contents[$i-1]
+					esc_attr( ltrim( $et_pb_tab_classes[ $i-1 ] ) )
 				);
 			}
 		}
@@ -266,12 +228,17 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 			$this->get_text_orientation_classname(),
 		) );
 
- 		$output = sprintf(
-			'<amp-selector role="tablist" layout="container" %3$s class="%4$s ampTabContainer">
+		$output = sprintf(
+			'<div%3$s class="%4$s">
 				%6$s
 				%5$s
+				<ul class="et_pb_tabs_controls clearfix">
 					%1$s
-			</amp-selector> <!-- .et_pb_tabs -->',
+				</ul>
+				<div class="et_pb_all_tabs">
+					%2$s
+				</div> <!-- .et_pb_all_tabs -->
+			</div> <!-- .et_pb_tabs -->',
 			$tabs,
 			$all_tabs_content,
 			$this->module_id(),
@@ -287,19 +254,16 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 		$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
 		$style     = $boxShadow->get_value( $this->props );
 
-		if ( $boxShadow->is_inset( $style ) ) {
-			$this->advanced_fields['box_shadow'] = array(
-				'default' => array(
-					'css' => array(
-						'main' => '%%order_class%% .et-pb-active-slide',
-					),
-				),
-			);
-
-
+		if ( empty( $style ) ) {
+			return;
 		}
 
-		parent::process_box_shadow( $function_name );
+		$selector = $boxShadow->is_inset( $style ) ? '%%order_class%% .et-pb-active-slide' : '%%order_class%%';
+
+		self::set_style( $function_name, array(
+			'selector'    => $selector,
+			'declaration' => $style
+		) );
 	}
 }
 

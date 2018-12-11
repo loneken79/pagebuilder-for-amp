@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 	function init() {
 		$this->name                 = esc_html__( 'Pricing Tables', 'et_builder' );
-		$this->plural               = esc_html__( 'Pricing Tables', 'et_builder' );
 		$this->slug                 = 'et_pb_pricing_tables';
 		$this->vb_support           = 'on';
 		$this->main_css_element     = '%%order_class%%';
@@ -181,7 +180,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'button' => array(
 					'label' => esc_html__( 'Button', 'et_builder' ),
 					'css' => array(
-						'main' => "{$this->main_css_element} .et_pb_pricing_table_button.et_pb_button",
 						'plugin_main' => "{$this->main_css_element} .et_pb_pricing_table_button.et_pb_button",
 						'alignment'   => "{$this->main_css_element} .et_pb_button_wrapper",
 					),
@@ -227,7 +225,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'layout',
 				'priority'          => 23,
-				'hover'             => 'tabs',
 			),
 			'featured_table_header_background_color' => array(
 				'label'             => esc_html__( 'Featured Table Header Background Color', 'et_builder' ),
@@ -236,7 +233,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'header',
 				'priority'          => 21,
-				'hover'             => 'tabs',
 			),
 			'featured_table_header_text_color' => array(
 				'label'             => esc_html__( 'Featured Table Header Text Color', 'et_builder' ),
@@ -245,7 +241,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'header',
 				'priority'          => 20,
-				'hover'             => 'tabs',
 			),
 			'header_background_color' => array(
 				'label'             => esc_html__( 'Table Header Background Color', 'et_builder' ),
@@ -253,7 +248,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'header',
-				'hover'             => 'tabs',
 			),
 			'featured_table_subheader_text_color' => array(
 				'label'             => esc_html__( 'Featured Table Subheader Text Color', 'et_builder' ),
@@ -262,7 +256,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'subheader',
 				'priority'          => 20,
-				'hover'             => 'tabs',
 			),
 			'featured_table_price_color' => array(
 				'label'             => esc_html__( 'Featured Table Price Color', 'et_builder' ),
@@ -271,7 +264,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'price',
 				'priority'          => 20,
-				'hover'             => 'tabs',
 			),
 			'featured_table_text_color' => array(
 				'label'             => esc_html__( 'Featured Table Body Text Color', 'et_builder' ),
@@ -280,7 +272,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'body',
 				'priority'          => 22,
-				'hover'             => 'tabs',
 			),
 			'show_bullet' => array(
 				'label'           => esc_html__( 'Show Bullet', 'et_builder' ),
@@ -303,7 +294,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'bullet',
 				'depends_show_if'   => 'on',
-				'hover'             => 'tabs',
 			),
 			'featured_table_bullet_color' => array(
 				'label'             => esc_html__( 'Featured Table Bullet Color', 'et_builder' ),
@@ -312,7 +302,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'bullet',
 				'priority'          => 22,
-				'hover'             => 'tabs',
 			),
 			'show_featured_drop_shadow' => array(
 				'label'           => esc_html__( 'Show Featured Table Drop Shadow', 'et_builder' ),
@@ -340,22 +329,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 				'toggle_slug'     => 'layout',
 			),
 		);
-		return $fields;
-	}
-
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['bullet_color'] = array('border-color' => '%%order_class%% .et_pb_pricing li span:before');
-		$fields['featured_table_bullet_color'] = array('border-color' => '%%order_class%% .et_pb_featured_table .et_pb_pricing li span:before');
-
-		$fields['featured_table_header_background_color'] = array('background-color' => '%%order_class%% .et_pb_featured_table .et_pb_pricing_heading');
-		$fields['featured_table_header_text_color'] = array('color' => '%%order_class%% .et_pb_featured_table .et_pb_pricing_heading h2, %%order_class%% .et_pb_featured_table .et_pb_pricing_heading .et_pb_pricing_title');
-		$fields['header_background_color'] = array('background-color' => '%%order_class%% .et_pb_pricing_heading');
-		$fields['featured_table_text_color'] = array('color' => '%%order_class%% .et_pb_featured_table .et_pb_pricing_content li, %%order_class%% .et_pb_featured_table .et_pb_pricing_content li span, %%order_class%% .et_pb_featured_table .et_pb_pricing_content li a');
-		$fields['featured_table_subheader_text_color'] = array('color' => '%%order_class%% .et_pb_featured_table .et_pb_best_value');
-		$fields['featured_table_price_color'] = array('color' => '%%order_class%% .et_pb_featured_table .et_pb_sum');
-
 		return $fields;
 	}
 
@@ -488,39 +461,19 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$featured_table_background_color              = $this->props['featured_table_background_color'];
-		$featured_table_background_color_hover        = $this->get_hover_value( 'featured_table_background_color' );
-
-		$featured_table_text_color                    = $this->props['featured_table_text_color'];
-		$featured_table_text_color_hover              = $this->get_hover_value( 'featured_table_text_color' );
-
-		$header_background_color                      = $this->props['header_background_color'];
-		$header_background_color_hover                = $this->get_hover_value( 'header_background_color' );
-
-		$featured_table_header_background_color       = $this->props['featured_table_header_background_color'];
-		$featured_table_header_background_color_hover = $this->get_hover_value( 'featured_table_header_background_color' );
-
-		$featured_table_header_text_color             = $this->props['featured_table_header_text_color'];
-		$featured_table_header_text_color_hover       = $this->get_hover_value( 'featured_table_header_text_color' );
-
-
-		$featured_table_subheader_text_color          = $this->props['featured_table_subheader_text_color'];
-		$featured_table_subheader_text_color_hover    = $this->get_hover_value( 'featured_table_subheader_text_color' );
-
-
-		$featured_table_price_color                   = $this->props['featured_table_price_color'];
-		$featured_table_price_color_hover             = $this->get_hover_value( 'featured_table_price_color' );
-
-		$bullet_color                                 = $this->props['bullet_color'];
-		$bullet_color_hover                           = $this->get_hover_value( 'bullet_color' );
-
-		$featured_table_bullet_color                  = $this->props['featured_table_bullet_color'];
-		$featured_table_bullet_color_hover            = $this->get_hover_value( 'featured_table_bullet_color' );
-
-		$show_featured_drop_shadow                    = $this->props['show_featured_drop_shadow'];
-		$center_list_items                            = $this->props['center_list_items'];
-		$show_bullet                                  = $this->props['show_bullet'];
-		$featured_table                               = $this->get_featured_table( $content );
+		$featured_table_background_color        = $this->props['featured_table_background_color'];
+		$featured_table_text_color              = $this->props['featured_table_text_color'];
+		$header_background_color                = $this->props['header_background_color'];
+		$featured_table_header_background_color = $this->props['featured_table_header_background_color'];
+		$featured_table_header_text_color       = $this->props['featured_table_header_text_color'];
+		$featured_table_subheader_text_color    = $this->props['featured_table_subheader_text_color'];
+		$featured_table_price_color             = $this->props['featured_table_price_color'];
+		$bullet_color                           = $this->props['bullet_color'];
+		$featured_table_bullet_color            = $this->props['featured_table_bullet_color'];
+		$show_featured_drop_shadow              = $this->props['show_featured_drop_shadow'];
+		$center_list_items                      = $this->props['center_list_items'];
+		$show_bullet                            = $this->props['show_bullet'];
+		$featured_table                         = $this->get_featured_table( $content );
 
 		global $et_pb_pricing_tables_num, $et_pb_pricing_tables_icon;
 
@@ -548,32 +501,12 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'featured_table_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_featured_table:hover',
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $featured_table_background_color_hover )
-				),
-			) );
-		}
-
 		if ( '' !== $header_background_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_pricing_heading',
 				'declaration' => sprintf(
 					'background-color: %1$s;',
 					esc_html( $header_background_color )
-				),
-			) );
-		}
-
-		if ( et_builder_is_hover_enabled( 'header_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_pricing_table:hover .et_pb_pricing_heading',
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $header_background_color_hover )
 				),
 			) );
 		}
@@ -588,32 +521,12 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'featured_table_header_background_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_pricing_table.et_pb_featured_table:hover .et_pb_pricing_heading' ,
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $featured_table_header_background_color_hover )
-				),
-			) );
-		}
-
 		if ( '' !== $featured_table_header_text_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_featured_table .et_pb_pricing_heading h2, %%order_class%% .et_pb_featured_table .et_pb_pricing_heading .et_pb_pricing_title',
 				'declaration' => sprintf(
 					'color: %1$s !important;',
 					esc_html( $featured_table_header_text_color )
-				),
-			) );
-		}
-
-		if ( et_builder_is_hover_enabled( 'featured_table_header_text_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_featured_table:hover .et_pb_pricing_heading h2, %%order_class%% .et_pb_featured_table:hover .et_pb_pricing_heading .et_pb_pricing_title',
-				'declaration' => sprintf(
-					'color: %1$s !important;',
-					esc_html( $featured_table_header_text_color_hover )
 				),
 			) );
 		}
@@ -628,32 +541,12 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'featured_table_subheader_text_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_featured_table:hover .et_pb_best_value',
-				'declaration' => sprintf(
-					'color: %1$s !important;',
-					esc_html( $featured_table_subheader_text_color_hover )
-				),
-			) );
-		}
-
 		if ( '' !== $featured_table_price_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_featured_table .et_pb_sum',
 				'declaration' => sprintf(
 					'color: %1$s !important;',
 					esc_html( $featured_table_price_color )
-				),
-			) );
-		}
-
-		if ( et_builder_is_hover_enabled( 'featured_table_price_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_featured_table:hover .et_pb_sum',
-				'declaration' => sprintf(
-					'color: %1$s !important;',
-					esc_html( $featured_table_price_color_hover )
 				),
 			) );
 		}
@@ -669,17 +562,6 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'featured_table_text_color', $this->props ) ) {
-			$featured_table_text_color_selector_hover = et_is_builder_plugin_active() ? '%%order_class%% .et_pb_featured_table:hover .et_pb_pricing_content li, %%order_class%% .et_pb_featured_table:hover .et_pb_pricing_content li span, %%order_class%% .et_pb_featured_table:hover .et_pb_pricing_content li a' : '%%order_class%% .et_pb_featured_table:hover .et_pb_pricing_content li';
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => $featured_table_text_color_selector_hover,
-				'declaration' => sprintf(
-					'color: %1$s !important;',
-					esc_html( $featured_table_text_color_hover )
-				),
-			) );
-		}
-
 		if ( '' !== $bullet_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_pricing li span:before',
@@ -690,32 +572,12 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 			) );
 		}
 
-		if ( et_builder_is_hover_enabled( 'bullet_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_pricing:hover li span:before',
-				'declaration' => sprintf(
-					'border-color: %1$s;',
-					esc_html( $bullet_color_hover )
-				),
-			) );
-		}
-
 		if ( '' !== $featured_table_bullet_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_featured_table .et_pb_pricing li span:before',
 				'declaration' => sprintf(
 					'border-color: %1$s;',
 					esc_html( $featured_table_bullet_color )
-				),
-			) );
-		}
-
-		if ( et_builder_is_hover_enabled( 'featured_table_bullet_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_featured_table:hover .et_pb_pricing li span:before',
-				'declaration' => sprintf(
-					'border-color: %1$s;',
-					esc_html( $featured_table_bullet_color_hover )
 				),
 			) );
 		}
@@ -740,7 +602,7 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 		$this->remove_classname( array(
 			$render_slug
 		) );
-	
+
 		preg_match_all( "/<div\s+class=\"et_pb_module_inner\"\s*>((?:(?:(?!<div[^>]*>|<\/div>).)++|<div[^>]*>(?1)<\/div>)*)<\/div>/si", $content, $matches );
 		$content = implode("\n", $matches[1]);
 		
@@ -758,7 +620,7 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 			$video_background,
 			$parallax_image_background
 		);
-		
+
 		$output .= $this->keep_box_shadow_compatibility( $attrs, $content, $render_slug );
 
 		return $output;

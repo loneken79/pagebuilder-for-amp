@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Person', 'et_builder' );
-		$this->plural     = esc_html__( 'Persons', 'et_builder' );
 		$this->slug       = 'et_pb_team_member';
 		$this->vb_support = 'on';
 
@@ -106,16 +105,8 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 				'options' => array(
 					'background_layout' => array(
 						'default' => 'light',
-						'hover'   => 'tabs',
 					),
 				),
-				'css' => array(
-					'main' => implode(', ', array(
-						'%%order_class%% .et_pb_module_header',
-						'%%order_class%% .et_pb_member_position',
-						'%%order_class%% .et_pb_team_member_description p',
-					))
-				)
 			),
 			'filters'               => array(
 				'css' => array(
@@ -232,22 +223,19 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 				'custom_color'      => true,
 				'tab_slug'          => 'advanced',
 				'toggle_slug'       => 'icon',
-				'hover'             => 'tabs',
+			),
+			'icon_hover_color' => array(
+				'label'             => esc_html__( 'Icon Hover Color', 'et_builder' ),
+				'type'              => 'color-alpha',
+				'custom_color'      => true,
+				'tab_slug'          => 'advanced',
+				'toggle_slug'       => 'icon',
 			),
 		);
 
 		return $fields;
 	}
-
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['icon_color'] = array( 'color' => '%%order_class%% .et_pb_member_social_links a' );
-
-		return $fields;
-	}
-
-    public function amp_divi_inline_styles(){
+	public function amp_divi_inline_styles(){
     
     $inline_styles = '.et_pb_team_member .et_pb_module_header{
 			      font-size: 18px;
@@ -259,6 +247,10 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 			      color:#555;
 			      margin:0;
 			      padding-bottom: 5px;
+			    }
+			    .et_pb_team_member{
+			    	display:inline-flex;
+			    	width:100%;
 			    }
 			    .et_pb_team_member ul{
 			        display: inline-flex;
@@ -290,25 +282,30 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 			    }
 			    .et_pb_linkedin_icon:before{
 			        content: "\e934";
-			    }';
+			    }
+			    .et_pb_team_member_image{
+			    	float:left;
+			    	max-width:320px;
+			    	margin-right: 20px;
+			    }
+
+			    ';
             echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$name                            = $this->props['name'];
-		$position                        = $this->props['position'];
-		$image_url                       = $this->props['image_url'];
-		$animation                       = $this->props['animation'];
-		$facebook_url                    = $this->props['facebook_url'];
-		$twitter_url                     = $this->props['twitter_url'];
-		$google_url                      = $this->props['google_url'];
-		$linkedin_url                    = $this->props['linkedin_url'];
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$icon_color                      = $this->props['icon_color'];
-		$header_level                    = $this->props['header_level'];
-		$hover                           = et_pb_hover_options();
+		$name              = $this->props['name'];
+		$position          = $this->props['position'];
+		$image_url         = $this->props['image_url'];
+		$animation         = $this->props['animation'];
+		$facebook_url      = $this->props['facebook_url'];
+		$twitter_url       = $this->props['twitter_url'];
+		$google_url        = $this->props['google_url'];
+		$linkedin_url      = $this->props['linkedin_url'];
+		$background_layout = $this->props['background_layout'];
+		$icon_color        = $this->props['icon_color'];
+		$icon_hover_color  = $this->props['icon_hover_color'];
+		$header_level      = $this->props['header_level'];
 
 		$image = $social_links = '';
 
@@ -322,15 +319,14 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 			) );
 		}
 
-		if ( $hover->is_enabled( 'icon_color', $this->props ) && $hover->get_value( 'icon_color', $this->props ) ) {
-			ET_Builder_Element::set_style( $render_slug,
-				array(
-					'selector'    => '%%order_class%% .et_pb_member_social_links a:hover',
-					'declaration' => sprintf(
-						'color: %1$s !important;',
-						esc_html( $hover->get_value( 'icon_color', $this->props ) )
-					),
-				) );
+		if ( '' !== $icon_hover_color ) {
+			ET_Builder_Element::set_style( $render_slug, array(
+				'selector'    => '%%order_class%% .et_pb_member_social_links a:hover',
+				'declaration' => sprintf(
+					'color: %1$s !important;',
+					esc_html( $icon_hover_color )
+				),
+			) );
 		}
 
 		if ( '' !== $facebook_url ) {
@@ -425,9 +421,8 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 				esc_attr( $background_layout_hover )
 			);
 		}
-
 		$output = sprintf(
-			'<div%3$s class="%4$s"%10$s%11$s>
+			'<div%3$s class="%4$s">
 				%9$s
 				%8$s
 				%2$s
@@ -442,13 +437,11 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 			( '' !== $image ? $image : '' ),
 			$this->module_id(),
 			$this->module_classname( $render_slug ),
-			( '' !== $name ? sprintf( '<%1$s class="et_pb_module_header">%2$s</%1$s>', et_pb_process_header_level( $header_level, 'h4' ), esc_html( $name ) ) : '' ), // #5
+			( '' !== $name ? sprintf( '<%1$s class="et_pb_module_header">%2$s</%1$s>', et_pb_process_header_level( $header_level, 'h4' ), esc_html( $name ) ) : '' ),
 			( '' !== $position ? sprintf( '<p class="et_pb_member_position">%1$s</p>', esc_html( $position ) ) : '' ),
 			$social_links,
 			$video_background,
-			$parallax_image_background,
-			et_esc_previously( $data_background_layout ), // #10
-			et_esc_previously( $data_background_layout_hover )
+			$parallax_image_background
 		);
 
 		return $output;

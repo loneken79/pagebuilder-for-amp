@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Number Counter', 'et_builder' );
-		$this->plural     = esc_html__( 'Number Counters', 'et_builder' );
 		$this->slug       = 'et_pb_number_counter';
 		$this->vb_support = 'on';
 		$this->custom_css_fields = array(
@@ -89,12 +88,8 @@ class AMP_ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 					),
 					'background_layout' => array(
 						'default' => 'light',
-						'hover' => 'tabs',
 					),
 				),
-				'css' => array(
-					'main' => '%%order_class%% .title, %%order_class%% .percent',
-				)
 			),
 			'button'                => false,
 		);
@@ -172,14 +167,12 @@ class AMP_ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 	function render( $attrs, $content = null, $render_slug ) {
 		//wp_enqueue_script( 'easypiechart' );
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$number                          = $this->props['number'];
-		$percent_sign                    = $this->props['percent_sign'];
-		$title                           = $this->props['title'];
-		$counter_color                   = $this->props['counter_color'];
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$header_level                    = $this->props['title_level'];
+		$number            = $this->props['number'];
+		$percent_sign      = $this->props['percent_sign'];
+		$title             = $this->props['title'];
+		$counter_color     = $this->props['counter_color'];
+		$background_layout = $this->props['background_layout'];
+		$header_level      = $this->props['title_level'];
 
 		if ( et_is_builder_plugin_active() ) {
 			wp_enqueue_script( 'fittext' );
@@ -200,21 +193,8 @@ class AMP_ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 			$this->add_classname( 'et_pb_with_title' );
 		}
 
-		$data_background_layout       = '';
-		$data_background_layout_hover = '';
-		if ( $background_layout_hover_enabled ) {
-			$data_background_layout = sprintf(
-				' data-background-layout="%1$s"',
-				esc_attr( $background_layout )
-			);
-			$data_background_layout_hover = sprintf(
-				' data-background-layout-hover="%1$s"',
-				esc_attr( $background_layout_hover )
-			);
-		}
-
 		$output = sprintf(
-			'<div%1$s class="%2$s" data-number-value="%3$s" data-number-separator="%7$s"%10$s%11$s>
+			'<div%1$s class="%2$s" data-number-value="%3$s" data-number-separator="%7$s">
 				%9$s
 				%8$s
 				<div class="percent" %4$s><p><span class="percent-value">%3$s</span>%5$s</p></div>
@@ -224,13 +204,11 @@ class AMP_ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 			$this->module_classname( $render_slug ),
 			esc_attr( $number ),
 			( '' !== $counter_color ? sprintf( ' style="color:%s"', esc_attr( $counter_color ) ) : '' ),
-			( 'on' == $percent_sign ? '%' : ''), // #5
+			( 'on' == $percent_sign ? '%' : ''),
 			( '' !== $title ? sprintf( '<%1$s class="title">%2$s</%1$s>', et_pb_process_header_level( $header_level, 'h3' ), esc_html( $title ) ) : '' ),
 			esc_attr( $separator ),
 			$video_background,
-			$parallax_image_background,
-			et_esc_previously( $data_background_layout ), // #10
-			et_esc_previously( $data_background_layout_hover )
+			$parallax_image_background
 		 );
 
 		return $output;

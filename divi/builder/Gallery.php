@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Gallery', 'et_builder' );
-		$this->plural     = esc_html__( 'Galleries', 'et_builder' );
 		$this->slug       = 'et_pb_gallery';
 		$this->vb_support = 'on';
 
@@ -112,7 +111,7 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 					'depends_show_if' => 'off',
 					'css' => array(
 						'main'         => '%%order_class%% .et_pb_gallery_image',
-						'overlay' => 'inset',
+						'custom_style' => true,
 					),
 					'default_on_fronts'  => array(
 						'color'    => '',
@@ -133,18 +132,11 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 			'text'                  => array(
 				'use_background_layout' => true,
 				'css'   => array(
-					'main' => implode(', ', array(
-						"{$this->main_css_element} .et_pb_gallery_title",
-						"{$this->main_css_element} .mfp-title",
-						"{$this->main_css_element} .et_pb_gallery_caption",
-						"{$this->main_css_element} .et_pb_gallery_pagination a",
-					)),
 					'text_shadow' => "{$this->main_css_element}.et_pb_gallery_grid",
 				),
 				'options' => array(
 					'background_layout' => array(
 						'default' => 'light',
-						'hover' => 'tabs',
 					),
 				),
 			),
@@ -162,7 +154,7 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 					'main' => '%%order_class%% .et_pb_gallery_image',
 				),
 			),
-			'button' => false,
+			'button'                => false,
 		);
 
 		$this->custom_css_fields = array(
@@ -436,30 +428,30 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 
 		return et_pb_get_alignment( $text_orientation );
 	}
+
 	public function amp_divi_inline_styles(){
     
 		$inline_styles = '';
         echo $inline_styles;
   	}
+
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$gallery_ids                     = $this->props['gallery_ids'];
-		$fullwidth                       = $this->props['fullwidth'];
-		$show_title_and_caption          = $this->props['show_title_and_caption'];
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$posts_number                    = $this->props['posts_number'];
-		$show_pagination                 = $this->props['show_pagination'];
-		$gallery_orderby                 = $this->props['gallery_orderby'];
-		$zoom_icon_color                 = $this->props['zoom_icon_color'];
-		$hover_overlay_color             = $this->props['hover_overlay_color'];
-		$hover_icon                      = $this->props['hover_icon'];
-		$auto                            = $this->props['auto'];
-		$auto_speed                      = $this->props['auto_speed'];
-		$orientation                     = $this->props['orientation'];
-		$pagination_text_align           = $this->get_pagination_alignment();
-		$header_level                    = $this->props['title_level'];
+		$gallery_ids            = $this->props['gallery_ids'];
+		$fullwidth              = $this->props['fullwidth'];
+		$show_title_and_caption = $this->props['show_title_and_caption'];
+		$background_layout      = $this->props['background_layout'];
+		$posts_number           = $this->props['posts_number'];
+		$show_pagination        = $this->props['show_pagination'];
+		$gallery_orderby        = $this->props['gallery_orderby'];
+		$zoom_icon_color        = $this->props['zoom_icon_color'];
+		$hover_overlay_color    = $this->props['hover_overlay_color'];
+		$hover_icon             = $this->props['hover_icon'];
+		$auto                   = $this->props['auto'];
+		$auto_speed             = $this->props['auto_speed'];
+		$orientation            = $this->props['orientation'];
+		$pagination_text_align  = $this->get_pagination_alignment();
+		$header_level           = $this->props['title_level'];
 
 		if ( '' !== $zoom_icon_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
@@ -536,7 +528,7 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 				esc_attr( $background_layout_hover )
 			);
 		}
-
+		
 		$output = sprintf(
 			'<div%1$s class="%2$s"%4$s%5$s>
 				<amp-carousel lightbox width="400" height="300" layout="responsive" type="slides" class="et_pb_gallery_items et_post_gallery clearfix" data-per_page="%3$d">',
@@ -582,7 +574,7 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 				( 'on' !== $fullwidth ? ' et_pb_grid_item' : '' ),
 				$generate_css_filters_item
 			);
-			$output .= "$image_output";
+			$output .= $image_output;
 
 			// if ( 'on' !== $fullwidth && 'on' === $show_title_and_caption ) {
 			// 	if ( trim( $attachment->post_title ) ) {
@@ -595,7 +587,7 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 			// 			</p>";
 			// 	}
 			// }
-			// $output .= "";
+			// $output .= "</div>";
 		}
 
 		$output .= "</amp-carousel><!-- .et_pb_gallery_items -->";
@@ -608,7 +600,7 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 		}
 
 		$output .= "</div><!-- .et_pb_gallery -->";
-		
+
 		return $output;
 	}
 }

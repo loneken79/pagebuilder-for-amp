@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 	function init() {
 		$this->name            = esc_html__( 'Social Media Follow', 'et_builder' );
-		$this->plural          = esc_html__( 'Social Media Follows', 'et_builder' );
 		$this->slug            = 'et_pb_social_media_follow';
 		$this->vb_support      = 'on';
 		$this->child_slug      = 'et_pb_social_media_follow_network';
@@ -97,13 +96,11 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 					),
 					'background_layout' => array(
 						'default' => 'light',
-						'hover'   => 'tabs',
 					),
 				),
 			),
 			'fonts'                 => false,
 			'button'                => false,
-			'link_options'          => false,
 		);
 
 		$this->help_videos = array(
@@ -117,7 +114,7 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 	function get_fields() {
 		$fields = array(
 			'url_new_window' => array(
-				'label'           => esc_html__( 'Account Link Target', 'et_builder' ),
+				'label'           => esc_html__( 'Url Opens', 'et_builder' ),
 				'type'            => 'select',
 				'option_category' => 'configuration',
 				'options'         => array(
@@ -143,7 +140,7 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 		);
 		return $fields;
 	}
-	
+
 	function before_render() {
 		global $et_pb_social_media_follow_link;
 
@@ -253,10 +250,7 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_social_media_follow_link;
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-
+		$background_layout         = $this->props['background_layout'];
 		$video_background          = $this->video_background();
 		$parallax_image_background = $this->get_parallax_image_background();
 
@@ -274,21 +268,8 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 			$this->add_classname( 'has_follow_button' );
 		}
 
-		$data_background_layout       = '';
-		$data_background_layout_hover = '';
-		if ( $background_layout_hover_enabled ) {
-			$data_background_layout = sprintf(
-				' data-background-layout="%1$s"',
-				esc_attr( $background_layout )
-			);
-			$data_background_layout_hover = sprintf(
-				' data-background-layout-hover="%1$s"',
-				esc_attr( $background_layout_hover )
-			);
-		}
-
 		$output = sprintf(
-			'<ul%3$s class="%2$s"%6$s%7$s>
+			'<ul%3$s class="%2$s">
 				%5$s
 				%4$s
 				%1$s
@@ -297,9 +278,7 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 			$this->module_classname( $render_slug ),
 			$this->module_id(),
 			$video_background,
-			$parallax_image_background, // #5
-			et_esc_previously( $data_background_layout ),
-			et_esc_previously( $data_background_layout_hover )
+			$parallax_image_background
 		);
 
 		return $output;

@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Bar Counter', 'et_builder' );
-		$this->plural                      = esc_html__( 'Bar Counters', 'et_builder' );
 		$this->slug                        = 'et_pb_counter';
 		$this->vb_support                  = 'on';
 		$this->type                        = 'child';
@@ -20,14 +19,6 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 							'border_radii'  => "{$this->main_css_element} span.et_pb_counter_container, {$this->main_css_element} span.et_pb_counter_amount",
 							'border_styles' => "{$this->main_css_element} span.et_pb_counter_container",
 						),
-					),
-				),
-			),
-			'box_shadow'            => array(
-				'default' => array(
-					'css' => array(
-						'main'    => '%%order_class%% span.et_pb_counter_container',
-						'overlay' => 'inset',
 					),
 				),
 			),
@@ -49,7 +40,7 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 			'background'            => array(
 				'use_background_color' => 'fields_only',
 				'css'                  => array(
-					'main' => ".et_pb_counters li{$this->main_css_element} .et_pb_counter_container",
+					'main' => ".et_pb_counters {$this->main_css_element} .et_pb_counter_container",
 				),
 			),
 			'margin_padding' => array(
@@ -75,6 +66,7 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 			'general'  => array(
 				'toggles' => array(
 					'main_content' => esc_html__( 'Text', 'et_builder' ),
+					'background'   => esc_html__( 'Background', 'et_builder' ),
 				),
 			),
 			'advanced' => array(
@@ -121,20 +113,10 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 				'label'        => esc_html__( 'Bar Background Color', 'et_builder' ),
 				'type'         => 'color-alpha',
 				'custom_color' => true,
-				'hover'        => 'tabs',
 				'tab_slug'     => 'advanced',
 				'toggle_slug'  => 'bar',
 			),
 		);
-
-		return $fields;
-	}
-
-	public function get_transition_fields_css_props() {
-		$fields = parent::get_transition_fields_css_props();
-
-		$fields['background_layout'] = array( 'color' => '%%order_class%% .et_pb_counter_title' );
-		$fields['bar_background_color'] = array( 'background-color' => '%%order_class%% .et_pb_counter_amount' );
 
 		return $fields;
 	}
@@ -219,17 +201,13 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 
 		return $video_background;
 	}
-	
+
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_counters_settings;
-		
+
 		$percent                       = $this->props['percent'];
-		$background_color              = self::$_->array_get( $this->props, 'background_color' );
-		$background_color              = empty( $background_color ) ? $et_pb_counters_settings['background_color'] : $background_color;
-		$background_color_hover        = self::get_hover_value( 'background_color' );
-		$bar_background_color          = self::$_->array_get( $this->props, 'bar_background_color' );
-		$bar_background_color          = empty( $bar_background_color ) ? $et_pb_counters_settings['bar_bg_color'] : $bar_background_color;
-		$bar_background_hover_color    = et_pb_hover_options()->get_value( 'bar_background_color', $this->props );
+		$background_color              = $this->props['background_color'];
+		$bar_background_color          = $this->props['bar_background_color'];
 		$background_image              = $this->props['background_image'];
 		$use_background_color_gradient = $this->props['use_background_color_gradient'];
 
@@ -238,12 +216,11 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 			$percent .= '%';
 		}
 
-		if ( empty( $background_color_hover ) ) {
-			$background_color_hover = $et_pb_counters_settings['background_color_hover'];
-		}
-
-
 		$background_color_style = $bar_bg_color_style = '';
+
+		if ( '' === $background_color && isset( $et_pb_counters_settings['background_color'] ) && '' !== $et_pb_counters_settings['background_color'] ) {
+			$background_color_style = sprintf( ' style="background-color: %1$s;"', esc_attr( $et_pb_counters_settings['background_color'] ) );
+		}
 
 		if ( '' !== $background_color ) {
 			if ( empty( $background_image ) && 'on' !== $use_background_color_gradient ) {
@@ -252,6 +229,10 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 					'declaration' => 'background-image: none;',
 				) );
 			}
+		}
+
+		if ( '' === $bar_background_color && isset( $et_pb_counters_settings['bar_bg_color'] ) && '' !== $et_pb_counters_settings['bar_bg_color'] ) {
+			$bar_bg_color_style = sprintf( ' background-color: %1$s;', esc_attr( $et_pb_counters_settings['bar_bg_color'] ) );
 		}
 
 		if ( '' !== $background_color ) {
@@ -264,32 +245,12 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 			) );
 		}
 
-		if ( '' !== $background_color_hover ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_counter_container:hover',
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $background_color_hover )
-				),
-			) );
-		}
-
 		if ( '' !== $bar_background_color ) {
 			ET_Builder_Element::set_style( $render_slug, array(
 				'selector'    => '%%order_class%% .et_pb_counter_amount',
 				'declaration' => sprintf(
 					'background-color: %1$s;',
 					esc_html( $bar_background_color )
-				),
-			) );
-		}
-
-		if ( '' !== $bar_background_hover_color ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => $this->add_hover_to_order_class( '.et_pb_counters %%order_class%% .et_pb_counter_amount' ),
-				'declaration' => sprintf(
-					'background-color: %1$s;',
-					esc_html( $bar_background_hover_color )
 				),
 			) );
 		}
@@ -320,7 +281,7 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 			</li>',
 			sanitize_text_field( $content ),
 			( isset( $et_pb_counters_settings['use_percentages'] ) && 'on' === $et_pb_counters_settings['use_percentages'] ? esc_html( $percent ) : '' ),
-			esc_attr( trim($percent,"%") ),
+			esc_attr( $percent ),
 			$background_color_style,
 			$bar_bg_color_style,
 			$this->module_classname( $render_slug ),
@@ -329,6 +290,36 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 		);
 
 		return $output;
+	}
+
+	public function process_box_shadow( $function_name ) {
+		/**
+		 * @var ET_Builder_Module_Field_BoxShadow $boxShadow
+		 */
+		$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
+		$selector = sprintf( '.%1$s span.et_pb_counter_container', self::get_module_order_class( $function_name ) );
+		$value = $boxShadow->get_value( $this->props );
+
+		if ( empty( $value ) || $value === 'none' ) {
+			return;
+		}
+
+		if ( strpos( $value, 'inset' ) === false ) {
+			self::set_style( $function_name, array(
+				'selector' => "$selector>.box-shadow-overlay",
+				'declaration' => 'box-shadow: none;',
+			) );
+		} else {
+			self::set_style( $function_name, array(
+				'selector' => $selector,
+				'declaration' => 'box-shadow: none;',
+			) );
+		}
+
+		self::set_style( $function_name, $boxShadow->get_style(
+			$selector,
+			$this->props
+		) );
 	}
 }
 

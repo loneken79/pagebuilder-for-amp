@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Button', 'et_builder' );
-		$this->plural     = esc_html__( 'Buttons', 'et_builder' );
 		$this->slug       = 'et_pb_button';
 		$this->vb_support = 'on';
 		$this->main_css_element = '%%order_class%%';
@@ -11,6 +10,7 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 		$this->custom_css_fields = array(
 			'main_element' => array(
 				'label'    => esc_html__( 'Main Element', 'et_builder' ),
+				'selector' => '.et_pb_button.et_pb_module',
 				'no_space_before_selector' => true,
 			),
 		);
@@ -42,14 +42,14 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 					'label' => esc_html__( 'Button', 'et_builder' ),
 					'css' => array(
 						'main' => $this->main_css_element,
+						'plugin_main' => "{$this->main_css_element}.et_pb_module",
 					),
 					'box_shadow' => false,
 				),
 			),
 			'margin_padding' => array(
 				'css' => array(
-					'padding' => "{$this->main_css_element}_wrapper {$this->main_css_element}, {$this->main_css_element}_wrapper {$this->main_css_element}:hover",
-					'margin' => "{$this->main_css_element}_wrapper",
+					'main' => "{$this->main_css_element}.et_pb_module, .et_pb_module {$this->main_css_element}.et_pb_module:hover",
 					'important' => 'all',
 				),
 			),
@@ -59,7 +59,6 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 				'options' => array(
 					'background_layout' => array(
 						'default_on_front' => 'light',
-						'hover' => 'tabs',
 					),
 				),
 			),
@@ -70,7 +69,6 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 			'background'            => false,
 			'fonts'                 => false,
 			'max_width'             => false,
-			'link_options'          => false,
 		);
 
 		$this->help_videos = array(
@@ -84,14 +82,14 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 	function get_fields() {
 		$fields = array(
 			'button_url' => array(
-				'label'            => esc_html__( 'Button Link URL', 'et_builder' ),
+				'label'            => esc_html__( 'Button URL', 'et_builder' ),
 				'type'             => 'text',
 				'option_category'  => 'basic_option',
 				'description'      => esc_html__( 'Input the destination URL for your button.', 'et_builder' ),
 				'toggle_slug'      => 'link',
 			),
 			'url_new_window' => array(
-				'label'            => esc_html__( 'Button Link Target', 'et_builder' ),
+				'label'            => esc_html__( 'Url Opens', 'et_builder' ),
 				'type'             => 'select',
 				'option_category'  => 'configuration',
 				'options'          => array(
@@ -138,6 +136,7 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 		          font-weight: 600;
 		          display: inline-block;
 		          margin-top: 25px;
+		          width:auto;
 		      }
 		      .et_pd_btn a:hover{ 
 		          background-color: rgba(0,0,0,.05);
@@ -148,16 +147,14 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$button_url                      = $this->props['button_url'];
-		$button_rel                      = $this->props['button_rel'];
-		$button_text                     = $this->props['button_text'];
-		$background_layout               = $this->props['background_layout'];
-		$background_layout_hover         = et_pb_hover_options()->get_value( 'background_layout', $this->props, 'light' );
-		$background_layout_hover_enabled = et_pb_hover_options()->is_enabled( 'background_layout', $this->props );
-		$url_new_window                  = $this->props['url_new_window'];
-		$custom_icon                     = $this->props['button_icon'];
-		$button_custom                   = $this->props['custom_button'];
-		$button_alignment                = $this->get_button_alignment();
+		$button_url        = $this->props['button_url'];
+		$button_rel        = $this->props['button_rel'];
+		$button_text       = $this->props['button_text'];
+		$background_layout = $this->props['background_layout'];
+		$url_new_window    = $this->props['url_new_window'];
+		$custom_icon       = $this->props['button_icon'];
+		$button_custom     = $this->props['custom_button'];
+		$button_alignment  = $this->get_button_alignment();
 
 		// Nothing to output if neither Button Text nor Button URL defined
 		$button_url = trim( $button_url );
@@ -166,22 +163,8 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 			return '';
 		}
 
-		$data_background_layout       = '';
-		$data_background_layout_hover = '';
-		if ( $background_layout_hover_enabled ) {
-			$data_background_layout = sprintf(
-				' data-background-layout="%1$s"',
-				esc_attr( $background_layout )
-			);
-			$data_background_layout_hover = sprintf(
-				' data-background-layout-hover="%1$s"',
-				esc_attr( $background_layout_hover )
-			);
-		}
-
 		// Module classnames
 		$this->add_classname( "et_pb_bg_layout_{$background_layout}" );
-		$this->remove_classname( 'et_pb_module' );
 
 		// Render Button
 		$button = $this->render_button( array(
@@ -198,19 +181,18 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 
 		// Render module output
 		$output = sprintf(
-			'<div class="et_pd_btn et_pb_button_module_wrapper et_pb_button_%3$s_wrapper %2$s et_pb_module "%4$s%5$s>
+			'<div class="et_pd_btn et_pb_button_module_wrapper et_pb_button_%3$s_wrapper %2$s et_pb_module">
 				%1$s
 			</div>',
 			$button,
-			sprintf( 'et_pb_button_alignment_%1$s', esc_attr( $button_alignment ) ),
-			$this->render_count(),
-			et_esc_previously( $data_background_layout ),
-			et_esc_previously( $data_background_layout_hover )
+			sprintf( ' et_pb_button_alignment_%1$s', esc_attr( $button_alignment ) ),
+			$this->render_count()
 		);
 
 		return $output;
 	}
 }
+
 
 $buttonObj = new AMP_ET_Builder_Module_Button();
 remove_shortcode( 'et_pb_button' );

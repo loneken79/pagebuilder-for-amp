@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Code extends ET_Builder_Module {
 	function init() {
 		$this->name            = esc_html__( 'Code', 'et_builder' );
-		$this->plural          = esc_html__( 'Codes', 'et_builder' );
 		$this->slug            = 'et_pb_code';
 		$this->vb_support      = 'on';
 		$this->use_row_content = true;
@@ -73,7 +72,6 @@ class AMP_ET_Builder_Module_Code extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
     		$inline_styles = '.et_pd_cd{
 			        font-size: 16px;
 			        color: #555;
@@ -90,7 +88,7 @@ class AMP_ET_Builder_Module_Code extends ET_Builder_Module {
 		$this->add_classname( $this->get_text_orientation_classname() );
 
 		$output = sprintf(
-			'<div%2$s class="et_pd_cd %3$s">
+			'<div%2$s class="%3$s">
 				%5$s
 				%4$s
 				<div class="et_pb_code_inner">

@@ -3,7 +3,6 @@
 class AMP_ET_Builder_Module_Social_Media_Follow_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Social Network', 'et_builder' );
-		$this->plural                      = esc_html__( 'Social Networks', 'et_builder' );
 		$this->slug                        = 'et_pb_social_media_follow_network';
 		$this->vb_support                  = 'on';
 		$this->type                        = 'child';
@@ -90,7 +89,6 @@ class AMP_ET_Builder_Module_Social_Media_Follow_Item extends ET_Builder_Module {
 			'text'                  => false,
 			'max_width'             => false,
 			'button'                => false,
-			'link_options'          => false,
 		);
 	}
 
@@ -177,7 +175,7 @@ class AMP_ET_Builder_Module_Social_Media_Follow_Item extends ET_Builder_Module {
 				'toggle_slug' => 'main_content',
 			),
 			'url' => array(
-				'label'               => esc_html__( 'Account Link URL', 'et_builder' ),
+				'label'               => esc_html__( 'Account URL', 'et_builder' ),
 				'type'                => 'text',
 				'option_category'     => 'basic_option',
 				'description'         => esc_html__( 'The URL for this social network link.', 'et_builder' ),
@@ -322,5 +320,7 @@ class AMP_ET_Builder_Module_Social_Media_Follow_Item extends ET_Builder_Module {
 		return $output;
 	}
 }
+$socialMediaItemsObj = new AMP_ET_Builder_Module_Social_Media_Follow_Item();
+remove_shortcode( 'et_pb_social_media_follow_network' );
+add_shortcode( 'et_pb_social_media_follow_network', array($socialMediaItemsObj, '_render'));
 
-new ET_Builder_Module_Social_Media_Follow_Item;
