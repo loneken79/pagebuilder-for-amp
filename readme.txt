@@ -2,7 +2,7 @@
 Contributors: AMPforWP Team
 Requires at least: 3.0
 Tested up to: 4.9.8
-Stable tag: 0.6
+Stable tag: 0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -10,6 +10,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Page Builder Functionality for AMP in WordPress. Most easiest and the best way to include Page Builder Compatibility in AMP.
 
 == Changelog ==	
+
+= 0.7 ( 11 Dec 2018) =
+* Added Compatibility for 'Divi Pagebuilder' Contact Form.
+* Added Compatibility for 'Elementor Pagebuilder'. 
 
 = 0.6 ( 24 oct 2018) =
 * Added Compatibility for 'Divi Pagebuilder'.
