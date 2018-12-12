@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Gallery')){
 class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Gallery', 'et_builder' );
@@ -608,3 +608,4 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 $galleryObj = new AMP_ET_Builder_Module_Gallery();
 remove_shortcode( 'et_pb_gallery' );
 add_shortcode( 'et_pb_gallery', array( $galleryObj, '_render' ));
+}

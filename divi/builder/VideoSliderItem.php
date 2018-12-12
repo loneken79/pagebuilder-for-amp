@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Video_Slider_Item')){
 class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Video', 'et_builder' );
@@ -286,3 +286,4 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 $videoSliderItemObj = new AMP_ET_Builder_Module_Video_Slider_Item();
 remove_shortcode( 'et_pb_video_slider_item' );
 add_shortcode( 'et_pb_video_slider_item', array($videoSliderItemObj, '_render'));
+}

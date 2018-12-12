@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Blurb')){
 class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 	function init() {
 		$this->name             = esc_html__( 'Blurb', 'et_builder' );
@@ -649,3 +649,4 @@ class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 $blurbObj = new AMP_ET_Builder_Module_Blurb();
 remove_shortcode( 'et_pb_blurb' );
 add_shortcode( 'et_pb_blurb', array($blurbObj, '_render'));
+}

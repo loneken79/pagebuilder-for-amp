@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Map_Item')){
 class AMP_ET_Builder_Module_Map_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Pin', 'et_builder' );
@@ -128,3 +128,4 @@ class AMP_ET_Builder_Module_Map_Item extends ET_Builder_Module {
 $mapItemObj = new AMP_ET_Builder_Module_Map_Item();
 remove_shortcode( 'et_pb_map_pin' );
 add_shortcode( 'et_pb_map_pin', array($mapItemObj, '_render'));
+}

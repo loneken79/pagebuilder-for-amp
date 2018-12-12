@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Countdown_Timer')){
 class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Countdown Timer', 'et_builder' );
@@ -271,8 +271,4 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 $countdownTimerObj = new AMP_ET_Builder_Module_Countdown_Timer();
 remove_shortcode( 'et_pb_countdown_timer' );
 add_shortcode( 'et_pb_countdown_timer', array($countdownTimerObj, '_render'));
-
-
-
-
-
+}

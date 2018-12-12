@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Shop')){
 class AMP_ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 	function init() {
 		$this->name       = esc_html__( 'Shop', 'et_builder' );
@@ -735,3 +735,4 @@ class AMP_ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 $shopObj = new AMP_ET_Builder_Module_Shop();
 remove_shortcode( 'et_pb_shop' );
 add_shortcode( 'et_pb_shop', array($shopObj, '_render'));
+}

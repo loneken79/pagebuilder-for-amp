@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Signup')){
 class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 
 	private static $_providers;
@@ -1040,3 +1040,4 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 $emailOptinObj = new AMP_ET_Builder_Module_Signup();
 remove_shortcode( 'et_pb_signup' );
 add_shortcode( 'et_pb_signup', array($emailOptinObj, '_render'));
+}

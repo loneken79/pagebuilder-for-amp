@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Login')){
 class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Login', 'et_builder' );
@@ -563,3 +563,4 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 $loginObj = new AMP_ET_Builder_Module_Login();
 remove_shortcode( 'et_pb_login' );
 add_shortcode( 'et_pb_login', array($loginObj, '_render'));
+}

@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Bar_Counters_Item')){
 class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Bar Counter', 'et_builder' );
@@ -326,3 +326,4 @@ class AMP_ET_Builder_Module_Bar_Counters_Item extends ET_Builder_Module {
 $barCounterObj = new AMP_ET_Builder_Module_Bar_Counters_Item();
 remove_shortcode( 'et_pb_counter' );
 add_shortcode( 'et_pb_counter', array($barCounterObj, '_render'));
+}

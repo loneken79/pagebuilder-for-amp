@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Audio')){
 class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Audio', 'et_builder' );
@@ -369,3 +369,4 @@ class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 $audioObj = new AMP_ET_Builder_Module_Audio;
 remove_shortcode( 'et_pb_audio' );
 add_shortcode( 'et_pb_audio', array($audioObj, '_render'));
+}

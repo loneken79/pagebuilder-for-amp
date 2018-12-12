@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Divider')){
 class AMP_ET_Builder_Module_Divider extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Divider', 'et_builder' );
@@ -285,3 +285,4 @@ class AMP_ET_Builder_Module_Divider extends ET_Builder_Module {
 $dividerObj = new AMP_ET_Builder_Module_Divider();
 remove_shortcode( 'et_pb_divider' );
 add_shortcode( 'et_pb_divider', array($dividerObj, '_render'));
+}

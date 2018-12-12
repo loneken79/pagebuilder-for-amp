@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Portfolio')){
 class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 	function init() {
 		$this->name       = esc_html__( 'Portfolio', 'et_builder' );
@@ -669,3 +669,4 @@ class AMP_ET_Builder_Module_Portfolio extends ET_Builder_Module_Type_PostBased {
 $portfolioObj = new AMP_ET_Builder_Module_Portfolio();
 remove_shortcode( 'et_pb_portfolio' );
 add_shortcode( 'et_pb_portfolio', array($portfolioObj, '_render'));
+}

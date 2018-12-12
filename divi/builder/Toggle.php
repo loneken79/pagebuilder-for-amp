@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Toggle')){
 class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
 	function init() {
 		$this->name                       = esc_html__( 'Toggle', 'et_builder' );
@@ -301,3 +301,4 @@ class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
 $amp_divi_shortcodes = new AMP_ET_Builder_Module_Toggle();
 remove_shortcode( 'et_pb_toggle' );
 add_shortcode( 'et_pb_toggle', array($amp_divi_shortcodes , '_render') );
+}

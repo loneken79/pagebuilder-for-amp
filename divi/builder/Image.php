@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Image')){
 class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Image', 'et_builder' );
@@ -448,3 +448,4 @@ add_filter( 'et_builder_module_fields_et_pb_image_field_src', 'et_bb_module_imag
 $imageObj = new AMP_ET_Builder_Module_Image();
 remove_shortcode( 'et_pb_image' );
 add_shortcode( 'et_pb_image', array($imageObj, '_render'));
+}

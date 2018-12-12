@@ -1,4 +1,5 @@
 <?php
+if(class_exists('ET_Builder_Module_Contact_Form')){
 global $ampContactformFields;
 class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 	function init() {
@@ -652,3 +653,4 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 $contactFormObj = new AMP_ET_Builder_Module_Contact_Form();
 remove_shortcode( 'et_pb_contact_form' );
 add_shortcode( 'et_pb_contact_form', array( $contactFormObj, '_render' ));
+}

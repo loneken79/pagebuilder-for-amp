@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Testimonial')){
 class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Testimonial', 'et_builder' );
@@ -475,3 +475,4 @@ class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 $testimonialObj = new AMP_ET_Builder_Module_Testimonial();
 remove_shortcode( 'et_pb_testimonial' );
 add_shortcode( 'et_pb_testimonial', array( $testimonialObj, '_render'));
+}

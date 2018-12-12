@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Tabs_Item')){
 class AMP_ET_Builder_Module_Tabs_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Tab', 'et_builder' );
@@ -154,3 +154,4 @@ class AMP_ET_Builder_Module_Tabs_Item extends ET_Builder_Module {
 $tabItemObj = new AMP_ET_Builder_Module_Tabs_Item();
 remove_shortcode( 'et_pb_tab' );
 add_shortcode( 'et_pb_tab', array($tabItemObj, '_render'));
+}

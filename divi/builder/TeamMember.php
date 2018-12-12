@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Team_Member')){
 class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Person', 'et_builder' );
@@ -451,3 +451,4 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 $personObj = new AMP_ET_Builder_Module_Team_Member();
 remove_shortcode( 'et_pb_team_member' );
 add_shortcode( 'et_pb_team_member', array($personObj, '_render'));
+}
