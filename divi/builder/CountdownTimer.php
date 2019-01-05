@@ -245,7 +245,28 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 
 		$output = sprintf(
 			'<amp-date-countdown%1$s class="%2$s" data-end-timestamp="%4$s" timestamp-seconds="%4$s"  layout="fixed-height" height="150">
-					
+					<template type="amp-mustache">
+					%5$s
+						<div class="days section values" >
+							<p class="value">{{d}}</p>
+							<p class="label">%6$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="hours section values" >
+							<p class="value">{{h}}</p>
+							<p class="label">%7$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="days section values" >
+							<p class="value">{{m}}</p>
+							<p class="label">%9$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="days section values" >
+							<p class="value">{{s}}</p>
+							<p class="label">%11$s</p>
+						</div>
+				    </template>
 			</amp-date-countdown>',
 			$this->module_id(),
 			$this->module_classname( $render_slug ),
