@@ -1,5 +1,6 @@
 <?php
-$amp_blacklist_sanitizer =  realpath( AMP__DIR__ . 'includes/sanitizers/class-amp-blacklist-sanitizer.php') ;
+//AMP__VENDOR__DIR
+$amp_blacklist_sanitizer =  realpath( AMP__VENDOR__DIR__ . 'includes/sanitizers/class-amp-blacklist-sanitizer.php') ;
 
 if ( $amp_blacklist_sanitizer ) {
 	include_once $amp_blacklist_sanitizer;

@@ -36,11 +36,12 @@ if(! defined('PB_FOR_AMP_ITEM_FOLDER_NAME')){
     define( 'PB_FOR_AMP_ITEM_FOLDER_NAME', $folderName );
 }
 
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
 	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-vc-pagebuilder.php';
 }
 $theme = wp_get_theme(); // gets the current theme
-if ( is_plugin_active( 'divi-builder/divi-builder.php' ) || 'Divi' == $theme->name || is_child_theme()) {
+if ( is_plugin_active( 'divi-builder/divi-builder.php' ) || 'Divi' == $theme->name || 'Divi' == $theme->parent_theme ) {
 	 require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-divi-pagebuilder.php';
 }
 
