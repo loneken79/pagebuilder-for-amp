@@ -8,7 +8,6 @@ class AMP_Divi_Pagebuidler {
     }
     
     private function load_dependencies(){
-        add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts'], 20);
         add_filter('amp_content_sanitizers',[$this,'ampforwp_add_divi_blacklist'], 85);
         add_action('init', [$this, 'amp_divi_pagebuilder_plugin_init'], 25);
         add_action('amp_post_template_head', [$this, 'amp_divi_pagebuilder_canonical_link']);
@@ -227,29 +226,6 @@ class AMP_Divi_Pagebuidler {
        
         return $data;
     }
-    public function amp_divi_pagebuilder_scripts($data){
-        if ( class_exists( 'ET_Builder_Module' ) ) {
-            
-            $data['amp_component_scripts']['amp-selector'] = 'https://cdn.ampproject.org/v0/amp-selector-0.1.js';
-            $data['amp_component_scripts']['amp-bind'] = 'https://cdn.ampproject.org/v0/amp-bind-0.1.js';
-            $data['amp_component_scripts']['amp-accordion'] = 'https://cdn.ampproject.org/v0/amp-accordion-0.1.js';
-            $data['amp_component_scripts']['amp-lightbox'] = 'https://cdn.ampproject.org/v0/amp-lightbox-0.1.js';
-            $data['amp_component_scripts']['amp-audio'] = 'https://cdn.ampproject.org/v0/amp-audio-0.1.js';
-            $data['amp_component_scripts']['amp-video'] = 'https://cdn.ampproject.org/v0/amp-video-0.1.js';
-            $data['amp_component_scripts']['amp-iframe'] = 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js';
-            $data['amp_component_scripts']['amp-image-lightbox'] = 'https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js';
-            $data['amp_component_scripts']['amp-carousel'] = 'https://cdn.ampproject.org/v0/amp-carousel-0.1.js';
-            $data['amp_component_scripts']['amp-fit-text'] = 'https://cdn.ampproject.org/v0/amp-fit-text-0.1.js';
-            $data['amp_component_scripts']['amp-youtube'] = 'https://cdn.ampproject.org/v0/amp-youtube-0.1.js';
-            $data['amp_component_scripts']['amp-lightbox-gallery'] = 'https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js';
-            $data['amp_component_scripts']['amp-date-countdown'] = 'https://cdn.ampproject.org/v0/amp-date-countdown-0.1.js';
-            $data['amp_component_scripts']['amp-mustache'] = 'https://cdn.ampproject.org/v0/amp-mustache-0.2.js';
-            $data['amp_component_scripts']['amp-form'] = 'https://cdn.ampproject.org/v0/amp-form-0.1.js';
-        }
-        return $data;
-
-    }
-   
     public function amp_divi_pagebuilder_canonical_link(){
         if ( class_exists( 'ET_Builder_Module' ) ) { ?>
         <link rel='stylesheet' id='font-awesome-css'  href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css?ver=4.6.3' type='text/css' media='all' />

@@ -434,8 +434,12 @@ class AMP_ET_Builder_Module_Gallery extends ET_Builder_Module {
 		$inline_styles = '';
         echo $inline_styles;
   	}
-
+  	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-lightbox-gallery'] = 'https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$gallery_ids            = $this->props['gallery_ids'];
 		$fullwidth              = $this->props['fullwidth'];

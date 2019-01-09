@@ -270,7 +270,7 @@ class AMP_ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 			'et_pb_module',
 			$render_slug,
 		) );
-
+		
 		$output = sprintf(
 			'%2$s
 			<!-- .et_pb_slide -->',

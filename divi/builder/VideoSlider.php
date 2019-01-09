@@ -148,7 +148,14 @@ class AMP_ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 		$inline_styles = '';
         echo $inline_styles;
   	}
+  	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-carousel'] = 'https://cdn.ampproject.org/v0/amp-carousel-0.1.js';
+  		$data['amp_component_scripts']['amp-video'] = 'https://cdn.ampproject.org/v0/amp-video-0.1.js';
+  		$data['amp_component_scripts']['amp-iframe'] = 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$show_arrows        = $this->props['show_arrows'];
 		$show_thumbnails    = $this->props['show_thumbnails'];
@@ -195,7 +202,7 @@ class AMP_ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 		}
 
 		$output = sprintf(
-			'<amp-carousel %3$s controls class="%4$s" type="slides" width="400" height="300" layout="responsive" [slide]="selectedSlide" on="slideChange:AMP.setState({selectedSlide: event.index})">
+			'<amp-carousel %3$s class="%4$s" type="slides" width="400" height="300" layout="responsive">
 				%2$s
 			</amp-carousel>',
 			esc_attr( $slider_classname ),
@@ -205,7 +212,7 @@ class AMP_ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 			$video_background,
 			$parallax_image_background
 		);
-
+		
 		return $output;
 	}
 

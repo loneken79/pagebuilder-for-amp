@@ -35,8 +35,9 @@ if(! defined('PB_FOR_AMP_ITEM_FOLDER_NAME')){
     $folderName = basename(__DIR__);
     define( 'PB_FOR_AMP_ITEM_FOLDER_NAME', $folderName );
 }
-
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if ( ! function_exists( 'is_plugin_active' ) ) {
+  include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+}
 if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
 	require_once AMP_WPBAKERY_PLUGIN_DIR.'amp-vc-pagebuilder.php';
 }

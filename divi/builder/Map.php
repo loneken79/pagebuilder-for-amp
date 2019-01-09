@@ -181,8 +181,13 @@ class AMP_ET_Builder_Module_Map extends ET_Builder_Module {
 		);
 		return $fields;
 	}
-
+	function amp_divi_pagebuilder_scripts($data){
+  		
+  		$data['amp_component_scripts']['amp-iframe'] = 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		$address_lat             = $this->props['address_lat'];
 		$address_lng             = $this->props['address_lng'];
 		$zoom_level              = $this->props['zoom_level'];
