@@ -3,7 +3,7 @@
 Plugin Name: Page Builder for AMP
 Description: This is an AMP Compatibility extension for Pagebuilder like Divi, WpBakery and Elementor Pagebuilder.
 Author: AMPforWP Team
-Version: 0.7
+Version: 0.8
 Author URI: http://ampforwp.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,7 +15,7 @@ define('AMP_WPBAKERY_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
 define('AMP_WPBAKERY_PLUGIN_DIR_URI', plugin_dir_url(__FILE__));
 define('AMP_WPBAKERY_IMAGE_DIR',plugin_dir_url(__FILE__).'assets/images');
 define('AMP_WPBAKERY_MAIN_PLUGIN_DIR', plugin_dir_path( __DIR__ ) );
-define('AMP_WPBAKERY_VERSION','0.7');
+define('AMP_WPBAKERY_VERSION','0.8');
  
 
 // this is the URL our updater / license checker pings. This should be the URL of the site with Page builder for AMP installed
