@@ -213,7 +213,7 @@ class AMP_Divi_Pagebuidler {
         }
     }
     public function amp_divi_pagebuilder_plugin_init(){
-        define( 'AMPFORWP_AMP__DIR__', AMP__VENDOR__DIR__);
+        define( 'AMPFORWP_AMP__DIR__', AMP__DIR__);
         require_once AMP_WPBAKERY_PLUGIN_DIR .'includes/class-amp-divi-blacklist.php';
     } 
 
