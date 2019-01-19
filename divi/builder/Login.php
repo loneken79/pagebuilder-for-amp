@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Login')){
 class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Login', 'et_builder' );
@@ -362,7 +362,13 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 			      ';
             echo $inline_styles;
   	}
+  	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-mustache'] = 'https://cdn.ampproject.org/v0/amp-mustache-0.2.js';
+        $data['amp_component_scripts']['amp-form'] = 'https://cdn.ampproject.org/v0/amp-form-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$module_id                   = $this->props['module_id'];
 		$title                       = $this->props['title'];
@@ -472,7 +478,6 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 		$parallax_image_background = $this->get_parallax_image_background();
 
 		$form = '';
-
 		if ( ! is_user_logged_in() || is_customize_preview() || is_et_pb_preview() ) {
 			$username = esc_html__( 'Username', 'et_builder' );
 			$password = esc_html__( 'Password', 'et_builder' );
@@ -563,3 +568,4 @@ class AMP_ET_Builder_Module_Login extends ET_Builder_Module {
 $loginObj = new AMP_ET_Builder_Module_Login();
 remove_shortcode( 'et_pb_login' );
 add_shortcode( 'et_pb_login', array($loginObj, '_render'));
+}

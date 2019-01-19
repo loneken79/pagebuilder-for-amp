@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Toggle')){
 class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
 	function init() {
 		$this->name                       = esc_html__( 'Toggle', 'et_builder' );
@@ -181,8 +181,12 @@ class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
 		);
 		return $fields;
 	}
-
+	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-selector'] = 'https://cdn.ampproject.org/v0/amp-selector-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		$title                          = $this->props['title'];
 		$open                           = $this->props['open'];
 		$open_toggle_background_color   = $this->props['open_toggle_background_color'];
@@ -301,3 +305,4 @@ class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
 $amp_divi_shortcodes = new AMP_ET_Builder_Module_Toggle();
 remove_shortcode( 'et_pb_toggle' );
 add_shortcode( 'et_pb_toggle', array($amp_divi_shortcodes , '_render') );
+}

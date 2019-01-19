@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Accordion')){
 class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Accordion', 'et_builder' );
@@ -182,9 +182,14 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 		        color: #555;
 		      }';
             echo $inline_styles;
-  		}
+  	}
+  	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-accordion'] = 'https://cdn.ampproject.org/v0/amp-accordion-0.1.js';
+  		return $data;
+  	}
 
 	function render( $attrs, $content = null, $render_slug ) {
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$open_toggle_background_color   = $this->props['open_toggle_background_color'];
 		$closed_toggle_background_color = $this->props['closed_toggle_background_color'];
@@ -293,9 +298,10 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 	 		'selector'    => $selector,
 	 		'declaration' => '',
 	 	) );
-	} 
+	}
 }
 
 $accordianItemObj = new AMP_ET_Builder_Module_Accordion();//et_pb_accordion_item
 remove_shortcode( 'et_pb_accordion' );
 add_shortcode( 'et_pb_accordion', array($accordianItemObj, '_render'));
+}

@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Signup')){
 class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 
 	private static $_providers;
@@ -810,7 +810,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_half_width_counter;
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		
+
 		$title                       = $this->props['title'];
 		$background_color            = $this->props['background_color'];
 		$use_background_color        = $this->props['use_background_color'];
@@ -921,6 +921,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		$list_selected = ! in_array( $list, array( '', 'none' ) );
 
 		if ( $list_selected && 'feedburner' === $provider ) {
+
 			$form = sprintf( '
 				<div class="et_pb_newsletter_form et_pb_feedburner_form">
 					<form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(\'https://feedburner.google.com/fb/a/mailverify?uri=%4$s\', \'popupwindow\', \'scrollbars=yes,width=550,height=520\'); return true">
@@ -935,6 +936,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 				esc_url( $feedburner_uri )
 			);
 		} else if ( $list_selected ) {
+
 			$name_field_html      = '';
 			$last_name_field_html = '';
 
@@ -1040,3 +1042,4 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 $emailOptinObj = new AMP_ET_Builder_Module_Signup();
 remove_shortcode( 'et_pb_signup' );
 add_shortcode( 'et_pb_signup', array($emailOptinObj, '_render'));
+}

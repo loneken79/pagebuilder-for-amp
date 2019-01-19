@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Accordion_Item')){
 class AMP_ET_Builder_Module_Accordion_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                  = esc_html__( 'Accordion', 'et_builder' );
@@ -156,3 +156,4 @@ class AMP_ET_Builder_Module_Accordion_Item extends ET_Builder_Module {
 $accordianItemObj = new AMP_ET_Builder_Module_Accordion_Item();
 remove_shortcode( 'et_pb_accordion_item' );
 add_shortcode('et_pb_accordion_item',array($accordianItemObj,'_render'));
+}

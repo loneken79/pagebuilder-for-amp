@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_CTA')){
 class AMP_ET_Builder_Module_CTA extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Call To Action', 'et_builder' );
@@ -292,3 +292,4 @@ class AMP_ET_Builder_Module_CTA extends ET_Builder_Module {
 $callToAction = new AMP_ET_Builder_Module_CTA;
 remove_shortcode( 'et_pb_cta' );
 add_shortcode( 'et_pb_cta', array($callToAction, '_render'));
+}

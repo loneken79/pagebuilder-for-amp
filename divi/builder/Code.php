@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Code')){
 class AMP_ET_Builder_Module_Code extends ET_Builder_Module {
 	function init() {
 		$this->name            = esc_html__( 'Code', 'et_builder' );
@@ -109,3 +109,4 @@ class AMP_ET_Builder_Module_Code extends ET_Builder_Module {
 $codeObj = new AMP_ET_Builder_Module_Code();
 remove_shortcode( 'et_pb_code' );
 add_shortcode( 'et_pb_code', array($codeObj, '_render'));
+}

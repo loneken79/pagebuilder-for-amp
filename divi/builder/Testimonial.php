@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Testimonial')){
 class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Testimonial', 'et_builder' );
@@ -435,18 +435,12 @@ class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 		}
 
 		$output = sprintf(
-			'<div%3$s class="%4$s"%8$s>
-				%10$s
-				%9$s
-				%7$s
-				<div class="et_pb_testimonial_description">
-					<div class="et_pb_testimonial_description_inner">
-					%1$s
-					<strong class="et_pb_testimonial_author">%2$s</strong>
-					<p class="et_pb_testimonial_meta">%5$s%6$s</p>
-					</div> <!-- .et_pb_testimonial_description_inner -->
-				</div> <!-- .et_pb_testimonial_description -->
-			</div> <!-- .et_pb_testimonial -->',
+			'<div%3$s class="%4$s amp-tstml-container et_pd_testimon">
+			  	%7$s
+			  	<p class="et_pb_tstmnl">%1$s</p>
+			  	<p><strong class="et_pb_testimonial_author">%2$s.</strong></p>
+			  	<p class="et_pb_testimonial_meta">%5$s%6$s</p>
+			</div>',
 			$this->content,
 			$author,
 			$this->module_id(),
@@ -475,3 +469,4 @@ class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 $testimonialObj = new AMP_ET_Builder_Module_Testimonial();
 remove_shortcode( 'et_pb_testimonial' );
 add_shortcode( 'et_pb_testimonial', array( $testimonialObj, '_render'));
+}

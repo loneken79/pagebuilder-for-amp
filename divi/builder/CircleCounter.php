@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Circle_Counter')){
 class AMP_ET_Builder_Module_Circle_Counter extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Circle Counter', 'et_builder' );
@@ -1158,3 +1158,4 @@ class AMP_ET_Builder_Module_Circle_Counter extends ET_Builder_Module {
 $circleCounter = new AMP_ET_Builder_Module_Circle_Counter();
 remove_shortcode( 'et_pb_circle_counter' );
 add_shortcode( 'et_pb_circle_counter', array($circleCounter, '_render'));
+}

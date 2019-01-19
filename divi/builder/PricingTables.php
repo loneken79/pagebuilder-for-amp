@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Pricing_Tables')){
 class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 	function init() {
 		$this->name                 = esc_html__( 'Pricing Tables', 'et_builder' );
@@ -708,3 +708,4 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 $pricingTablesObj = new AMP_ET_Builder_Module_Pricing_Tables();
 remove_shortcode( 'et_pb_pricing_tables' );
 add_shortcode( 'et_pb_pricing_tables', array($pricingTablesObj, '_render'));
+}

@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Button')){
 class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Button', 'et_builder' );
@@ -197,3 +197,4 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 $buttonObj = new AMP_ET_Builder_Module_Button();
 remove_shortcode( 'et_pb_button' );
 add_shortcode( 'et_pb_button', array($buttonObj, '_render'));
+}

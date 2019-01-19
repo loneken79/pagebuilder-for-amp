@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Social_Media_Follow_Item')){
 class AMP_ET_Builder_Module_Social_Media_Follow_Item extends ET_Builder_Module {
 	function init() {
 		$this->name                        = esc_html__( 'Social Network', 'et_builder' );
@@ -324,3 +324,4 @@ $socialMediaItemsObj = new AMP_ET_Builder_Module_Social_Media_Follow_Item();
 remove_shortcode( 'et_pb_social_media_follow_network' );
 add_shortcode( 'et_pb_social_media_follow_network', array($socialMediaItemsObj, '_render'));
 
+}

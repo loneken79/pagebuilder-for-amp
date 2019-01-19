@@ -1,4 +1,5 @@
 <?php
+if(class_exists('ET_Builder_Module_Contact_Form')){
 global $ampContactformFields;
 class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 	function init() {
@@ -320,9 +321,14 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 	      	';
 	            echo $inline_styles;
 	}
+	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-mustache'] = 'https://cdn.ampproject.org/v0/amp-mustache-0.2.js';
+        $data['amp_component_scripts']['amp-form'] = 'https://cdn.ampproject.org/v0/amp-form-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_half_width_counter, $ampContactformFields;
-
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$et_pb_half_width_counter = 0;
 		$module_id             = $this->props['module_id'];
@@ -652,3 +658,4 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 $contactFormObj = new AMP_ET_Builder_Module_Contact_Form();
 remove_shortcode( 'et_pb_contact_form' );
 add_shortcode( 'et_pb_contact_form', array( $contactFormObj, '_render' ));
+}

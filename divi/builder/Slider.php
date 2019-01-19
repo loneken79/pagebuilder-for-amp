@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Slider')){
 class AMP_ET_Builder_Module_Slider extends ET_Builder_Module {
 	function init() {
 		$this->name            = esc_html__( 'Slider', 'et_builder' );
@@ -486,3 +486,4 @@ class AMP_ET_Builder_Module_Slider extends ET_Builder_Module {
 $sliderObj = new AMP_ET_Builder_Module_Slider();
 remove_shortcode( 'et_pb_slider' );
 add_shortcode( 'et_pb_slider', array($sliderObj, '_render'));
+}

@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Audio')){
 class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Audio', 'et_builder' );
@@ -250,9 +250,13 @@ class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 			      }';
             echo $inline_styles;
   	}
-
+  	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-audio'] = 'https://cdn.ampproject.org/v0/amp-audio-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
 		global $wp_version;
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$audio             = $this->props['audio'];
 		$title             = $this->props['title'];
@@ -300,9 +304,9 @@ class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 		//wp_enqueue_script( 'et-builder-mediaelement' );
 
 		// remove all filters from WP audio shortcode to make sure current theme doesn't add any elements into audio module
-		remove_all_filters( 'wp_audio_shortcode_library' );
-		remove_all_filters( 'wp_audio_shortcode' );
-		remove_all_filters( 'wp_audio_shortcode_class' );
+		//remove_all_filters( 'wp_audio_shortcode_library' );
+		//remove_all_filters( 'wp_audio_shortcode' );
+		//remove_all_filters( 'wp_audio_shortcode_class' );
 
 		$video_background = $this->video_background();
 
@@ -337,7 +341,7 @@ class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 		if ( version_compare( $wp_version, '4.9' ) === -1 ) {
 			$this->add_classname( 'et_pb_audio_legacy' );
 		}
-
+		$audio =  preg_replace('#^https?:#', '', $audio);
 		$output = sprintf(
 			'<div%7$s class="%4$s"%5$s>
 				%9$s
@@ -369,3 +373,4 @@ class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 $audioObj = new AMP_ET_Builder_Module_Audio;
 remove_shortcode( 'et_pb_audio' );
 add_shortcode( 'et_pb_audio', array($audioObj, '_render'));
+}

@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Post_Slider')){
 class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased {
 	function init() {
 		$this->name       = esc_html__( 'Post Slider', 'et_builder' );
@@ -1116,3 +1116,4 @@ class AMP_ET_Builder_Module_Post_Slider extends ET_Builder_Module_Type_PostBased
 $postSliderObj = new AMP_ET_Builder_Module_Post_Slider;
 remove_shortcode( 'et_pb_post_slider' );
 add_shortcode( 'et_pb_post_slider', array($postSliderObj, '_render'));
+}

@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Posts_Navigation')){
 class AMP_ET_Builder_Module_Posts_Navigation extends ET_Builder_Module {
 	function init() {
 		$this->name             = esc_html__( 'Post Navigation', 'et_builder' );
@@ -302,7 +302,10 @@ class AMP_ET_Builder_Module_Posts_Navigation extends ET_Builder_Module {
 
 		return $posts_navigation;
 	}
-
+	function amp_divi_inline_styles(){
+		$inline_styles = '';
+		echo $inline_styles;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$in_same_term  = $this->props['in_same_term'];
@@ -407,3 +410,4 @@ class AMP_ET_Builder_Module_Posts_Navigation extends ET_Builder_Module {
 $postNavigationObj = new AMP_ET_Builder_Module_Posts_Navigation();
 remove_shortcode( 'et_pb_post_nav' );
 add_shortcode( 'et_pb_post_nav', array($postNavigationObj, '_render'));
+}

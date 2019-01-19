@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Post_Title')){
 class AMP_ET_Builder_Module_Post_Title extends ET_Builder_Module {
 	function init() {
 		$this->name             = esc_html__( 'Post Title', 'et_builder' );
@@ -394,3 +394,4 @@ class AMP_ET_Builder_Module_Post_Title extends ET_Builder_Module {
 $postTitleObj = new AMP_ET_Builder_Module_Post_Title();
 remove_shortcode( 'et_pb_post_title' );
 add_shortcode( 'et_pb_post_title', array($postTitleObj, '_render'));
+}

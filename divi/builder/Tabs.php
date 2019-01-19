@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Tabs')){
 class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 	function init() {
 		$this->name            = esc_html__( 'Tabs', 'et_builder' );
@@ -110,6 +110,7 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 		);
 		return $fields;
 	}
+	
 	public function amp_divi_inline_styles(){
     
 		$inline_styles = '.ampTabContainer {
@@ -174,13 +175,19 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 			    }';
         echo $inline_styles;
   	}
+  	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-selector'] = 'https://cdn.ampproject.org/v0/amp-selector-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$active_tab_background_color       = $this->props['active_tab_background_color'];
 		$inactive_tab_background_color     = $this->props['inactive_tab_background_color'];
 
 		$all_tabs_content = $this->content;
-
+		preg_match_all("/<div class=\"et_pb_tab_content\">(.*?)<\/div>/si", $all_tabs_content, $matchesContent);
+		$all_tabs_contents = $matchesContent[1];
 		global $et_pb_tab_titles;
 		global $et_pb_tab_classes;
 
@@ -210,10 +217,12 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 		if ( ! empty( $et_pb_tab_titles ) ) {
 			foreach ( $et_pb_tab_titles as $tab_title ){
 				++$i;
-				$tabs .= sprintf( '<li class="%3$s%1$s"><a href="#">%2$s</a></li>',
+				$tabs .= sprintf( '<div role="tab" class="tabButton" '.( $i==1 ?'selected':'').' option="'.$i.'">%2$s</div>
+					<div role="tabpanel" class="tabContent">%4$s</div>',
 					( 1 == $i ? ' et_pb_tab_active' : '' ),
 					esc_html( $tab_title ),
-					esc_attr( ltrim( $et_pb_tab_classes[ $i-1 ] ) )
+					esc_attr( ltrim( $et_pb_tab_classes[ $i-1 ] ) ),
+					$all_tabs_contents[$i-1]
 				);
 			}
 		}
@@ -229,16 +238,11 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 		) );
 
 		$output = sprintf(
-			'<div%3$s class="%4$s">
+			'<amp-selector role="tablist" layout="container" %3$s class="%4$s ampTabContainer">
 				%6$s
 				%5$s
-				<ul class="et_pb_tabs_controls clearfix">
 					%1$s
-				</ul>
-				<div class="et_pb_all_tabs">
-					%2$s
-				</div> <!-- .et_pb_all_tabs -->
-			</div> <!-- .et_pb_tabs -->',
+			</amp-selector> <!-- .et_pb_tabs -->',
 			$tabs,
 			$all_tabs_content,
 			$this->module_id(),
@@ -270,3 +274,4 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 $tabsObj = new AMP_ET_Builder_Module_Tabs();
 remove_shortcode( 'et_pb_tabs' );
 add_shortcode( 'et_pb_tabs', array($tabsObj, '_render'));
+}

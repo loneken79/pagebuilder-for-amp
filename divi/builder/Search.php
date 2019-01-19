@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Search')){
 class AMP_ET_Builder_Module_Search extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Search', 'et_builder' );
@@ -384,3 +384,4 @@ class AMP_ET_Builder_Module_Search extends ET_Builder_Module {
 $searchObj = new AMP_ET_Builder_Module_Search();
 remove_shortcode( 'et_pb_search' );
 add_shortcode( 'et_pb_search', array($searchObj, '_render'));
+}

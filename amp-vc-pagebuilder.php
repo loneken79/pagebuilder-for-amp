@@ -33,7 +33,6 @@ class AmpWpbakeryPro{
 	}
 	public function amp_vc_shortcode_scripts($data){
 		if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
-			
 			$data['amp_component_scripts']['amp-selector'] = 'https://cdn.ampproject.org/v0/amp-selector-0.1.js';
 			$data['amp_component_scripts']['amp-bind'] = 'https://cdn.ampproject.org/v0/amp-bind-0.1.js';
 			$data['amp_component_scripts']['amp-accordion'] = 'https://cdn.ampproject.org/v0/amp-accordion-0.1.js';
@@ -46,7 +45,6 @@ class AmpWpbakeryPro{
 			$data['amp_component_scripts']['amp-fit-text'] = 'https://cdn.ampproject.org/v0/amp-fit-text-0.1.js';
 			$data['amp_component_scripts']['amp-youtube'] = 'https://cdn.ampproject.org/v0/amp-youtube-0.1.js';
 			$data['amp_component_scripts']['amp-lightbox-gallery'] = 'https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js';
-				
 		}
 		return $data;
 	}

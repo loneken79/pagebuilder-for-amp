@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Blurb')){
 class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 	function init() {
 		$this->name             = esc_html__( 'Blurb', 'et_builder' );
@@ -446,6 +446,7 @@ class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 		      }';
             echo $inline_styles;
   	}
+  	
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$title                 = $this->props['title'];
@@ -649,3 +650,4 @@ class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 $blurbObj = new AMP_ET_Builder_Module_Blurb();
 remove_shortcode( 'et_pb_blurb' );
 add_shortcode( 'et_pb_blurb', array($blurbObj, '_render'));
+}

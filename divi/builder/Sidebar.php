@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Sidebar')){
 class AMP_ET_Builder_Module_Sidebar extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Sidebar', 'et_builder' );
@@ -261,4 +261,4 @@ class AMP_ET_Builder_Module_Sidebar extends ET_Builder_Module {
 $sidebarObj = new AMP_ET_Builder_Module_Sidebar();
 remove_shortcode( 'et_pb_sidebar' );
 add_shortcode( 'et_pb_sidebar', array($sidebarObj, '_render'));
-
+}

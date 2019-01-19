@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Countdown_Timer')){
 class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Countdown Timer', 'et_builder' );
@@ -206,8 +206,12 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 		';
         echo $inline_styles;
   	}
-
+  	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-date-countdown'] = 'https://cdn.ampproject.org/v0/amp-date-countdown-0.1.js';
+  		return $data;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$title                = $this->props['title'];
 		$date_time            = $this->props['date_time'];
@@ -245,7 +249,28 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 
 		$output = sprintf(
 			'<amp-date-countdown%1$s class="%2$s" data-end-timestamp="%4$s" timestamp-seconds="%4$s"  layout="fixed-height" height="150">
-					
+					<template type="amp-mustache">
+					%5$s
+						<div class="days section values" >
+							<p class="value">{{d}}</p>
+							<p class="label">%6$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="hours section values" >
+							<p class="value">{{h}}</p>
+							<p class="label">%7$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="days section values" >
+							<p class="value">{{m}}</p>
+							<p class="label">%9$s</p>
+						</div>
+						<div class="sep section"><p>:</p></div>
+						<div class="days section values" >
+							<p class="value">{{s}}</p>
+							<p class="label">%11$s</p>
+						</div>
+				    </template>
 			</amp-date-countdown>',
 			$this->module_id(),
 			$this->module_classname( $render_slug ),
@@ -271,8 +296,4 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 $countdownTimerObj = new AMP_ET_Builder_Module_Countdown_Timer();
 remove_shortcode( 'et_pb_countdown_timer' );
 add_shortcode( 'et_pb_countdown_timer', array($countdownTimerObj, '_render'));
-
-
-
-
-
+}

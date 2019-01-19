@@ -1,5 +1,5 @@
 <?php
-
+if(class_exists('ET_Builder_Module_Comments')){
 class AMP_ET_Builder_Module_Comments extends ET_Builder_Module {
 	function init() {
 		$this->name       = esc_html__( 'Comments', 'et_builder' );
@@ -372,3 +372,4 @@ class AMP_ET_Builder_Module_Comments extends ET_Builder_Module {
 $commmentsObj = new AMP_ET_Builder_Module_Comments();
 remove_shortcode( 'et_pb_comments' );
 add_shortcode( 'et_pb_comments', array( $commmentsObj, '_render' ));
+}
