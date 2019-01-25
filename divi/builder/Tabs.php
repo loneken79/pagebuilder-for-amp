@@ -112,7 +112,104 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 	}
 	
 	public function amp_divi_inline_styles(){
-    
+    	$standard_styles = '/* Tabs Module */
+.et_pb_tabs {
+	border: 1px solid #d9d9d9;
+}
+
+ul.et_pb_tabs_controls {
+	background-color: #f4f4f4;
+}
+
+ul.et_pb_tabs_controls:after {
+	display: block;
+	visibility: visible;
+	position: relative;
+	z-index: 9;
+	top: -1px;
+	border-top: 1px solid #d9d9d9;
+	content: "";
+}
+
+.et_pb_tabs_controls li {
+	display: table;
+	float: left;
+	position: relative;
+	z-index: 11;
+	max-width: 100%;
+	height: 100%;
+	border-right: 1px solid #d9d9d9;
+	font-weight: 600;
+	line-height: 1.7em;
+	cursor: pointer;
+}
+
+.et_pb_tabs_controls li:not(.et_pb_tab_active):last-child {
+	border-right: none;
+}
+
+.et_pb_tabs_controls li a {
+	display: table-cell;
+	padding: 4px 30px 4px;
+	color: #666;
+	line-height: inherit;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+.et_pb_tabs_controls li.et_pb_tab_active {
+	background-color: #fff;
+}
+
+.et_pb_tab_active a {
+	color: #333!important;
+}
+
+.et_pb_tab p:last-of-type {
+	padding-bottom: 0;
+}
+
+.et_pb_all_tabs {
+	background-color: #fff;
+}
+
+.et_pb_all_tabs > div,
+.et_pb_toggle_close .et_pb_toggle_content {
+	display: none;
+}
+
+.et_pb_all_tabs .et_pb_active_content {
+	display: block;
+}
+
+.et_pb_tab {
+	padding: 24px 30px;
+}
+
+.et_pb_tab_content {
+	position: relative;
+}
+
+/* Column Adjustments */
+.et_pb_column_1_3 .et_pb_tabs_controls,
+.et_pb_column_1_4 .et_pb_tabs_controls {
+	border-bottom: none;
+}
+
+.et_pb_column_1_3 .et_pb_tabs_controls li,
+.et_pb_column_1_4 .et_pb_tabs_controls li,
+.et_pb_column_3_8 .et_pb_tabs_controls li {
+	float: none;
+	border-right: none;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.et_pb_column_1_3 .et_pb_tabs_vertically_stacked .et_pb_tabs_controls li,
+.et_pb_column_1_4 .et_pb_tabs_vertically_stacked .et_pb_tabs_controls li,
+.et_pb_column_3_8 .et_pb_tabs_vertically_stacked .et_pb_tabs_controls li {
+	width: 100%;
+}
+';
 		$inline_styles = '.ampTabContainer {
 			    display: flex;
 			    flex-wrap: wrap;
@@ -173,7 +270,7 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 			      border:1px solid #d9d9d9;
 			      padding:0;
 			    }';
-        echo $inline_styles;
+        echo $standard_styles.''.$inline_styles;
   	}
   	function amp_divi_pagebuilder_scripts($data){
   		$data['amp_component_scripts']['amp-selector'] = 'https://cdn.ampproject.org/v0/amp-selector-0.1.js';
@@ -254,21 +351,21 @@ class AMP_ET_Builder_Module_Tabs extends ET_Builder_Module {
 		return $output;
 	}
 
-	public function process_box_shadow( $function_name ) {
-		$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
-		$style     = $boxShadow->get_value( $this->props );
+	// public function process_box_shadow( $function_name ) {
+	// 	$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
+	// 	$style     = $boxShadow->get_value( $this->props );
 
-		if ( empty( $style ) ) {
-			return;
-		}
+	// 	if ( empty( $style ) ) {
+	// 		return;
+	// 	}
 
-		$selector = $boxShadow->is_inset( $style ) ? '%%order_class%% .et-pb-active-slide' : '%%order_class%%';
+	// 	$selector = $boxShadow->is_inset( $style ) ? '%%order_class%% .et-pb-active-slide' : '%%order_class%%';
 
-		self::set_style( $function_name, array(
-			'selector'    => $selector,
-			'declaration' => $style
-		) );
-	}
+	// 	self::set_style( $function_name, array(
+	// 		'selector'    => $selector,
+	// 		'declaration' => $style
+	// 	) );
+	// }
 }
 
 $tabsObj = new AMP_ET_Builder_Module_Tabs();

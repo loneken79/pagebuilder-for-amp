@@ -186,8 +186,51 @@ class AMP_ET_Builder_Module_Map extends ET_Builder_Module {
   		$data['amp_component_scripts']['amp-iframe'] = 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js';
   		return $data;
   	}
+  	function amp_divi_inline_styles(){
+  			$standard_styles = '/* Map Module */
+				.et_pb_map {
+					position: relative;
+					width: 100%;
+					height: 440px;
+				}
+
+				body.chrome.parallax-map-support .et_pb_map {
+					transform: inherit !important;
+				}
+
+				.et_pb_fullwidth_section .et_pb_map_container {
+					margin: 0;
+				}
+
+				.et_pb_map_container img {
+					max-width: inherit;
+				}
+
+				.et_pb_map_pin {
+					display: none;
+					visibility: hidden;
+				}
+
+				/* Column Adjustments */
+				.et_pb_column_2_3 .et_pb_map {
+					height: 400px;
+				}
+
+				.et_pb_column_1_2 .et_pb_map,
+				.et_pb_column_3_8 .et_pb_map {
+					height: 280px;
+				}
+
+				.et_pb_column_1_3 .et_pb_map,
+				.et_pb_column_1_4 .et_pb_map {
+					height: 230px;
+				}';
+				$inline_styles = '';
+				echo $standard_styles.''.$inline_styles;
+			}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
+		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$address_lat             = $this->props['address_lat'];
 		$address_lng             = $this->props['address_lng'];
 		$zoom_level              = $this->props['zoom_level'];

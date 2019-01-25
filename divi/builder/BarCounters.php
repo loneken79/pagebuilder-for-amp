@@ -180,6 +180,40 @@ class AMP_ET_Builder_Module_Bar_Counters extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     global $et_pb_counters_settings;
+    $standard_styles = '/* Bar Counter Module */
+.et_pb_counters span.et_pb_counter_amount_number {
+	display: inline-block;
+	padding-left: 5px;
+}
+
+.et_pb_counters.et_pb_section_video > li {
+	position: relative;
+}
+
+.et_pb_counters > li.et_pb_section_video .et_pb_counter_amount {
+	position: relative;
+}
+
+.et_pb_counters li:last-of-type .et_pb_counter_container {
+	margin-bottom: 0;
+}
+
+.et_pb_text_align_left .et_pb_counter_amount {
+	text-align: left;
+}
+
+.et_pb_text_align_center .et_pb_counter_amount {
+	text-align: center;
+}
+
+.et_pb_text_align_right .et_pb_counter_amount {
+	text-align: right;
+}
+
+.et_pb_text_align_justified .et_pb_counter_amount {
+	text-align: justify;
+}';
+
     $inline_styles = '.graph {
                 width: 100%;
                 height: 25px;
@@ -212,7 +246,7 @@ class AMP_ET_Builder_Module_Bar_Counters extends ET_Builder_Module {
     			margin-bottom: 10px;
             }
             ';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   		}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

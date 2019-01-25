@@ -181,7 +181,82 @@ class AMP_ET_Builder_Module_CTA extends ET_Builder_Module {
 		return $additional_css;
 	}
 	public function amp_divi_inline_styles(){
-    
+    		$standard_styles = '/* Call To Action Module */
+				.et-promo {
+					padding: 40px 0 25px;
+					background-color: #1f6581;
+				}
+
+				.et-promo-description {
+					float: left;
+					padding: 0 60px;
+				}
+
+				.et-promo-description {
+					width: 754px;
+				}
+
+				.et-promo-description p {
+					color: #fff;
+				}
+
+				.et-promo-button {
+					display: inline-block;
+					float: left;
+					margin-top: 20px;
+					padding: 14px 20px;
+					padding-right: 60px;
+					-webkit-border-radius: 5px;
+					-moz-border-radius: 5px;
+					border-radius: 5px;
+					color: #fff;
+					background-color: rgba(0, 0, 0, 0.35);
+					font-size: 20px;
+					font-weight: 500;
+				}
+				/* Call To Action and Button Modules */
+.et_pb_promo {
+	padding: 40px 60px;
+	text-align: center;
+}
+
+.et_pb_promo_description {
+	position: relative;
+	padding-bottom: 20px;
+}
+
+.et_pb_promo_description p:last-of-type {
+	padding-bottom: 0;
+}
+
+.et_pb_promo_button,
+.et_pb_module.et_pb_button {
+	display: inline-block;
+	color: inherit;
+}
+
+.et_pb_promo_button:hover,
+.et_pb_newsletter_button:hover {
+	text-decoration: none;
+}
+
+.et_pb_column_1_2 .et_pb_promo,
+.et_pb_column_1_3 .et_pb_promo,
+.et_pb_column_1_4 .et_pb_promo {
+	padding: 40px;
+}
+
+.et_pb_button_module_wrapper.et_pb_button_alignment_left {
+	text-align: left;
+}
+
+.et_pb_button_module_wrapper.et_pb_button_alignment_right {
+	text-align: right;
+}
+
+.et_pb_button_module_wrapper.et_pb_button_alignment_center {
+	text-align: center;
+}';
 			$inline_styles = '.et_pd_cta {
 		        background: #7EBEC5;
 		        padding: 30px 50px;
@@ -214,7 +289,7 @@ class AMP_ET_Builder_Module_CTA extends ET_Builder_Module {
 		        border: 2px solid transparent;
 		        background-color: rgba(255,255,255,.2);
 		    }';
-			echo $inline_styles;
+			echo $standard_styles.''.$inline_styles;
   		}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

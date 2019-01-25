@@ -746,7 +746,136 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		return self::$_providers;
 	}
 	public function amp_divi_inline_styles(){
-    
+    		$standard_styles = '/* Newsletter Module */
+.et_pb_newsletter {
+	padding: 25px;
+}
+
+.et_pb_newsletter_form,
+.et_pb_newsletter_description {
+	position: relative;
+	width: 50%;
+	padding: 0;
+}
+
+.et_pb_newsletter_description {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.et_pb_newsletter_description p:last-of-type {
+	padding-bottom: 0;
+}
+
+.et_pb_newsletter_form {
+	float: left;
+}
+
+.et_pb_newsletter_form p input {
+	width: 100%;
+	padding: 14px 4% !important;
+	border: none;
+	border-radius: 3px;
+	color: #666;
+	background-color: #fff;
+	font-size: 14px;
+	font-size: 16px;
+	font-weight: 400;
+
+	-webkit-appearance: none;
+}
+
+.et_pb_newsletter_form p .et_pb_signup_error {
+	border: 1px solid #f00 !important;
+}
+
+.et_pb_newsletter_result,
+.et_pb_newsletter_success {
+	display: none;
+	text-align: center;
+}
+
+.et_pb_newsletter_button {
+	display: block;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	color: inherit;
+	text-align: center;
+}
+
+.et_pb_login_form .et_pb_newsletter_button,
+.et_pb_feedburner_form .et_pb_newsletter_button {
+	width: 100%;
+	margin: 0;
+	cursor: pointer;
+}
+
+.et_pb_login_form form,
+.et_pb_feedburner_form form {
+	text-align: left;
+}
+
+.et_pb_login_form ::-webkit-input-placeholder,
+.et_pb_feedburner_form ::-webkit-input-placeholder {
+	color: #666;
+}
+
+.et_pb_login_form ::-moz-placeholder,
+.et_pb_feedburner_form ::-moz-placeholder {
+	color: #666;
+}
+
+.et_pb_login_form :-ms-input-placeholder,
+.et_pb_feedburner_form :-ms-input-placeholder {
+	color: #666;
+}
+
+.et_pb_no_bg {
+	padding: 0 !important;
+}
+
+/* Column Adjustments */
+.logged-in:not(.et-fb) .et_pb_login .et_pb_newsletter_description,
+.et_pb_column_1_2 .et_pb_newsletter_form,
+.et_pb_column_1_2 .et_pb_newsletter_description,
+.et_pb_column_3_8.et_pb_column_inner .et_pb_newsletter_form,
+.et_pb_column_3_8.et_pb_column_inner .et_pb_newsletter_description,
+.et_pb_column_1_3 .et_pb_newsletter_form,
+.et_pb_column_1_3 .et_pb_newsletter_description,
+.et_pb_column_1_3.et_pb_column_inner .et_pb_newsletter_form,
+.et_pb_column_1_3.et_pb_column_inner .et_pb_newsletter_description,
+.et_pb_column_1_4 .et_pb_newsletter_form,
+.et_pb_column_1_4 .et_pb_newsletter_description,
+.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_form,
+.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_description {
+	width: 100%;
+	padding: 0;
+}
+
+.et_pb_column_4_4 .et_pb_newsletter_form,
+.et_pb_column_3_4 .et_pb_newsletter_form,
+.et_pb_column_2_3 .et_pb_newsletter_form {
+	padding-left: 40px;
+}
+
+.et_pb_column_4_4 > .et_pb_newsletter .et_pb_newsletter_description,
+.et_pb_column_3_4 > .et_pb_newsletter .et_pb_newsletter_description,
+.et_pb_column_2_3 > .et_pb_newsletter .et_pb_newsletter_description {
+	margin-bottom: 0;
+
+	align-self: start;
+}
+
+.et_pb_column_4_4 > .et_pb_newsletter,
+.et_pb_column_3_4 > .et_pb_newsletter,
+.et_pb_column_2_3 > .et_pb_newsletter {
+	display: flex;
+
+	align-items: center;
+}
+';
     		$inline_styles = '.et_pb_sg{
 		            background-color: #7EBEC5;
 		            padding: 30px;
@@ -805,7 +934,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		        }
 		        .et_pb_newsletter_form{padding-left:0px;}
 		      }';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_half_width_counter;

@@ -145,7 +145,59 @@ class AMP_ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
+    	$standard_styles = '/* Number Counter Module */
+.et_pb_counter_title {
+	display: block;
+	font-size: 12px;
+	line-height: 1.6em;
+}
+
+.et_pb_bg_layout_light .et_pb_counter_title {
+	color: #666;
+}
+
+.et_pb_counter_container {
+	display: block;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 10px;
+	color: #fff;
+	background-color: #ddd;
+}
+
+.et_pb_counter_amount {
+	display: block;
+	float: left;
+	min-height: 6px;
+	padding: 1px 3% 1px 1px;
+	opacity: 0;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.6em;
+	text-align: right;
+}
+/* Number Counter Module */
+.et_pb_number_counter {
+	width: auto;
+}
+
+.et_pb_number_counter canvas {
+	display: none;
+	visibility: hidden;
+}
+
+.et_pb_number_counter .percent {
+	position: relative;
+	height: 72px;
+}
+
+.et_pb_number_counter .percent p {
+	font-size: 72px;
+	font-weight: 500;
+	line-height: 72px;
+}
+
+';
 		$inline_styles = '.et_pb_number_counter{
 		        width:100%;
 		        text-align:center;
@@ -162,7 +214,7 @@ class AMP_ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 		          font-size: 18px;
 		          font-weight: 500;
 		      }';
-        echo $inline_styles;
+        echo $standard_styles.''.$inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		//wp_enqueue_script( 'easypiechart' );

@@ -843,6 +843,216 @@ class AMP_ET_Builder_Module_Blog extends ET_Builder_Module_Type_PostBased {
 		return $posts;
 	}
 	public function amp_divi_inline_styles(){
+		$standard_styles ='/* Blog Module */
+.et_pb_post {
+	margin-bottom: 60px;
+}
+
+.et_pb_post .entry-featured-image-url {
+	display: block;
+	position: relative;
+	margin-bottom: 30px;
+}
+
+.et_pb_post h2 a,
+.et_pb_post .entry-title a,
+.et_pb_portfolio_item h3 a,
+.et_pb_portfolio_item .et_pb_module_header a {
+	text-decoration: none;
+}
+
+.et_pb_post .post-meta {
+	margin-bottom: 6px;
+	font-size: 14px;
+}
+
+.et_pb_post .post-meta a,
+.et_pb_portfolio_item .post-meta a {
+	text-decoration: none;
+}
+
+.et_pb_post .more {
+	color: #82c0c7;
+	text-decoration: none;
+}
+
+.et_pb_posts a.more-link {
+	display: block;
+	clear: both;
+}
+
+.et_pb_has_overlay.et_pb_post .et_pb_image_container a {
+	display: block;
+	overflow: hidden;
+	position: relative;
+}
+
+.et_pb_posts .et_pb_post {
+	position: relative;
+}
+
+.et_pb_posts.et_pb_section_parallax:hover {
+	overflow: hidden;
+}
+
+.et_pb_section_video .et_pb_ajax_pagination_container,
+.et_pb_section_parallax .et_pb_ajax_pagination_container,
+.et_pb_section_video .pagination,
+.et_pb_section_parallax .pagination {
+	position: relative;
+}
+
+.post-password-required .et_pb_section,
+.post-password-required .et_pb_row {
+	width: 100%;
+	padding: 0;
+}
+
+.post-password-required .et_password_protected_form {
+	min-height: initial;
+}
+
+.post-password-required .et_password_protected_form h1 {
+	display: none;
+}
+
+/* Blog Module Inner Modules */
+.et_pb_posts.et_pb_module article .et_pb_row {
+	width: 100%;
+}
+
+.et_pb_posts.et_pb_module article .et_pb_with_background .et_pb_row {
+	width: 80%;
+}
+
+/* Color Layouts */
+.et_pb_bg_layout_light .et_pb_post .post-meta,
+.et_pb_bg_layout_light .et_pb_portfolio_item .post-meta,
+.et_pb_bg_layout_light .et_pb_post .post-meta a,
+.et_pb_bg_layout_light .et_pb_portfolio_item .post-meta a,
+.et_pb_bg_layout_light .et_pb_post p,
+.et_pb_bg_layout_light p.et_pb_title_meta_container,
+.et_pb_bg_layout_light p.et_pb_title_meta_container a {
+	color: #666;
+}
+
+.et_pb_bg_layout_dark .et_pb_post .post-meta,
+.et_pb_bg_layout_dark .et_pb_portfolio_item .post-meta,
+.et_pb_bg_layout_dark .et_pb_post .post-meta a,
+.et_pb_bg_layout_dark .et_pb_portfolio_item .post-meta a,
+.et_pb_bg_layout_dark .et_pb_post p,
+.et_pb_bg_layout_dark p.et_pb_title_meta_container,
+.et_pb_bg_layout_dark p.et_pb_title_meta_container a {
+	color: inherit;
+}
+
+/* Grid Layout */
+.et_pb_blog_grid {
+	position: relative;
+}
+
+.et_pb_blog_grid .column {
+	float: left;
+	max-width: 100%;
+}
+
+.rtl .et_pb_blog_grid .column {
+	float: right;
+	margin-right: 0 !important;
+}
+
+.et_pb_blog_grid .column.size-1of3:nth-child(3n),
+.et_pb_blog_grid .column.size-1of2:nth-child(2n) {
+	margin-right: 0 !important;
+}
+
+.rtl .et_pb_blog_grid .column.size-1of3:nth-child(3n),
+.rtl .et_pb_blog_grid .column.size-1of2:nth-child(2n) {
+	margin-left: 0 !important;
+}
+
+.et_pb_blog_grid .et_pb_post {
+	padding: 19px;
+	border: 1px solid #d8d8d8;
+	background-color: #fff;
+	word-wrap: break-word;
+}
+
+.et_pb_blog_grid .et_pb_image_container {
+	position: relative;
+}
+
+.et_pb_image_container,
+.et_pb_blog_grid .et_main_video_container,
+.et_pb_blog_grid .et_audio_content,
+.et_pb_blog_grid .et_pb_post .et_pb_slider {
+	margin: -20px -20px 29px;
+}
+
+.et_pb_image_container img,
+.et_pb_post a img {
+	max-width: 100%;
+	vertical-align: bottom;
+}
+
+.et_pb_blog_grid .et_pb_image_container img {
+	min-width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+
+.et_pb_blog_grid .et_pb_no_thumb h2,
+.et_pb_blog_grid .et_pb_no_thumb .entry-title {
+	margin-top: 0;
+}
+
+.et_pb_blog_grid .et_audio_content {
+	margin-bottom: 0;
+}
+
+.et_pb_blog_grid h2 {
+	font-size: 18px;
+}
+
+.et_pb_blog_grid .et_pb_salvattore_content[data-columns]::before {
+	display: none;
+	opacity: 0;
+	line-height: 0;
+}
+
+.et_pb_blog_grid .et_pb_salvattore_content[data-columns] .et_pb_post {
+	opacity: 0;
+}
+
+.et_ie9 .et_pb_blog_grid .et_pb_salvattore_content[data-columns] .et_pb_post {
+	opacity: 1;
+}
+
+.et_pb_blog_grid .et_pb_salvattore_content[data-columns] .column .et_pb_post {
+	opacity: 1;
+	-webkit-animation: gridFadeIn 1s 1 cubic-bezier(0.77, 0, 0.175, 1);
+	-moz-animation: gridFadeIn 1s 1 cubic-bezier(0.77, 0, 0.175, 1);
+	-o-animation: gridFadeIn 1s 1 cubic-bezier(0.77, 0, 0.175, 1);
+	animation: gridFadeIn 1s 1 cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Video Format Overlay */
+.et_pb_post > .et_main_video_container {
+	position: relative;
+	margin-bottom: 30px;
+}
+
+.et_pb_post .et_pb_video_overlay .et_pb_video_play {
+	color: #fff;
+}
+
+.et_pb_post .et_pb_video_overlay_hover:hover {
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.et_pb_blog_grid .et_main_video_overlay:hover:before {
+	background: rgba(0, 0, 0, 0.6);
+}';
 	    $inline_styles = '.et_pb_module{
 				        margin: 10px 0px;
 				        display: inline-block;
@@ -875,7 +1085,7 @@ class AMP_ET_Builder_Module_Blog extends ET_Builder_Module_Type_PostBased {
 				      	}
 
 				      }';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		global $post;
@@ -1321,19 +1531,19 @@ class AMP_ET_Builder_Module_Blog extends ET_Builder_Module_Type_PostBased {
 		return $output;
 	}
 
-	public function process_box_shadow( $function_name ) {
-		/**
-		 * @var ET_Builder_Module_Field_BoxShadow $boxShadow
-		 */
-		$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
-		$selector = '.' . self::get_module_order_class( $function_name );
+	// public function process_box_shadow( $function_name ) {
+	// 	/**
+	// 	 * @var ET_Builder_Module_Field_BoxShadow $boxShadow
+	// 	 */
+	// 	$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
+	// 	$selector = '.' . self::get_module_order_class( $function_name );
 
-		if ( isset( $this->props['fullwidth'] ) && $this->props['fullwidth'] === 'off' ) {
-			$selector .= ' article.et_pb_post';
-		}
+	// 	if ( isset( $this->props['fullwidth'] ) && $this->props['fullwidth'] === 'off' ) {
+	// 		$selector .= ' article.et_pb_post';
+	// 	}
 
-		self::set_style( $function_name, $boxShadow->get_style( $selector, $this->props ) );
-	}
+	// 	self::set_style( $function_name, $boxShadow->get_style( $selector, $this->props ) );
+	// }
 
 	/**
 	 * Since the styling file is not updated until the author updates the page/post,

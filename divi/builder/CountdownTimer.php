@@ -145,7 +145,7 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
+   
 		$inline_styles = 'amp-date-countdown {
 		      display: block;
 		    }
@@ -204,7 +204,7 @@ class AMP_ET_Builder_Module_Countdown_Timer extends ET_Builder_Module {
 			}
 		}
 		';
-        echo $inline_styles;
+        echo $standard_styles.''.$inline_styles;
   	}
   	function amp_divi_pagebuilder_scripts($data){
   		$data['amp_component_scripts']['amp-date-countdown'] = 'https://cdn.ampproject.org/v0/amp-date-countdown-0.1.js';

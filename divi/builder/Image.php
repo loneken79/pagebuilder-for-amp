@@ -271,7 +271,41 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 		return et_pb_get_alignment( $alignment );
 	}
 	public function amp_divi_inline_styles(){
-		$inline_styles = '';
+		$inline_styles = '.et_pb_image {
+						display: block;
+						margin-right: auto;
+						margin-left: auto;
+						line-height: 0;
+					}
+					.et_pb_image.aligncenter {
+						text-align: center;
+					}
+
+					.et_pb_image.et_pb_has_overlay a.et_pb_lightbox_image {
+						display: block;
+						overflow: hidden;
+						position: relative;
+					}
+
+					.et_pb_image {
+						display: block;
+					}
+
+					.et_pb_image .et_pb_image_wrap {
+						display: inline-block;
+						position: relative;
+						max-width: 100%;
+					}
+
+					.et_pb_image img {
+						position: relative;
+					}
+
+					/* Sticky Image */
+					.et_pb_image_sticky {
+						display: inherit;
+						margin-bottom: 0 !important;
+					}';
         echo $inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
@@ -415,6 +449,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 		if ( 'on' === $always_center_on_mobile ) {
 			$this->add_classname( 'et_always_center_on_mobile' );
 		}
+		
 
 		$output = sprintf(
 			'<div%3$s class="%2$s">

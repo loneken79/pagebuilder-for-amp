@@ -177,7 +177,75 @@ class AMP_ET_Builder_Module_Circle_Counter extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
+      $standard_styles = '/* Circle Counter Module */
+.et_pb_circle_counter,
+.et_pb_number_counter {
+  position: relative;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+.et_pb_circle_counter {
+  max-width: 225px;
+}
+
+.et_pb_circle_counter canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.et_pb_circle_counter .percent {
+  word-wrap: initial;
+}
+
+.et_pb_circle_counter .percent,
+.et_pb_number_counter .percent {
+  position: relative;
+  z-index: 2;
+}
+
+.et_pb_circle_counter .percent p {
+  visibility: hidden;
+}
+
+.et_pb_circle_counter .percent p,
+.et_pb_slide_content .et_pb_circle_counter .percent p:last-of-type {
+  position: relative;
+  padding: 49% 0;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 0.1em;
+}
+
+.et_pb_circle_counter h3,
+.et_pb_number_counter h3 {
+  position: relative;
+  font-size: 18px;
+}
+
+.et_pb_circle_counter .et_pb_module_header,
+.et_pb_number_counter .et_pb_module_header {
+  position: relative;
+}
+
+.et_pb_circle_counter.et_pb_with_title .percent,
+.et_pb_number_counter.et_pb_with_title .percent {
+  margin-bottom: 20px;
+}
+.et_pb_number_counter {
+  opacity: 0;
+  -webkit-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.et-fb .et_pb_number_counter,
+.et_pb_number_counter.active {
+  opacity: 1;
+}
+';
+
     	$inline_styles = '.rect-auto, .c100.p51 .slice, .c100.p52 .slice, .c100.p53 .slice, .c100.p54 .slice, .c100.p55 .slice, .c100.p56 .slice, .c100.p57 .slice, .c100.p58 .slice, .c100.p59 .slice, .c100.p60 .slice, .c100.p61 .slice, .c100.p62 .slice, .c100.p63 .slice, .c100.p64 .slice, .c100.p65 .slice, .c100.p66 .slice, .c100.p67 .slice, .c100.p68 .slice, .c100.p69 .slice, .c100.p70 .slice, .c100.p71 .slice, .c100.p72 .slice, .c100.p73 .slice, .c100.p74 .slice, .c100.p75 .slice, .c100.p76 .slice, .c100.p77 .slice, .c100.p78 .slice, .c100.p79 .slice, .c100.p80 .slice, .c100.p81 .slice, .c100.p82 .slice, .c100.p83 .slice, .c100.p84 .slice, .c100.p85 .slice, .c100.p86 .slice, .c100.p87 .slice, .c100.p88 .slice, .c100.p89 .slice, .c100.p90 .slice, .c100.p91 .slice, .c100.p92 .slice, .c100.p93 .slice, .c100.p94 .slice, .c100.p95 .slice, .c100.p96 .slice, .c100.p97 .slice, .c100.p98 .slice, .c100.p99 .slice, .c100.p100 .slice {
   clip: rect(auto, auto, auto, auto);
 }
@@ -1056,7 +1124,7 @@ class AMP_ET_Builder_Module_Circle_Counter extends ET_Builder_Module {
         justify-content: center;
         flex-wrap: wrap;
       }';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

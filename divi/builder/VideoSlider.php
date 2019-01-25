@@ -144,9 +144,274 @@ class AMP_ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 
 	}
 	public function amp_divi_inline_styles(){
-    
+    	$standard_styles = '/* Video Slider Module */
+.et_pb_video_slider {
+	position: relative;
+}
+
+.et_pb_video_slider .et_pb_slider:hover .et_pb_video_overlay_hover {
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.et_pb_video_slider .et_pb_slider_dots.et_pb_controls_light ~ .et-pb-controllers a {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.et_pb_video_slider .et_pb_slider_dots.et_pb_controls_light ~ .et-pb-controllers .et-pb-active-control {
+	background-color: #fff !important;
+}
+
+.et_pb_video_slider .et_pb_slider_dots.et_pb_controls_dark ~ .et-pb-controllers a {
+	background-color: rgba(51, 51, 51, 0.5);
+}
+
+.et_pb_video_slider .et_pb_slider_dots.et_pb_controls_dark ~ .et-pb-controllers .et-pb-active-control {
+	background-color: #333 !important;
+}
+
+.et_pb_video_slider .et_pb_controls_dark .et-pb-slider-arrows {
+	color: #333;
+}
+
+.et_pb_video_slider .et-pb-controllers-has-video-tag.et-pb-controllers {
+	bottom: 35px;
+}
+
+.et_pb_video_slider.et_pb_has_box_shadow .et_pb_carousel,
+.et_pb_video_slider.et_pb_has_box_shadow .et_pb_carousel .et_pb_carousel_items {
+	overflow: visible;
+}
+
+.et_pb_video_slider.et_pb_has_box_shadow .et_pb_carousel_items .et-carousel-group .item-fade-out {
+	opacity: 0;
+	background: transparent !important;
+	box-shadow: none !important;
+	-webkit-animation-name: et_pb_video_slider_item_fade_out;
+	animation-name: et_pb_video_slider_item_fade_out;
+	-webkit-animation-duration: 200ms;
+	-moz-animation-duration: 200ms;
+	-o-animation-duration: 200ms;
+	animation-duration: 200ms;
+}
+
+.et_pb_video_slider.et_pb_has_box_shadow .et_pb_carousel_items .et-carousel-group .item-fade-out .et_pb_video_overlay {
+	-webkit-animation-name: et_pb_video_slider_item_overlay_fade_out;
+	animation-name: et_pb_video_slider_item_overlay_fade_out;
+	-webkit-animation-duration: 200ms;
+	-moz-animation-duration: 200ms;
+	-o-animation-duration: 200ms;
+	animation-duration: 200ms;
+}
+
+.et_pb_video_slider.et_pb_has_box_shadow .et_pb_carousel_items .et-carousel-group.prev .et_pb_carousel_item,
+.et_pb_video_slider.et_pb_has_box_shadow .et_pb_carousel_items .et-carousel-group.next .et_pb_carousel_item {
+	opacity: 0;
+}
+
+.et_pb_video_slider.et_pb_has_box_shadow .et_pb_carousel_items .et-carousel-group .et_pb_carousel_item.item-fade-in {
+	display: block;
+	opacity: 1;
+	-webkit-animation-name: et_pb_video_slider_item_fade_in;
+	animation-name: et_pb_video_slider_item_fade_in;
+	-webkit-animation-duration: 400ms;
+	-moz-animation-duration: 400ms;
+	-o-animation-duration: 400ms;
+	animation-duration: 400ms;
+}
+
+.et-pb-is-sliding-carousel {
+	overflow-x: hidden;
+}
+
+.et_pb_carousel {
+	overflow: hidden;
+	position: relative;
+	margin-top: 2%;
+}
+
+.et_pb_carousel:hover .et-pb-arrow-prev {
+	left: 10px;
+	opacity: 1;
+}
+
+.et_pb_carousel:hover .et-pb-arrow-next {
+	right: 10px;
+	opacity: 1;
+}
+
+.et_pb_slider_carousel {
+	margin-bottom: 0 !important;
+}
+
+.et_pb_slider_carousel.et_pb_controls_light + .et_pb_carousel .et-pb-arrow-prev,
+.et_pb_slider_carousel.et_pb_controls_light + .et_pb_carousel .et-pb-arrow-next,
+.et_pb_slider_carousel.et_pb_controls_light + .et_pb_carousel .et_pb_video_play {
+	color: #fff;
+}
+
+.et_pb_slider_carousel.et_pb_controls_dark .et-pb-arrow-prev,
+.et_pb_slider_carousel.et_pb_controls_dark .et-pb-arrow-next,
+.et_pb_slider_carousel.et_pb_controls_dark + .et_pb_carousel .et-pb-arrow-prev,
+.et_pb_slider_carousel.et_pb_controls_dark + .et_pb_carousel .et-pb-arrow-next,
+.et_pb_slider_carousel.et_pb_controls_dark + .et_pb_carousel .et_pb_video_play {
+	color: #333;
+}
+
+.et_pb_carousel_items {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+
+.et_pb_carousel_items .et-carousel-group {
+	display: none;
+	float: left;
+	position: relative;
+	width: 100%;
+}
+
+.et_pb_carousel_items .et-carousel-group.active {
+	display: block;
+}
+
+.et_pb_carousel_items .et-carousel-group.active .et_pb_carousel_item:last-child {
+	margin-right: 0;
+}
+
+.et_pb_carousel_item {
+	display: none;
+	float: left;
+	position: relative;
+	margin: 0 2% 0 0;
+	padding: 0;
+	background: rgba(0, 0, 0, 0.25);
+}
+
+.et_pb_carousel_items.columns-6 .et_pb_carousel_item {
+	width: 15%;
+}
+
+.et_pb_carousel_items.columns-5 .et_pb_carousel_item {
+	width: 18.4%;
+}
+
+.et_pb_carousel_items.columns-4 .et_pb_carousel_item {
+	width: 23.5%;
+}
+
+.et_pb_carousel_items.columns-3 .et_pb_carousel_item {
+	width: 32%;
+}
+
+.et_pb_carousel_items.columns-2 .et_pb_carousel_item {
+	width: 49%;
+}
+
+.et_pb_carousel_items.columns-1 .et_pb_carousel_item {
+	width: 100%;
+}
+
+.et_pb_carousel_item:after {
+	display: block;
+	padding-top: 75%;
+	content: "";
+}
+
+.et_pb_carousel_item .et_pb_video_overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.et_pb_carousel_item.et-pb-active-control .et_pb_video_overlay_hover {
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.et_pb_carousel_item .et_pb_video_play {
+	opacity: 0;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
+.et_pb_carousel_item .et_pb_video_overlay:hover .et_pb_video_play {
+	opacity: 1;
+}
+
+.et_pb_carousel_item .et_pb_video_overlay_hover:hover {
+	background: rgba(0, 0, 0, 0.6);
+}
+
+@-webkit-keyframes et_pb_video_slider_item_fade_out {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes et_pb_video_slider_item_fade_out {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes et_pb_video_slider_item_overlay_fade_out {
+	from {
+		transform: scale(1);
+	}
+
+	to {
+		transform: scale(0.8);
+	}
+}
+
+@keyframes et_pb_video_slider_item_overlay_fade_out {
+	from {
+		transform: scale(1);
+	}
+
+	to {
+		transform: scale(0.8);
+	}
+}
+
+@-webkit-keyframes et_pb_video_slider_item_fade_in {
+	from {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes et_pb_video_slider_item_fade_in {
+	from {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+';
 		$inline_styles = '';
-        echo $inline_styles;
+        echo $standard_styles.''.$inline_styles;
   	}
   	function amp_divi_pagebuilder_scripts($data){
   		$data['amp_component_scripts']['amp-carousel'] = 'https://cdn.ampproject.org/v0/amp-carousel-0.1.js';
@@ -216,19 +481,19 @@ class AMP_ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 		return $output;
 	}
 
-	public function process_box_shadow( $function_name ) {
-		/**
-		 * @var ET_Builder_Module_Field_BoxShadow $boxShadow
-		 */
-		$boxShadow        = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
-		$class            = '.' . self::get_module_order_class( $function_name );
-		$selector         = "$class>.et_pb_slider, $class>.et_pb_carousel .et_pb_carousel_item";
-		$box_shadow_style = $boxShadow->get_style( $selector, $this->props );
+	// public function process_box_shadow( $function_name ) {
+	// 	/**
+	// 	 * @var ET_Builder_Module_Field_BoxShadow $boxShadow
+	// 	 */
+	// 	$boxShadow        = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
+	// 	$class            = '.' . self::get_module_order_class( $function_name );
+	// 	$selector         = "$class>.et_pb_slider, $class>.et_pb_carousel .et_pb_carousel_item";
+	// 	$box_shadow_style = $boxShadow->get_style( $selector, $this->props );
 
-		$this->has_box_shadow = isset( $box_shadow_style['declaration'] ) && '' !== trim( $box_shadow_style['declaration'] );
+	// 	$this->has_box_shadow = isset( $box_shadow_style['declaration'] ) && '' !== trim( $box_shadow_style['declaration'] );
 
-		self::set_style( $function_name, $box_shadow_style );
-	}
+	// 	self::set_style( $function_name, $box_shadow_style );
+	// }
 }
 
 $videSliderObj = new AMP_ET_Builder_Module_Video_Slider();

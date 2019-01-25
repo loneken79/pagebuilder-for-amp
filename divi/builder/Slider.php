@@ -356,11 +356,11 @@ class AMP_ET_Builder_Module_Slider extends ET_Builder_Module {
 		$show_image_video_mobile = $this->props['show_image_video_mobile'];
 		$background_position     = $this->props['background_position'];
 		$background_size         = $this->props['background_size'];
-
+		
 		global $et_pb_slider_has_video, $et_pb_slider_parallax, $et_pb_slider_parallax_method, $et_pb_slider_show_mobile, $et_pb_slider_custom_icon, $et_pb_slider;
 
 		$content = $this->content;
-
+		
 		$video_background          = $this->video_background();
 		$parallax_image_background = $this->get_parallax_image_background();
 
