@@ -2,7 +2,7 @@
 Contributors: AMPforWP Team
 Requires at least: 3.0
 Tested up to: 4.9.8
-Stable tag: 0.8
+Stable tag: 0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -10,6 +10,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Page Builder Functionality for AMP in WordPress. Most easiest and the best way to include Page Builder Compatibility in AMP.
 
 == Changelog ==	
+
+= 0.9 ( 25 Jan 2019) =
+* Added code for column rows design structure for divi modules.
+* Added code for divi modules font icons.
 
 = 0.8 ( 19 Jan 2019) =
 * 'amp-date-countdown' validation error issue has been resolved.
