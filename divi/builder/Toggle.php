@@ -185,8 +185,84 @@ class AMP_ET_Builder_Module_Toggle extends ET_Builder_Module {
   		$data['amp_component_scripts']['amp-selector'] = 'https://cdn.ampproject.org/v0/amp-selector-0.1.js';
   		return $data;
   	}
+  	function amp_divi_inline_styles(){
+  		$standard_styles = '/* Accordion + Toggle Modules*/
+.et_pb_toggle {
+	border: 1px solid #d9d9d9;
+}
+
+.et_pb_toggle_close {
+	padding: 20px;
+	background-color: #f4f4f4;
+}
+
+.et_pb_toggle_open {
+	padding: 20px;
+	background-color: #fff;
+}
+
+.et_pb_accordion.et_pb_text_align_left h5.et_pb_toggle_title,
+.et_pb_accordion.et_pb_text_align_left .et_pb_toggle_title,
+.et_pb_accordion .et_pb_toggle.et_pb_text_align_left h5.et_pb_toggle_title,
+.et_pb_accordion .et_pb_toggle.et_pb_text_align_left .et_pb_toggle_title,
+.et_pb_toggle.et_pb_text_align_left h5.et_pb_toggle_title,
+.et_pb_toggle.et_pb_text_align_left .et_pb_toggle_title,
+.et_pb_toggle h5.et_pb_toggle_title,
+.et_pb_toggle .et_pb_toggle_title {
+	position: relative;
+	padding: 0 50px 0 0;
+	cursor: pointer;
+}
+
+.et_pb_toggle_close h5.et_pb_toggle_title,
+.et_pb_toggle_close .et_pb_toggle_title {
+	color: #666;
+}
+
+.et_pb_toggle_open h5.et_pb_toggle_title,
+.et_pb_toggle_open .et_pb_toggle_title {
+	color: #333;
+}
+
+.et_pb_toggle_title:before {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	margin-top: -0.5em;
+	color: #ccc;
+	font-size: 16px;
+	content: "\e050";
+}
+
+.et_pb_accordion .et_pb_toggle_title:before,
+.et_pb_toggle .et_pb_toggle_title:before {
+	right: 0;
+	left: auto;
+}
+
+.et_pb_toggle_open .et_pb_toggle_title:before {
+	content: "\e04f";
+}
+
+.et_pb_toggle_content {
+	position: relative;
+	padding-top: 20px;
+}
+
+.et_pb_toggle_content p:last-of-type {
+	padding-bottom: 0;
+}
+
+.et_pb_toggle_open {
+	z-index: 1;
+}
+';
+  		$inline_styles = '';
+  		echo $standard_styles.''.$inline_styles;
+  	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
+		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$title                          = $this->props['title'];
 		$open                           = $this->props['open'];
 		$open_toggle_background_color   = $this->props['open_toggle_background_color'];

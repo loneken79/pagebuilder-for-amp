@@ -140,7 +140,60 @@ class AMP_ET_Builder_Module_Divider extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
+    	$standard_styles = '/* Divider Module */
+.et_pb_space {
+	box-sizing: content-box;
+	height: 23px;
+	border: none;
+}
+
+.et_pb_divider_hidden {
+	margin-bottom: 0 !important;
+}
+
+.et_pb_divider_internal {
+	display: inline-block;
+	width: 100%;
+}
+
+.et_pb_divider {
+	position: relative;
+	margin: 0 0 30px 0;
+}
+
+.et_pb_divider:before {
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #eee;
+	border-top-color: rgba(0, 0, 0, 0.1);
+	content: "";
+}
+
+.et_pb_space:after,
+.et_pb_divider:after {
+	display: table;
+	content: "";
+}
+
+.et_pb_divider_position_bottom:before {
+	top: auto !important;
+	bottom: 0 !important;
+}
+
+.et_pb_divider_position_center:before {
+	top: 50% !important;
+}
+
+body.ie .et_pb_divider {
+	overflow: visible;
+}
+';
 		$inline_styles = '.et_pb_divider{position:relative;}
 		        .et_pb_divider:before{
 		          content:"";
@@ -158,7 +211,7 @@ class AMP_ET_Builder_Module_Divider extends ET_Builder_Module {
 		          margin:0;
 		          display: inline-flex;
 		        }';
-		echo $inline_styles;
+		echo $standard_styles.''.$inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

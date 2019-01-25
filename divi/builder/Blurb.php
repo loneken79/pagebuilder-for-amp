@@ -424,7 +424,144 @@ class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
+    	$standard_styles = '/* Blurb Module */
+			.et-pb-icon {
+				display: inline-block;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				font-family: "ETmodules";
+				font-size: 96px;
+				font-weight: normal;
+				font-style: normal;
+				font-variant: normal;
+				-webkit-font-smoothing: antialiased;
+				line-height: 1;
+				text-transform: none;
+				content: attr(data-icon);
+
+				speak: none;
+			}
+
+			.et-pb-icon-circle {
+				padding: 25px;
+				-webkit-border-radius: 100px;
+				-moz-border-radius: 100px;
+				border-radius: 100px;
+				font-size: 48px;
+			}
+
+			.et-pb-icon-circle-border {
+				border: 3px solid;
+			}
+
+			.et_pb_blurb_content {
+				position: relative;
+				max-width: 550px;
+				margin: 0 auto;
+				text-align: center;
+			}
+
+			.et_pb_blurb.et_pb_text_align_left .et_pb_blurb_content .et_pb_blurb_container {
+				text-align: left;
+			}
+
+			.et_pb_blurb.et_pb_text_align_right .et_pb_blurb_content .et_pb_blurb_container {
+				text-align: right;
+			}
+
+			.et_pb_blurb.et_pb_text_align_justified .et_pb_blurb_content .et_pb_blurb_container {
+				text-align: justify;
+			}
+
+			.et_pb_blurb_content p:last-of-type {
+				padding-bottom: 0;
+			}
+
+			.et_pb_main_blurb_image {
+				display: inline-block;
+				max-width: 100%;
+				margin-bottom: 30px;
+				line-height: 0;
+			}
+
+			.et_pb_blurb h4 a,
+			.et_pb_blurb .et_pb_module_header a {
+				text-decoration: none;
+			}
+
+			.et_pb_blurb .et_pb_image_wrap {
+				display: block;
+				margin: auto;
+			}
+
+			/* Positioned Left */
+			.et_pb_blurb_position_left .et_pb_main_blurb_image,
+			.et_pb_blurb_position_right .et_pb_main_blurb_image {
+				display: table-cell;
+				width: 32px;
+				line-height: 0;
+			}
+
+			.et_pb_blurb_position_left .et_pb_main_blurb_image img,
+			.et_pb_blurb_position_right .et_pb_main_blurb_image img {
+				width: inherit;
+			}
+
+			.et_pb_blurb_position_left .et-pb-icon,
+			.et_pb_blurb_position_right .et-pb-icon {
+				display: table-cell;
+				font-size: 32px;
+			}
+
+			.et_pb_blurb_position_left .et-pb-icon-circle,
+			.et_pb_blurb_position_right .et-pb-icon-circle {
+				padding: 8px;
+				-webkit-border-radius: 32px;
+				-moz-border-radius: 32px;
+				border-radius: 32px;
+				font-size: 16px;
+			}
+
+			.et_pb_blurb_position_left .et-pb-icon-circle-border,
+			.et_pb_blurb_position_right .et-pb-icon-circle-border {
+				border: 2px solid;
+			}
+
+			.et_pb_blurb_position_left .et_pb_blurb_container,
+			.et_pb_blurb_position_right .et_pb_blurb_container {
+				display: table-cell;
+				vertical-align: top;
+			}
+
+			.et_pb_blurb_position_left .et_pb_blurb_container {
+				padding-left: 15px;
+			}
+
+			.et_pb_blurb_position_left .et_pb_blurb_content {
+				text-align: left;
+			}
+
+			/* Positioned Right */
+			.et_pb_blurb_position_right .et_pb_blurb_container {
+				padding-right: 15px;
+			}
+
+			.et_pb_blurb_position_right .et_pb_blurb_content {
+				padding-right: 52px;
+				text-align: right;
+			}
+
+			.et_pb_blurb_position_right .et_pb_main_blurb_image {
+				right: 0;
+				left: auto;
+			}
+
+			.et_pb_blurb_position_right .et-pb-icon {
+				margin-right: 0;
+				margin-left: 20px;
+			}
+			';
     	$inline_styles = '.et_pb_blurb{
 		          max-width: 550px;
 		          margin: 0 auto;
@@ -444,7 +581,7 @@ class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 		          color: #555;
 		          line-height: 1.4;
 		      }';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   	}
   	
 	function render( $attrs, $content = null, $render_slug ) {
@@ -481,7 +618,8 @@ class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 
 		$image_pathinfo = pathinfo( $image );
 		$is_image_svg   = isset( $image_pathinfo['extension'] ) ? 'svg' === $image_pathinfo['extension'] : false;
-
+		// print_r($this->props);
+		// die;
 		if ( 'off' !== $use_icon_font_size ) {
 			$font_size_responsive_active = et_pb_get_responsive_status( $icon_font_size_last_edited );
 
@@ -642,7 +780,6 @@ class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 			$video_background,
 			$parallax_image_background
 		);
-
 		return $output;
 	}
 }

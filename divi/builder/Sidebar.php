@@ -175,6 +175,30 @@ class AMP_ET_Builder_Module_Sidebar extends ET_Builder_Module {
 		return $widgets;
 	}
 	public function amp_divi_inline_styles(){
+		$standard_styles = '/* Sidebar Module */
+		.et_pb_widget_area_left {
+			padding-right: 30px;
+			border-right: 1px solid rgba(0, 0, 0, 0.1);
+		}
+
+		.et_pb_widget_area_right {
+			padding-left: 30px;
+			border-left: 1px solid rgba(0, 0, 0, 0.1);
+		}
+
+		.et_pb_no_sidebar_vertical_divider .et_pb_widget_area_left {
+			border-right: none;
+		}
+
+		.et_pb_no_sidebar_vertical_divider .et_pb_widget_area_right {
+			border-left: none;
+		}
+
+		.et_pb_sidebar_no_border {
+			padding: 0;
+			border: none;
+		}
+		';
     		$inline_styles = '
     			.et_pb_sdb .amp-sidebar li{
     				font-size: 16px;
@@ -200,7 +224,7 @@ class AMP_ET_Builder_Module_Sidebar extends ET_Builder_Module {
     				margin-bottom:20px;
     			}
     		';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

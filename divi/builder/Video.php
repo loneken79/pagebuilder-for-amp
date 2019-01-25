@@ -206,7 +206,92 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 		return $image_output;
 	}
 	public function amp_divi_inline_styles(){
-    
+    	$standard_styles = '/* Video Module */
+.et_pb_video {
+	position: relative;
+}
+
+.et_pb_video_box {
+	display: block;
+	position: relative;
+	z-index: 1;
+	line-height: 0;
+}
+
+.et_pb_video_box video {
+	width: 100% !important;
+	height: auto !important;
+}
+
+.et_pb_video_overlay {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	cursor: pointer;
+}
+
+.et_pb_video_play:before {
+	font-family: "ETmodules";
+	content: "\49";
+}
+
+.et_pb_video_play {
+	display: block;
+	position: absolute;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	color: #fff;
+}
+
+.et_pb_bg_layout_light .et_pb_video_play {
+	color: #333;
+}
+
+.et_pb_video_overlay_hover {
+	position: absolute;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0);
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
+.et_pb_video .et_pb_video_overlay_hover:hover {
+	background: rgba(0, 0, 0, 0.6);
+}
+
+/* Column Adjustments */
+.et_pb_column_4_4 .et_pb_video_play,
+.et_pb_column_3_4 .et_pb_video_play,
+.et_pb_column_2_3 .et_pb_video_play,
+.et_pb_column_1_2 .et_pb_video_play {
+	margin-top: -3rem;
+	margin-left: -3rem;
+	font-size: 6rem;
+	line-height: 6rem;
+}
+
+.et_pb_column_3_8 .et_pb_video_play,
+.et_pb_column_1_3 .et_pb_video_play,
+.et_pb_column_1_4 .et_pb_video_play {
+	margin-top: -1.5rem;
+	margin-left: -1.5rem;
+	font-size: 3rem;
+	line-height: 3rem;
+}
+';
 		$inline_styles = '.video-player {
 			      position: relative;
 			      overflow: hidden;
@@ -270,7 +355,7 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 		    .play-icon:hover, .play-icon:focus {
 		      opacity: 1;
 		    }';
-        echo $inline_styles;
+        echo $standard_styles.''.$inline_styles;
   	}
   	function amp_divi_pagebuilder_scripts($data){
   		$data['amp_component_scripts']['amp-video'] = 'https://cdn.ampproject.org/v0/amp-video-0.1.js';

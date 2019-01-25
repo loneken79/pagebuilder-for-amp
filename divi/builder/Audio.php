@@ -239,6 +239,78 @@ class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 	}
 
 	public function amp_divi_inline_styles(){
+		$standard_styles = '/* Audio Module */
+.et_pb_audio_module {
+	position: relative;
+}
+
+.et_pb_audio_cover_art {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 220px;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+}
+
+.et_pb_audio_module_content {
+	margin-left: 220px;
+}
+
+.et_audio_module_meta {
+	margin-bottom: 17px;
+	color: #fff;
+}
+
+.et_pb_audio_no_image .et_pb_audio_module_content {
+	margin-left: 0;
+}
+
+/* Column Adjustments */
+.et_pb_column_2_3 .et_pb_audio_cover_art {
+	width: 180px;
+}
+
+.et_pb_column_1_2 .et_pb_audio_cover_art,
+.et_pb_column_3_8 .et_pb_audio_cover_art,
+.et_pb_column_1_3 .et_pb_audio_cover_art,
+.et_pb_column_1_4 .et_pb_audio_cover_art {
+	float: none;
+	position: relative;
+	width: 100%;
+}
+
+.et_pb_column_1_2 .et_pb_audio_module_content,
+.et_pb_column_3_8 .et_pb_audio_module_content,
+.et_pb_column_1_3 .et_pb_audio_module_content,
+.et_pb_column_1_4 .et_pb_audio_module_content {
+	margin-left: 0;
+}
+
+.et_pb_column_1_4 .et_audio_module_meta {
+	font-size: 12px;
+}
+
+.et_pb_column_1_2 .et_pb_audio_cover_art {
+	height: 380px;
+}
+
+.et_pb_column_3_8 .et_pb_audio_cover_art {
+	height: 275px;
+}
+
+.et_pb_column_1_3 .et_pb_audio_cover_art {
+	height: 240px;
+}
+
+.et_pb_column_1_4 .et_pb_audio_cover_art {
+	height: 170px;
+}
+';
     $inline_styles = '.et_pb_audio_module{
 			        background:#7EBEC5;
 			        padding: 20px;
@@ -248,7 +320,7 @@ class AMP_ET_Builder_Module_Audio extends ET_Builder_Module {
 			          color: #fff;
 			          font-size: 16px;
 			      }';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   	}
   	function amp_divi_pagebuilder_scripts($data){
   		$data['amp_component_scripts']['amp-audio'] = 'https://cdn.ampproject.org/v0/amp-audio-0.1.js';

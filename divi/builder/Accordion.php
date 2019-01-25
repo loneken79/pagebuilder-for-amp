@@ -157,8 +157,78 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 	}
 
 	public function amp_divi_inline_styles(){
-    	
-    $inline_styles = '.et_pb_accordion .et_pb_toggle[expanded]{
+    		$standard_styles = '/* Accordion + Toggle Modules*/
+.et_pb_toggle {
+	border: 1px solid #d9d9d9;
+}
+
+.et_pb_toggle_close {
+	padding: 20px;
+	background-color: #f4f4f4;
+}
+
+.et_pb_toggle_open {
+	padding: 20px;
+	background-color: #fff;
+}
+
+.et_pb_accordion.et_pb_text_align_left h5.et_pb_toggle_title,
+.et_pb_accordion.et_pb_text_align_left .et_pb_toggle_title,
+.et_pb_accordion .et_pb_toggle.et_pb_text_align_left h5.et_pb_toggle_title,
+.et_pb_accordion .et_pb_toggle.et_pb_text_align_left .et_pb_toggle_title,
+.et_pb_toggle.et_pb_text_align_left h5.et_pb_toggle_title,
+.et_pb_toggle.et_pb_text_align_left .et_pb_toggle_title,
+.et_pb_toggle h5.et_pb_toggle_title,
+.et_pb_toggle .et_pb_toggle_title {
+	position: relative;
+	padding: 0 50px 0 0;
+	cursor: pointer;
+}
+
+.et_pb_toggle_close h5.et_pb_toggle_title,
+.et_pb_toggle_close .et_pb_toggle_title {
+	color: #666;
+}
+
+.et_pb_toggle_open h5.et_pb_toggle_title,
+.et_pb_toggle_open .et_pb_toggle_title {
+	color: #333;
+}
+
+.et_pb_toggle_title:before {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	margin-top: -0.5em;
+	color: #ccc;
+	font-size: 16px;
+	content: "\e050";
+}
+
+.et_pb_accordion .et_pb_toggle_title:before,
+.et_pb_toggle .et_pb_toggle_title:before {
+	right: 0;
+	left: auto;
+}
+
+.et_pb_toggle_open .et_pb_toggle_title:before {
+	content: "\e04f";
+}
+
+.et_pb_toggle_content {
+	position: relative;
+	padding-top: 20px;
+}
+
+.et_pb_toggle_content p:last-of-type {
+	padding-bottom: 0;
+}
+
+.et_pb_toggle_open {
+	z-index: 1;
+}
+';
+    		$inline_styles = '.et_pb_accordion .et_pb_toggle[expanded]{
 		          background-color: #fff;
 		      }
 		      .et_pb_accordion .et_pb_toggle[expanded] .et_pb_toggle_title{
@@ -181,7 +251,7 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 		        padding-top:10px;
 		        color: #555;
 		      }';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   	}
   	function amp_divi_pagebuilder_scripts($data){
   		$data['amp_component_scripts']['amp-accordion'] = 'https://cdn.ampproject.org/v0/amp-accordion-0.1.js';
@@ -291,14 +361,14 @@ class AMP_ET_Builder_Module_Accordion extends ET_Builder_Module {
 		return esc_html__( 'Add New Accordion Item', 'et_builder' );
 	}
 
-	public function process_box_shadow( $function_name ) {
-	 	$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
-	 	$selector = sprintf( '.%1$s .et_pb_toggle', self::get_module_order_class( $function_name ) );
-	 	self::set_style( $function_name, array(
-	 		'selector'    => $selector,
-	 		'declaration' => '',
-	 	) );
-	}
+	// public function process_box_shadow( $function_name ) {
+	//  	$boxShadow = ET_Builder_Module_Fields_Factory::get( 'BoxShadow' );
+	//  	$selector = sprintf( '.%1$s .et_pb_toggle', self::get_module_order_class( $function_name ) );
+	//  	self::set_style( $function_name, array(
+	//  		'selector'    => $selector,
+	//  		'declaration' => '',
+	//  	) );
+	// }
 }
 
 $accordianItemObj = new AMP_ET_Builder_Module_Accordion();//et_pb_accordion_item

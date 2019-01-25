@@ -236,8 +236,56 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
-    $inline_styles = '.et_pb_team_member .et_pb_module_header{
+    		$standard_styles = '/* Person Module */
+.et_pb_team_member_image {
+	display: table-cell;
+	float: left;
+	position: relative;
+	max-width: 320px;
+	margin-right: 30px;
+	line-height: 0 !important;
+}
+
+.et_pb_column .et_pb_team_member_image.et-svg {
+	width: 320px;
+	max-width: 100%;
+}
+
+.et_pb_team_member_description {
+	display: table-cell;
+	position: relative;
+	vertical-align: top;
+}
+
+.et_pb_team_member_no_image .et_pb_team_member_description {
+	display: block !important;
+}
+
+.et_pb_member_position {
+	padding-bottom: 7px;
+	color: #aaa;
+}
+
+/* Column Adjustments */
+.et_pb_column_1_2 .et_pb_team_member_image,
+.et_pb_column_3_8 .et_pb_team_member_image,
+.et_pb_column_1_3 .et_pb_team_member_image,
+.et_pb_column_1_4 .et_pb_team_member_image {
+	display: block;
+	float: none;
+	width: auto;
+	margin: 0 0 12px;
+	text-align: center;
+}
+
+.et_pb_column_1_2 .et_pb_team_member_description,
+.et_pb_column_3_8 .et_pb_team_member_description,
+.et_pb_column_1_3 .et_pb_team_member_description,
+.et_pb_column_1_4 .et_pb_team_member_description,
+.et_pb_column_3_4 .et_pb_team_member_description {
+	display: block;
+}';
+    		$inline_styles = '.et_pb_team_member .et_pb_module_header{
 			      font-size: 18px;
 			      font-weight: 500;
 			      color: #555;
@@ -290,7 +338,7 @@ class AMP_ET_Builder_Module_Team_Member extends ET_Builder_Module {
 			    }
 
 			    ';
-            echo $inline_styles;
+            echo $standard_styles.''.$inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

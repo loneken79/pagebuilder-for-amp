@@ -273,7 +273,109 @@ class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
+    	$standard_styles = '/* Testimonials Module */
+.et_pb_testimonial {
+	position: relative;
+	padding: 30px;
+	line-height: 1.5;
+}
+
+.et_pb_testimonial.et_pb_testimonial_no_bg {
+	padding: 30px 0 0;
+}
+
+.et_pb_testimonial p:last-of-type {
+	padding-bottom: 0;
+}
+
+.et_pb_testimonial_portrait,
+.et_pb_testimonial_portrait:before {
+	-webkit-border-radius: 90px;
+	-moz-border-radius: 90px;
+	border-radius: 90px;
+}
+
+.et_pb_testimonial_portrait {
+	display: block;
+	float: left;
+	position: relative;
+	width: 90px;
+	height: 90px;
+	margin-right: 30px;
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+}
+
+.et_pb_testimonial_portrait:before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+	content: "";
+}
+
+.et_pb_column_1_3 .et_pb_testimonial_portrait,
+.et_pb_column_1_4 .et_pb_testimonial_portrait,
+.et_pb_column_3_8 .et_pb_testimonial_portrait {
+	display: block;
+	float: none;
+	margin: 0 auto 20px;
+}
+
+.et_pb_testimonial_description,
+.et_pb_testimonial_description_inner {
+	display: block;
+	position: relative;
+}
+
+.et_pb_bg_layout_dark .et_pb_testimonial_description a {
+	color: #fff;
+}
+
+.et_pb_testimonial_author {
+	display: block;
+	margin-top: 16px;
+	font-weight: 700;
+}
+
+.et_pb_testimonial_author a {
+	color: inherit;
+}
+
+.et_pb_testimonial:before {
+	position: absolute;
+	z-index: 2;
+	top: -16px;
+	left: 50%;
+	margin-left: -16px;
+	-webkit-border-radius: 31px;
+	-moz-border-radius: 31px;
+	border-radius: 31px;
+	background: #f5f5f5;
+	font-size: 32px;
+	content: "\7c";
+}
+
+.et_pb_testimonial.et_pb_testimonial_no_bg:before {
+	background: inherit;
+}
+
+.et_pb_testimonial.et_pb_icon_off:before {
+	display: none;
+}
+
+.et_pb_testimonial_old_layout,
+.et_pb_testimonial_old_layout .et_pb_testimonial_description a {
+	color: #666 !important;
+}
+';
 		$inline_styles = '
 			.et_pd_testimon{
 				background:#f5f5f5;
@@ -304,7 +406,7 @@ class AMP_ET_Builder_Module_Testimonial extends ET_Builder_Module {
 			    color: #333;
 			}
 		';
-        echo $inline_styles;
+        echo $standard_styles.''.$inline_styles;
   	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

@@ -14,6 +14,11 @@ class AMP_Divi_Pagebuidler {
         
         add_action('wp_ajax_divi_contact_form_submission',[$this,'divi_contact_form_submission']);
         add_action('wp_ajax_nopriv_divi_contact_form_submission',[$this,'divi_contact_form_submission']);
+        add_action('amp_post_template_css',[$this,'ampforwp_divi_standard_css']);
+    }
+    public function ampforwp_divi_standard_css(){
+        require_once AMP_WPBAKERY_PLUGIN_DIR .'amp-divi-common-styles.php';
+        ampforwp_divi_common_styles();
     }
     public function divi_contact_form_submission(){
         
@@ -213,7 +218,9 @@ class AMP_Divi_Pagebuidler {
         }
     }
     public function amp_divi_pagebuilder_plugin_init(){
-        define( 'AMPFORWP_AMP__DIR__', AMP__DIR__);
+        if(!defined('AMPFORWP_AMP__DIR__')) {
+            define( 'AMPFORWP_AMP__DIR__', AMP__DIR__);
+        }
         require_once AMP_WPBAKERY_PLUGIN_DIR .'includes/class-amp-divi-blacklist.php';
     } 
 
