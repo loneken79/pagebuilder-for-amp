@@ -285,6 +285,9 @@ class AMP_ET_Builder_Module_Post_Title extends ET_Builder_Module {
 		      }';
         echo $inline_styles;
   	}
+  	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$title              = $this->props['title'];

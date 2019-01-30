@@ -247,6 +247,9 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
       }';
 		echo $inline_styles;
 	}
+	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_social_media_follow_link;
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

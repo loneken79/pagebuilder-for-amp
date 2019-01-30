@@ -361,6 +361,9 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
   		$data['amp_component_scripts']['amp-video'] = 'https://cdn.ampproject.org/v0/amp-video-0.1.js';
   		return $data;
   	}
+  	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));

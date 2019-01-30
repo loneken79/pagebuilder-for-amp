@@ -294,7 +294,9 @@ class AMP_ET_Builder_Module_Contact_Form_Item extends ET_Builder_Module {
 
 		return $fields;
 	}
-
+	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_half_width_counter, $et_pb_contact_form_num,$ampContactformFields;
 

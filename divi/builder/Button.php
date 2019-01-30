@@ -120,14 +120,14 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 
 		return $fields;
 	}
-
+	
 	public function get_button_alignment() {
 		$text_orientation = isset( $this->props['button_alignment'] ) ? $this->props['button_alignment'] : '';
 
 		return et_pb_get_alignment( $text_orientation );
 	}
 	public function amp_divi_inline_styles(){
-    		$standard_styles = '.et_pb_button a{
+    		$standard_styles = '.et_pb_button {
 						position: relative;
 						padding: 0.3em 1em;
 						border: 2px solid;
@@ -138,102 +138,107 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 						background-repeat: no-repeat;
 						background-position: center;
 						background-size: cover;
-						
+						font-size: 20px;
+						font-weight: 500;
 						line-height: 1.7em !important;
 						-webkit-transition: all 0.2s;
 						-moz-transition: all 0.2s;
 						transition: all 0.2s;
 					}
+
 					.et_pb_button_inner {
 						position: relative;
 					}
 					/* Button Hover */
-				.et_pb_module .et_pb_button a:hover,
-				.et_pb_button a:hover {
-					padding: 0.3em 2em 0.3em 0.7em;
-					border: 2px solid transparent;
-				}
+					.et_pb_module .et_pb_button:hover,
+					.et_pb_button:hover {
+						padding: 0.3em 2em 0.3em 0.7em;
+						border: 2px solid transparent;
+					}
 
-				/* Button Hover Light Text */
-				.et_pb_button a:hover {
-					background-color: rgba(255, 255, 255, 0.2);
-				}
+					/* Button Hover Light Text */
+					.et_pb_button:hover {
+						background-color: rgba(255, 255, 255, 0.2);
+					}
 
-				/* Button Hover Dark Text */
-				.et_pb_bg_layout_light .et_pb_button:hover,
-				.et_pb_pricing_table_button a:hover,
-				.et_pb_contact_submit:hover,
-				.et_pb_contact_reset:hover,
-				.et_pb_bg_layout_light.et_pb_button:hover {
-					background-color: rgba(0, 0, 0, 0.05);
-				}
+					/* Button Hover Dark Text */
+					.et_pb_bg_layout_light .et_pb_button:hover,
+					.et_pb_pricing_table_button:hover,
+					.et_pb_contact_submit:hover,
+					.et_pb_contact_reset:hover,
+					.et_pb_bg_layout_light.et_pb_button:hover {
+						background-color: rgba(0, 0, 0, 0.05);
+					}
 
-				/* Button - With Icon */
-				.et_pb_button a:before,
-				.et_pb_button a:after {
-					position: absolute;
-					margin-left: -1em;
-					opacity: 0;
-					text-shadow: none;
-					
-					font-style: normal;
-					font-variant: none;
-					line-height: 1em;
-					text-transform: none;
-					content: "\35";
-					-webkit-transition: all 0.2s;
-					-moz-transition: all 0.2s;
-					transition: all 0.2s;
-					font-family: "ETmodules";
-				}
+					/* Button - With Icon */
+					.et_pb_button:before,
+					.et_pb_button:after {
+						position: absolute;
+						margin-left: -1em;
+						opacity: 0;
+						text-shadow: none;
+						font-size: 32px;
+						font-weight: 400;
+						font-style: normal;
+						font-variant: none;
+						line-height: 1em;
+						text-transform: none;
+						content: "\35";
+						-webkit-transition: all 0.2s;
+						-moz-transition: all 0.2s;
+						transition: all 0.2s;
+						font-family: "ETmodules";
+					}
 
-				.et_pb_button:before {
-					display: none;
-				}
+					.et_pb_button:before {
+						display: none;
+					}
 
-				.et_pb_button a:hover:after,
-				.et_pb_more_button a:hover:after,
-				.et_pb_promo_button a:hover:after,
-				.et_pb_newsletter_button a:hover:after,
-				.et_pb_pricing_table_button a:hover:after {
-					margin-left: 0;
-					opacity: 1;
-				}
+					.et_pb_button:hover:after,
+					.et_pb_more_button:hover:after,
+					.et_pb_promo_button:hover:after,
+					.et_pb_newsletter_button:hover:after,
+					.et_pb_pricing_table_button:hover:after {
+						margin-left: 0;
+						opacity: 1;
+					}
 
-				/* Button Hover - No Icon */
-				.et_pb_contact_reset a:hover {
-					padding: 0.3em 1em;
-				}
+					/* Button Hover - No Icon */
+					.et_pb_contact_reset:hover {
+						padding: 0.3em 1em;
+					}
 
-				/* Subscribe Button Loader Icon */
-				.et_subscribe_loader {
-					display: none;
-					position: absolute;
-					top: 16px;
-					left: 50%;
-					width: 16px;
-					height: 16px;
-					margin-left: -8px;
-					background: url("includes/builder/styles/images/subscribe-loader.gif");
-				}
+					/* Subscribe Button Loader Icon */
+					.et_subscribe_loader {
+						display: none;
+						position: absolute;
+						top: 16px;
+						left: 50%;
+						width: 16px;
+						height: 16px;
+						margin-left: -8px;
+						background: url("includes/builder/styles/images/subscribe-loader.gif");
+					}
 
-				.et_pb_button_text_loading .et_pb_newsletter_button_text {
-					visibility: hidden;
-				}';
-		    $inline_styles = '.et_pd_btn a{ 
-		          padding: 10px 20px;
-		          border: 2px solid #2ea3f2;
-		          color: #2ea3f2;
-		          display: inline-block;
-		          width:auto;
-		      }
-		      .et_pd_btn a:hover{ 
-		          background-color: rgba(0,0,0,.05);
-		          border: 2px solid transparent;
-		          transition:0.3s ease-in-out 0s;
-		      }';
+					.et_pb_button_text_loading .et_pb_newsletter_button_text {
+						visibility: hidden;
+					}
+					.et_pb_button_module_wrapper.et_pb_button_alignment_left {
+						text-align: left;
+					}
+					.et_pb_button_module_wrapper.et_pb_button_alignment_right {
+						text-align: right;
+					}
+			      	.et_pb_button_module_wrapper.et_pb_button_alignment_center {
+						text-align: center;
+					}
+					';
+		    $inline_styles = '';
             echo $standard_styles.''.$inline_styles;
   	}
+  	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$button_url        = $this->props['button_url'];
@@ -277,13 +282,13 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 			sprintf( ' et_pb_button_alignment_%1$s', esc_attr( $button_alignment ) ),
 			$this->render_count()
 		);
-
 		return $output;
 	}
 }
 
 
 $buttonObj = new AMP_ET_Builder_Module_Button();
+
 remove_shortcode( 'et_pb_button' );
 add_shortcode( 'et_pb_button', array($buttonObj, '_render'));
 }

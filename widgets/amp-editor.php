@@ -18,8 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Amp_Editor {
 
-echo "hello";
-die;
 	/**
 	 * The nonce key for Elementor editor.
 	 */

@@ -271,6 +271,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 		return et_pb_get_alignment( $alignment );
 	}
 	public function amp_divi_inline_styles(){
+		
 		$inline_styles = '.et_pb_image {
 						display: block;
 						margin-right: auto;
@@ -304,11 +305,21 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 					/* Sticky Image */
 					.et_pb_image_sticky {
 						display: inherit;
-						margin-bottom: 0 !important;
-					}';
+						margin-bottom: 0;
+					}
+					.small_img{
+						max-width:100px;
+						height:100px;
+						margin:0 auto;
+					}
+					';
         echo $inline_styles;
   	}
+  	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
+
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$src                     = $this->props['src'];
 		$alt                     = $this->props['alt'];
@@ -410,9 +421,13 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 				'declaration' => 'display: block;',
 			) );
 		}
-
+		list($width, $height) = getimagesize($src);
+		$thumb_class = '';
+		if($width<200){
+			$thumb_class = "small_img";
+		}
 		$output = sprintf(
-			'<span class="et_pb_image_wrap"><img src="%1$s" alt="%2$s"%3$s />%4$s</span>',
+			'<amp-img layout="responsive" width="475" class="'.$thumb_class.'" height="268" src="%1$s" alt="%2$s"%3$s ></amp-img>%4$s',
 			esc_attr( $src ),
 			esc_attr( $alt ),
 			( '' !== $title_text ? sprintf( ' title="%1$s"', esc_attr( $title_text ) ) : '' ),

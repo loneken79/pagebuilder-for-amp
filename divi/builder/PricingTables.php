@@ -727,6 +727,9 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
       }';
         echo $standard_styles.''.$inline_styles;
   	}
+  	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$featured_table_background_color        = $this->props['featured_table_background_color'];
@@ -871,8 +874,8 @@ class AMP_ET_Builder_Module_Pricing_Tables extends ET_Builder_Module {
 			$render_slug
 		) );
 
-		preg_match_all( "/<div\s+class=\"et_pb_module_inner\"\s*>((?:(?:(?!<div[^>]*>|<\/div>).)++|<div[^>]*>(?1)<\/div>)*)<\/div>/si", $content, $matches );
-		$content = implode("\n", $matches[1]);
+		// preg_match_all( "/<div\s+class=\"et_pb_module_inner\"\s*>((?:(?:(?!<div[^>]*>|<\/div>).)++|<div[^>]*>(?1)<\/div>)*)<\/div>/si", $content, $matches );
+		// $content = implode("\n", $matches[1]);
 		
 		$output = sprintf(
 			'<div%3$s class="%2$s">

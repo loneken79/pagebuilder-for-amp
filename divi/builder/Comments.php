@@ -286,7 +286,9 @@ class AMP_ET_Builder_Module_Comments extends ET_Builder_Module {
 		// modify the request parameters the way it doesn't change the result just to make request with unique parameters
 		$params->query_vars['type__not_in'] = 'et_pb_comments_random_type_' . $this->et_pb_unique_comments_module_class;
 	}
-
+	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		$button_custom         = $this->props['custom_button'];
 		$custom_icon           = $this->props['button_icon'];

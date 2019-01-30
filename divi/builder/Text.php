@@ -437,16 +437,81 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
-    
+		global $amp_et_pb_text_settings;
+		$font_size = isset($this->props['header_font_size'])? $this->props['header_font_size']: '16px';
+		$text_color = isset($this->props['header_text_color'])? $this->props['header_text_color']: '#333';
+		$text_color = isset($this->props['header_line_height'])? $this->props['header_line_height']: '#333';
+		//echo $uniqueId = $this->render_count();
+		// echo "sdvdfs"
+		// foreach ($this->props as $key => $value) {
+		// 	//headers
+		// 	echo $key;die;
+		// 	$headerMatches = preg_match("header_(\d+)_", $key);
+		// 	print_r($headerMatches);die;
+		// }
+
+		$allProps = $this->props;
+		//print_r($allProps);
+		$header_styles = array();
+		// print_r($allProps);
+		// die;
+		foreach($allProps as $key => $value){
+			if(is_null($value) || $value == ''){
+				continue;
+			}else{
+				if("header_" == substr($key,0,7)){
+					preg_match("/header_(\d+)_/", $key, $matches);
+					if( empty($matches) ){
+						$whatIWant = substr($key, strpos($key, "_") + 1);    
+						$header_styles[1][$whatIWant] = $value;
+					}else{
+						$whatIWant = substr($key, strpos($key, $matches[1]."_") + 1);
+						$styles = trim($whatIWant,"_");    
+						$header_styles[$matches[1]][$styles] = $value;
+					}
+				    // do whatever you need to with $number...
+				}
+			}
+		}
+		$header_css = '';
+
+		if(count($header_styles)>0){
+			for($i=1;$i<=count($header_styles);$i++){
+				$header_css .= '.et_pb_text_'.$uniqueId.' h'.$i.'{';
+				// if (array_key_exists("text_align",$header_styles[$i])){
+				// 	$header_css .= 'text-align:'.$header_styles[$i]['text_align'].';';
+				// }
+				if (array_key_exists("text_color",$header_styles[$i])){
+					$header_css .= 'color:'.$header_styles[$i]['text_color'].';';
+				}
+				// if (array_key_exists("font_size",$header_styles[$i])){
+				// 	$header_css .= 'font-size:'.$header_styles[$i]['font_size'].';';
+				// }
+				if (array_key_exists("line_height",$header_styles[$i])){
+					$header_css .= 'line-height:'.$header_styles[$i]['line_height'].';';
+				}
+				$header_css .='}';
+			}
+		}
+
 		$inline_styles = '
 			.et_pb_text_inner{
 				font-size: 16px;
    	 			color: #333;
 			}
+			
 		';
-        echo $inline_styles;
+        echo $inline_styles.' '.$header_css;
   	}
+  	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
+
 	function render( $attrs, $content = null, $render_slug ) {
+		$uniqueId = $this->render_count();
+		
+		$amp_et_pb_text_settings[$uniqueId] = $this->props;
+
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$background_layout    = $this->props['background_layout'];
 		$ul_type              = $this->props['ul_type'];
@@ -457,7 +522,7 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 		$ol_item_indent       = $this->props['ol_item_indent'];
 		$quote_border_weight  = $this->props['quote_border_weight'];
 		$quote_border_color   = $this->props['quote_border_color'];
-
+		// 
 		$this->content = et_builder_replace_code_content_entities( $this->content );
 
 		$video_background = $this->video_background();
@@ -513,7 +578,7 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 			'<div%3$s class="%2$s">
 				%5$s
 				%4$s
-				<div class="et_pb_text_inner">
+				<div class="et_pb_text_inner %6$s">
 					%1$s
 				</div>
 			</div> <!-- .et_pb_text -->',
@@ -521,7 +586,8 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 			$this->module_classname( $render_slug ),
 			$this->module_id(),
 			$video_background,
-			$parallax_image_background
+			$parallax_image_background,
+			$this->render_count()
 		);
 
 		return $output;

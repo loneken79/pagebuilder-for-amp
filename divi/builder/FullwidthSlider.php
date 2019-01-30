@@ -289,18 +289,12 @@ class AMP_ET_Builder_Module_Fullwidth_Slider extends ET_Builder_Module {
 		
 	}
 	function amp_divi_inline_styles(){
-
-		// $cache_dir = ET_Core_PageResource::get_cache_directory().'/'.get_the_ID().'/';
-		// $dh = opendir($cache_dir);
-		// $contents = '';
-		// if(file_exists($cache_dir)){
-		// 	while($file = readdir($dh)) {
-		// 		$contents = file_get_contents($cache_dir . $file);
-		// 	}
-		// }
 		
 		$inline_styles = '';
 		echo $contents . $inline_styles;
+	}
+	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
 	}
 	function render( $attrs, $content = null, $render_slug ) {
 		//echo et_core_get_main_fonts();
@@ -326,8 +320,8 @@ class AMP_ET_Builder_Module_Fullwidth_Slider extends ET_Builder_Module {
 		// print_r($et_pb_slider);
 		// die;
 		$content = $this->content;
-		preg_match_all( "/<div\s+class=\"et_pb_module_inner\"\s*>((?:(?:(?!<div[^>]*>|<\/div>).)++|<div[^>]*>(?1)<\/div>)*)<\/div>/si", $content, $matches );
-		$content = implode("\n", $matches[1]);
+		// preg_match_all( "/<div\s+class=\"et_pb_module_inner\"\s*>((?:(?:(?!<div[^>]*>|<\/div>).)++|<div[^>]*>(?1)<\/div>)*)<\/div>/si", $content, $matches );
+		// $content = implode("\n", $matches[1]);
 		
 		if ( '' !== $background_position && 'default' !== $background_position && 'off' === $parallax ) {
 			$processed_position = str_replace( '_', ' ', $background_position );
@@ -409,7 +403,7 @@ class AMP_ET_Builder_Module_Fullwidth_Slider extends ET_Builder_Module {
 			$this->module_id(),
 			$this->inner_shadow_back_compatibility( $render_slug )
 		);
-
+		
 		// Reset passed slider item value
 		$et_pb_slider = array();
 

@@ -140,80 +140,67 @@ class AMP_ET_Builder_Module_Divider extends ET_Builder_Module {
 		return $fields;
 	}
 	public function amp_divi_inline_styles(){
+		$uniqueId = $this->render_count();
+		$color = !empty($this->props['color'])? 'border-top-color:'.$this->props['color']:'';
+		$width = !empty($this->props['divider_weight'])? 'border-top-width:'.$this->props['divider_weight']:'';
     	$standard_styles = '/* Divider Module */
-.et_pb_space {
-	box-sizing: content-box;
-	height: 23px;
-	border: none;
-}
+					.et_pb_space {
+						box-sizing: content-box;
+						height: 23px;
+						border: none;
+					}
+					.et_pb_divider_hidden {
+						margin-bottom: 0 ;
+					}
+					.et_pb_divider_internal {
+						display: inline-block;
+						width: 100%;
+					}
+					.et_pb_divider {
+						position: relative;
+						margin: 0 0 30px 0;
+					}
+					.et_pb_divider:before {
+						position: absolute;
+						z-index: 10;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 1px;
+						border-top-width: 1px;
+						border-top-style: solid;
+						border-top-color: #eee;
+						border-top-color: rgba(0, 0, 0, 0.1);
+						content: "";
+					}
+					.et_pb_space:after,
+					.et_pb_divider:after {
+						display: table;
+						content: "";
+					}
+					.et_pb_divider_position_bottom:before {
+						top: auto ;
+						bottom: 0 ;
+					}
+					.et_pb_divider_position_center:before {
+						top: 50% ;
+					}
+					';
 
-.et_pb_divider_hidden {
-	margin-bottom: 0 !important;
-}
-
-.et_pb_divider_internal {
-	display: inline-block;
-	width: 100%;
-}
-
-.et_pb_divider {
-	position: relative;
-	margin: 0 0 30px 0;
-}
-
-.et_pb_divider:before {
-	position: absolute;
-	z-index: 10;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 1px;
-	border-top-width: 1px;
-	border-top-style: solid;
-	border-top-color: #eee;
-	border-top-color: rgba(0, 0, 0, 0.1);
-	content: "";
-}
-
-.et_pb_space:after,
-.et_pb_divider:after {
-	display: table;
-	content: "";
-}
-
-.et_pb_divider_position_bottom:before {
-	top: auto !important;
-	bottom: 0 !important;
-}
-
-.et_pb_divider_position_center:before {
-	top: 50% !important;
-}
-
-body.ie .et_pb_divider {
-	overflow: visible;
-}
-';
-		$inline_styles = '.et_pb_divider{position:relative;}
-		        .et_pb_divider:before{
-		          content:"";
-		          border-top-color: #7EBEC5;
-		          width: 100%;
-		          height: 1px;
-		          border-top-width: 1px;
-		          border-top-style: solid;
-		          position: absolute;
-		          left: 0;
-		          top: 0;
-		          z-index: 10;
-		        }
-		        .et_pb_module.et_pb_divider{
-		          margin:0;
-		          display: inline-flex;
-		        }';
+		$inline_styles = '.et_pb_divider_'.$uniqueId.':before{
+				'.$color.';'.$width.';
+			    width: auto;
+			    top: 0px;
+			    right: 0px;
+			    left: 0px;
+			}';
 		echo $standard_styles.''.$inline_styles;
   	}
+  	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
+
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$color            = $this->props['color'];
 		$show_divider     = $this->props['show_divider'];

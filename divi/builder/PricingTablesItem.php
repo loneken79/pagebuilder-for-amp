@@ -294,7 +294,9 @@ class AMP_ET_Builder_Module_Pricing_Tables_Item extends ET_Builder_Module {
 		);
 		return $fields;
 	}
-
+	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_pricing_tables_num, $et_pb_pricing_tables_icon, $et_pb_pricing_tables_button_rel, $et_pb_pricing_tables_header_level;
 

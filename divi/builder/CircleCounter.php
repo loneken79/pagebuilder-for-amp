@@ -1126,6 +1126,9 @@ class AMP_ET_Builder_Module_Circle_Counter extends ET_Builder_Module {
       }';
             echo $standard_styles.''.$inline_styles;
   	}
+    protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+      return $output;
+    }
 	function render( $attrs, $content = null, $render_slug ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		wp_enqueue_script( 'easypiechart' );

@@ -448,7 +448,9 @@ class AMP_ET_Builder_Module_Slider_Item extends ET_Builder_Module {
 			}
 		}
 	}
-
+	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
+		return $output;
+	}
 	function render( $attrs, $content = null, $render_slug ) {
 		$alignment            = $this->props['alignment'];
 		$heading              = $this->props['heading'];
