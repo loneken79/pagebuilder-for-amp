@@ -936,13 +936,18 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		      }';
             echo $standard_styles.''.$inline_styles;
   	}
+  	function amp_divi_pagebuilder_scripts($data){
+  		$data['amp_component_scripts']['amp-mustache'] = 'https://cdn.ampproject.org/v0/amp-mustache-0.2.js';
+        $data['amp_component_scripts']['amp-form'] = 'https://cdn.ampproject.org/v0/amp-form-0.1.js';
+  		return $data;
+  	}
   	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
 		return $output;
 	}
 	function render( $attrs, $content = null, $render_slug ) {
 		global $et_pb_half_width_counter;
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-
+		add_filter('amp_post_template_data', [$this, 'amp_divi_pagebuilder_scripts']);
 		$title                       = $this->props['title'];
 		$background_color            = $this->props['background_color'];
 		$use_background_color        = $this->props['use_background_color'];
