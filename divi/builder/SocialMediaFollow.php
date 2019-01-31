@@ -154,9 +154,21 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
     
-		$inline_styles = '.et_pb_social_media_follow {
-        font-family: "icomoon";
-     }
+		$inline_styles = '
+		.et-social-icon a:before,
+		.et_pb_social_icon a.icon:before{
+			text-shadow: 0 0;
+			font-family: "ETmodules";
+			font-weight: normal;
+			font-style: normal;
+			font-variant: normal;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			line-height: 1;
+			text-transform: none;
+			speak: none;
+		}
+		.et_pb_social_media_follow { font-family: "icomoon";}
       .et_pb_social_media_follow li a span{display:none;}
       .et_pb_social_media_follow li{
         list-style:none;
@@ -244,7 +256,51 @@ class AMP_ET_Builder_Module_Social_Media_Follow extends ET_Builder_Module {
       }
       .et-social-rss a{
         background:#ff8a3c;
-      }';
+      }
+      /*Social Icon Styles*/
+      .et-social-facebook a.icon:before {
+			content: "\e093";
+		}
+		.et-social-twitter a.icon:before {
+			content: "\e094";
+		}
+		.et-social-google-plus a.icon:before {
+			content: "\e096";
+		}
+		.et-social-pinterest a.icon:before {
+			content: "\e095";
+		}
+		.et-social-linkedin a.icon:before {
+			content: "\e09d";
+		}
+		.et-social-tumblr a.icon:before {
+			content: "\e097";
+		}
+		.et-social-instagram a.icon:before {
+			content: "\e09a";
+		}
+		.et-social-skype a.icon:before {
+			content: "\e0a2";
+		}
+		.et-social-flikr a.icon:before {
+			content: "\e0a6";
+		}
+
+		.et-social-myspace a.icon:before {
+			content: "\e0a1";
+		}
+		.et-social-dribbble a.icon:before {
+			content: "\e09b";
+		}
+		.et-social-youtube a.icon:before {
+			content: "\e0a3";
+		}
+		.et-social-vimeo a.icon:before {
+			content: "\e09c";
+		}
+		.et-social-rss a.icon:before {
+			content: "\e09e";
+		}';
 		echo $inline_styles;
 	}
 	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {

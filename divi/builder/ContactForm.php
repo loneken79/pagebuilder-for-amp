@@ -291,7 +291,6 @@ class AMP_ET_Builder_Module_Contact_Form extends ET_Builder_Module {
 	          text-align: right;
 	      }
 	      .et_pb_c_form .et_pb_contact_submit{
-	          padding: 12px 25px;
 	          border: 2px solid #2ea3f2;
 	          background: #fff;
 	          font-size: 20px;

@@ -15,13 +15,65 @@ class AMP_Divi_Pagebuidler {
         add_action('wp_ajax_divi_contact_form_submission',[$this,'divi_contact_form_submission']);
         add_action('wp_ajax_nopriv_divi_contact_form_submission',[$this,'divi_contact_form_submission']);
         add_action('amp_post_template_css',[$this,'ampforwp_divi_standard_css']);
+        add_action('wp_ajax_ampforwp_et_pb_submit_subscribe_form',[$this,'ampforwp_et_pb_submit_subscribe_form']);
+        add_action('wp_ajax_nopriv_ampforwp_et_pb_submit_subscribe_form',[$this,'ampforwp_et_pb_submit_subscribe_form']);
     }
     public function ampforwp_divi_standard_css(){
         require_once AMP_WPBAKERY_PLUGIN_DIR .'amp-divi-common-styles.php';
         ampforwp_divi_common_styles();
     }
+    public function ampforwp_et_pb_submit_subscribe_form(){
+        header("access-control-allow-credentials:true");
+        header("access-control-allow-headers:Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token");
+        header("Access-Control-Allow-Origin:".$_SERVER['HTTP_ORIGIN']);
+
+        $siteUrl = parse_url(  get_site_url() );
+        header("AMP-Access-Control-Allow-Source-Origin:".$siteUrl['scheme'] . '://' . $siteUrl['host']);
+        header("access-control-expose-headers:AMP-Access-Control-Allow-Source-Origin");
+        header("Content-Type:application/json;charset=utf-8");
+
+        et_core_security_check( '', 'et_frontend_nonce' );
+
+        $providers = ET_Core_API_Email_Providers::instance();
+        $utils     = ET_Core_Data_Utils::instance();
+
+        $provider_slug = sanitize_text_field( $utils->array_get( $_POST, 'et_pb_signup_provider' ) );
+        $account_name  = sanitize_text_field( $utils->array_get( $_POST, 'et_pb_signup_account_name' ) );
+
+        if ( ! $provider = $providers->get( $provider_slug, $account_name, 'builder' ) ) {
+            et_core_die( esc_html__( 'Configuration Error: Invalid data.', 'et_builder' ) );
+        }
+
+        $args = array(
+            'list_id'   => sanitize_text_field( $utils->array_get( $_POST, 'et_pb_signup_list_id' ) ),
+            'email'     => sanitize_text_field( $utils->array_get( $_POST, 'et_pb_signup_email' ) ),
+            'name'      => sanitize_text_field( $utils->array_get( $_POST, 'et_pb_signup_firstname' ) ),
+            'last_name' => sanitize_text_field( $utils->array_get( $_POST, 'et_pb_signup_lastname' ) ),
+        );
+
+        if ( ! is_email( $args['email'] ) ) {
+            et_core_die( esc_html__( 'Please input a valid email address.', 'et_builder' ) );
+        }
+
+        if ( empty( $args['list_id'] ) ) {
+            et_core_die( esc_html__( 'Configuration Error: No list has been selected for this form.', 'et_builder' ) );
+        }
+
+        et_builder_email_maybe_migrate_accounts();
+
+        $result = $provider->subscribe( $args );
+
+        if ( 'success' === $result ) {
+            $message = isset($_POST['et_pb_success_message'])? $_POST['et_pb_success_message']:'Subcription Successful..!';
+            $result  = array( 'success' => $result.'! Successful' );
+        } else {
+            $message = esc_html__( 'Subscription Error: ', 'et_builder' );
+            $result  = array( 'error' => $message . $result );
+        }
+
+        die( json_encode( $result ) );
+    }
     public function divi_contact_form_submission(){
-        
         header("access-control-allow-credentials:true");
         header("access-control-allow-headers:Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token");
         header("Access-Control-Allow-Origin:".$_SERVER['HTTP_ORIGIN']);

@@ -681,11 +681,8 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 				$icon_attr  = $button_icon ? et_pb_process_font_icon( $this->props['button_icon'] ) : '';
 
 				$html = sprintf( '
-					<p>
-						<a class="et_pb_newsletter_button et_pb_button%1$s" href="#"%2$s data-icon="%3$s">
-							<span class="et_subscribe_loader"></span>
-							<span class="et_pb_newsletter_button_text">%4$s</span>
-						</a>
+					<p><span class="et_subscribe_loader"></span>
+							<button class="et_pb_newsletter_button et_pb_button %1$s et_pb_newsletter_button_text" type="submit" value="subscribe">%4$s</button>
 					</p>',
 					esc_attr( $icon_class ),
 					$this->get_rel_attributes( $button_rel ),
@@ -714,6 +711,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 					}
 
 					$html = sprintf( '
+						<input type="hidden" value="'.wp_create_nonce( 'et_frontend_nonce' ).'" name="et_frontend_nonce" />
 						<input type="hidden" value="%1$s" name="et_pb_signup_provider" />
 						<input type="hidden" value="%2$s" name="et_pb_signup_list_id" />
 						<input type="hidden" value="%3$s" name="et_pb_signup_account_name" />',
@@ -911,22 +909,18 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 		        border-width: 0;
 		        border-radius: 3px;
 		      }
-		      .et_pb_newsletter_button {
+		      .et_pb_newsletter_form .et_pb_newsletter_button{
+		          border: 2px solid #2ea3f2;
+		          background: #fff;
 		          font-size: 20px;
-		          font-weight: 500;
-		          padding: .3em 1em;
-		          line-height: 1.7em;
-		          background-color: transparent;
-		          border: 2px solid #fff;
-		          border-radius: 3px;
-		          width: 100%;
-		          display: inline-block;
-		          text-align: center;
-		          color: #fff;
-		      }
-		      .et_pb_newsletter_button:hover{
-		          background-color: rgba(255,255,255,.2);
+		          margin-left: 15px;
+		          cursor: pointer;
+		          color:#2ea3f2;
+		          transition:all 0.3s ease-in-out 0s;
+	      		}
+		      .et_pb_newsletter_form .et_pb_newsletter_button:hover{
 		          border: 2px solid transparent;
+		          background-color: rgba(0,0,0,.05);
 		      }
 		      @media(max-width:767px){
 		        .et_pb_newsletter_description, .et_pb_newsletter_form {
@@ -1065,6 +1059,7 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 						%1$s
 						%2$s
 						%3$s
+						
 					</form>
 				</div>',
 				$this->get_form_field_html( 'email' ),
@@ -1091,11 +1086,13 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 			if ( $footer_content ) {
 				$footer_content = sprintf('<div class="et_pb_newsletter_footer">%1$s</div>', et_esc_previously( $footer_content ) );
 			}
-			$site_url = esc_url( home_url( '/' ) );
-			$actionXhrUrl = preg_replace('#^https?:#', '', $site_url);
+			//$site_url = esc_url( home_url( '/' ) );
+			$submit_url =  admin_url('admin-ajax.php?action=ampforwp_et_pb_submit_subscribe_form');
+			$actionXhrUrl = preg_replace('#^https?:#', '', $submit_url)."&ampsubmit=1";
+			//$actionXhrUrl = preg_replace('#^https?:#', '', $site_url);
 			$form = sprintf( '
 				<div class="et_pb_newsletter_form">
-					<form action-xhr="'.$actionXhrUrl.'" method="post">
+					<form action-xhr="'.$actionXhrUrl.'" method="post" target="_top">
 					<div class="et_pb_newsletter_result et_pb_newsletter_error"></div>
 					<div class="et_pb_newsletter_result et_pb_newsletter_success">
 						<h2>%1$s</h2>
@@ -1109,6 +1106,22 @@ class AMP_ET_Builder_Module_Signup extends ET_Builder_Module {
 						%7$s
 					</div>
 					%8$s
+					<div submit-success>
+					      	<template type="amp-mustache">
+						      	{{#success}}
+						        	Success! {{success}}
+						        {{/success}}
+						        {{#error}}
+						        	Error! {{error}}
+						        {{/error}}
+						        {{data.error}}
+					      	</template>
+					</div>
+					<div submit-error>
+					      	<template type="amp-mustache">
+					        	Unable to submit form ..!
+					      	</template>
+					</div>
 					</form>
 				</div>',
 				esc_html( $success_message ),
