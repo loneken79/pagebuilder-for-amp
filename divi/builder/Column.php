@@ -1,6 +1,8 @@
 <?php
 if(class_exists('ET_Builder_Column')){
 class AMP_ET_Builder_Column extends ET_Builder_Structure_Element {
+	public $ampColumnAtts = array();
+	public $ampColumnProps = array();
 	function init() {
 		$this->name                       = esc_html__( 'Column', 'et_builder' );
 		$this->slug                       = 'et_pb_column';
@@ -35,7 +37,105 @@ class AMP_ET_Builder_Column extends ET_Builder_Structure_Element {
 	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
 		return $output;
 	}
+	function amp_divi_inline_styles(){
+		$columnProps = $this->ampColumnProps;
+		$columnAtts = $this->ampColumnAtts;
+		$inline_styles = '';
+
+		// print_r($columnProps);
+		// print_r($columnAtts);
+		// die;
+		$inline_styles = '';
+		echo $inline_styles;
+		$column_main_css = '';
+		foreach ($columnAtts as $uniqueKey => $properties) {
+			$padding_bottom = '';
+			if( isset($columnAtts[$uniqueKey]['padding_bottom']) ){
+				$padding_bottom = 'padding-bottom:'.$columnAtts[$uniqueKey]['padding_bottom'].';';
+			}
+			$padding_left = '';
+			if( isset($columnAtts[$uniqueKey]['padding_left']) ){
+				$padding_left = 'padding-left:'.$columnAtts[$uniqueKey]['padding_left'].';';
+			}
+			$padding_right = '';
+			if( isset($columnAtts[$uniqueKey]['padding_right']) ){
+				$padding_right = 'padding-right:'.$columnAtts[$uniqueKey]['padding_right'].';';
+			}
+			$padding_top = '';
+			if( isset($columnAtts[$uniqueKey]['padding_top']) ){
+				$padding_top = 'padding-top:'.$columnAtts[$uniqueKey]['padding_top'].';';
+			}
+			$background_image = '';
+			if( isset($columnAtts[$uniqueKey]['bg_img']) ){
+				$background_image = 'background-image:url('.$columnAtts[$uniqueKey]['bg_img'].');';
+			}
+			if( $columnAtts[$uniqueKey]['use_background_color_gradient'] == 'on' ){
+				$start_grad = $columnAtts[$uniqueKey]['background_color_gradient_start'];
+				$end_grad = $columnAtts[$uniqueKey]['background_color_gradient_end'];
+				
+				
+				if( !isset($columnAtts[$uniqueKey]['background_color_gradient_type'])){
+					$direction = $columnAtts[$uniqueKey]['background_color_gradient_direction'];
+					if(!isset($direction)){
+						$direction = '180deg';
+					}
+					$gradient_style = 'linear-gradient('.$direction.','.$start_grad.' 0%,'.$end_grad.' 100%)';
+				}
+				if($columnAtts[$uniqueKey]['background_color_gradient_type'] == 'linear'){
+					$direction = $columnAtts[$uniqueKey]['background_color_gradient_direction'];
+					if(!isset($direction)){
+						 $direction = '180deg';
+					}
+					$gradient_style = 'linear-gradient('.$direction.','.$start_grad.' 0%,'.$end_grad.' 100%)';
+				}
+				if($columnAtts[$uniqueKey]['background_color_gradient_type'] == 'radial'){
+					$direction = $columnAtts[$uniqueKey]['background_color_gradient_direction_radial'];
+					if(!isset($direction)){
+						 $direction = 'center';
+					}
+					$gradient_style = 'radial-gradient(circle at '.$direction.','.$start_grad.' 0%,'.$end_grad.' 100%)';
+				}
+				if(isset($columnAtts[$uniqueKey]['bg_img'])){
+					if($columnAtts[$uniqueKey]['background_color_gradient_overlays_image'] == 'on'){
+						if(isset($columnAtts[$uniqueKey]['bg_img'])){
+							$background_image = 'background-image:'.$gradient_style.',url('.$columnAtts[$uniqueKey]['bg_img'].');';
+						}
+					}
+					if(!isset($columnAtts[$uniqueKey]['background_color_gradient_overlays_image']) || $columnAtts[$uniqueKey]['background_color_gradient_overlays_image'] == 'off'){
+						if(isset($columnAtts[$uniqueKey]['bg_img'])){
+							$background_image = 'background-image:url('.$columnAtts[$uniqueKey]['bg_img'].'),'.$gradient_style.';';
+						}
+					}
+				}else{
+					$background_image = 'background-image:'.$gradient_style.';';
+				}
+			}
+			$background_color = '';
+			if( isset($columnAtts[$uniqueKey]['background_color']) ){
+				$background_color = 'background-color:'.$columnAtts[$uniqueKey]['background_color'].';';
+			}
+			$background_size = '';
+			if( isset($columnAtts[$uniqueKey]['background_size']) ){
+				$background_size = 'background-size:'.$columnAtts[$uniqueKey]['background_size'].';';
+			}
+			$column_main_css .= '.et_pb_column_'.$uniqueKey.'{';
+			$column_main_css .= $padding_bottom;
+			$column_main_css .= $padding_left;
+			$column_main_css .= $padding_right;
+			$column_main_css .= $padding_top;
+			$column_main_css .= $background_image;
+			$column_main_css .= $background_color;
+			$column_main_css .= $background_size;
+			$column_main_css .='}';
+		}
+		echo $column_main_css;
+	}
 	function render( $atts, $content = null, $function_name ) {
+		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
+		$uniqueId = $this->render_count();
+		$this->ampColumnAtts[$uniqueId] = $atts;
+		$this->ampColumnProps[$uniqueId] = $this->props;
+
 		$type                        = $this->props['type'];
 		$specialty_columns           = $this->props['specialty_columns'];
 		$saved_specialty_column_type = $this->props['saved_specialty_column_type'];
@@ -46,13 +146,7 @@ class AMP_ET_Builder_Column extends ET_Builder_Structure_Element {
 			$et_pb_rendering_column_content,
 			$et_pb_rendering_column_content_row,
 			$et_pb_column_completion;
-			// print_r($et_pb_all_column_settings);
-			// print_r($et_pb_all_column_settings_inner);
-			// print_r($et_specialty_column_type);
-			// print_r($et_pb_rendering_column_content);
-			// print_r($et_pb_rendering_column_content_row);
-			// print_r($et_pb_column_completion);
-			// die;
+			
 		$is_specialty_column = 'et_pb_column_inner' !== $function_name && '' !== $specialty_columns;
 
 		$current_row_position = $et_pb_rendering_column_content_row ? 'internal_row' : 'regular_row';
@@ -395,10 +489,7 @@ class AMP_ET_Builder_Column extends ET_Builder_Structure_Element {
 		);
 
 		return $output;
-
 	}
-
-
 }
 $columnObj = new AMP_ET_Builder_Column();
 remove_shortcode( 'et_pb_column' );

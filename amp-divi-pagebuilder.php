@@ -1,4 +1,5 @@
 <?php
+//global $amp_diviCurrentStyleGlobal;
 class AMP_Divi_Pagebuidler {
 
     public function __construct()
@@ -19,8 +20,14 @@ class AMP_Divi_Pagebuidler {
         add_action('wp_ajax_nopriv_ampforwp_et_pb_submit_subscribe_form',[$this,'ampforwp_et_pb_submit_subscribe_form']);
     }
     public function ampforwp_divi_standard_css(){
+        //global $amp_diviCurrentStyleGlobal;
         require_once AMP_WPBAKERY_PLUGIN_DIR .'amp-divi-common-styles.php';
         ampforwp_divi_common_styles();
+        // foreach ($amp_diviCurrentStyleGlobal as $key => $value) {
+        //     echo "/*$key Start*/";
+        //     echo $value;
+        //     echo "/*$key END*/";
+        // }
     }
     public function ampforwp_et_pb_submit_subscribe_form(){
         header("access-control-allow-credentials:true");

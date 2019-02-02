@@ -307,7 +307,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 						display: inherit;
 						margin-bottom: 0;
 					}
-					.small_img{
+					.et_pb_image .small_img{
 						max-width:100px;
 						height:100px;
 						margin:0 auto;

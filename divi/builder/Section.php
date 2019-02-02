@@ -1,7 +1,8 @@
 <?php
 if(class_exists('ET_Builder_Section')){
 class AMP_ET_Builder_Section extends ET_Builder_Structure_Element {
-	public $sectionCss;
+	public $ampSectionAtts = array();
+	public $ampSectionProps = array();
 	public $_render_count = 0;
 	function init() {
 		$this->name = esc_html__( 'Section', 'et_builder' );
@@ -415,51 +416,175 @@ class AMP_ET_Builder_Section extends ET_Builder_Structure_Element {
 		return array_merge( $fields, $column_fields );
 	}
 	function amp_divi_inline_styles(){
-		$uniqueId = $this->render_count();
-		$this->sectionCss = str_replace("{{uniqueId}}", $uniqueId, $this->sectionCss);
-		//  print_r($this->sectionCss);
-		//  die;
-		// print_r($this->props);
-		// echo $uniqueId = $this->render_count();
+		
+		$sectionProps = $this->ampSectionProps;
+		$sectionAtts = $this->ampSectionAtts;
+		//print_r($sectionProps);
+		// print_r($sectionAtts);
 		// die;
-// echo $uniqueId = $this->render_count();
-// die;
-		$inline_styles = '.et_pb_section_24{
-			padding-top: 14%;
-		    padding-bottom: 8.2%;
-		    background-blend-mode: overlay;
-		    background-color: initial;
-		    background-image: linear-gradient(187deg,rgba(48,16,12,0.8) 10%,rgba(246,109,65,0.57) 100%),url(https://intouchwebsolutions.com/smokinguns/wp-content/uploads/sites/4/2018/05/banner-home.jpg)!important;
-		}';
-		echo $inline_styles;
+		$section_css = '';
+		$section_main_css = '';
+		foreach($sectionAtts as $uniqueKey => $properties){
+			$border_width_all = '';
+			if(isset($sectionAtts[$uniqueKey]['border_width_all'])){
+				$border_width_all = 'border-width:'.$sectionAtts[$uniqueKey]['border_width_all'].';';
+			}
+			$border_color_all = '';
+			if( isset($sectionAtts[$uniqueKey]['border_color_all']) ){
+				$border_color_all = 'border-color:'.$sectionAtts[$uniqueKey]['border_color_all'].';';
+			}
+			$border_style_all = '';
+			if( isset($sectionAtts[$uniqueKey]['border_style_all']) ){
+				$border_style_all = 'border-style:'.$sectionAtts[$uniqueKey]['border_style_all'].';';
+			}
+			$background_color = '';
+			if(isset($sectionAtts[$uniqueKey]['background_color'])){
+				$background_color = 'background-color:'.$sectionAtts[$uniqueKey]['background_color'].';';
+			}
+			$background_image = '';
+			if(isset($sectionAtts[$uniqueKey]['background_image'])){
+				$background_image = 'background-image:url('.$sectionAtts[$uniqueKey]['background_image'].');';
+			}
+			if( $sectionAtts[$uniqueKey]['use_background_color_gradient'] == 'on' ){
+				$start_grad = $sectionProps[$uniqueKey]['background_color_gradient_start'];
+				$end_grad = $sectionProps[$uniqueKey]['background_color_gradient_end'];
+				
+				if($sectionProps[$uniqueKey]['background_color_gradient_type'] == 'linear'){
+					$direction = $sectionProps[$uniqueKey]['background_color_gradient_direction'];
+					$gradient_style = 'linear-gradient('.$direction.','.$start_grad.' 0%,'.$end_grad.' 100%)';
+				}
+				if($sectionProps[$uniqueKey]['background_color_gradient_type'] == 'radial'){
+					$direction = $sectionProps[$uniqueKey]['background_color_gradient_direction_radial'];
+					$gradient_style = 'radial-gradient(circle at '.$direction.','.$start_grad.' 0%,'.$end_grad.' 100%)';
+				}
+				if(isset($sectionAtts[$uniqueKey]['background_image'])){
+					if($sectionProps[$uniqueKey]['background_color_gradient_overlays_image'] == 'on'){
+						if(isset($sectionAtts[$uniqueKey]['background_image'])){
+							$background_image = 'background-image:'.$gradient_style.',url('.$sectionAtts[$uniqueKey]['background_image'].');';
+						}
+					}
+					if($sectionProps[$uniqueKey]['background_color_gradient_overlays_image'] == 'off'){
+						if(isset($sectionAtts[$uniqueKey]['background_image'])){
+							$background_image = 'background-image:url('.$sectionAtts[$uniqueKey]['background_image'].'),'.$gradient_style.';';
+						}
+					}
+				}else{
+					$background_image = 'background-image:'.$gradient_style.';';
+				}
+			}
+			$background_blend = '';
+			$blend_gradient_color = '';
+			if(isset($sectionAtts[$uniqueKey]['background_blend'])){
+				$background_blend = 'background-blend-mode:'.$sectionAtts[$uniqueKey]['background_blend'].';';
+				if(isset($sectionAtts[$uniqueKey]['use_background_color_gradient'])){
+					$blend_gradient_color = 'background-color:initial;';
+				}
+			}
+			$background_position = '';
+			if(isset($sectionAtts[$uniqueKey]['background_image'])){
+				$background_position = 'background-position:'.str_replace('_', ' ', $sectionAtts[$uniqueKey]['background_position']).';';
+			}
+			$background_size = '';
+			if(isset($sectionAtts[$uniqueKey]['background_size'])){
+				$background_size = 'background-size:'.$sectionAtts[$uniqueKey]['background_size'].';';
+			}
+			$border_radii = '';
+			if(isset($sectionAtts[$uniqueKey]['border_radii'])){
+				$radii = explode("|",$sectionAtts[$uniqueKey]['border_radii']);
+				if(count($radii)>1){
+					$radius = '';
+					for($i=1;$i<count($radii);$i++){
+						$radius .= $radii[$i].' ';
+					}
+				}
+				$border_radii = 'border-radius:'.$radius.';';
+			}
+			$max_width = '';
+			if(isset($sectionAtts[$uniqueKey]['max_width'])){
+				$max_width = 'max-width:'.$sectionAtts[$uniqueKey]['max_width'].';';
+			}
+			$custom_margin = '';
+			if( isset($sectionAtts[$uniqueKey]['custom_margin']) ){
+				$margins = explode("|",$sectionAtts[$uniqueKey]['custom_margin']);
+				$margins_styles = '';
+				if(is_array($margins) && count($margins)>0){
+					$margin_top = '';
+					if(!empty($margins[0])){
+						$margin_top = 'margin-top:'.$margins[0].';';
+					}
+					$margin_right = '';
+					if(!empty($margins[1])){
+						$margin_right = 'margin-right:'.$margins[1].';';
+					}
+					$margin_bottom = '';
+					if(!empty($margins[2])){
+						$margin_bottom = 'margin-bottom:'.$margins[2].';';
+					}
+					$margin_left = '';
+					if(!empty($margins[3])){
+						$margin_left = 'margin-left:'.$margins[3].';';
+					}
+
+					$margins_styles .= $margin_top.''.$margin_right.''.$margin_bottom.''.$margin_left;
+					
+				}
+				$custom_margin = $margins_styles;
+			}
+			$custom_padding = '';
+			if( isset($sectionAtts[$uniqueKey]['custom_padding']) ){
+				$paddings = explode("|",$sectionAtts[$uniqueKey]['custom_padding']);
+				$paddings_styles = '';
+				if(is_array($paddings) && count($paddings)>0){
+					$padding_top = '';
+					if(!empty($paddings[0])){
+						$padding_top = 'padding-top:'.$paddings[0].';';
+					}
+					$padding_right = '';
+					if(!empty($paddings[1])){
+						$padding_right = 'padding-right:'.$paddings[1].';';
+					}
+					$padding_bottom = '';
+					if(!empty($paddings[2])){
+						$padding_bottom = 'padding-bottom:'.$paddings[2].';';
+					}
+					$padding_left = '';
+					if(!empty($paddings[3])){
+						$padding_left = 'padding-left:'.$paddings[3].';';
+					}
+					$paddings_styles .= $padding_top.''.$padding_right.''.$padding_bottom.''.$padding_left;
+					
+				}
+				$custom_padding = $paddings_styles;
+			}
+			$section_main_css .= '.et_pb_section_'.$uniqueKey.'{';
+			$section_main_css .= $border_radii;
+			$section_main_css .= $custom_margin;
+			$section_main_css .= $custom_padding;
+			$section_main_css .= $max_width;
+			$section_main_css .= $border_style_all;
+			$section_main_css .= $border_color_all;
+			$section_main_css .= $border_width_all;
+			$section_main_css .='}';
+			$section_css .= 'div.et_pb_section.et_pb_section_'.$uniqueKey.'{';
+			$section_css .= $background_image;
+			$section_css .= $background_position;
+			$section_css .= $background_size;
+			$section_css .= $background_color;
+			$section_css .= $background_blend;
+			$section_css .= $blend_gradient_color;
+			$section_css .='}';
+		}
+		echo $section_css.''.$section_main_css;
 	}
 	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
 		return $output;
 	}
 	function render( $atts, $content = null, $function_name ) {
-		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'), 30);
-		//print_r($this->props);
-		$bg_image =  $this->props['custom_css_main_element'];
-		// die;
-		if($bg_image != ''){
-			$this->sectionCss[$this->render_count()] = '.et_pb_section_'.$this->render_count().'{
-			background-image:'.$bg_image.';
-		}';
-		}
 
-
-
-		//var_dump($atts); die;
-
-
-		//echo $uniqueId = $this->render_count();
-		//die;
-		//print_r($this->sectionCss);
-		//print_r($this->sectionCss);
-		// print_r($this->props);
-		//die;
-		/*echo $uniqueId = $this->render_count();
-		die;*/
+		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
+		$uniqueId = $this->render_count();
+		$this->ampSectionAtts[$uniqueId] = $atts;
+		$this->ampSectionProps[$uniqueId] = $this->props;
 		$background_image        = $this->props['background_image'];
 		$background_color        = $this->props['background_color'];
 		$background_video_mp4    = $this->props['background_video_mp4'];

@@ -1,6 +1,8 @@
 <?php
 if(class_exists('ET_Builder_Module_Text')){
 class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
+	public $ampTextAtts = array();
+	public $ampTextProps = array();
 	function init() {
 		$this->name       = esc_html__( 'Text', 'et_builder' );
 		$this->slug       = 'et_pb_text';
@@ -441,67 +443,182 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 		$font_size = isset($this->props['header_font_size'])? $this->props['header_font_size']: '16px';
 		$text_color = isset($this->props['header_text_color'])? $this->props['header_text_color']: '#333';
 		$text_color = isset($this->props['header_line_height'])? $this->props['header_line_height']: '#333';
-		//echo $uniqueId = $this->render_count();
-		// echo "sdvdfs"
-		// foreach ($this->props as $key => $value) {
-		// 	//headers
-		// 	echo $key;die;
-		// 	$headerMatches = preg_match("header_(\d+)_", $key);
-		// 	print_r($headerMatches);die;
-		// }
-
-		$allProps = $this->props;
-		//print_r($allProps);
+		
+        $textProps = $this->ampTextProps;
+		$textAtts = $this->ampTextAtts;
+		//print_r($textAtts);
+		// // //print_r($textProps);
+		//die;
+		
+		$text_main_css = '';
 		$header_styles = array();
-		// print_r($allProps);
-		// die;
-		foreach($allProps as $key => $value){
-			if(is_null($value) || $value == ''){
-				continue;
-			}else{
-				if("header_" == substr($key,0,7)){
-					preg_match("/header_(\d+)_/", $key, $matches);
-					if( empty($matches) ){
-						$whatIWant = substr($key, strpos($key, "_") + 1);    
-						$header_styles[1][$whatIWant] = $value;
-					}else{
-						$whatIWant = substr($key, strpos($key, $matches[1]."_") + 1);
-						$styles = trim($whatIWant,"_");    
-						$header_styles[$matches[1]][$styles] = $value;
-					}
-				    // do whatever you need to with $number...
-				}
-			}
-		}
-		$header_css = '';
-
-		if(count($header_styles)>0){
-			for($i=1;$i<=count($header_styles);$i++){
-				$header_css .= '.et_pb_text_'.$uniqueId.' h'.$i.'{';
-				// if (array_key_exists("text_align",$header_styles[$i])){
-				// 	$header_css .= 'text-align:'.$header_styles[$i]['text_align'].';';
-				// }
-				if (array_key_exists("text_color",$header_styles[$i])){
-					$header_css .= 'color:'.$header_styles[$i]['text_color'].';';
-				}
-				// if (array_key_exists("font_size",$header_styles[$i])){
-				// 	$header_css .= 'font-size:'.$header_styles[$i]['font_size'].';';
-				// }
-				if (array_key_exists("line_height",$header_styles[$i])){
-					$header_css .= 'line-height:'.$header_styles[$i]['line_height'].';';
-				}
-				$header_css .='}';
-			}
-		}
-
-		$inline_styles = '
-			.et_pb_text_inner{
-				font-size: 16px;
-   	 			color: #333;
-			}
+		$header_tag_css = '';
+		foreach ($textAtts as $uniqueKey => $properties) {
 			
-		';
-        echo $inline_styles.' '.$header_css;
+				foreach($properties as $pkey => $pVal){
+					//echo $pkey.'';
+					if(substr($pkey, 0, 7) === 'header_'){
+						//$style_type = substr($pkey, strpos($pkey, "_") + 1);
+						// echo $htag;
+						// die;
+						preg_match("/header_(\d+)_/", $pkey, $matches);
+						if( empty($matches) ){
+							$style_type = substr($pkey, strpos($pkey, "_") + 1);    
+							$header_styles[1][$style_type] = $pVal;
+						}else{
+							$style_type = substr($pkey, strpos($pkey, $matches[1]."_") + 1);
+							$styles = trim($style_type,"_"); 
+							$header_styles[$matches[1]][$styles] = $pVal;
+						}
+						
+					}
+					
+					//$htag = substr($pkey, strpos($pkey, "_") + 1);
+					
+				}
+				
+			if( count($header_styles)>0){
+				
+				foreach( $header_styles as $headKey => $headStyles){
+					$header_tag_css .= '.et_pb_text_'.$uniqueKey.' h'.$headKey.'{';
+					$font_size = '';
+					if(isset($headStyles['font_size'])){
+						$font_size = 'font-size:'.$headStyles['font_size'].';';
+					}
+					$text_align = '';
+					if( isset($headStyles['text_align'])){
+						$text_align = 'text-align:'.$headStyles['text_align'].';';
+					}
+					$text_color = '';
+					if( isset($headStyles['text_color'])){
+						$text_color = 'color:'.$headStyles['text_color'].';';
+					}
+					$line_height = '';
+					if( isset($headStyles['line_height'])){
+						$line_height = 'line-height:'.$headStyles['line_height'].';';
+					}
+						$header_tag_css .= $font_size;
+						$header_tag_css .= $text_align;
+						$header_tag_css .= $text_color;
+						$header_tag_css .= $line_height;
+					$header_tag_css .= '}';
+				}
+				
+			}
+			// echo  $htag;
+			// //die;
+			// die;
+			
+			$border_radii = '';
+			if(isset($textAtts[$uniqueKey]['border_radii'])){
+				$radii = explode("|",$textAtts[$uniqueKey]['border_radii']);
+				if(count($radii)>1){
+					$radius = '';
+					for($i=1;$i<count($radii);$i++){
+						$radius .= $radii[$i].' ';
+					}
+				}
+				$border_radii = 'border-radius:'.$radius.';';
+			}
+			$border_width_all = '';
+			if(isset($textAtts[$uniqueKey]['border_width_all'])){
+				$border_width_all = 'border-width:'.$textAtts[$uniqueKey]['border_width_all'].';';
+			}
+			$border_color_all = '';
+			if(isset($textAtts[$uniqueKey]['border_color_all'])){
+				$border_color_all = 'border-color:'.$textAtts[$uniqueKey]['border_color_all'].';';
+			}
+			$max_width ='';
+			if(isset($textAtts[$uniqueKey]['max_width'])){
+				$max_width = 'max-width:'.$textAtts[$uniqueKey]['max_width'].';';
+			}
+			$custom_margin = '';
+			if( isset($textAtts[$uniqueKey]['custom_margin']) ){
+				$margins = explode("|",$textAtts[$uniqueKey]['custom_margin']);
+				$margins_styles = '';
+				if(is_array($margins) && count($margins)>0){
+					$margin_top = '';
+					if(!empty($margins[0])){
+						$margin_top = 'margin-top:'.$margins[0].';';
+					}
+					$margin_right = '';
+					if(!empty($margins[1])){
+						$margin_right = 'margin-right:'.$margins[1].';';
+					}
+					$margin_bottom = '';
+					if(!empty($margins[2])){
+						$margin_bottom = 'margin-bottom:'.$margins[2].';';
+					}
+					$margin_left = '';
+					if(!empty($margins[3])){
+						$margin_left = 'margin-left:'.$margins[3].';';
+					}
+
+					$margins_styles .= $margin_top.''.$margin_right.''.$margin_bottom.''.$margin_left;
+					
+				}
+				$custom_margin = $margins_styles;
+			}
+			$custom_padding = '';
+			if( isset($textAtts[$uniqueKey]['custom_padding']) ){
+				$paddings = explode("|",$textAtts[$uniqueKey]['custom_padding']);
+				$paddings_styles = '';
+				if(is_array($paddings) && count($paddings)>0){
+					$padding_top = '';
+					if(!empty($paddings[0])){
+						$padding_top = 'padding-top:'.$paddings[0].';';
+					}
+					$padding_right = '';
+					if(!empty($paddings[1])){
+						$padding_right = 'padding-right:'.$paddings[1].';';
+					}
+					$padding_bottom = '';
+					if(!empty($paddings[2])){
+						$padding_bottom = 'padding-bottom:'.$paddings[2].';';
+					}
+					$padding_left = '';
+					if(!empty($paddings[3])){
+						$padding_left = 'padding-left:'.$paddings[3].';';
+					}
+					$paddings_styles .= $padding_top.''.$padding_right.''.$padding_bottom.''.$padding_left;
+					
+				}
+				$custom_padding = $paddings_styles;
+			}
+			$text_font_size = '';
+			if(isset($textAtts[$uniqueKey]['text_font_size'])){
+				$text_font_size = 'font-size:'.$textAtts[$uniqueKey]['text_font_size'].';';
+			}
+			$text_letter_spacing = '';
+			if( isset($textAtts[$uniqueKey]['text_letter_spacing']) ){
+				$text_letter_spacing = 'letter-spacing:'.$textAtts[$uniqueKey]['text_letter_spacing'].';';
+			}
+			$text_line_height = '';
+			if( isset($textAtts[$uniqueKey]['text_line_height']) ){
+				$text_line_height = 'line-height:'.$textAtts[$uniqueKey]['text_line_height'].';';
+			}
+			$text_text_color = '';
+			if( isset($textAtts[$uniqueKey]['text_text_color']) ){
+				$text_text_color = 'color:'.$textAtts[$uniqueKey]['text_text_color'].';';
+			}
+			$text_main_css .= '.et_pb_text_'.$uniqueKey.'{';
+			$text_main_css .= $border_radii;
+			$text_main_css .= $border_width_all;
+			$text_main_css .= $border_color_all;
+			$text_main_css .= $max_width;
+			$text_main_css .= $custom_margin;
+			$text_main_css .= $custom_padding;
+			$text_main_css .= $text_font_size;
+			$text_main_css .= $text_letter_spacing;
+			$text_main_css .= $text_line_height;
+			$text_main_css .= $text_text_color;
+			$text_main_css .= '}';
+		}
+		
+		echo $header_tag_css;
+		echo $text_main_css;
+		//die;
+		//echo $text_main_css;
   	}
   	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
 		return $output;
@@ -509,9 +626,9 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 
 	function render( $attrs, $content = null, $render_slug ) {
 		$uniqueId = $this->render_count();
+		$this->ampTextAtts[$uniqueId] = $attrs;
+		$this->ampTextProps[$uniqueId] = $this->props;
 		
-		$amp_et_pb_text_settings[$uniqueId] = $this->props;
-
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$background_layout    = $this->props['background_layout'];
 		$ul_type              = $this->props['ul_type'];

@@ -1,6 +1,7 @@
 <?php
 function ampforwp_divi_common_styles(){
-	?>
+?>
+
 	@font-face {
 	font-family: "ETmodules";
 	src: url("<?php echo AMP_WPBAKERY_PLUGIN_DIR_URI;?>core/admin/fonts/modules.eot");
@@ -161,22 +162,7 @@ function ampforwp_divi_common_styles(){
 }
 
 /* Accent Color */
-.et_pb_sum,
-.et_pb_pricing li a,
-.et_pb_pricing_table_button,
-.et_overlay:before,
-.et_pb_member_social_links a:hover,
-.woocommerce-page #content input.button:hover .et_pb_widget li a:hover,
-.et_pb_bg_layout_light .et_pb_promo_button,
-.et_pb_bg_layout_light.et_pb_module.et_pb_button,
-.et_pb_bg_layout_light .et_pb_more_button,
-.et_pb_filterable_portfolio .et_pb_portfolio_filters li a.active,
-.et_pb_filterable_portfolio .et_pb_portofolio_pagination ul li a.active,
-.et_pb_gallery .et_pb_gallery_pagination ul li a.active,
-.et_pb_contact_submit,
-.et_pb_bg_layout_light .et_pb_newsletter_button {
-	color: #2ea3f2;
-}
+
 
 .et_pb_pricing li span:before {
 	border-color: #2ea3f2;
@@ -646,7 +632,9 @@ function ampforwp_divi_common_styles(){
 
 
 }
+<?php 
 
-
+//echo ET_Builder_Element::get_style();?>
 	<?php
+	
 }
