@@ -175,18 +175,17 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 			$video_src = wp_oembed_get( esc_url( $args['src'] ) );
 		} else {
 			$video_src = sprintf( '
-				<video controls>
-					%1$s
+				<amp-video width="720" height="405" layout="responsive" src="%1$s" controls>
 					%2$s
-				</video>',
-				( '' !== $args['src'] ? sprintf( '<source type="video/mp4" src="%s" />', esc_url( $args['src'] ) ) : '' ),
+				</amp-video>',
+				( '' !== $args['src'] ? preg_replace('#^https?:#', '', esc_url( $args['src'] )) : '' ),
 				( '' !== $args['src_webm'] ? sprintf( '<source type="video/webm" src="%s" />', esc_url( $args['src_webm'] ) ) : '' )
 			);
 
 			//wp_enqueue_style( 'wp-mediaelement' );
 			//wp_enqueue_script( 'wp-mediaelement' );
 		}
-
+		
 		return $video_src;
 	}
 
@@ -393,7 +392,7 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 				),
 			) );
 		}
-
+		
 		$output = sprintf(
 			'<div%2$s class="%3$s video-player">
 		      %1$s
@@ -413,7 +412,7 @@ class AMP_ET_Builder_Module_Video extends ET_Builder_Module {
 			$video_background,
 			$parallax_image_background
 		);
-		
+
 		return $output;
 	}
 }

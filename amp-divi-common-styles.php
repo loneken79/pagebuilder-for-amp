@@ -2,7 +2,7 @@
 function ampforwp_divi_common_styles(){
 ?>
 
-	@font-face {
+@font-face {
 	font-family: "ETmodules";
 	src: url("<?php echo AMP_WPBAKERY_PLUGIN_DIR_URI;?>core/admin/fonts/modules.eot");
 	src: url("<?php echo AMP_WPBAKERY_PLUGIN_DIR_URI;?>core/admin/fonts/modules.eot?#iefix") format("embedded-opentype"), url("<?php echo AMP_WPBAKERY_PLUGIN_DIR_URI;?>core/admin/fonts/modules.ttf") format("truetype"), url("<?php echo AMP_WPBAKERY_PLUGIN_DIR_URI;?>core/admin/fonts/modules.woff") format("woff"), url("<?php echo AMP_WPBAKERY_PLUGIN_DIR_URI;?>core/admin/fonts/modules.svg#ETmodules") format("svg");
@@ -407,12 +407,8 @@ function ampforwp_divi_common_styles(){
 }
 /*Column and Rows Styles*/
 @media all and (min-width: 981px) {
-	 .et_pb_column,
-	.et_pb_row .et_pb_column {
-		margin-right: 5.5%;
-	}
-
-	 .et_pb_column_4_4,
+	 
+	.et_pb_column_4_4,
 	.et_pb_row .et_pb_column_4_4 {
 		width: 100%;
 	}
@@ -632,6 +628,25 @@ function ampforwp_divi_common_styles(){
 
 
 }
+
+/* Responsive Styles Desktop Only Desktop*/
+@media all and (min-width: 981px) {
+	.et_pb_hide_desk{
+		display:none;
+	}
+}
+@media all and (min-width: 981px) and (max-width: 1405px) {
+	.et_pb_hide_desk{
+		display:none;
+	}
+}
+/* Responsive Styles Smartphone Only mobile*/
+@media all and (max-width: 767px) {
+	.et_pb_hide_mobile{
+		display:none;
+	}
+}
+
 <?php 
 
 //echo ET_Builder_Element::get_style();?>

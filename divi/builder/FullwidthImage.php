@@ -1,10 +1,14 @@
 <?php
-if(class_exists('ET_Builder_Module_Image')){
-class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
+if(class_exists('ET_Builder_Module_Fullwidth_Image')){
+class AMP_ET_Builder_Module_Fullwidth_Image extends ET_Builder_Module {
 	function init() {
-		$this->name       = esc_html__( 'Image', 'et_builder' );
-		$this->slug       = 'et_pb_image';
+		$this->name       = esc_html__( 'Fullwidth Image', 'et_builder' );
+		$this->slug       = 'et_pb_fullwidth_image';
 		$this->vb_support = 'on';
+		$this->fullwidth  = true;
+		$this->defaults   = array(
+			'align' => 'left',
+		);
 
 		$this->settings_modal_toggles = array(
 			'general'  => array(
@@ -15,12 +19,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 			),
 			'advanced' => array(
 				'toggles' => array(
-					'overlay'    => esc_html__( 'Overlay', 'et_builder' ),
-					'alignment'  => esc_html__( 'Alignment', 'et_builder' ),
-					'width'      => array(
-						'title'    => esc_html__( 'Sizing', 'et_builder' ),
-						'priority' => 65,
-					),
+					'overlay' => esc_html__( 'Overlay', 'et_builder' ),
 				),
 			),
 			'custom_css' => array(
@@ -40,31 +39,13 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 		$this->advanced_fields = array(
 			'margin_padding' => array(
 				'css' => array(
-					'important' => array( 'custom_margin' ),
-				),
-			),
-			'borders'               => array(
-				'default' => array(
-					'css' => array(
-						'main' => array(
-							'border_radii'  => "%%order_class%% .et_pb_image_wrap",
-							'border_styles' => "%%order_class%% .et_pb_image_wrap",
-						),
-					),
+					'important' => 'all',
 				),
 			),
 			'box_shadow'            => array(
 				'default' => array(
 					'css' => array(
-						'main'         => '%%order_class%% .et_pb_image_wrap',
 						'custom_style' => true,
-					),
-				),
-			),
-			'max_width'             => array(
-				'options' => array(
-					'max_width' => array(
-						'depends_show_if' => 'off',
 					),
 				),
 			),
@@ -76,7 +57,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 		$this->help_videos = array(
 			array(
 				'id'   => esc_html( 'cYwqxoHnjNA' ),
-				'name' => esc_html__( 'An introduction to the Image module', 'et_builder' ),
+				'name' => esc_html__( 'An introduction to the Fullwidth Image module', 'et_builder' ),
 			),
 		);
 	}
@@ -84,12 +65,12 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 	function get_fields() {
 		$fields = array(
 			'src' => array(
+				'label'              => esc_html__( 'Image URL', 'et_builder' ),
 				'type'               => 'upload',
 				'option_category'    => 'basic_option',
 				'upload_button_text' => esc_attr__( 'Upload an image', 'et_builder' ),
 				'choose_text'        => esc_attr__( 'Choose an Image', 'et_builder' ),
 				'update_text'        => esc_attr__( 'Set As Image', 'et_builder' ),
-				'hide_metadata'      => true,
 				'affects'            => array(
 					'alt',
 					'title_text',
@@ -122,14 +103,14 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 				'toggle_slug'     => 'attributes',
 			),
 			'show_in_lightbox' => array(
-				'label'             => esc_html__( 'Open in Lightbox', 'et_builder' ),
+				'label'             => esc_html__( 'Open In Lightbox', 'et_builder' ),
 				'type'              => 'yes_no_button',
 				'option_category'   => 'configuration',
 				'options'           => array(
 					'off' => esc_html__( 'No', 'et_builder' ),
 					'on'  => esc_html__( 'Yes', 'et_builder' ),
 				),
-				'default_on_front' => 'off',
+				'default_on_front'  => 'off',
 				'affects'           => array(
 					'url',
 					'url_new_window',
@@ -157,7 +138,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 					'off' => esc_html__( 'In The Same Window', 'et_builder' ),
 					'on'  => esc_html__( 'In The New Tab', 'et_builder' ),
 				),
-				'default_on_front' => 'off',
+				'default_on_front'  => 'off',
 				'depends_show_if'   => 'off',
 				'toggle_slug'       => 'link',
 				'description'       => esc_html__( 'Here you can choose whether or not your link opens in a new window', 'et_builder' ),
@@ -170,7 +151,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 					'off' => esc_html__( 'Off', 'et_builder' ),
 					'on'  => esc_html__( 'On', 'et_builder' ),
 				),
-				'default_on_front' => 'off',
+				'default_on_front'  => 'off',
 				'affects'           => array(
 					'overlay_icon_color',
 					'hover_overlay_color',
@@ -209,175 +190,33 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 				'toggle_slug'         => 'overlay',
 				'description'         => esc_html__( 'Here you can define a custom icon for the overlay', 'et_builder' ),
 			),
-			'show_bottom_space' => array(
-				'label'             => esc_html__( 'Show Space Below The Image', 'et_builder' ),
-				'type'              => 'yes_no_button',
-				'option_category'   => 'layout',
-				'options'           => array(
-					'on'      => esc_html__( 'Yes', 'et_builder' ),
-					'off'     => esc_html__( 'No', 'et_builder' ),
-				),
-				'default_on_front' => 'on',
-				'tab_slug'          => 'advanced',
-				'toggle_slug'       => 'margin_padding',
-				'description'       => esc_html__( 'Here you can choose whether or not the image should have a space below it.', 'et_builder' ),
-			),
-			'align' => array(
-				'label'           => esc_html__( 'Image Alignment', 'et_builder' ),
-				'type'            => 'text_align',
-				'option_category' => 'layout',
-				'options'         => et_builder_get_text_orientation_options( array( 'justified' ) ),
-				'default_on_front' => 'left',
-				'tab_slug'        => 'advanced',
-				'toggle_slug'     => 'alignment',
-				'description'     => esc_html__( 'Here you can choose the image alignment.', 'et_builder' ),
-				'options_icon'    => 'module_align',
-			),
-			'force_fullwidth' => array(
-				'label'             => esc_html__( 'Force Fullwidth', 'et_builder' ),
-				'type'              => 'yes_no_button',
-				'option_category'   => 'layout',
-				'options'           => array(
-					'off' => esc_html__( 'No', 'et_builder' ),
-					'on'  => esc_html__( 'Yes', 'et_builder' ),
-				),
-				'default_on_front' => 'off',
-				'tab_slug'    => 'advanced',
-				'toggle_slug' => 'width',
-				'affects' => array(
-					'max_width',
-				),
-			),
-			'always_center_on_mobile' => array(
-				'label'             => esc_html__( 'Always Center Image On Mobile', 'et_builder' ),
-				'type'              => 'yes_no_button',
-				'option_category'   => 'layout',
-				'options'           => array(
-					'on'  => esc_html__( 'Yes', 'et_builder' ),
-					'off' => esc_html__( 'No', 'et_builder' ),
-				),
-				'default_on_front' => 'on',
-				'tab_slug'          => 'advanced',
-				'toggle_slug'       => 'alignment',
-			),
 		);
 
 		return $fields;
 	}
-
-	public function get_alignment() {
-		$alignment = isset( $this->props['align'] ) ? $this->props['align'] : '';
-
-		return et_pb_get_alignment( $alignment );
-	}
-	public function amp_divi_inline_styles(){
-		
-		$inline_styles = '.et_pb_image {
-						display: block;
-						margin-right: auto;
-						margin-left: auto;
-						line-height: 0;
-					}
-					.et_pb_image.aligncenter {
-						text-align: center;
-					}
-
-					.et_pb_image.et_pb_has_overlay a.et_pb_lightbox_image {
-						display: block;
-						overflow: hidden;
-						position: relative;
-					}
-
-					.et_pb_image {
-						display: block;
-					}
-
-					.et_pb_image .et_pb_image_wrap {
-						display: inline-block;
-						position: relative;
-						max-width: 100%;
-					}
-
-					.et_pb_image img {
-						position: relative;
-					}
-
-					/* Sticky Image */
-					.et_pb_image_sticky {
-						display: inherit;
-						margin-bottom: 0;
-					}
-					.et_pb_image .small_img{
-						max-width:100px;
-						height:100px;
-						margin:0 auto;
-					}
-					';
-        echo $inline_styles;
-  	}
-  	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
-		return $output;
+	function amp_divi_inline_styles(){
+		$inline_styles = '';
+		echo $inline_styles;
 	}
 	function render( $attrs, $content = null, $render_slug ) {
-
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
-		$src                     = $this->props['src'];
-		$alt                     = $this->props['alt'];
-		$title_text              = $this->props['title_text'];
-		$url                     = $this->props['url'];
-		$url_new_window          = $this->props['url_new_window'];
-		$show_in_lightbox        = $this->props['show_in_lightbox'];
-		$show_bottom_space       = $this->props['show_bottom_space'];
-		$align                   = $this->get_alignment();
-		$force_fullwidth         = $this->props['force_fullwidth'];
-		$always_center_on_mobile = $this->props['always_center_on_mobile'];
-		$overlay_icon_color      = $this->props['overlay_icon_color'];
-		$hover_overlay_color     = $this->props['hover_overlay_color'];
-		$hover_icon              = $this->props['hover_icon'];
-		$use_overlay             = $this->props['use_overlay'];
-		$animation_style         = $this->props['animation_style'];
+		$src                 = $this->props['src'];
+		$alt                 = $this->props['alt'];
+		$title_text          = $this->props['title_text'];
+		$url                 = $this->props['url'];
+		$url_new_window      = $this->props['url_new_window'];
+		$show_in_lightbox    = $this->props['show_in_lightbox'];
+		$overlay_icon_color  = $this->props['overlay_icon_color'];
+		$hover_overlay_color = $this->props['hover_overlay_color'];
+		$hover_icon          = $this->props['hover_icon'];
+		$use_overlay         = $this->props['use_overlay'];
+		$animation_style     = $this->props['animation_style'];
 
 		$video_background          = $this->video_background();
 		$parallax_image_background = $this->get_parallax_image_background();
 
-		// Handle svg image behaviour
-		$src_pathinfo = pathinfo( $src );
-		$is_src_svg = isset( $src_pathinfo['extension'] ) ? 'svg' === $src_pathinfo['extension'] : false;
-
 		// overlay can be applied only if image has link or if lightbox enabled
 		$is_overlay_applied = 'on' === $use_overlay && ( 'on' === $show_in_lightbox || ( 'off' === $show_in_lightbox && '' !== $url ) ) ? 'on' : 'off';
-
-		if ( 'on' === $force_fullwidth ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%',
-				'declaration' => 'max-width: 100% !important;',
-			) );
-
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_image_wrap, %%order_class%% img',
-				'declaration' => 'width: 100%;',
-			) );
-		}
-
-		if ( ! $this->_is_field_default( 'align', $align ) ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%',
-				'declaration' => sprintf(
-					'text-align: %1$s;',
-					esc_html( $align )
-				),
-			) );
-		}
-
-		if ( 'center' !== $align ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%%',
-				'declaration' => sprintf(
-					'margin-%1$s: 0;',
-					esc_html( $align )
-				),
-			) );
-		}
 
 		if ( 'on' === $is_overlay_applied ) {
 			if ( '' !== $overlay_icon_color ) {
@@ -413,22 +252,13 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 				$data_icon
 			);
 		}
-
-		// Set display block for svg image to avoid disappearing svg image
-		if ( $is_src_svg ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .et_pb_image_wrap',
-				'declaration' => 'display: block;',
-			) );
-		}
 		list($width, $height) = getimagesize($src);
-		$thumb_class = '';
 		if($width<200){
 			$thumb_class = "small_img";
 		}
-
 		$output = sprintf(
-			'<amp-img layout="responsive" width="'.$width.'" class="'.$thumb_class.'" height="'.$height.'" src="%1$s" alt="%2$s"%3$s ></amp-img>%4$s',
+			'<amp-img src="%1$s" width="'.$width.'" height="'.$height.'" class="'.$thumb_class.'" layout="responsive" alt="%2$s"%3$s ></amp-img>
+			%4$s',
 			esc_attr( $src ),
 			esc_attr( $alt ),
 			( '' !== $title_text ? sprintf( ' title="%1$s"', esc_attr( $title_text ) ) : '' ),
@@ -454,39 +284,12 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 			$this->add_classname( 'et-waypoint' );
 		}
 
-		if ( 'on' !== $show_bottom_space ) {
-			$this->add_classname( 'et_pb_image_sticky' );
-		}
-
 		if ( 'on' === $is_overlay_applied ) {
 			$this->add_classname( 'et_pb_has_overlay' );
 		}
-
-		if ( 'on' === $always_center_on_mobile ) {
-			$this->add_classname( 'et_always_center_on_mobile' );
-		}
 		
-		$disabled_on = '';
-
-		if(isset($this->props['disabled_on'])){
-			$disable_options = explode("|",$this->props['disabled_on']);
-			if(is_array($disable_options) && count($disable_options)>0){
-				
-				if(!empty($disable_options[0]) && $disable_options[0] == 'on'){
-					$disabled_on .= 'et_pb_hide_mobile ';
-				}
-				
-				if(!empty($disable_options[1])  && $disable_options[1] == 'on' ){
-					$disabled_on .= 'et_pb_hide_tablet ';
-				}
-				
-				if(!empty($disable_options[2])  && $disable_options[2] == 'on'){
-					$disabled_on .= 'et_pb_hide_desk ';
-				}
-			}
-		}
 		$output = sprintf(
-			'<div%3$s class="%2$s '.$disabled_on.'">
+			'<div%3$s class="%2$s">
 				%5$s
 				%4$s
 				%1$s
@@ -502,19 +305,7 @@ class AMP_ET_Builder_Module_Image extends ET_Builder_Module {
 	}
 }
 
-// This adds the upload label for Image module
-// TODO: Remove when BB is removed.
-function et_bb_module_image_add_src_label( $filed ) {
-	if ( ! isset( $filed['label'] ) ) {
-		$filed['label'] = esc_html__( 'Image URL', 'et_builder' );
-	}
-
-	return $filed;
-}
-
-add_filter( 'et_builder_module_fields_et_pb_image_field_src', 'et_bb_module_image_add_src_label' );
-
-$imageObj = new AMP_ET_Builder_Module_Image();
-remove_shortcode( 'et_pb_image' );
-add_shortcode( 'et_pb_image', array($imageObj, '_render'));
+$fullWidthImageObj = new AMP_ET_Builder_Module_Fullwidth_Image();
+remove_shortcode( 'et_pb_fullwidth_image' );
+add_shortcode( 'et_pb_fullwidth_image', array($fullWidthImageObj, '_render'));
 }

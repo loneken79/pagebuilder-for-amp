@@ -217,18 +217,6 @@ class AMP_ET_Builder_Module_Button extends ET_Builder_Module {
 						padding: 0.3em 1em;
 					}
 
-					/* Subscribe Button Loader Icon */
-					.et_subscribe_loader {
-						display: none;
-						position: absolute;
-						top: 16px;
-						left: 50%;
-						width: 16px;
-						height: 16px;
-						margin-left: -8px;
-						background: url("includes/builder/styles/images/subscribe-loader.gif");
-					}
-
 					.et_pb_button_text_loading .et_pb_newsletter_button_text {
 						visibility: hidden;
 					}

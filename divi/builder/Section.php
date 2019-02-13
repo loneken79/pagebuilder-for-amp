@@ -579,12 +579,86 @@ class AMP_ET_Builder_Section extends ET_Builder_Structure_Element {
 	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
 		return $output;
 	}
-	function render( $atts, $content = null, $function_name ) {
+	function video_background( $args = array(), $base_name = 'background' ) {
+		global $et_pb_counters_settings;
 
+		$use_counter_value       = '' !== $this->props['background_color'] || 'on' === $this->props['use_background_color_gradient'] || '' !== $this->props['background_image'] || '' !== $this->props['background_video_mp4'] || '' !== $this->props['background_video_webm'];
+		$background_video_mp4    = $use_counter_value && isset( $this->props['background_video_mp4'] ) ? $this->props['background_video_mp4'] : $et_pb_counters_settings['background_video_mp4'];
+		$background_video_webm   = $use_counter_value && isset( $this->props['background_video_webm'] ) ? $this->props['background_video_webm'] : $et_pb_counters_settings['background_video_webm'];
+		$background_video_width  = $use_counter_value && isset( $this->props['background_video_width'] ) ? $this->props['background_video_width'] : $et_pb_counters_settings['background_video_width'];
+		$background_video_height = $use_counter_value && isset( $this->props['background_video_height'] ) ? $this->props['background_video_height'] : $et_pb_counters_settings['background_video_height'];
+
+		if ( ! empty( $args ) ) {
+			$background_video = self::get_video_background( $args );
+
+			$allow_player_pause     = isset( $args['allow_player_pause'] ) ? $args['allow_player_pause' ] : 'off';
+			$pause_outside_viewport = isset( $args['background_video_pause_outside_viewport'] ) ? $args['background_video_pause_outside_viewport'] : 'on';
+		} else {
+			$background_video = self::get_video_background( array(
+				'background_video_mp4'    => $background_video_mp4,
+				'background_video_webm'   => $background_video_webm,
+				'background_video_width'  => $background_video_width,
+				'background_video_height' => $background_video_height,
+			) );
+
+			$allow_player_pause          = $use_counter_value ? $this->props['allow_player_pause'] : $et_pb_counters_settings['allow_player_pause'];
+			$pause_outside_viewport = $use_counter_value ? $this->props['background_video_pause_outside_viewport'] : $et_pb_counters_settings['background_video_pause_outside_viewport'];
+		}
+
+		$video_background = '';
+
+		if ( $background_video ) {
+			$background_video = preg_replace('#^https?:#', '', $this->props['background_video_mp4']);
+			$video_background = sprintf(
+				'<div class="et_pb_section_video_bg%2$s">
+					<amp-video width="720" height="405" src="%1$s"
+                         layout="responsive" controls autoplay></amp-video>
+				</div>',
+				$background_video,
+				( 'on' === $allow_player_pause ? ' et_pb_allow_player_pause' : '' ),
+				( 'off' === $pause_outside_viewport ? ' et_pb_video_play_outside_viewport' : '' )
+			);
+
+			wp_enqueue_style( 'wp-mediaelement' );
+			wp_enqueue_script( 'wp-mediaelement' );
+		}
+
+		// Added classname for module wrapper
+		if ( '' !== $video_background ) {
+			$this->add_classname( array( 'et_pb_section_video', 'et_pb_preload' ) );
+		}
+
+		return $video_background;
+	}
+	function render( $atts, $content = null, $function_name ) {
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$uniqueId = $this->render_count();
 		$this->ampSectionAtts[$uniqueId] = $atts;
 		$this->ampSectionProps[$uniqueId] = $this->props;
+
+		$disabled_on = '';
+		// echo "hello world";
+		// echo $uniqueId .' '. $this->props['disabled_on'].'<br/>';
+
+		if(isset($this->props['disabled_on'])){
+			$disable_options = explode("|",$this->props['disabled_on']);
+			//print_r($disable_options);
+			if(is_array($disable_options) && count($disable_options)>0){
+				
+				if(!empty($disable_options[0]) && $disable_options[0] == 'on'){
+					$disabled_on .= 'et_pb_hide_mobile ';
+				}
+				
+				if(!empty($disable_options[1])  && $disable_options[1] == 'on' ){
+					$disabled_on .= 'et_pb_hide_tablet ';
+				}
+				
+				if(!empty($disable_options[2])  && $disable_options[2] == 'on'){
+					$disabled_on .= 'et_pb_hide_desk ';
+				}
+			}
+		}
+
 		$background_image        = $this->props['background_image'];
 		$background_color        = $this->props['background_color'];
 		$background_video_mp4    = $this->props['background_video_mp4'];
@@ -923,7 +997,7 @@ class AMP_ET_Builder_Section extends ET_Builder_Structure_Element {
 		if ( '' !== $background_video_mp4 || '' !== $background_video_webm ) {
 			$background_video = $this->video_background();
 		}
-
+		
 		if ( '' !== $background_color && 'rgba(255,255,255,0)' !== $background_color ) {
 			ET_Builder_Element::set_style( $function_name, array(
 				'selector'    => '%%order_class%%.et_pb_section',
@@ -1021,7 +1095,7 @@ class AMP_ET_Builder_Section extends ET_Builder_Structure_Element {
 		$module_classes = $this->module_classname( $function_name );
 
 		$output = sprintf(
-			'<div%4$s class="%3$s"%8$s>
+			'<div%4$s class="%3$s %11$s"%8$s>
 				%9$s
 				%7$s
 				%2$s
@@ -1049,7 +1123,8 @@ class AMP_ET_Builder_Section extends ET_Builder_Structure_Element {
 			), // 7
 			$this->get_module_data_attributes(), // 8
 			et_esc_previously( $top ), // 9
-			et_esc_previously( $bottom ) // 10
+			et_esc_previously( $bottom ), // 10
+			$disabled_on
 			);
 
 		if ( 'on' === $specialty ) {

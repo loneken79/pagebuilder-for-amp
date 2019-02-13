@@ -440,21 +440,37 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 	}
 	public function amp_divi_inline_styles(){
 		global $amp_et_pb_text_settings;
+		$inline_styles = '/* Text Module */
+		.et_pb_text ul,.et_pb_text ol {	padding-bottom: 1em;}
+		.et_pb_text > :last-child {	padding-bottom: 0;}
+		.et_pb_text_inner {	position: relative;}
+		.et_pb_bg_layout_dark,
+		.et_pb_bg_layout_dark h1,
+		.et_pb_bg_layout_dark h2,
+		.et_pb_bg_layout_dark h3,
+		.et_pb_bg_layout_dark h4,
+		.et_pb_bg_layout_dark h5,
+		.et_pb_bg_layout_dark h6 {	color: #fff ;}
+		.et_pb_text_align_left {	text-align: left;}
+		.et_pb_text_align_center {	text-align: center;}
+		.et_pb_text_align_right {	text-align: right;}
+		.et_pb_text_align_justified {	text-align: justify;}';
+		echo $inline_styles;
 		$font_size = isset($this->props['header_font_size'])? $this->props['header_font_size']: '16px';
 		$text_color = isset($this->props['header_text_color'])? $this->props['header_text_color']: '#333';
 		$text_color = isset($this->props['header_line_height'])? $this->props['header_line_height']: '#333';
 		
         $textProps = $this->ampTextProps;
-		$textAtts = $this->ampTextAtts;
+		// $textAtts = $this->ampTextAtts;
 		//print_r($textAtts);
-		// // //print_r($textProps);
-		//die;
+		// print_r($textProps);
+		// die;
 		
 		$text_main_css = '';
 		$header_styles = array();
 		$header_tag_css = '';
-		foreach ($textAtts as $uniqueKey => $properties) {
-			
+		foreach ($textProps as $uniqueKey => $properties) {
+				
 				foreach($properties as $pkey => $pVal){
 					//echo $pkey.'';
 					if(substr($pkey, 0, 7) === 'header_'){
@@ -482,19 +498,19 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 				foreach( $header_styles as $headKey => $headStyles){
 					$header_tag_css .= '.et_pb_text_'.$uniqueKey.' h'.$headKey.'{';
 					$font_size = '';
-					if(isset($headStyles['font_size'])){
+					if(isset($headStyles['font_size']) && !empty($headStyles['font_size'])){
 						$font_size = 'font-size:'.$headStyles['font_size'].';';
 					}
 					$text_align = '';
-					if( isset($headStyles['text_align'])){
+					if( isset($headStyles['text_align']) && !empty($headStyles['text_align'])){
 						$text_align = 'text-align:'.$headStyles['text_align'].';';
 					}
 					$text_color = '';
-					if( isset($headStyles['text_color'])){
+					if( isset($headStyles['text_color']) && !empty($headStyles['text_color'])){
 						$text_color = 'color:'.$headStyles['text_color'].';';
 					}
 					$line_height = '';
-					if( isset($headStyles['line_height'])){
+					if( isset($headStyles['line_height']) && !empty($headStyles['line_height'])){
 						$line_height = 'line-height:'.$headStyles['line_height'].';';
 					}
 						$header_tag_css .= $font_size;
@@ -510,31 +526,38 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 			// die;
 			
 			$border_radii = '';
-			if(isset($textAtts[$uniqueKey]['border_radii'])){
-				$radii = explode("|",$textAtts[$uniqueKey]['border_radii']);
-				if(count($radii)>1){
+			if(isset($textProps[$uniqueKey]['border_radii'])){
+				$radii = explode("|",$textProps[$uniqueKey]['border_radii']);
+				if($radii[0] == 'on'){
 					$radius = '';
-					for($i=1;$i<count($radii);$i++){
-						$radius .= $radii[$i].' ';
+					$radii = array_filter($radii, function($value) { return $value !== ''; });
+					if(count($radii)>1){
+						for($i=1;$i<count($radii);$i++){
+							if( !empty($radii[$i])){
+			
+								$radius .= $radii[$i].' ';
+							}
+						}
+						$border_radii = 'border-radius:'.$radius.';';
 					}
+					
 				}
-				$border_radii = 'border-radius:'.$radius.';';
 			}
 			$border_width_all = '';
-			if(isset($textAtts[$uniqueKey]['border_width_all'])){
-				$border_width_all = 'border-width:'.$textAtts[$uniqueKey]['border_width_all'].';';
+			if(isset($textProps[$uniqueKey]['border_width_all']) && !empty($textProps[$uniqueKey]['border_width_all'])){
+				$border_width_all = 'border-width:'.$textProps[$uniqueKey]['border_width_all'].';';
 			}
 			$border_color_all = '';
-			if(isset($textAtts[$uniqueKey]['border_color_all'])){
-				$border_color_all = 'border-color:'.$textAtts[$uniqueKey]['border_color_all'].';';
+			if(isset($textProps[$uniqueKey]['border_color_all']) && !empty($textProps[$uniqueKey]['border_color_all'])){
+				$border_color_all = 'border-color:'.$textProps[$uniqueKey]['border_color_all'].';';
 			}
 			$max_width ='';
-			if(isset($textAtts[$uniqueKey]['max_width'])){
-				$max_width = 'max-width:'.$textAtts[$uniqueKey]['max_width'].';';
+			if(isset($textProps[$uniqueKey]['max_width']) && !empty($textProps[$uniqueKey]['max_width'])){
+				$max_width = 'max-width:'.$textProps[$uniqueKey]['max_width'].';';
 			}
 			$custom_margin = '';
-			if( isset($textAtts[$uniqueKey]['custom_margin']) ){
-				$margins = explode("|",$textAtts[$uniqueKey]['custom_margin']);
+			if( isset($textProps[$uniqueKey]['custom_margin']) ){
+				$margins = explode("|",$textProps[$uniqueKey]['custom_margin']);
 				$margins_styles = '';
 				if(is_array($margins) && count($margins)>0){
 					$margin_top = '';
@@ -560,9 +583,10 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 				$custom_margin = $margins_styles;
 			}
 			$custom_padding = '';
-			if( isset($textAtts[$uniqueKey]['custom_padding']) ){
-				$paddings = explode("|",$textAtts[$uniqueKey]['custom_padding']);
+			if( isset($textProps[$uniqueKey]['custom_padding']) ){
+				$paddings = explode("|",$textProps[$uniqueKey]['custom_padding']);
 				$paddings_styles = '';
+				
 				if(is_array($paddings) && count($paddings)>0){
 					$padding_top = '';
 					if(!empty($paddings[0])){
@@ -586,20 +610,20 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 				$custom_padding = $paddings_styles;
 			}
 			$text_font_size = '';
-			if(isset($textAtts[$uniqueKey]['text_font_size'])){
-				$text_font_size = 'font-size:'.$textAtts[$uniqueKey]['text_font_size'].';';
+			if(isset($textProps[$uniqueKey]['text_font_size'])){
+				$text_font_size = 'font-size:'.$textProps[$uniqueKey]['text_font_size'].';';
 			}
 			$text_letter_spacing = '';
-			if( isset($textAtts[$uniqueKey]['text_letter_spacing']) ){
-				$text_letter_spacing = 'letter-spacing:'.$textAtts[$uniqueKey]['text_letter_spacing'].';';
+			if( isset($textProps[$uniqueKey]['text_letter_spacing']) && !empty($textProps[$uniqueKey]['text_letter_spacing'])){
+				$text_letter_spacing = 'letter-spacing:'.$textProps[$uniqueKey]['text_letter_spacing'].';';
 			}
 			$text_line_height = '';
-			if( isset($textAtts[$uniqueKey]['text_line_height']) ){
-				$text_line_height = 'line-height:'.$textAtts[$uniqueKey]['text_line_height'].';';
+			if( isset($textProps[$uniqueKey]['text_line_height']) && !empty($textProps[$uniqueKey]['text_line_height']) ){
+				$text_line_height = 'line-height:'.$textProps[$uniqueKey]['text_line_height'].';';
 			}
 			$text_text_color = '';
-			if( isset($textAtts[$uniqueKey]['text_text_color']) ){
-				$text_text_color = 'color:'.$textAtts[$uniqueKey]['text_text_color'].';';
+			if( isset($textProps[$uniqueKey]['text_text_color']) && !empty($textProps[$uniqueKey]['text_text_color'])){
+				$text_text_color = 'color:'.$textProps[$uniqueKey]['text_text_color'].';';
 			}
 			$text_main_css .= '.et_pb_text_'.$uniqueKey.'{';
 			$text_main_css .= $border_radii;
@@ -614,10 +638,10 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 			$text_main_css .= $text_text_color;
 			$text_main_css .= '}';
 		}
-		
 		echo $header_tag_css;
-		echo $text_main_css;
-		//die;
+		echo $text_main_css; 
+		// echo "hello world";
+		// die;
 		//echo $text_main_css;
   	}
   	protected function _render_module_wrapper( $output = '', $render_slug = '' ) {
@@ -628,7 +652,10 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 		$uniqueId = $this->render_count();
 		$this->ampTextAtts[$uniqueId] = $attrs;
 		$this->ampTextProps[$uniqueId] = $this->props;
-		
+		//echo $uniqueId;
+		//print_r($this->ampTextProps[$uniqueId]);
+		// print_r($this->ampTextProps);
+		// die;
 		add_action('amp_post_template_css',array($this,'amp_divi_inline_styles'));
 		$background_layout    = $this->props['background_layout'];
 		$ul_type              = $this->props['ul_type'];
@@ -690,9 +717,27 @@ class AMP_ET_Builder_Module_Text extends ET_Builder_Module {
 			"et_pb_bg_layout_{$background_layout}",
 			$this->get_text_orientation_classname(),
 		) );
+		$disabled_on = '';
 
+		if(isset($this->props['disabled_on'])){
+			$disable_options = explode("|",$this->props['disabled_on']);
+			if(is_array($disable_options) && count($disable_options)>0){
+				
+				if(!empty($disable_options[0]) && $disable_options[0] == 'on'){
+					$disabled_on .= 'et_pb_hide_mobile ';
+				}
+				
+				if(!empty($disable_options[1])  && $disable_options[1] == 'on' ){
+					$disabled_on .= 'et_pb_hide_tablet ';
+				}
+				
+				if(!empty($disable_options[2])  && $disable_options[2] == 'on'){
+					$disabled_on .= 'et_pb_hide_desk ';
+				}
+			}
+		}
 		$output = sprintf(
-			'<div%3$s class="%2$s">
+			'<div%3$s class="%2$s '.$disabled_on.'">
 				%5$s
 				%4$s
 				<div class="et_pb_text_inner %6$s">

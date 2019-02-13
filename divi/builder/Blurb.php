@@ -561,6 +561,9 @@ class AMP_ET_Builder_Module_Blurb extends ET_Builder_Module {
 				margin-right: 0;
 				margin-left: 20px;
 			}
+			.et_pb_blurb_container h5.et_pb_module_header{
+				margin-top:5px;
+			}
 			';
     	$inline_styles = '.et_pb_blurb{
 		          max-width: 550px;
