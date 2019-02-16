@@ -28,6 +28,7 @@ class Amp_divider extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		// print_r($settings);
 		// die;
+		$settings['gap']['size'] = (!empty($settings['gap']['size']) ? $settings['gap']['size']:'0');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$settings['style'] = (!empty($settings['style']) ? $settings['style']:'solid');
 		$settings['weight']['size'] = (!empty($settings['weight']['size']) ? $settings['weight']['size']:'1');

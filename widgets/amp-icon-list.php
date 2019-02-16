@@ -29,7 +29,7 @@ class Amp_Icon_List extends Widget_Base {
 		
 		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
 		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#6ec1e4');
-		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#54595f');
+		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#ffffff');
 		
 		$settings['icon_size']['size'] = (!empty($settings['icon_size']['size']) ? $settings['icon_size']['size']:'14');
 		$settings['icon_size']['unit'] = (!empty($settings['icon_size']['unit']) ? $settings['icon_size']['unit']:'px');
@@ -69,9 +69,17 @@ class Amp_Icon_List extends Widget_Base {
         global $amp_elemetor_custom_css;
 		$amp_elemetor_custom_css['amp-icon-list'][$this->get_id()] = $inline_styles;
 	}
-	
+	public function amp_elementor_icon_list_inline_styles(){
+		//.elementor-680 .elementor-element.elementor-element-572b607 .elementor-icon-list-text
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;
+		$dynamicStyles = '';
+		echo $dynamicStyles;
+	}
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		add_action('amp_post_template_css',array($this,'amp_elementor_icon_list_inline_styles'));
 		$this->amp_elementor_widget_styles();
 		if( $settings['view'] == 'inline'){
 			$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items elementor-inline-items' );

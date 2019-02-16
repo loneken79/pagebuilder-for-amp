@@ -25,11 +25,10 @@ class Amp_Heading extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$settings = $this->get_settings_for_display();
-	
-		$settings['link']['url'] = (!empty($settings['link']['url']) ? $settings['link']['url']:'#');
+		
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
+
 		$inline_styles = '
 		.elementor-element-'.$this->get_id().' .elementor-size-medium{
 			font-size: 19px;
@@ -49,19 +48,51 @@ class Amp_Heading extends Widget_Base {
 		.elementor-element-'.$this->get_id().' .elementor-size-xxl{
 			font-size: 59px;
 		}
-		.elementor-heading-title-'.$this->get_id().', .elementor-heading-title-'.$this->get_id().' a{
-			font-weight:600;
-			color:'.$settings['title_color'].';
-			text-align:'.$settings['align'].';
-		}
 		';
 		global $amp_elemetor_custom_css;
 		$amp_elemetor_custom_css['amp-heading'][$this->get_id()] = $inline_styles;
-        //echo $inline_styles;
 	}
-
+	public function amp_elementor_heading_inline_styles(){
+		$settings = $this->get_settings_for_display();
+		// echo "hello ";
+		//print_r($settings);
+		//die;
+		$dynamicStyles = '';
+		$color = '';
+		$align = '';
+		if( !empty($settings['align']) ){
+			$align = 'text-align:'.$settings['align'].';';
+		}
+		if(!empty($settings['title_color'])){
+			$color = 'color:'.$settings['title_color'].';';
+		}
+		$line_height = '';
+		if( !empty($settings['typography_line_height'])){
+			$line_height = 'line-height:'.$settings['typography_line_height']['size'].''.$settings['typography_line_height']['unit'].';';
+		}
+		$typography_font_size = '';
+		if( !empty($settings['typography_font_size'])){
+			$typography_font_size = 'font-size:'.$settings['typography_font_size']['size'].''.$settings['typography_font_size']['unit'].';';
+		}
+		$typography_font_weight = '';
+		if( !empty($settings['typography_font_weight'])){
+			$typography_font_weight = 'font-weight:'.$settings['typography_font_weight'].';';
+		}
+		$settings['link']['url'] = (!empty($settings['link']['url']) ? $settings['link']['url']:'#');
+		$dynamicStyles .= '.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' .elementor-heading-title-'.$this->get_id().'{
+			'.$line_height.''.$typography_font_size.''.$typography_font_weight.'
+		}';
+		$dynamicStyles .='.elementor-heading-title-'.$this->get_id().', .elementor-heading-title-'.$this->get_id().' a{
+			'.$color.'
+			'.$align.'
+		}';
+		echo $dynamicStyles;
+	}
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		//print_r($settings);
+		// die;
+		add_action('amp_post_template_css',array($this,'amp_elementor_heading_inline_styles'));
 		$this->amp_elementor_widget_styles();
 		$settings['header_size'] = (!empty($settings['header_size']) ? $settings['header_size']:'h2');
 		$settings['size'] = (!empty($settings['size']) ? $settings['size']:'default');

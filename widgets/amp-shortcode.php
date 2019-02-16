@@ -35,7 +35,8 @@ class Amp_Shortcode extends Widget_Base {
 		$this->amp_elementor_widget_styles();
 		$shortcode = do_shortcode( shortcode_unautop( $shortcode ) );
 		?>
-		<div class="elementor-shortcode"><?php echo $shortcode; ?></div>
+		<amp-google-document-embed  src="<?php echo $shortcode; ?>" width="8.5"  height="11"
+      layout="responsive"></amp-google-document-embed>
 		<?php
 	}
 

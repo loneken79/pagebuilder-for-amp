@@ -116,9 +116,80 @@ class Amp_Button extends Widget_Base {
         global $amp_elemetor_custom_css;
 		$amp_elemetor_custom_css['amp-button'][$this->get_id()] = $inline_styles;
 	}
+	function amp_elementor_button_inline_styles(){
+		$settings = $this->get_settings_for_display();
+		// print_r($settings);
+		// die;
+		$typography_font_size = '';
+		if( !empty($settings['typography_font_size']['unit']) && !empty($settings['typography_font_size']['size'])){
+			$unit = $settings['typography_font_size']['unit'];
+			$size = $settings['typography_font_size']['size'];
+			$typography_font_size = 'font-size:'.$size.''.$unit.';';
+		}
+		$typography_font_weight = '';
+		if(!empty($settings['typography_font_weight'])){
+			$typography_font_weight = 'font-weight:'.$settings['typography_font_weight'].';';
+		}
+		$button_text_color = '';
+		if( !empty($settings['button_text_color']) ){
+			$button_text_color = 'color:'.$settings['button_text_color'].';';
+		}
+		$background_color = '';
+		if( !empty($settings['background_color']) ){
+			$background_color = 'background-color:'.$settings['background_color'].';';
+		}
+		$border_radius = '';
+		$allBorders = '';
+		if( !empty($settings['border_radius']) ){
+			$radius = $settings['border_radius'];
+			
+			foreach ($radius as $key => $value) {
 
+				if( $key=='top' || $key == 'right' || $key == 'bottom' || $key == 'left' ){
+					//echo $radius[$key];
+
+					//if(!empty($radius[$key])){
+						$allBorders .= $radius[$key].''.$radius['unit'].' ';	
+					//}
+				}
+			}
+			
+			$border_radius = 'border-radius:'.$allBorders.';';
+		}
+		$button_text_color = '';
+		if( !empty($settings['button_text_color']) ){
+			$button_text_color = 'color:'.$settings['button_text_color'].';';
+		}
+		$icon_align = '';
+		$icon_styles = '';
+		if( !empty($settings['icon_align']) ){
+			$icon_align = 'float:'.$settings['icon_align'].';';
+			$icon_styles = '.elementor-element-'.$this->get_id().' .elementor-align-icon-'.$icon_align.'{
+				'.$icon_align.'
+			}';
+		}	
+		$icon_indent = '';
+		$typography_text_transform = '';
+		if( !empty($settings['typography_text_transform']) ){
+			$typography_text_transform = 'text-transform:'.$settings['typography_text_transform'].';';
+		}
+		$typography_letter_spacing = '';
+		if(!empty($settings['typography_letter_spacing']['unit']) && !empty($settings['typography_letter_spacing']['size'])){
+			$unit = $settings['typography_letter_spacing']['unit'];
+			$size = $settings['typography_letter_spacing']['size'];
+			$typography_letter_spacing = 'letter-spacing:'.$size.''.$unit.';';
+		}
+		$dynamicStyles .= '.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' a.elementor-button, .elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' .elementor-button{
+			'.$typography_font_size.''.$typography_font_weight.''.$button_text_color.''.$typography_text_transform.''.$typography_letter_spacing.''.$border_radius.''.$background_color.'
+		}';
+		//.elementor-680 .elementor-element.elementor-element-e6nrtsj .elementor-button .elementor-align-icon-right
+		echo $dynamicStyles;
+		echo $icon_styles;
+	}
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		add_action('amp_post_template_css',array($this,'amp_elementor_button_inline_styles'));
+		$settings['hover_animation'] = (!empty($settings['hover_animation']) ? $settings['hover_animation']:0);
 		$settings['size'] = (!empty($settings['size']) ? $settings['size']:'sm');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$settings['link']['url'] = (!empty($settings['link']['url'] ) ? $settings['link']['url'] :'#');

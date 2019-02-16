@@ -32,11 +32,36 @@ class Amp_Image extends Widget_Base {
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'center');
-		
+		$sizes_type = $settings['image_size'];
+		list($img_width, $img_height) = getimagesize($settings['image']['url']);
+		if( $sizes_type == 'custom' ){
+			$width = $settings['image_custom_dimension']['width'];
+			$height = $settings['image_custom_dimension']['height'];
+			if($width < 100 ){
+				$width_px = $width.'px';
+				$res_width = $width;
+			}else{
+				$width_px = '100%';
+				$res_width = $width;
+			}	
+		}elseif($sizes_type == 'medium'){
+			$width_px = '200px';	
+		}elseif( $sizes_type == 'medium_large'){
+			$width_px = '768px';	
+		}elseif( $sizes_type == 'large'){
+			$width_px = '500px';	
+		}
+		$alignment = '';
+		if( $settings['align'] == 'center'){
+			$alignment = 'margin:0 auto;';
+		}else{
+			$alignment = 'text-align:'.$settings['align'].';';
+		}
+		$width = $settings['image_custom_dimension']['width'];
 		$inline_styles = '
-			.elementor-element-'.$this->get_id().' .elementor-image {
-			    width:100%;
-			    text-align:'.$settings['align'].';
+			.elementor-element-'.$this->get_id().' amp-img{
+			    width:'.$width_px.';
+			    height:100%;
 			}
 			.elementor-element-'.$this->get_id().' .widget-image-caption {
 				font-size:18px;
@@ -44,7 +69,9 @@ class Amp_Image extends Widget_Base {
 				font-weight:400;
 			}
 			.elementor-element-'.$this->get_id().' .elementor-image amp-img{
-				display:inline-flex;
+				max-width: '.$res_width.'px;
+    			max-height: '.$height.'px;
+    			'.$alignment.'
 			}';//
         global $amp_elemetor_custom_css;
 		$amp_elemetor_custom_css['amp-image'][$this->get_id()] = $inline_styles;
@@ -52,7 +79,7 @@ class Amp_Image extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
+		$sizes_type = $settings['image_size'];
 		$this->amp_elementor_widget_styles();
 		if ( empty( $settings['image']['url'] ) ) {
 			return;
@@ -81,7 +108,25 @@ class Amp_Image extends Widget_Base {
 			<?php if ( $link ) : ?>
 					<a <?php echo $this->get_render_attribute_string( 'link' ); ?>>
 			<?php endif; ?>
-				<?php echo Group_Control_Image_Size::get_attachment_image_html( $settings ); ?>
+
+			<?php
+			if( $sizes_type == 'custom' ){
+				$width = $settings['image_custom_dimension']['width'];
+				$height = $settings['image_custom_dimension']['height'];
+			}elseif( $sizes_type == 'medium' ){
+				$width = 200;
+			}else{
+				list($width, $height) = getimagesize($settings['image']['url']);
+			}
+			if( empty($width) || empty($height) ){
+				list($width, $height) = getimagesize($settings['image']['url']);
+			}
+			?>
+			<?php $image = Group_Control_Image_Size::get_attachment_image_html( $settings );
+			preg_match_all('/<img[^>]+src="([^">]+)"/i',$image, $result);
+			$image_src = $result[1][0];
+			?>
+			<amp-img src="<?php echo $image_src;?>" width="<?php echo $width;?>" height="<?php echo $height;?>" layout="responsive" alt="AMP"></amp-img>
 			<?php if ( $link ) : ?>
 					</a>
 			<?php endif; ?>

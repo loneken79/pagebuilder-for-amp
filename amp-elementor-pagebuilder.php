@@ -31,11 +31,16 @@ final class Elementor_For_Amp {
 			return;
 		}
 		add_action('amp_post_template_head', [$this, 'amp_elementor_pagebuilder_canonical_link']);
+		add_action('amp_post_template_css', [$this, 'amp_elementor_pagebuilder_global_styles']);
 		add_filter('amp_post_template_data', [$this, 'amp_elementor_pagebuilder_scripts'], 20);
 		require_once( AMP_WPBAKERY_PLUGIN_DIR.'load-elementor-widgets.php' );
 		
 	}
 
+	public function amp_elementor_pagebuilder_global_styles(){
+		include_once AMP_WPBAKERY_PLUGIN_DIR.'amp-elementor-global-styles.php';
+		ampforwp_elementor_global_styles();
+	}
 	public function amp_elementor_pagebuilder_scripts($data){
         
             $data['amp_component_scripts']['amp-selector'] = 'https://cdn.ampproject.org/v0/amp-selector-0.1.js';
@@ -52,7 +57,7 @@ final class Elementor_For_Amp {
             $data['amp_component_scripts']['amp-lightbox-gallery'] = 'https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js';
             $data['amp_component_scripts']['amp-mustache'] = 'https://cdn.ampproject.org/v0/amp-mustache-0.2.js';
             $data['amp_component_scripts']['amp-form'] = 'https://cdn.ampproject.org/v0/amp-form-0.1.js';
-        
+            $data['amp_component_scripts']['amp-google-document-embed'] = 'https://cdn.ampproject.org/v0/amp-google-document-embed-0.1.js';
         return $data;
 
     }

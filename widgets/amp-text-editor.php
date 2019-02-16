@@ -26,10 +26,10 @@ class Amp_Text_Editor extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display( );
-		// print_r($settings);//align,,
-		// die;
+		
+		$settings['drop_cap'] = (!empty($settings['drop_cap']) ? $settings['drop_cap']:'no');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
-		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#7a7a7a');
+		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#ffffff');
 		$drop_cap_css = '';
 		if($settings['drop_cap'] == 'yes'){
 			$drop_cap_css = '.elementor-element-'.$this->get_id().' .elementor-text-editor p:first-child:first-letter {
@@ -52,14 +52,17 @@ class Amp_Text_Editor extends Widget_Base {
 		';
         global $amp_elemetor_custom_css;
 		$amp_elemetor_custom_css['amp-text-editor'][$this->get_id()] = $inline_styles;
+
+        //echo $inline_styles;
 	}
 
 	protected function render() {
+
 		$this->amp_elementor_widget_styles();
 		$settings = $this->get_settings_for_display();
+		
 		$default_text = '<p>Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>';
 		
-		//$settings['editor'] = (!empty($settings['editor']) ? $settings['editor']: $default_text );
 		$editor_content = $this->get_settings_for_display( 'editor' );
 		$editor_content = (!empty($editor_content) ? $editor_content: $default_text );
 		$editor_content = $this->parse_text_editor( $editor_content );

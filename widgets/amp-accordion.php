@@ -150,7 +150,23 @@ class Amp_Accordion extends Widget_Base {
 						</span>
 						<?php endif; ?>
 						<?php echo $item['tab_title']; ?></h4>
-			        <p><?php echo $this->parse_text_editor( $item['tab_content'] ); ?></p>
+			        <?php 
+			        	$str = $this->parse_text_editor( $item['tab_content'] );
+			        	$str .= preg_replace("/<div(.*?)>(.*?)<\/div>/", '$2', $str);
+						$matches = preg_match_all ("/<p>(.*)<\/p>/U", $str, $pat_array);
+						if($matches == 1){
+							
+							echo $str;
+						}elseif( $matches > 1){
+							
+							$astr = implode(' <br/> ', $pat_array[1]);
+							echo $str = '<p>'.$astr.'</p>';
+						}else{
+							
+							echo	$str = '<p>'.$str.'</p>';
+						}
+					
+			          ?>
 			      </section>
 			      
 			<?php endforeach; ?>
