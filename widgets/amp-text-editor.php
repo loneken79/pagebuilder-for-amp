@@ -26,11 +26,45 @@ class Amp_Text_Editor extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display( );
-		
 		$settings['drop_cap'] = (!empty($settings['drop_cap']) ? $settings['drop_cap']:'no');
-		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
-		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#ffffff');
 		$drop_cap_css = '';
+		$margin = '';
+		$all_margins = array_filter($settings['_margin'], function($value){return $value != ''; });
+		if(count($all_margins)>1){
+			unset($all_margins['unit']);
+			unset($all_margins['isLinked']);
+			foreach ($all_margins as $key => $value) {
+				$margin .= $value.'px ';
+			}
+			$margin = 'margin:'.$margin.';'; 
+		}
+		$padding = '';
+		$all_paddings = array_filter($settings['_padding'],function($value){return $value != '';});
+		if( count($all_paddings)>1){
+
+			unset($all_paddings['unit']);
+			unset($all_paddings['isLinked']);
+			foreach ($all_paddings as $key => $value) {
+				$padding .= $value.'px ';
+			}
+			$padding = 'padding:'.$padding.';'; 
+		}
+		$align = '';
+		if(!empty($settings['align']) && isset($settings['align']) ){
+			$align = 'text-align:'.$settings['align'].';';
+		}
+		$text_color = '';
+		if(isset($settings['text_color']) && !empty($settings['text_color'])){
+			$text_color = 'color:'.$settings['text_color'].';';
+		}
+		$typography_font_size ='';
+		if(!empty($settings['typography_font_size']['unit']) && !empty($settings['typography_font_size']['size'])){
+			$typography_font_size = 'font-size:'.$settings['typography_font_size']['size'].''.$settings['typography_font_size']['unit'].';';
+		}
+		$typography_font_weight = '';
+		if( isset($settings['typography_font_weight']) && !empty($settings['typography_font_weight']) ){
+			$typography_font_weight = 'font-weight:'.$settings['typography_font_weight'].';';
+		}
 		if($settings['drop_cap'] == 'yes'){
 			$drop_cap_css = '.elementor-element-'.$this->get_id().' .elementor-text-editor p:first-child:first-letter {
 			  color:'.$settings['text_color'].';
@@ -41,19 +75,15 @@ class Amp_Text_Editor extends Widget_Base {
 			  padding-right: 8px;
 			}';
 		}
-		$inline_styles = '
-			.elementor-element-'.$this->get_id().' .elementor-text-editor{
-				font-size:16px;
-				color:'.$settings['text_color'].';
-				line-height:1.5;
-				text-align:'.$settings['align'].';
-			}
-			'.$drop_cap_css.'
+		/*.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' > .elementor-widget-container{
+			    '.$margin.''.$padding.'
+		}*/
+		$dynamicStyles = '.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' .elementor-text-editor{
+			'.$align.''.$text_color.''.$typography_font_size.''.$typography_font_weight.'line-height:1.5;
+		}
 		';
         global $amp_elemetor_custom_css;
-		$amp_elemetor_custom_css['amp-text-editor'][$this->get_id()] = $inline_styles;
-
-        //echo $inline_styles;
+		$amp_elemetor_custom_css['amp-text-editor'][$this->get_id()] = $inline_styles.$dynamicStyles.$drop_cap_css;
 	}
 
 	protected function render() {

@@ -37,6 +37,7 @@ class Amp_Icon_List extends Widget_Base {
 		$settings['space_between']['unit'] = (!empty($settings['space_between']['unit']) ? $settings['space_between']['unit']:'px');
 		$settings['text_indent']['size'] = (!empty($settings['text_indent']['size']) ? $settings['text_indent']['size']:'5');
 		$settings['text_indent']['unit'] = (!empty($settings['text_indent']['unit']) ? $settings['text_indent']['unit']:'px');
+		$inline_styles = '';
 		$inline_styles = '
 			.elementor-element-'.$this->get_id().' .elementor-icon-list-items{
 				text-align:'.$settings['icon_align'].';
@@ -69,17 +70,9 @@ class Amp_Icon_List extends Widget_Base {
         global $amp_elemetor_custom_css;
 		$amp_elemetor_custom_css['amp-icon-list'][$this->get_id()] = $inline_styles;
 	}
-	public function amp_elementor_icon_list_inline_styles(){
-		//.elementor-680 .elementor-element.elementor-element-572b607 .elementor-icon-list-text
-		$settings = $this->get_settings_for_display();
-		// print_r($settings);
-		// die;
-		$dynamicStyles = '';
-		echo $dynamicStyles;
-	}
+	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		add_action('amp_post_template_css',array($this,'amp_elementor_icon_list_inline_styles'));
 		$this->amp_elementor_widget_styles();
 		if( $settings['view'] == 'inline'){
 			$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items elementor-inline-items' );

@@ -25,10 +25,7 @@ class Amp_Heading extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		
-		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
-		$settings['title_color'] = (!empty($settings['title_color']) ? $settings['title_color']:'#6ec1e4');
-
+		$settings = $this->get_settings_for_display();
 		$inline_styles = '
 		.elementor-element-'.$this->get_id().' .elementor-size-medium{
 			font-size: 19px;
@@ -49,17 +46,13 @@ class Amp_Heading extends Widget_Base {
 			font-size: 59px;
 		}
 		';
-		global $amp_elemetor_custom_css;
-		$amp_elemetor_custom_css['amp-heading'][$this->get_id()] = $inline_styles;
-	}
-	public function amp_elementor_heading_inline_styles(){
-		$settings = $this->get_settings_for_display();
-		// echo "hello ";
-		//print_r($settings);
-		//die;
 		$dynamicStyles = '';
 		$color = '';
 		$align = '';
+		$typography_text_transform = '';
+		if(isset($settings['typography_text_transform']) && !empty($settings['typography_text_transform'])){
+			$typography_text_transform = 'text-transform:'.$settings['typography_text_transform'].';';
+		}
 		if( !empty($settings['align']) ){
 			$align = 'text-align:'.$settings['align'].';';
 		}
@@ -80,19 +73,21 @@ class Amp_Heading extends Widget_Base {
 		}
 		$settings['link']['url'] = (!empty($settings['link']['url']) ? $settings['link']['url']:'#');
 		$dynamicStyles .= '.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' .elementor-heading-title-'.$this->get_id().'{
-			'.$line_height.''.$typography_font_size.''.$typography_font_weight.'
+			'.$line_height.''.$typography_font_size.''.$typography_font_weight.''.$typography_text_transform.'
 		}';
 		$dynamicStyles .='.elementor-heading-title-'.$this->get_id().', .elementor-heading-title-'.$this->get_id().' a{
 			'.$color.'
 			'.$align.'
 		}';
-		echo $dynamicStyles;
+	
+		global $amp_elemetor_custom_css;
+		$amp_elemetor_custom_css['amp-heading'][$this->get_id()] = $inline_styles.$dynamicStyles;
 	}
+	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		//print_r($settings);
 		// die;
-		add_action('amp_post_template_css',array($this,'amp_elementor_heading_inline_styles'));
 		$this->amp_elementor_widget_styles();
 		$settings['header_size'] = (!empty($settings['header_size']) ? $settings['header_size']:'h2');
 		$settings['size'] = (!empty($settings['size']) ? $settings['size']:'default');

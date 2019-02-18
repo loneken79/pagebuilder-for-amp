@@ -60,8 +60,12 @@ class Amp_Image_Carousel extends Widget_Base {
         global $amp_elemetor_custom_css;
 		$amp_elemetor_custom_css['amp-image-carousel'][$this->get_id()] = $inline_styles;
 	}
-	
+	public function amp_elementor_pagebuilder_scripts($data){
+		$data['amp_component_scripts']['amp-carousel'] = 'https://cdn.ampproject.org/v0/amp-carousel-0.1.js';
+		return $data;
+	}
 	protected function render() {
+		add_filter('amp_post_template_data', [$this, 'amp_elementor_pagebuilder_scripts']);
 		$settings = $this->get_settings_for_display();
 		$this->amp_elementor_widget_styles();
 		if ( empty( $settings['carousel'] ) ) {

@@ -32,11 +32,10 @@ class Amp_Shortcode extends Widget_Base {
 	
 	protected function render() {
 		$shortcode = $this->get_settings_for_display( 'shortcode' );
-		$this->amp_elementor_widget_styles();
+		
 		$shortcode = do_shortcode( shortcode_unautop( $shortcode ) );
 		?>
-		<amp-google-document-embed  src="<?php echo $shortcode; ?>" width="8.5"  height="11"
-      layout="responsive"></amp-google-document-embed>
+		<div class="elementor-shortcode"><?php echo $shortcode; ?></div>
 		<?php
 	}
 

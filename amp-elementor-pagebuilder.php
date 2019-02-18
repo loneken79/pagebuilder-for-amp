@@ -51,15 +51,14 @@ final class Elementor_For_Amp {
             $data['amp_component_scripts']['amp-video'] = 'https://cdn.ampproject.org/v0/amp-video-0.1.js';
             $data['amp_component_scripts']['amp-iframe'] = 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js';
             $data['amp_component_scripts']['amp-image-lightbox'] = 'https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js';
-            $data['amp_component_scripts']['amp-carousel'] = 'https://cdn.ampproject.org/v0/amp-carousel-0.1.js';
+           
             $data['amp_component_scripts']['amp-fit-text'] = 'https://cdn.ampproject.org/v0/amp-fit-text-0.1.js';
             $data['amp_component_scripts']['amp-youtube'] = 'https://cdn.ampproject.org/v0/amp-youtube-0.1.js';
             $data['amp_component_scripts']['amp-lightbox-gallery'] = 'https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js';
             $data['amp_component_scripts']['amp-mustache'] = 'https://cdn.ampproject.org/v0/amp-mustache-0.2.js';
             $data['amp_component_scripts']['amp-form'] = 'https://cdn.ampproject.org/v0/amp-form-0.1.js';
-            $data['amp_component_scripts']['amp-google-document-embed'] = 'https://cdn.ampproject.org/v0/amp-google-document-embed-0.1.js';
+            
         return $data;
-
     }
 
     public function amp_elementor_pagebuilder_canonical_link(){
@@ -155,3 +154,33 @@ final class Elementor_For_Amp {
 
 // Instantiate Elementor_For_Amp.
 new Elementor_For_Amp();
+
+
+add_action('pre_amp_render_post' ,'ampforwp_pdf_embedder_compatibility' );
+function ampforwp_pdf_embedder_compatibility(){
+	if( ( function_exists('ampforwp_is_amp_endpoint')  && ampforwp_is_amp_endpoint() ) || ( function_exists('is_amp_endpoint')  && is_amp_endpoint() ) ) {
+            remove_shortcode('pdf-embedder');
+            add_shortcode('pdf-embedder','ampforwp_pdfemb_shortcode_display_pdf');
+    }
+}
+
+function ampforwp_pdfemb_shortcode_display_pdf($atts, $content=null) {
+	$atts = apply_filters('pdfemb_filter_shortcode_attrs', $atts);
+
+	if (!isset($atts['url'])) {
+		return '<b>PDF Embedder requires a url attribute</b>';
+	}
+	$url = $atts['url'];
+	add_filter('amp_post_template_data', 'amp_elementor_amp_google_document_embed_scripts', 20);
+
+	return '<amp-google-document-embed  src="'.$url.'" width="8.5"  height="11"
+      layout="responsive"></amp-google-document-embed>';
+}
+
+function amp_elementor_amp_google_document_embed_scripts($data){
+	$data['amp_component_scripts']['amp-google-document-embed'] = 'https://cdn.ampproject.org/v0/amp-google-document-embed-0.1.js';
+	return $data;
+}
+
+
+
