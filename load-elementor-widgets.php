@@ -84,10 +84,10 @@ class Amp_Elementor_Widgets_Loading {
 			$elementorGlobalCssPath = wp_upload_dir()['basedir']."/elementor/css/global.css";
 			$elementorCssPath = wp_upload_dir()['basedir']."/elementor/css/post-".get_the_ID().".css";
 			if(file_exists($elementorGlobalCssPath)){
-				$common_css .= file_get_contents($elementorGlobalCssPath);
+				//$common_css .= file_get_contents($elementorGlobalCssPath);
 			}
 			if(file_exists($elementorCssPath)){
-				$common_css .= file_get_contents($elementorCssPath);
+				//$common_css .= file_get_contents($elementorCssPath);
 			}
 		}
 		global $amp_elemetor_custom_css;
@@ -102,7 +102,10 @@ class Amp_Elementor_Widgets_Loading {
 		}
 		echo $common_css;
 	}
-	
+	private function include_elements_files(){
+		require_once( AMP_WPBAKERY_PLUGIN_DIR . '/elements/amp-column.php' );
+		require_once( AMP_WPBAKERY_PLUGIN_DIR . '/elements/amp-section.php' );
+	}
 	private function include_widgets_files() {
 		$this->load_global_styles();
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-heading.php' );
@@ -128,27 +131,32 @@ class Amp_Elementor_Widgets_Loading {
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-social-icons.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-alert.php' );
 		//require_once( AMP_WPBAKERY_PLUGIN_DIR . '/widgets/amp-audio.php' );
-		//require_once( AMP_WPBAKERY_PLUGIN_DIR . '/widgets/amp-column.php' );
-		//require_once( AMP_WPBAKERY_PLUGIN_DIR . '/widgets/amp-section.php' );
+		
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-shortcode.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-html.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-menu-anchor.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-sidebar.php' );
 	}
-
+	public function register_elementor_elements($elements_manager){
+		if ( (function_exists( 'ampforwp_is_amp_endpoint' ) && ampforwp_is_amp_endpoint()) ||  (function_exists( 'is_wp_amp' ) && is_wp_amp()) || (function_exists( 'is_amp_endpoint' ) && is_amp_endpoint()) ) {
+			$this->include_elements_files();
+			\Elementor\Plugin::instance()->elements_manager->register_element_type( new Elements\Amp_Section() );
+			\Elementor\Plugin::instance()->elements_manager->register_element_type( new Elements\Amp_Column() );
+		}
+	}
 	public function register_widgets($widgets_manager) {
 		
 		// Register Widgets
 		if ( (function_exists( 'ampforwp_is_amp_endpoint' ) && ampforwp_is_amp_endpoint()) ||  (function_exists( 'is_wp_amp' ) && is_wp_amp()) || (function_exists( 'is_amp_endpoint' ) && is_amp_endpoint()) ) {
 
 			$this->include_widgets_files();
+			
+
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Heading() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Image() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Button() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Text_Editor() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Spacer() );
-			//\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Column() );
-			//\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Section() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Divider() );
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Accordion() );
 			//\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Amp_Video() );
@@ -179,6 +187,7 @@ class Amp_Elementor_Widgets_Loading {
 
 		// Register widgets
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'register_widgets' ], 999999 );
+		add_action( 'elementor/elements/elements_registered', [ $this, 'register_elementor_elements' ], 999999 );
 	}
 }
 

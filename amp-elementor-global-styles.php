@@ -4,8 +4,8 @@ function ampforwp_elementor_global_styles(){
 	.elementor-align-left{
 		text-align: left;
 	}
-	.elementor-widget:not(:last-child) {
-    	margin-bottom: 20px;
+	.elementor-align-right{
+		text-align: right;
 	}
 	.elementor-section.elementor-section-boxed>.elementor-container {
 	    max-width: 1140px;
@@ -32,7 +32,7 @@ function ampforwp_elementor_global_styles(){
 	    display: -ms-flexbox;
 	    display: flex;
 	}
-	.elementor .elementor-background-overlay {
+	.elementor-background-overlay {
 	    height: 100%;
 	    width: 100%;
 	    top: 0;
@@ -66,7 +66,15 @@ function ampforwp_elementor_global_styles(){
 		width:100%;
 		height:100%;
 	}
-
+	.elementor-widget .elementor-icon-list-icon+.elementor-icon-list-text {		
+		align-self: center;		
+		padding-left: 5px;	
+	}
+	.elementor-widget.elementor-align-right .elementor-icon-list-item, .elementor-widget.elementor-align-right .elementor-icon-list-item a {
+		justify-content: flex-end;
+		text-align: right;
+	}
+	.elementor-widget .elementor-icon-list-items {		list-style-type: none;		margin: 0;		padding: 0;		text-align: left;	}
 	<?php
 
 } 

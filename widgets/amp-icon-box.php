@@ -26,7 +26,6 @@ class Amp_Icon_Box extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-
 		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'fa fa-star');
 		$settings['content_vertical_alignment'] = (!empty($settings['content_vertical_alignment']) ? $settings['content_vertical_alignment']:'middle');
 		$settings['view'] = (!empty($settings['view']) ? $settings['view']:'default');

@@ -28,7 +28,7 @@ class Amp_Text_Editor extends Widget_Base {
 		$settings = $this->get_settings_for_display( );
 		$settings['drop_cap'] = (!empty($settings['drop_cap']) ? $settings['drop_cap']:'no');
 		$drop_cap_css = '';
-		$margin = '';
+		$margin = '';		
 		$all_margins = array_filter($settings['_margin'], function($value){return $value != ''; });
 		if(count($all_margins)>1){
 			unset($all_margins['unit']);
@@ -78,12 +78,12 @@ class Amp_Text_Editor extends Widget_Base {
 		/*.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' > .elementor-widget-container{
 			    '.$margin.''.$padding.'
 		}*/
-		$dynamicStyles = '.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' .elementor-text-editor{
-			'.$align.''.$text_color.''.$typography_font_size.''.$typography_font_weight.'line-height:1.5;
+		$dynamicStyles = '.elementor-element-'.$this->get_id().' .elementor-text-editor{
+			'.$align.''.$text_color.''.$typography_font_size.''.$typography_font_weight.'
 		}
 		';
         global $amp_elemetor_custom_css;
-		$amp_elemetor_custom_css['amp-text-editor'][$this->get_id()] = $inline_styles.$dynamicStyles.$drop_cap_css;
+		$amp_elemetor_custom_css['amp-text-editor'][$this->get_id()] = $inline_styles.''.$dynamicStyles.''.$drop_cap_css;		/*if($this->get_id() == '438238bd'){			print_r($amp_elemetor_custom_css['amp-text-editor'][$this->get_id()]);			die;		}*/
 	}
 
 	protected function render() {

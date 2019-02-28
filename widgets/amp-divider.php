@@ -38,13 +38,13 @@ class Amp_divider extends Widget_Base {
 		// print_r($settings);
 		// die;
 		$inline_styles = '
-			.elementor-element-'.$this->get_id().' .elementor-divider{
+			.elementor-element-'.$this->get_id().'.elementor-widget.elementor-widget-divider .elementor-divider{
 				text-align:'.$settings['align'].';
 				padding:'.$settings['gap']['size'].''.$settings['gap']['unit'].' 0;
 				line-height: 0;
 			}
-			.elementor-element-'.$this->get_id().' .elementor-divider-separator{
-				border-top-style: '.$settings['style'].';
+			.elementor-element-'.$this->get_id().'.elementor-widget.elementor-widget-divider .elementor-divider-separator{
+				border-top-style: '.$settings['style'].';				border-top-color:'.$settings['color'].';
 			    border-top-width: '.$settings['weight']['size'].''.$settings['weight']['unit'].';
 			    width: '.$settings['width']['size'].''.$settings['width']['unit'].';
 			    display: inline-block;

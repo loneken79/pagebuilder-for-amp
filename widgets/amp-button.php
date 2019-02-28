@@ -30,7 +30,7 @@ class Amp_Button extends Widget_Base {
 
 	public function amp_elementor_widget_styles(){
 		$settings = $this->get_settings_for_display();
-		
+		/* if( $this->get_id() == 'tmbj0v5'){			print_r($settings);			die;		} */		$typography_font_size = '';		if( !empty($settings['typography_font_size']['size']) && !empty($settings['typography_font_size']['unit'])){			$typography_font_size = 'font-size:'.$settings['typography_font_size']['size'].''.$settings['typography_font_size']['unit'].';';		}		$typography_font_weight = '';		if( isset($settings['typography_font_weight'])){			$typography_font_weight = 'font-weight:'.$settings['typography_font_weight'].';';		}		$typography_letter_spacing = '';		if(!empty($settings['typography_letter_spacing']['size']) && !empty($settings['typography_letter_spacing']['unit']) ){			$typography_letter_spacing = 'letter-spacing:'.$settings['typography_letter_spacing']['size'].''.$settings['typography_letter_spacing']['unit'].';';		}		$button_text_color = '';		if( isset($settings['button_text_color'])){			$button_text_color = 'color:'.$settings['button_text_color'].';';		}		$background_color = '';		if( isset($settings['background_color'])){			$background_color = 'background-color:'.$settings['background_color'].';';		}
 		$settings['icon'] = (!empty($settings['icon']) ? $settings['icon']:'');
 		$settings['align'] = (!empty($settings['align']) ? $settings['align']:'left');
 		$settings['button_type'] = (!empty($settings['button_type']) ? $settings['button_type']:'default');
@@ -64,18 +64,8 @@ class Amp_Button extends Widget_Base {
 				   	 		background-color: #d9534f;
 				   	 	}';
 		}
-
+		
 		$inline_styles = '
-		.elementor-element-'.$this->get_id().' .elementor-button-wrapper{
-			text-align:'.$settings['align'].';
-		}
-		.elementor-element-'.$this->get_id().' .elementor-button-wrapper a{
-			color:'.$settings['button_text_color'].';
-			border-radius: 3px;
-			line-height:1.3;
-			display:inline-block;
-			background: '.(!empty($settings['background_color'])?$settings['background_color']:'#61ce70').';
-		}
 		.elementor-element-'.$this->get_id().' .elementor-type-justify a{
 			width:100%;
 			text-align:center
@@ -112,9 +102,9 @@ class Amp_Button extends Widget_Base {
    	 		float:right;
    	 		margin-left:'.$settings['icon_indent']['size'].''.$settings['icon_indent']['unit'].';
    	 	}
-		'.$default_button_colors;
+		'.$default_button_colors;				$dynamicStyles = '.elementor-element-'.$this->get_id().' a.elementor-button, .elementor-element.elementor-element-'.$this->get_id().' .elementor-button{			'.$typography_font_size.''.$typography_font_weight.''.$typography_letter_spacing.''.$button_text_color.''.$background_color.'		}';
         global $amp_elemetor_custom_css;
-		$amp_elemetor_custom_css['amp-button'][$this->get_id()] = $inline_styles;
+		$amp_elemetor_custom_css['amp-button'][$this->get_id()] = $inline_styles.''.$dynamicStyles;
 	}
 	function amp_elementor_button_inline_styles(){
 		$settings = $this->get_settings_for_display();
@@ -179,8 +169,8 @@ class Amp_Button extends Widget_Base {
 			$size = $settings['typography_letter_spacing']['size'];
 			$typography_letter_spacing = 'letter-spacing:'.$size.''.$unit.';';
 		}
-		$dynamicStyles .= '.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' a.elementor-button, .elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' .elementor-button{
-			'.$typography_font_size.''.$typography_font_weight.''.$button_text_color.''.$typography_text_transform.''.$typography_letter_spacing.''.$border_radius.''.$background_color.'
+		$dynamicStyles .= '.elementor-'.get_the_ID().' .elementor-element-'.$this->get_id().' a.elementor-button, .elementor-'.get_the_ID().' .elementor-element-'.$this->get_id().' .elementor-button{
+			'.$typography_font_size.''.$typography_font_weight.''.$button_text_color.'display:inline-block;'.$typography_text_transform.''.$typography_letter_spacing.''.$border_radius.''.$background_color.'
 		}';
 		//.elementor-680 .elementor-element.elementor-element-e6nrtsj .elementor-button .elementor-align-icon-right
 		echo $dynamicStyles;

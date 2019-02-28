@@ -25,8 +25,7 @@ class Amp_Icon_List extends Widget_Base {
 	}
 
 	public function amp_elementor_widget_styles(){
-		$settings = $this->get_settings_for_display();
-		
+		$settings = $this->get_settings_for_display();		/* if( $this->get_id() == '572b607'){			print_r($settings);			die;		} */		$space_between = '';		if(!empty($settings['space_between']['size']) && !empty($settings['space_between']['unit'])){			$space_between = 'padding-bottom:calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);';		}		$icon_size = '';		if(!empty($settings['icon_size']['size']) && !empty($settings['icon_size']['unit'])){			$icon_size = 'width:'.$settings['icon_size']['size'].''.$settings['icon_size']['unit'].';';		}		$text_color = '';		if( isset($settings['text_color']) && !empty($settings['text_color'])){			$text_color = 'color:'.$settings['text_color'].';';		}		$icon_color = '';		if( isset($settings['icon_color']) && !empty($settings['icon_color'])){			$icon_color = 'color:'.$settings['icon_color'].';';		}		$icon_typography_font_size = '';		if(!empty($settings['icon_typography_font_size']['size']) && !empty($settings['icon_typography_font_size']['unit'])){			$icon_typography_font_size = 'font-size:'.$settings['icon_typography_font_size']['size'].''.$settings['icon_typography_font_size']['unit'].';';		}		$icon_typography_font_weight = '';		if( isset($settings['icon_typography_font_weight']) && !empty($settings['icon_typography_font_weight'])){			$icon_typography_font_weight = 'font-weight:'.$settings['icon_typography_font_weight'].';';		}		$text_indent = '';		if(!empty($settings['text_indent']['size']) && !empty($settings['text_indent']['unit'])){			$text_indent = 'padding-left:'.$settings['text_indent']['size'].''.$settings['text_indent']['unit'].';';		}				$dynamicStyles ='.elementor-element-'.$this->get_id().'.elementor-widget-icon-list .elementor-icon-list-text{			'.$text_color.''.$text_indent.'		}';		$dynamicStyles .= '.elementor-element-'.$this->get_id().'.elementor-widget-icon-list .elementor-icon-list-icon{			'.$icon_size.'line-height:0;display: inline-block;vertical-align: middle;		}';		$dynamicStyles .= '.elementor-element-'.$this->get_id().'.elementor-widget-icon-list .elementor-icon-list-icon i{			'.$icon_color.'		}';		$dynamicStyles .= 'elementor-element-'.$this->get_id().' .elementor-icon-list-item{			'.$icon_typography_font_size.''.$icon_typography_font_weight.'		}';		$dynamicStyles .= '.elementor-element-'.$this->get_id().'  .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child){'.$space_between.'}';
 		$settings['icon_align'] = (!empty($settings['icon_align']) ? $settings['icon_align']:'left');
 		$settings['icon_color'] = (!empty($settings['icon_color']) ? $settings['icon_color']:'#6ec1e4');
 		$settings['text_color'] = (!empty($settings['text_color']) ? $settings['text_color']:'#ffffff');
@@ -38,48 +37,19 @@ class Amp_Icon_List extends Widget_Base {
 		$settings['text_indent']['size'] = (!empty($settings['text_indent']['size']) ? $settings['text_indent']['size']:'5');
 		$settings['text_indent']['unit'] = (!empty($settings['text_indent']['unit']) ? $settings['text_indent']['unit']:'px');
 		$inline_styles = '';
-		$inline_styles = '
-			.elementor-element-'.$this->get_id().' .elementor-icon-list-items{
-				text-align:'.$settings['icon_align'].';
-			}
-			.elementor-element-'.$this->get_id().' .elementor-icon-list-items li{
-				list-style:none;
-				font-size:18px;
-				color:'.$settings['text_color'].';
-				padding-bottom:calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
-				margin-right: calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
-				margin-left: calc('.$settings['space_between']['size'].''.$settings['space_between']['unit'].'/2);
-				padding: 0;
-    			display: inherit;
-			}
-			.elementor-element-'.$this->get_id().' .elementor-inline-items li{
-				    display: inline-flex;
-    				align-items: center;
-			}
-			.elementor-element-'.$this->get_id().' .elementor-icon-list-icon{
-				font-size:'.$settings['icon_size']['size'].''.$settings['icon_size']['unit'].';
-				color:'.$settings['icon_color'].';
-				line-height:0;
-				display: inline-block;
-    			vertical-align: middle;
-			}
-			.elementor-element-'.$this->get_id().' .elementor-icon-list-text{
-				padding-left:'.$settings['text_indent']['size'].''.$settings['text_indent']['unit'].';
-			}
-		';
         global $amp_elemetor_custom_css;
-		$amp_elemetor_custom_css['amp-icon-list'][$this->get_id()] = $inline_styles;
+		$amp_elemetor_custom_css['amp-icon-list'][$this->get_id()] = $inline_styles.''.$dynamicStyles;
 	}
 	
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$this->amp_elementor_widget_styles();
-		if( $settings['view'] == 'inline'){
-			$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items elementor-inline-items' );
-		}else{
-			$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items' );
-		}
-		
+		// if( $settings['view'] == 'inline'){
+			// $this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items elementor-inline-items' );
+		// }else{
+			// $this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items' );
+		// }
+		$this->add_render_attribute( 'icon_list', 'class', 'elementor-icon-list-items' );
 		$this->add_render_attribute( 'list_item', 'class', 'elementor-icon-list-item' );
 
 		if ( 'inline' === $settings['view'] ) {

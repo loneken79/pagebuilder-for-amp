@@ -45,11 +45,15 @@ class Amp_Heading extends Widget_Base {
 		.elementor-element-'.$this->get_id().' .elementor-size-xxl{
 			font-size: 59px;
 		}
-		';
+		';		
 		$dynamicStyles = '';
 		$color = '';
 		$align = '';
 		$typography_text_transform = '';
+		$background_color = '';
+		if( isset($settings['_background_color']) && !empty($settings['_background_color'])){
+			$background_color = 'background-color:'.$settings['_background_color'].';';
+		}
 		if(isset($settings['typography_text_transform']) && !empty($settings['typography_text_transform'])){
 			$typography_text_transform = 'text-transform:'.$settings['typography_text_transform'].';';
 		}
@@ -57,14 +61,14 @@ class Amp_Heading extends Widget_Base {
 			$align = 'text-align:'.$settings['align'].';';
 		}
 		if(!empty($settings['title_color'])){
-			$color = 'color:'.$settings['title_color'].';';
+			$color = 'color:'.$settings['title_color'].'!important;';
 		}
 		$line_height = '';
 		if( !empty($settings['typography_line_height'])){
 			$line_height = 'line-height:'.$settings['typography_line_height']['size'].''.$settings['typography_line_height']['unit'].';';
 		}
 		$typography_font_size = '';
-		if( !empty($settings['typography_font_size'])){
+		if( !empty($settings['typography_font_size']['size'])){
 			$typography_font_size = 'font-size:'.$settings['typography_font_size']['size'].''.$settings['typography_font_size']['unit'].';';
 		}
 		$typography_font_weight = '';
@@ -72,14 +76,21 @@ class Amp_Heading extends Widget_Base {
 			$typography_font_weight = 'font-weight:'.$settings['typography_font_weight'].';';
 		}
 		$settings['link']['url'] = (!empty($settings['link']['url']) ? $settings['link']['url']:'#');
-		$dynamicStyles .= '.elementor-'.get_the_ID().' .elementor-element.elementor-element-'.$this->get_id().' .elementor-heading-title-'.$this->get_id().'{
-			'.$line_height.''.$typography_font_size.''.$typography_font_weight.''.$typography_text_transform.'
+		$dynamicStyles = '.elementor-element-'.$this->get_id().'.elementor-widget-heading .elementor-heading-title{
+			'.$align.''.$color.''.$line_height.''.$typography_font_size.''.$typography_font_weight.''.$typography_text_transform.'
 		}';
-		$dynamicStyles .='.elementor-heading-title-'.$this->get_id().', .elementor-heading-title-'.$this->get_id().' a{
+		if($color){
+			
+		}
+		$dynamicStyles .='.elementor-element-'.$this->get_id().' .elementor-heading-title a{
 			'.$color.'
-			'.$align.'
 		}';
-	
+		if($background_color != '' ){
+			$dynamicStyles .= '.elementor-element-'.$this->get_id().' > .elementor-widget-container{
+				'.$background_color.'
+			}';
+		}
+		
 		global $amp_elemetor_custom_css;
 		$amp_elemetor_custom_css['amp-heading'][$this->get_id()] = $inline_styles.$dynamicStyles;
 	}
@@ -95,7 +106,7 @@ class Amp_Heading extends Widget_Base {
 			return;
 		}
 
-		$this->add_render_attribute( 'title', 'class', 'elementor-heading-title-'.$this->get_id().' elementor-size-'.$settings['size'] );
+		$this->add_render_attribute( 'title', 'class', 'elementor-heading-title elementor-size-'.$settings['size'] );
 
 		if ( ! empty( $settings['size'] ) ) {
 			$this->add_render_attribute( 'title', 'class', 'elementor-size-'. $settings['size'] );
