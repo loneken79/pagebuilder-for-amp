@@ -19,10 +19,45 @@ class Amp_Elementor_Widgets_Loading {
 		return self::$_instance;
 	}
 	
-	public function load_global_styles() {
-		add_action('amp_post_template_css',array($this,'amp_elementor_widget_styles'));
-	}
+	public function load_global_styles() {		add_action('amp_post_template_css', [$this, 'amp_elementor_pagebuilder_global_styles']);
+		add_action('amp_post_template_css', [$this,'amp_elementor_widget_styles']);
+	}		public function amp_elementor_pagebuilder_global_styles(){		include_once AMP_WPBAKERY_PLUGIN_DIR.'amp-elementor-global-styles.php';		ampforwp_elementor_global_styles();	}
 	public function amp_elementor_widget_styles(){
+		global $redux_builder_amp, $amp_elemetor_custom_css;
+		$css = '';
+		$srcs = array();
+		//Enqued Styles Data
+		// foreach( $wp_styles->queue as $style ) :
+			// $src = $wp_styles->registered[$style]->src;
+			// if($style=='animate-css' || filter_var($src, FILTER_VALIDATE_URL) === FALSE){
+				// continue;
+			// }
+			// $srcs[$style] = $src;
+		// endforeach;
+		//Enqued Styles Data
+		$update_css = $redux_builder_amp['ampforwp-elementor-styles-url'];
+		$csslinks = explode(",", $update_css);
+		$csslinks = array_filter($csslinks);
+		$srcs = array_merge($srcs, $csslinks);
+		$srcs['theme_style'] = get_stylesheet_uri();
+		if(is_array($srcs) && count($srcs)){
+		  foreach ($srcs as $key => $valuesrc) {
+			$valuesrc = trim($valuesrc);
+			if( filter_var($valuesrc, FILTER_VALIDATE_URL) === FALSE ){
+			  continue;
+			}
+			$cssData = '';
+			$response = wp_remote_get( $valuesrc );
+			
+			if ( is_array( $response ) ) {
+			  $header = $response['headers']; // array of http header lines
+			  $cssData = $response['body']; // use the content
+			}
+			  $css .= preg_replace("/\/\*(.*?)\*\//si", "", $cssData);
+		  }
+		}
+		echo $css;
+		
 		$common_css = '/*** Common Css **/
 		
 		@media (min-width: 768px){
@@ -80,17 +115,16 @@ class Amp_Elementor_Widgets_Loading {
 			.elementor-row {flex-wrap: wrap;}
 			.elementor-column {width: 100%;}
 		}';
-		if(function_exists('wp_upload_dir')){
-			$elementorGlobalCssPath = wp_upload_dir()['basedir']."/elementor/css/global.css";
-			$elementorCssPath = wp_upload_dir()['basedir']."/elementor/css/post-".get_the_ID().".css";
-			if(file_exists($elementorGlobalCssPath)){
+		// if(function_exists('wp_upload_dir')){
+			// $elementorGlobalCssPath = wp_upload_dir()['basedir']."/elementor/css/global.css";
+			// $elementorCssPath = wp_upload_dir()['basedir']."/elementor/css/post-".get_the_ID().".css";
+			// if(file_exists($elementorGlobalCssPath)){
 				//$common_css .= file_get_contents($elementorGlobalCssPath);
-			}
-			if(file_exists($elementorCssPath)){
+			// }
+			// if(file_exists($elementorCssPath)){
 				//$common_css .= file_get_contents($elementorCssPath);
-			}
-		}
-		global $amp_elemetor_custom_css;
+			// }
+		// }
 		if(is_array($amp_elemetor_custom_css)){
 			foreach ($amp_elemetor_custom_css as $key => $cssHeadingValue) {
 				if(is_array($cssHeadingValue)){
@@ -101,13 +135,15 @@ class Amp_Elementor_Widgets_Loading {
 			}
 		}
 		echo $common_css;
+		$amp_custom_css = $redux_builder_amp['ampforwp-elementor-custom-css'];
+		echo $amp_custom_css;
 	}
 	private function include_elements_files(){
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . '/elements/amp-column.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . '/elements/amp-section.php' );
 	}
-	private function include_widgets_files() {
-		$this->load_global_styles();
+	private function include_widgets_files() {		if ( \Elementor\Plugin::instance()->db->is_built_with_elementor( get_the_ID() ) ) {
+			$this->load_global_styles();		}
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-heading.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-image.php' );
 		require_once( AMP_WPBAKERY_PLUGIN_DIR . 'widgets/amp-button.php' );
@@ -184,8 +220,8 @@ class Amp_Elementor_Widgets_Loading {
 	}
 
 	public function __construct() {
-
-		// Register widgets
+		
+		// Register widgets		
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'register_widgets' ], 999999 );
 		add_action( 'elementor/elements/elements_registered', [ $this, 'register_elementor_elements' ], 999999 );
 	}

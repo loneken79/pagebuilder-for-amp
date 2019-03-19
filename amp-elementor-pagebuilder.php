@@ -31,18 +31,54 @@ final class Elementor_For_Amp {
 			return;
 		}
 		add_action('amp_post_template_head', [$this, 'amp_elementor_pagebuilder_canonical_link']);
-		add_action('amp_post_template_css', [$this, 'amp_elementor_pagebuilder_global_styles']);
+		add_filter("redux/options/redux_builder_amp/sections", array($this,'ampforwp_elementor_additional_style_settings'));
 		add_filter('amp_post_template_data', [$this, 'amp_elementor_pagebuilder_scripts'], 20);
 		require_once( AMP_WPBAKERY_PLUGIN_DIR.'load-elementor-widgets.php' );
+		require_once( AMP_WPBAKERY_PLUGIN_DIR.'/parser/index.php' );
 		
 	}
-
-	public function amp_elementor_pagebuilder_global_styles(){
-		include_once AMP_WPBAKERY_PLUGIN_DIR.'amp-elementor-global-styles.php';
-		ampforwp_elementor_global_styles();
+	public function ampforwp_elementor_additional_style_settings($sections){
+     	$sections[] = array(
+			            'title'      => esc_html__( 'AMP Elementor', 'accelerated-mobile-pages' ),
+			            'icon'       => 'el el-forward',
+			            'subsection' => false,
+			            'id'         => 'ampforwp-pagebuilder-elementor',
+			            'fields'     => $this->ampforwp_elementor_fields(),
+                    );
+        return $sections;
+  	}
+	
+	public function ampforwp_elementor_fields(){
+    	$contents[] = array(
+                        'id'       => 'ampforwp-elementor-styles-url',
+                        'type'     => 'textarea',
+                        'title'    => esc_html__('Enter css url', 'accelerated-mobile-pages'),
+                        'subtitle'  => esc_html__('Add your css url in comma saperated', 'accelerated-mobile-pages'),
+                        'default'  => '',
+                        'desc'      => esc_html__( 'Add your css url in comma saperated', 'accelerated-mobile-pages' ),
+                    );
+    	$contents[] = array(
+                        'id'       => 'ampforwp-elementor-custom-css',
+                        'type'     => 'textarea',
+                        'title'    => esc_html__('Enter custom css', 'accelerated-mobile-pages'),
+                        'subtitle'  => esc_html__('Add your custom css code', 'accelerated-mobile-pages'),
+                        'default'  => '',
+                        'desc'      => esc_html__( 'Add your custom css code', 'accelerated-mobile-pages' ),
+                    );
+    	// $contents[] = array(
+                        // 'id'       => 'ampforwp-elementor-load-fonts',
+                        // 'type'     => 'switch',
+                        // 'title'    => esc_html__('Load fontawesome', 'accelerated-mobile-pages'),
+                        // 'subtitle'  => esc_html__('Increase the performance with compression mode', 'accelerated-mobile-pages'),
+                        // 'default'  => 0,
+                        // 'true'      => 'Enabled',
+                        // 'false'     => 'Disabled',
+                    // );
+    	return $contents;
 	}
+	
 	public function amp_elementor_pagebuilder_scripts($data){
-        
+        		if ( \Elementor\Plugin::instance()->db->is_built_with_elementor( get_the_ID() ) ) {
             $data['amp_component_scripts']['amp-selector'] = 'https://cdn.ampproject.org/v0/amp-selector-0.1.js';
             $data['amp_component_scripts']['amp-bind'] = 'https://cdn.ampproject.org/v0/amp-bind-0.1.js';
             $data['amp_component_scripts']['amp-accordion'] = 'https://cdn.ampproject.org/v0/amp-accordion-0.1.js';
@@ -57,7 +93,7 @@ final class Elementor_For_Amp {
             $data['amp_component_scripts']['amp-lightbox-gallery'] = 'https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js';
             $data['amp_component_scripts']['amp-mustache'] = 'https://cdn.ampproject.org/v0/amp-mustache-0.2.js';
             $data['amp_component_scripts']['amp-form'] = 'https://cdn.ampproject.org/v0/amp-form-0.1.js';
-            
+		}
         return $data;
     }
 

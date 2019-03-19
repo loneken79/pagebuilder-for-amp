@@ -224,7 +224,7 @@ class Amp_Tabs extends Widget_Base {
 
 					$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
 					?>
-					<div div role="tab" class="tabButton hidetabs" option="<?php echo $tab_count;?>" <?php echo ($tab_count == 1)?'selected':'';?>><?php echo $item['tab_title']; ?></div>
+					<div role="tab" class="tabButton hidetabs" option="<?php echo $tab_count;?>" <?php echo ($tab_count == 1)?'selected':'';?>><?php echo $item['tab_title']; ?></div>
 					<div role="tabpanel" class="tabContent" ><?php echo $this->parse_text_editor( $item['tab_content'] ); ?></div>
 				<?php endforeach; ?>
 			</amp-selector>

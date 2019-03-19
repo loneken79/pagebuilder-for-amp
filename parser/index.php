@@ -1,5 +1,4 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
 add_filter('ampforwp_the_content_last_filter','ampforwp_purify_amphtmls');
 /* add_action('pre_amp_render_post', 'ampforwp_ob_start');
 function ampforwp_ob_start(){
